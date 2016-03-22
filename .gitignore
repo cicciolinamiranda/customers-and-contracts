@@ -1,0 +1,22 @@
+# Compiled source
+*.class
+target/
+
+# App Engine
+appengine-generated/
+
+# Eclipse
+.classpath
+.project
+.settings/
+eclipse-launch-profiles/
+
+# Netbeans
+nbactions.xml
+
+# Intellij
+*.iml
+.idea/
+
+# Others
+*.orig
