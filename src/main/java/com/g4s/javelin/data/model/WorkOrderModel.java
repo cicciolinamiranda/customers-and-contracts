@@ -15,7 +15,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="WORK_ORDER")
-public class WorkOrderModel {
+public class WorkOrderModel extends BaseModel {
 
 	
     @Id
