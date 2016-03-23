@@ -16,7 +16,7 @@ import javax.persistence.Table;
 import com.g4s.javelin.data.model.location.CustomerLocationModel;
 
 @Entity
-@Table(name="MF_WORK_ORDER")
+@Table(name="WORK_ORDER")
 public class WorkOrderModel {
 
     

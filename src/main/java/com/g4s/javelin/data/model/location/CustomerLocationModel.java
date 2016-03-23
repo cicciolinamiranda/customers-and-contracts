@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -17,7 +18,7 @@ import javax.persistence.Table;
 import com.g4s.javelin.data.model.workorder.WorkOrderModel;
 
 @Entity
-@Table(name = "MF_CUSTOMER_LOCATION")
+@Table(name = "CUSTOMER_LOCATION")
 public class CustomerLocationModel {
 
     @Id
@@ -25,7 +26,7 @@ public class CustomerLocationModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "CUSTLOCATION_WORKORDER",
     joinColumns = { @JoinColumn(name = "customer_location_id",
     referencedColumnName = "id") },
@@ -33,7 +34,7 @@ public class CustomerLocationModel {
     referencedColumnName = "id") })
     private List<WorkOrderModel> workOrders;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "CUSTLOCATION_TRANSPORT",
     joinColumns = { @JoinColumn(name = "customer_location_id",
     referencedColumnName = "id") },
@@ -41,7 +42,7 @@ public class CustomerLocationModel {
     referencedColumnName = "id") })
     private List<ModeTransportModel> modeTransports;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "CUSTLOCATION_SKILLS",
     joinColumns = { @JoinColumn(name = "customer_location_id",
     referencedColumnName = "id") },
@@ -49,7 +50,7 @@ public class CustomerLocationModel {
     referencedColumnName = "id") })
     private List<SkillsModel> skills;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "CUSTLOCATION_EQUIPMENT",
     joinColumns = { @JoinColumn(name = "customer_location_id",
     referencedColumnName = "id") },
@@ -57,7 +58,7 @@ public class CustomerLocationModel {
     referencedColumnName = "id") })
     private List<EquipmentModel> equipments;
 
-    @ManyToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "CUSTLOCATION_TASK",
     joinColumns = { @JoinColumn(name = "customer_location_id",
     referencedColumnName = "id") },
