@@ -1,8 +1,9 @@
 package com.g4s.javelin.data.repository.location;
 
-import com.g4s.javelin.data.model.location.ModeTransportModel;
-import com.g4s.javelin.data.repository.common.StandardJpaRepo;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface ModeTransportRepository extends StandardJpaRepo<ModeTransportModel,Long> {
+import com.g4s.javelin.data.model.location.ModeTransportModel;
+
+public interface ModeTransportRepository extends PagingAndSortingRepository<ModeTransportModel,Long> {
 
 }

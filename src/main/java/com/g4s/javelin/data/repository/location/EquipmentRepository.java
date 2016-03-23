@@ -1,8 +1,9 @@
 package com.g4s.javelin.data.repository.location;
 
-import com.g4s.javelin.data.model.location.EquipmentModel;
-import com.g4s.javelin.data.repository.common.StandardJpaRepo;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
-public interface EquipmentRepository extends StandardJpaRepo<EquipmentModel,Long> {
+import com.g4s.javelin.data.model.location.EquipmentModel;
+
+public interface EquipmentRepository extends PagingAndSortingRepository<EquipmentModel,Long> {
 
 }
