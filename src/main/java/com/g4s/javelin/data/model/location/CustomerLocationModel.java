@@ -26,7 +26,7 @@ public class CustomerLocationModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @ManyToMany(cascade=CascadeType.ALL)
     @JoinTable(name = "CUSTLOCATION_WORKORDER",
     joinColumns = { @JoinColumn(name = "customer_location_id",
     referencedColumnName = "id") },
