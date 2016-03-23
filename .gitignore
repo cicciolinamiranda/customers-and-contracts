@@ -1,18 +1,29 @@
 # Compiled source
 *.class
+target/
+
+# App Engine
+appengine-generated/
 
 # Eclipse
 .classpath
 .project
 .settings/
-target/
 eclipse-launch-profiles/
 appengine-generated/
+
+# Netbeans
 nbactions.xml
 LICENSE
 test/**
 *~
 *#
+
+# Intellij
+*.iml
+.idea/
+
+# Others
 *.orig
 bower_components/*
 node_modules/*
