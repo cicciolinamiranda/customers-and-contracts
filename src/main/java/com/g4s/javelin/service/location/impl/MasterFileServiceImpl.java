@@ -34,14 +34,17 @@ public class MasterFileServiceImpl implements MasterFileService {
     @Autowired
     private TaskRepository taskRepository;
 
+    public MasterFileServiceImpl() {
+        modelMapper = new ModelMapper();
+    }
 
     @Override
     public List<EquipmentDTO> getAllEquipments() {
         Iterable<EquipmentModel> results = equipmentRepository.findAll();
         List<EquipmentDTO> response = Lists.newArrayList();
 
-        for(EquipmentModel equipment: results) {
-            response.add(modelMapper.map(equipment, EquipmentDTO.class));
+        for (EquipmentModel equipment : results) {
+                response.add(modelMapper.map(equipment, EquipmentDTO.class));
         }
 
         return response;
@@ -52,7 +55,7 @@ public class MasterFileServiceImpl implements MasterFileService {
         Iterable<ModeTransportModel> results = modeRepository.findAll();
         List<ModeTransportDTO> response = Lists.newArrayList();
 
-        for(ModeTransportModel modeTransport: results) {
+        for (ModeTransportModel modeTransport : results) {
             response.add(modelMapper.map(modeTransport, ModeTransportDTO.class));
         }
 
@@ -64,7 +67,7 @@ public class MasterFileServiceImpl implements MasterFileService {
         Iterable<SkillsModel> results = skillsRepository.findAll();
         List<SkillsDTO> response = Lists.newArrayList();
 
-        for(SkillsModel skills: results) {
+        for (SkillsModel skills : results) {
             response.add(modelMapper.map(skills, SkillsDTO.class));
         }
 
@@ -76,7 +79,7 @@ public class MasterFileServiceImpl implements MasterFileService {
         Iterable<TaskModel> results = taskRepository.findAll();
         List<TaskDTO> response = Lists.newArrayList();
 
-        for(TaskModel task: results) {
+        for (TaskModel task : results) {
             response.add(modelMapper.map(task, TaskDTO.class));
         }
 
