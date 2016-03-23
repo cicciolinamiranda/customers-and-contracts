@@ -44,4 +44,12 @@ public class TaskModel {
     public void setTaskName(String taskName) {
         this.taskName = taskName;
     }
+
+    public List<TaskActivityModel> getTaskActivities() {
+        return taskActivities;
+    }
+
+    public void setTaskActivities(List<TaskActivityModel> taskActivities) {
+        this.taskActivities = taskActivities;
+    }
 }
