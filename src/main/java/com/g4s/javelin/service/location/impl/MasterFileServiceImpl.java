@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import com.g4s.javelin.data.model.location.EquipmentModel;
@@ -21,17 +22,24 @@ import com.g4s.javelin.dto.core.location.TaskDTO;
 import com.g4s.javelin.service.location.MasterFileService;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 
-@Service
 public class MasterFileServiceImpl implements MasterFileService {
 
     private ModelMapper modelMapper;
+
     @Autowired
+    @Lazy
     private EquipmentRepository equipmentRepository;
+
     @Autowired
+    @Lazy
     private ModeTransportRepository modeRepository;
+
     @Autowired
+    @Lazy
     private SkillsRepository skillsRepository;
+
     @Autowired
+    @Lazy
     private TaskRepository taskRepository;
 
     public MasterFileServiceImpl() {
