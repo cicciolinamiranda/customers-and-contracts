@@ -1,8 +1,3 @@
-/*
- * Copyright (c) 2014-2015. KoolOkoy.
- * All rights reserved.
- */
-
 package com.g4s.javelin.data.repository.common.impl;
 
 import java.io.Serializable;
