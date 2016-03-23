@@ -5,7 +5,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 @Component
-public class DbConfigProperties {
+public abstract class DbConfigProperties {
 
     @Autowired
     private Environment env;
@@ -26,6 +26,7 @@ public class DbConfigProperties {
         return env.getProperty("spring.datasource.password");
     }
 
+    protected abstract Environment getEnv();
 
 }
 
