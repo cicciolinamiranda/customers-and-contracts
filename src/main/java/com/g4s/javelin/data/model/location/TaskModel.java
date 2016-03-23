@@ -23,14 +23,6 @@ public class TaskModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "CUSTLOCATION_TASK",
-    joinColumns = { @JoinColumn(name = "task_id",
-    referencedColumnName = "id") },
-    inverseJoinColumns = { @JoinColumn(name = "customer_location_id"
-    , referencedColumnName = "id") })
-    private List<CustomerLocationModel> customerLocations;
-
     @OneToMany(mappedBy = "task", cascade = CascadeType.PERSIST)
     private List<TaskActivityModel> taskActivities;
 
@@ -43,14 +35,6 @@ public class TaskModel {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public List<CustomerLocationModel> getCustomerLocations() {
-        return customerLocations;
-    }
-
-    public void setCustomerLocations(List<CustomerLocationModel> customerLocations) {
-        this.customerLocations = customerLocations;
     }
 
     public String getTaskName() {

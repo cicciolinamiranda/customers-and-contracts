@@ -22,14 +22,6 @@ public class EquipmentModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(name = "CUSTLOCATION_EQUIPMENT",
-    joinColumns = { @JoinColumn(name = "equipment_id",
-    referencedColumnName = "id") },
-    inverseJoinColumns = { @JoinColumn(name = "customer_location_id"
-    , referencedColumnName = "id") })
-    private List<CustomerLocationModel> customerLocations;
-
     @Column
     private String equipmentName;
 
@@ -39,14 +31,6 @@ public class EquipmentModel {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public List<CustomerLocationModel> getCustomerLocations() {
-        return customerLocations;
-    }
-
-    public void setCustomerLocations(List<CustomerLocationModel> customerLocations) {
-        this.customerLocations = customerLocations;
     }
 
     public String getEquipmentName() {

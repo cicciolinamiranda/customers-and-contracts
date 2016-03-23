@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "MF_SITE_LOCATION")
+@Table(name = "SITE_LOCATION")
 public class SiteLocationModel {
 
     @Id
