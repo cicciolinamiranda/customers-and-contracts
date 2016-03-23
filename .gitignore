@@ -10,9 +10,14 @@ appengine-generated/
 .project
 .settings/
 eclipse-launch-profiles/
+appengine-generated/
 
 # Netbeans
 nbactions.xml
+LICENSE
+test/**
+*~
+*#
 
 # Intellij
 *.iml
@@ -20,3 +25,5 @@ nbactions.xml
 
 # Others
 *.orig
+bower_components/*
+node_modules/*
