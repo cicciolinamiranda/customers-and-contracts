@@ -45,7 +45,11 @@
 			<artifactId>jdo-api</artifactId>
 			<version>3.0.1</version>
 		</dependency>
-
+		<dependency>
+			<groupId>com.mysema.maven</groupId>
+			<artifactId>apt-maven-plugin</artifactId>
+			<version>1.1.1</version>
+		</dependency>
 		<!-- Spring Dependencies -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -106,7 +110,7 @@
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-jpa</artifactId>
-			 <version>1.4.3.RELEASE</version>
+			<version>1.4.3.RELEASE</version>
 			<exclusions>
 				<exclusion>
 					<groupId>org.slf4j</groupId>
@@ -248,6 +252,24 @@
 						<goals>
 							<goal>endpoints_get_discovery_doc</goal>
 						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>com.mysema.maven</groupId>
+				<artifactId>apt-maven-plugin</artifactId>
+				<version>1.1.1</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>process</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>target/generated-sources/java</outputDirectory>
+							<processors>
+								<processor>com.mysema.query.apt.hibernate.HibernateAnnotationProcessor</processor>
+							</processors>
+						</configuration>
 					</execution>
 				</executions>
 			</plugin>
