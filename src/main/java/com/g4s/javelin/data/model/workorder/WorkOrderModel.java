@@ -17,7 +17,7 @@ import com.g4s.javelin.data.model.location.CustomerLocationModel;
 
 @Entity
 @Table(name="MF_WORK_ORDER")
-public class WorkOrderModel extends BaseModel {
+public class WorkOrderModel {
 
     
     @Id
