@@ -32,7 +32,7 @@ import com.g4s.javelin.service.location.impl.MasterFileServiceImpl;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 
 @RunWith(MockitoJUnitRunner.class)
-public class MasterServiceTest {
+public class MasterFileServiceTest {
 
     @Mock
     private EquipmentRepository equipmentRepositoryMock;
