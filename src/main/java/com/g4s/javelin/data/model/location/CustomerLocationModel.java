@@ -75,6 +75,9 @@ public class CustomerLocationModel {
     @OneToMany(mappedBy = "customerLocation", cascade = CascadeType.PERSIST)
     private List<SiteLocationModel> siteLocations;
 
+    @OneToMany(mappedBy = "customerLocation", cascade = CascadeType.PERSIST)
+    private List<BarredEmployeeModel> barredEmployee;
+
     @Embedded
     private AddressModel address;
     private DateTime createdDate;
