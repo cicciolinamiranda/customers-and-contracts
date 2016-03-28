@@ -232,4 +232,13 @@ public class CustomerLocationModel {
     public void setFloorPlan(String floorPlan) {
         this.floorPlan = floorPlan;
     }
+
+    public List<BarredEmployeeModel> getBarredEmployee() {
+        return barredEmployee;
+    }
+
+    public void setBarredEmployee(List<BarredEmployeeModel> barredEmployee) {
+        this.barredEmployee = barredEmployee;
+    }
+
 }
