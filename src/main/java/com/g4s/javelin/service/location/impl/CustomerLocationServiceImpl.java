@@ -51,7 +51,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         return transformCustomerLocation(result);
     }
     public List<CustomerLocationDTO> getCustomerLocationDetailsList (Long workOrderId) {
-        List<CustomerLocationModel> results = customerLocationRepository.findByWorkOrder(workOrderId);
+        List<CustomerLocationModel> results = customerLocationRepository.findByWorkOrders(workOrderId);
         List<CustomerLocationDTO> list = Lists.newArrayList();
         for (CustomerLocationModel result : results) {
             list.add(transformCustomerLocation(result));

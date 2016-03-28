@@ -8,5 +8,5 @@ import com.g4s.javelin.data.model.location.CustomerLocationModel;
 
 public interface CustomerLocationRepository extends JpaRepository<CustomerLocationModel, Long>{
 
-	List<CustomerLocationModel> findByWorkOrder(Long id);
+    List<CustomerLocationModel> findByWorkOrders(Long id);
 }
