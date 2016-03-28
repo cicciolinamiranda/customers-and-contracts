@@ -25,6 +25,7 @@ public class CustomerLocationDTO {
     private String technicalSurvey;
     private String locationSurvey;
     private String floorPlan;
+    private CustomerDTO customer;
     //SiteLocationDTO
     
     
@@ -141,5 +142,11 @@ public class CustomerLocationDTO {
     }
     public void setWorkOrderId(Long workOrderId) {
         this.workOrderId = workOrderId;
+    }
+    public CustomerDTO getCustomer() {
+        return customer;
+    }
+    public void setCustomer(CustomerDTO customer) {
+        this.customer = customer;
     }
 }

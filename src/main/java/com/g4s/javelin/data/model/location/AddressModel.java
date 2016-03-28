@@ -1,4 +1,4 @@
-package com.g4s.javelin.data.model;
+package com.g4s.javelin.data.model.location;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
