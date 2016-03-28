@@ -14,7 +14,7 @@ public final class ApiConstants {
 
     public static final String API_NAMESPACE_OWNER_NAME = "accenture.com";
 
-    public static final String API_DESCRIPTION = "G4S Javelin Location API ";
+    public static final String API_DESCRIPTION = "G4S Javelin Work-order API ";
 
     private ApiConstants() {
 
