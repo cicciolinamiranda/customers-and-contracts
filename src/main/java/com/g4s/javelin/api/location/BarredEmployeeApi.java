@@ -56,8 +56,8 @@ public class BarredEmployeeApi {
      * @return List of employees barred for the customer location matching the given id
      */
     @ApiMethod(
-            name = "barred-employees.get",
-            path = "barred-employees",
+            name = "barred-employees.list",
+            path = "barred-employees/all",
             httpMethod = ApiMethod.HttpMethod.GET
     )
     public List<BarredEmployeeDTO> getBarredEmployees(@Named("id") final Long customerLocationId) {
