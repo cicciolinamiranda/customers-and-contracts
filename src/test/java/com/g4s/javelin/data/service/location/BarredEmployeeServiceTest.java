@@ -80,9 +80,9 @@ public class BarredEmployeeServiceTest {
     public void testgetBarredEmployees() {
         List<BarredEmployeeModel> expectedList = Lists.newArrayList();
         expectedList.add(barredEmployeeModel);
-        when(barredEmployeeRepositoryMock.getBarredEmployeeByCustomerLocation(1234l)).thenReturn(expectedList);
+        when(barredEmployeeRepositoryMock.findByCustomerLocationId(1234l)).thenReturn(expectedList);
         List<BarredEmployeeDTO> results = barredEmployeeService.getBarredEmployees(1234l);
-        verify(barredEmployeeRepositoryMock, times(1)).getBarredEmployeeByCustomerLocation(1234l);
+        verify(barredEmployeeRepositoryMock, times(1)).findByCustomerLocationId(1234l);
         assertEquals(1, results.size());
         assertTrue(1234l==results.get(0).getEmployeeId());
     }

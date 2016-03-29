@@ -7,9 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 @Entity
@@ -24,10 +24,12 @@ public class BarredEmployeeModel {
     @Column(name = "EMPLOYEE_ID")
     private Long employeeId;
 
-    @Column(name = "START_DATE")
+    @Column(name = "START_DATE", nullable=false, updatable=true)
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime startDate;
 
-    @Column(name = "END_DATE")
+    @Column(name = "END_DATE", nullable=true, updatable=true)
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime endDate;
 
     @ManyToOne

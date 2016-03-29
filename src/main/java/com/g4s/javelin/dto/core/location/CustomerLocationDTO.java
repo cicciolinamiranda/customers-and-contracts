@@ -15,7 +15,6 @@ public class CustomerLocationDTO {
     private List<SkillsDTO> skills;
     private List<TaskDTO> tasks;
     private List<BarredEmployeeDTO> barredEmployees;
-    private Long wordOrderId;
     private List<IncidentLogMockDTO> incidentLogs;
     private AddressDTO address;
     private DateTime setUpDate;
@@ -71,12 +70,7 @@ public class CustomerLocationDTO {
     public void setBarredEmployees(List<BarredEmployeeDTO> barredEmployees) {
         this.barredEmployees = barredEmployees;
     }
-    public Long getWordOrderId() {
-        return wordOrderId;
-    }
-    public void setWordOrderId(Long wordOrderId) {
-        this.wordOrderId = wordOrderId;
-    }
+
     public List<IncidentLogMockDTO> getIncidentLogs() {
         return incidentLogs;
     }
