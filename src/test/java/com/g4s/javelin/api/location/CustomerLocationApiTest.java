@@ -1,7 +1,9 @@
 package com.g4s.javelin.api.location;
 
-import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
-import com.g4s.javelin.service.location.CustomerLocationService;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -9,9 +11,9 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.List;
-
-import static org.junit.Assert.assertNotNull;
+import com.g4s.javelin.api.location.CustomerLocationApi;
+import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
+import com.g4s.javelin.service.location.CustomerLocationService;
 
 /**
  * @author Jordan Duabe
