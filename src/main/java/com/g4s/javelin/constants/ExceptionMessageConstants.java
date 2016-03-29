@@ -8,7 +8,7 @@ public final class ExceptionMessageConstants {
     public static final String NULL_COUNTRYCODE = "Country code is required";
     public static final String INVALID_LOGIN = "Invalid login credentials";
     public static final String NULL_WORKORDER_FOUND = "No workorder found on the provided id";
-    public static final String NULL_EXISTING_CUSTLOC_FOUND = "No cus found on the provided id";
+    public static final String NULL_EXISTING_CUSTLOC_FOUND = "No customer location found on the provided id";
 
     private ExceptionMessageConstants() {
     }
