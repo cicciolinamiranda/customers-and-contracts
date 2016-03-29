@@ -2,6 +2,7 @@ package com.g4s.javelin.api.location;
 
 import com.g4s.javelin.data.model.location.CustomerLocationModel;
 import com.g4s.javelin.dto.core.location.BarredEmployeeDTO;
+import com.g4s.javelin.dto.core.location.BarredEmployeeListDTO;
 import com.g4s.javelin.service.location.BarredEmployeeService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -25,6 +26,9 @@ public class BarredEmployeeApiTest {
     private BarredEmployeeService barredEmployeeService;
 
     @Mock
+    private BarredEmployeeListDTO barredEmployeesList;
+
+    @Mock
     private List<BarredEmployeeDTO> barredEmployees;
 
     @Mock
@@ -35,7 +39,7 @@ public class BarredEmployeeApiTest {
 
     @Test
     public void testSaveBarredEmployees() throws Exception {
-        barredEmployeeApi.saveBarredEmployees(barredEmployees, customerLocation);
+        barredEmployeeApi.saveBarredEmployees(barredEmployeesList, customerLocation);
         Mockito.verify(barredEmployeeService, Mockito.times(1)).saveBarredEmployees(Mockito.anyListOf(
                 BarredEmployeeDTO.class), Mockito.any(CustomerLocationModel.class));
     }

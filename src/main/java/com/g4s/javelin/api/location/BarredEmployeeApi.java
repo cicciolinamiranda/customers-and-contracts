@@ -4,6 +4,7 @@ import com.g4s.javelin.constants.ApiConstants;
 import com.g4s.javelin.constants.ServiceConstants;
 import com.g4s.javelin.data.model.location.CustomerLocationModel;
 import com.g4s.javelin.dto.core.location.BarredEmployeeDTO;
+import com.g4s.javelin.dto.core.location.BarredEmployeeListDTO;
 import com.g4s.javelin.service.location.BarredEmployeeService;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -44,9 +45,9 @@ public class BarredEmployeeApi {
             path = "barred-employees",
             httpMethod = ApiMethod.HttpMethod.POST
     )
-    public void saveBarredEmployees(final List<BarredEmployeeDTO> barredEmployees,
+    public void saveBarredEmployees(final BarredEmployeeListDTO barredEmployees,
                                     final CustomerLocationModel customerLocation) {
-        barredEmployeeService.saveBarredEmployees(barredEmployees, customerLocation);
+        barredEmployeeService.saveBarredEmployees(barredEmployees.getBarredEmployeeDTOList(), customerLocation);
     }
 
     /**
