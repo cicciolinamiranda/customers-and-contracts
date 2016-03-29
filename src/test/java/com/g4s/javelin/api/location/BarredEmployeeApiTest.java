@@ -3,7 +3,6 @@ package com.g4s.javelin.api.location;
 import com.g4s.javelin.data.model.location.CustomerLocationModel;
 import com.g4s.javelin.dto.core.location.BarredEmployeeDTO;
 import com.g4s.javelin.service.location.BarredEmployeeService;
-import junit.framework.TestCase;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -13,12 +12,14 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import java.util.List;
 
+import static org.junit.Assert.assertNotNull;
+
 /**
  * @author Jordan Duabe
  * @since 03/28/2016
  */
 @RunWith(MockitoJUnitRunner.class)
-public class BarredEmployeeApiTest extends TestCase {
+public class BarredEmployeeApiTest {
 
     @Mock
     private BarredEmployeeService barredEmployeeService;
@@ -41,8 +42,7 @@ public class BarredEmployeeApiTest extends TestCase {
 
     @Test
     public void testGetBarredEmployees() throws Exception {
-        List<BarredEmployeeDTO> barredEmployees = barredEmployeeApi.getBarredEmployees(1L);
         Mockito.when(barredEmployeeService.getBarredEmployees(Mockito.anyLong())).thenReturn(barredEmployees);
-        assertNotNull(barredEmployees);
+        assertNotNull(barredEmployeeApi.getBarredEmployees(1L));
     }
 }
