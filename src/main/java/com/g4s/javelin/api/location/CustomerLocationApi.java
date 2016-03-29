@@ -71,8 +71,8 @@ public class CustomerLocationApi {
      * @param workOrderId Work order id
      */
     @ApiMethod(
-            name = "customer.location.add-existing",
-            path = "customer-location/add-existing",
+            name = "customer.location.add_existing",
+            path = "customer-location/add_existing",
             httpMethod = ApiMethod.HttpMethod.POST
     )
     public void addExistingCustomerLocationToAWorkOrder(@Named("customerLocationId") final Long customerLocationId,
@@ -91,6 +91,20 @@ public class CustomerLocationApi {
             httpMethod = ApiMethod.HttpMethod.POST
     )
     public void saveCustomerLocationDetails(final CustomerLocationDTO customerLocationDTO) {
+        customerLocationService.saveCustomerLocationDetails(customerLocationDTO);
+    }
+
+    /**
+     * Update customer location details
+     *
+     * @param customerLocationDTO Customer location details
+     */
+    @ApiMethod(
+            name = "customer.location.update",
+            path = "customer-location/update",
+            httpMethod = ApiMethod.HttpMethod.POST
+    )
+    public void updateCustomerLocationDetails(final CustomerLocationDTO customerLocationDTO) {
         customerLocationService.saveCustomerLocationDetails(customerLocationDTO);
     }
 }
