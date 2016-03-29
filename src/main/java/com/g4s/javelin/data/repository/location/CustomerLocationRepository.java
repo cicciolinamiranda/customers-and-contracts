@@ -12,7 +12,7 @@ public interface CustomerLocationRepository extends
 
     List<CustomerLocationModel> findByWorkOrders(final Long id);
 
-    @Query("SELECT CL FROM CUSTOMER_LOCATION CL WHERE CL.address = :address")
+    @Query("SELECT CL FROM CUSTOMER_LOCATION CL WHERE CL.address LIKE '%:address%'")
     List<CustomerLocationModel> getCustomerLocationByAddress(final String address);
 
 
