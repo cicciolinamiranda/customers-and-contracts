@@ -28,6 +28,7 @@ import com.g4s.javelin.data.model.location.EquipmentModel;
 import com.g4s.javelin.data.model.location.ModeTransportModel;
 import com.g4s.javelin.data.model.location.SkillsModel;
 import com.g4s.javelin.data.model.location.TaskModel;
+import com.g4s.javelin.data.model.workorder.WorkOrderModel;
 import com.g4s.javelin.data.repository.location.CustomerLocationRepository;
 import com.g4s.javelin.data.repository.workorder.WorkOrderRepository;
 import com.g4s.javelin.dto.core.location.AddressDTO;
@@ -38,6 +39,7 @@ import com.g4s.javelin.dto.core.location.EquipmentDTO;
 import com.g4s.javelin.dto.core.location.ModeTransportDTO;
 import com.g4s.javelin.dto.core.location.SkillsDTO;
 import com.g4s.javelin.dto.core.location.TaskDTO;
+import com.g4s.javelin.exception.CustomerLocationException;
 import com.g4s.javelin.service.location.BarredEmployeeService;
 import com.g4s.javelin.service.location.CustomerLocationService;
 import com.g4s.javelin.service.location.impl.CustomerLocationServiceImpl;
@@ -62,10 +64,18 @@ public class CustomerLocationServiceTest {
 
     private CustomerLocationModel customerLocationModel;
 
+    private WorkOrderModel workOrderModel;
+
     @Before
     public void initMocks() {
+        setUpWorkOrderModel();
         setUpCustomerLocationDTO();
         setUpCustomerLocationModel();
+    }
+
+    private void setUpWorkOrderModel() {
+        workOrderModel = new WorkOrderModel();
+        workOrderModel.setId(11111l);
     }
 
     private void setUpCustomerLocationDTO() {
@@ -131,6 +141,9 @@ public class CustomerLocationServiceTest {
         CustomerModel customer = new CustomerModel();
         customer.setCustomerName("Juan Dela Cruz");
         customerLocationModel.setCustomer(customer );
+        List<WorkOrderModel> workOrders = Lists.newArrayList();
+        workOrders.add(workOrderModel);
+        customerLocationModel.setWorkOrders(workOrders);
     }
 
     @Test
@@ -174,17 +187,34 @@ public class CustomerLocationServiceTest {
     @Test
     @Ignore
     public void testSaveNewCustomerLocationDetails() {
-        when(customerLocationRepositoryMock.save(customerLocationModel)).thenReturn(customerLocationModel);
+        when(customerLocationRepositoryMock.save(customerLocationModel)).thenReturn(null);
         List<BarredEmployeeDTO> barredEmployeeList = Lists.newArrayList();
         BarredEmployeeDTO barredEmployee = new BarredEmployeeDTO();
         barredEmployee.setId(1111l);
-		barredEmployeeList.add(barredEmployee );
+        barredEmployeeList.add(barredEmployee );
         customerLocationModel.setId(1234l);
 
         when(customerLocationRepositoryMock.save(customerLocationModel)).thenReturn(customerLocationModel);
         customerLocationService.saveCustomerLocationDetails(customerLocationDTO);
         verify(customerLocationRepositoryMock, times(1)).save(any(CustomerLocationModel.class));
         doNothing().when(barredEmployeeServiceMock).saveBarredEmployees(barredEmployeeList, Mockito.anyLong());
+    }
+
+    @Test
+    public void testAddExistingCustomerLocationToAWorkOrder() throws CustomerLocationException {
+        when(workOrderRepositoryMock.findOne(11111l)).thenReturn(workOrderModel);
+        when(customerLocationRepositoryMock.findOne(1234l)).thenReturn(
+                customerLocationModel);
+        when(customerLocationRepositoryMock.save(customerLocationModel)).thenReturn(null);
+        List<BarredEmployeeDTO> barredEmployeeList = Lists.newArrayList();
+        BarredEmployeeDTO barredEmployee = new BarredEmployeeDTO();
+        barredEmployee.setId(1111l);
+        barredEmployeeList.add(barredEmployee );
+        customerLocationService.addExistingCustomerLocationToAWorkOrder(1234l, 11111l);
+        verify(workOrderRepositoryMock, times(1)).findOne(11111l);
+        verify(customerLocationRepositoryMock, times(1)).findOne(1234l);
+        verify(customerLocationRepositoryMock, times(1)).save(any(CustomerLocationModel.class));
+        doNothing().when(barredEmployeeServiceMock).saveBarredEmployees(barredEmployeeList, 1L);
     }
 
 }

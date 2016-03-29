@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
 
+import com.g4s.javelin.constants.ExceptionMessageConstants;
 import com.g4s.javelin.constants.ServiceConstants;
 import com.g4s.javelin.data.model.location.AddressModel;
 import com.g4s.javelin.data.model.location.CustomerLocationModel;
@@ -23,6 +24,7 @@ import com.g4s.javelin.dto.core.location.EquipmentDTO;
 import com.g4s.javelin.dto.core.location.ModeTransportDTO;
 import com.g4s.javelin.dto.core.location.SkillsDTO;
 import com.g4s.javelin.dto.core.location.TaskDTO;
+import com.g4s.javelin.exception.CustomerLocationException;
 import com.g4s.javelin.service.location.BarredEmployeeService;
 import com.g4s.javelin.service.location.CustomerLocationService;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
@@ -48,6 +50,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         modelMapper = new ModelMapper();
     }
 
+    @Override
     public CustomerLocationDTO getCustomerLocationDetails(
             Long customerLocationId) {
         CustomerLocationModel result = customerLocationRepository
@@ -55,6 +58,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         return transformCustomerLocation(result);
     }
 
+    @Override
     public List<CustomerLocationDTO> getCustomerLocationDetailsList(
             Long workOrderId) {
         List<CustomerLocationModel> results = customerLocationRepository
@@ -89,6 +93,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         return list;
     }
 
+    @Override
     public void saveCustomerLocationDetails(CustomerLocationDTO customerLocation) {
         CustomerLocationModel model;
         List<WorkOrderModel> workOrders = Lists.newArrayList();
@@ -117,6 +122,28 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         // Save barred employess
         barredEmployeeService.saveBarredEmployees(
                 customerLocation.getBarredEmployees(), model.getId());
+    }
+
+    @Override
+    public void addExistingCustomerLocationToAWorkOrder(
+            Long customerLocationId, Long workOrderId)
+            throws CustomerLocationException {
+        WorkOrderModel workOrder = workOrderRepository.findOne(workOrderId);
+
+        if(workOrder == null)
+        {
+            throw new CustomerLocationException(ExceptionMessageConstants.NULL_WORKORDER_FOUND);
+        }
+
+        CustomerLocationModel customerLocation = customerLocationRepository.findOne(customerLocationId);
+        if(customerLocation == null)
+        {
+            throw new CustomerLocationException(ExceptionMessageConstants.NULL_EXISTING_CUSTLOC_FOUND);
+        }
+        List<WorkOrderModel> workOrders = customerLocation.getWorkOrders();
+        workOrders.add(workOrder);
+        customerLocation.setWorkOrders(workOrders);
+        customerLocationRepository.save(customerLocation);
     }
 
     private CustomerLocationDTO transformCustomerLocation(
