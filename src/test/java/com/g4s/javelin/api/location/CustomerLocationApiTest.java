@@ -52,4 +52,10 @@ public class CustomerLocationApiTest {
         Mockito.verify(customerLocationService, Mockito.times(1)).saveCustomerLocationDetails(
                 Mockito.any(CustomerLocationDTO.class));
     }
+
+    @Test
+    public void testAddExistingCustomerLocationToAWorkOrder() throws Exception {
+        customerLocationApi.addExistingCustomerLocationToAWorkOrder(1111l, 1234l);
+        Mockito.verify(customerLocationService, Mockito.times(1)).addExistingCustomerLocationToAWorkOrder(1111l, 1234l);
+    }
 }
