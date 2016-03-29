@@ -6,7 +6,7 @@ package com.g4s.javelin.constants;
  */
 public final class ApiConstants {
 
-    public static final String API_NAME = "work-order";
+    public static final String API_NAME = "workorder";
 
     public static final String API_VERSION = "v1";
 
@@ -14,7 +14,7 @@ public final class ApiConstants {
 
     public static final String API_NAMESPACE_OWNER_NAME = "accenture.com";
 
-    public static final String API_DESCRIPTION = "G4S Javelin Work-order API ";
+    public static final String API_DESCRIPTION = "G4S Javelin work-order API ";
 
     private ApiConstants() {
 
