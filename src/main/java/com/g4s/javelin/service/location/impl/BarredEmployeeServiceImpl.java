@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Lazy;
 import com.g4s.javelin.data.model.location.BarredEmployeeModel;
 import com.g4s.javelin.data.model.location.CustomerLocationModel;
 import com.g4s.javelin.data.repository.location.BarredEmployeeRepository;
+import com.g4s.javelin.data.repository.location.CustomerLocationRepository;
 import com.g4s.javelin.dto.core.location.BarredEmployeeDTO;
 import com.g4s.javelin.service.location.BarredEmployeeService;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
@@ -18,8 +19,13 @@ public class BarredEmployeeServiceImpl implements BarredEmployeeService {
     @Lazy
     private BarredEmployeeRepository barredEmployeeRepository;
 
-    public void saveBarredEmployees(List<BarredEmployeeDTO> employees, CustomerLocationModel custLocation) {
+    @Autowired
+    @Lazy
+    private CustomerLocationRepository customerLocationRepository;
+
+    public void saveBarredEmployees(List<BarredEmployeeDTO> employees, Long customerLocationId) {
         List<BarredEmployeeModel> barredEmployees = Lists.newArrayList();
+        CustomerLocationModel location = customerLocationRepository.findOne(customerLocationId);
         BarredEmployeeModel model;
         for (BarredEmployeeDTO dto : employees) {
             model = new BarredEmployeeModel();
@@ -29,7 +35,7 @@ public class BarredEmployeeServiceImpl implements BarredEmployeeService {
             model.setEmployeeId(dto.getEmployeeId());
             model.setStartDate(dto.getStartDate());
             model.setEndDate(dto.getEndDate());
-            model.setCustomerLocation(custLocation);
+            model.setCustomerLocation(location);
             barredEmployees.add(model);
         }
         barredEmployeeRepository.save(barredEmployees);

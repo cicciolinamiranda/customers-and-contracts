@@ -116,7 +116,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         model = customerLocationRepository.save(model);
         // Save barred employess
         barredEmployeeService.saveBarredEmployees(
-                customerLocation.getBarredEmployees(), model);
+                customerLocation.getBarredEmployees(), model.getId());
     }
 
     private CustomerLocationDTO transformCustomerLocation(

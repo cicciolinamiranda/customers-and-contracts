@@ -1,10 +1,9 @@
 package com.g4s.javelin.api.location;
 
-import com.g4s.javelin.dto.core.location.EquipmentDTO;
-import com.g4s.javelin.dto.core.location.ModeTransportDTO;
-import com.g4s.javelin.dto.core.location.SkillsDTO;
-import com.g4s.javelin.dto.core.location.TaskDTO;
-import com.g4s.javelin.service.location.MasterFileService;
+import static org.junit.Assert.assertNotNull;
+
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -12,9 +11,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import java.util.List;
-
-import static org.junit.Assert.assertNotNull;
+import com.g4s.javelin.api.location.MasterFileApi;
+import com.g4s.javelin.dto.core.location.EquipmentDTO;
+import com.g4s.javelin.dto.core.location.ModeTransportDTO;
+import com.g4s.javelin.dto.core.location.SkillsDTO;
+import com.g4s.javelin.dto.core.location.TaskDTO;
+import com.g4s.javelin.service.location.MasterFileService;
 
 /**
  * @author Jordan Duabe

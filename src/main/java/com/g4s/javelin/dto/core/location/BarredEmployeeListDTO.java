@@ -10,6 +10,8 @@ public class BarredEmployeeListDTO {
 
     private List<BarredEmployeeDTO> barredEmployeeDTOList;
 
+    private Long customerLocationId;
+
     public List<BarredEmployeeDTO> getBarredEmployeeDTOList() {
         return barredEmployeeDTOList;
     }
@@ -23,5 +25,13 @@ public class BarredEmployeeListDTO {
         return "BarredEmployeeListDTO{" +
                 "barredEmployeeDTOList=" + barredEmployeeDTOList +
                 '}';
+    }
+
+    public Long getCustomerLocationId() {
+        return customerLocationId;
+    }
+
+    public void setCustomerLocationId(Long customerLocationId) {
+        this.customerLocationId = customerLocationId;
     }
 }
