@@ -40,7 +40,7 @@ public class BarredEmployeeApi {
      * @param customerLocation Customer location where specific employees are to be barred from
      */
     @ApiMethod(
-            name = "barred-employees.add",
+            name = "barred.employees.add",
             path = "barred-employees",
             httpMethod = ApiMethod.HttpMethod.POST
     )
@@ -56,7 +56,7 @@ public class BarredEmployeeApi {
      * @return List of employees barred for the customer location matching the given id
      */
     @ApiMethod(
-            name = "barred-employees.list",
+            name = "barred.employees.list",
             path = "barred-employees/all",
             httpMethod = ApiMethod.HttpMethod.GET
     )
