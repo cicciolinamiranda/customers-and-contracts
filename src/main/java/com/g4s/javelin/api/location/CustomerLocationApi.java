@@ -14,6 +14,7 @@ import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
+import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 
 /**
  * @author Jordan Duabe
@@ -75,5 +76,29 @@ public class CustomerLocationApi {
     )
     public void saveCustomerLocationDetails(final CustomerLocationDTO customerLocationDTO) {
         customerLocationService.saveCustomerLocationDetails(customerLocationDTO);
+    }
+    
+    /**
+     * Seach customer location details
+     *
+     * @param customerLocationDTO Customer location details
+     */
+    @ApiMethod(
+            name = "customer.location.searcg",
+            path = "customer-location/search",
+            httpMethod = ApiMethod.HttpMethod.POST
+    )
+    public List<CustomerLocationDTO> searchCustomerLocation(@Named("customerId") final Long customerId,
+            @Named("criteria") final String criteria, @Named("value") final String value) {
+        List<CustomerLocationDTO> list = Lists.newArrayList();
+        
+        if ("ADDRESS".equalsIgnoreCase(criteria)) {
+           list = customerLocationService.getCustomerLocationByAddress(value);
+        } else if ("CUSTOMER".equalsIgnoreCase(criteria)) {
+        	list = customerLocationService.getCustomerLocationByCustomerName(value);
+        } else if ("ID".equalsIgnoreCase(criteria)) {
+        	list.add(customerLocationService.getCustomerLocationDetails(Long.valueOf(value)));
+        }
+        return list;
     }
 }
