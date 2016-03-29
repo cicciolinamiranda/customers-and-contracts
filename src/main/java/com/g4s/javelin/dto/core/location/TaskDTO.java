@@ -10,6 +10,17 @@ public class TaskDTO {
     public String getTaskName() {
         return taskName;
     }
+
+    
+    public Long getId() {
+        return id;
+    }
+
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
     public void setTaskName(String taskName) {
         this.taskName = taskName;
     }
