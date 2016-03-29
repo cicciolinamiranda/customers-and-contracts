@@ -45,9 +45,8 @@ public class BarredEmployeeApi {
             path = "barred-employees",
             httpMethod = ApiMethod.HttpMethod.POST
     )
-    public void saveBarredEmployees(final BarredEmployeeListDTO barredEmployees,
-                                    final CustomerLocationModel customerLocation) {
-        barredEmployeeService.saveBarredEmployees(barredEmployees.getBarredEmployeeDTOList(), customerLocation);
+    public void saveBarredEmployees(final BarredEmployeeListDTO barredEmployees) {
+        barredEmployeeService.saveBarredEmployees(barredEmployees.getBarredEmployeeDTOList(), barredEmployees.getCustomerLocationId());
     }
 
     /**

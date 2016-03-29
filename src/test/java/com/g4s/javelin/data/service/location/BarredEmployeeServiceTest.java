@@ -14,11 +14,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.g4s.javelin.data.model.location.BarredEmployeeModel;
 import com.g4s.javelin.data.model.location.CustomerLocationModel;
 import com.g4s.javelin.data.repository.location.BarredEmployeeRepository;
+import com.g4s.javelin.data.repository.location.CustomerLocationRepository;
 import com.g4s.javelin.dto.core.location.BarredEmployeeDTO;
 import com.g4s.javelin.service.location.BarredEmployeeService;
 import com.g4s.javelin.service.location.impl.BarredEmployeeServiceImpl;
@@ -29,6 +31,9 @@ public class BarredEmployeeServiceTest {
 
     @Mock
     private BarredEmployeeRepository barredEmployeeRepositoryMock;
+
+    @Mock
+    private CustomerLocationRepository customerLocationRepository;
 
     @InjectMocks
     private BarredEmployeeService barredEmployeeService = new BarredEmployeeServiceImpl();
@@ -63,11 +68,11 @@ public class BarredEmployeeServiceTest {
         barredEmployees.add(barredEmployeeModel);
 //        when(barredEmployeeRepositoryMock.save(barredEmployees));
         CustomerLocationModel customerLocation = new CustomerLocationModel();
-
+        when(customerLocationRepository.findOne(Mockito.anyLong())).thenReturn(new CustomerLocationModel());
         List<BarredEmployeeDTO> list = Lists.newArrayList();
         list.add(barredEmployeeDTO);
         
-        barredEmployeeService.saveBarredEmployees(list, customerLocation);
+        barredEmployeeService.saveBarredEmployees(list, 1L);
 //        verify(barredEmployeeRepositoryMock, times(1)).save(barredEmployees);
     }
 

@@ -7,7 +7,7 @@ import com.g4s.javelin.dto.core.location.BarredEmployeeDTO;
 
 public interface BarredEmployeeService {
 
-    void saveBarredEmployees(List<BarredEmployeeDTO> employees, CustomerLocationModel custLocation);
+    void saveBarredEmployees(List<BarredEmployeeDTO> employees, Long customerLocationId);
 
     List<BarredEmployeeDTO> getBarredEmployees(Long customerLocationId);
 }
