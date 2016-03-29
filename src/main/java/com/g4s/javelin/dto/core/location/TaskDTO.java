@@ -4,6 +4,7 @@ import java.util.List;
 
 public class TaskDTO {
 
+    private Long id;
     private String taskName;
     private List<TaskActivityDTO> taskActivities;
     public String getTaskName() {
