@@ -26,9 +26,8 @@ public class CustomerLocationDTO {
     private String locationSurvey;
     private String floorPlan;
     private CustomerDTO customer;
-    //SiteLocationDTO
-    
-    
+    private List<SiteLocationDTO> siteLocations;
+
     public String getName() {
         return name;
     }
@@ -149,4 +148,11 @@ public class CustomerLocationDTO {
     public void setCustomer(CustomerDTO customer) {
         this.customer = customer;
     }
+    public List<SiteLocationDTO> getSiteLocations() {
+        return siteLocations;
+    }
+    public void setSiteLocations(List<SiteLocationDTO> siteLocations) {
+        this.siteLocations = siteLocations;
+    }
+
 }
