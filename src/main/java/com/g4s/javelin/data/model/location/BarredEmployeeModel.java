@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -29,8 +30,8 @@ public class BarredEmployeeModel {
     @Column(name = "END_DATE")
     private DateTime endDate;
 
-    @OneToMany
-    @JoinColumn(name = "CUSTOMER_LOCATION_ID")
+    @ManyToOne
+    @JoinColumn(name = "customer_location_id", referencedColumnName = "id")
     private CustomerLocationModel customerLocation;
 
     public Long getId() {

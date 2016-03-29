@@ -12,12 +12,12 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import org.joda.time.DateTime;
 
-import com.g4s.javelin.data.model.AddressModel;
 import com.g4s.javelin.data.model.workorder.WorkOrderModel;
 
 @Entity
@@ -74,6 +74,13 @@ public class CustomerLocationModel {
 
     @OneToMany(mappedBy = "customerLocation", cascade = CascadeType.PERSIST)
     private List<SiteLocationModel> siteLocations;
+
+    @OneToMany(mappedBy = "customerLocation", cascade = CascadeType.PERSIST)
+    private List<BarredEmployeeModel> barredEmployee;
+
+    @ManyToOne
+    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    private CustomerModel customer;
 
     @Embedded
     private AddressModel address;
@@ -214,6 +221,14 @@ public class CustomerLocationModel {
         this.technicalSurvey = technicalSurvey;
     }
 
+    public CustomerModel getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(CustomerModel customer) {
+        this.customer = customer;
+    }
+
     public String getLocationSurvey() {
         return locationSurvey;
     }
@@ -229,4 +244,13 @@ public class CustomerLocationModel {
     public void setFloorPlan(String floorPlan) {
         this.floorPlan = floorPlan;
     }
+
+    public List<BarredEmployeeModel> getBarredEmployee() {
+        return barredEmployee;
+    }
+
+    public void setBarredEmployee(List<BarredEmployeeModel> barredEmployee) {
+        this.barredEmployee = barredEmployee;
+    }
+
 }
