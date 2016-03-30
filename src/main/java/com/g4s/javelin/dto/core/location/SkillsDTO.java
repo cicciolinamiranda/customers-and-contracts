@@ -5,12 +5,11 @@ public class SkillsDTO {
     private Long id;
     private String skillName;
 
-    
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -18,7 +17,7 @@ public class SkillsDTO {
         return skillName;
     }
 
-    public void setSkillName(String skillName) {
+    public void setSkillName(final String skillName) {
         this.skillName = skillName;
     }
 }

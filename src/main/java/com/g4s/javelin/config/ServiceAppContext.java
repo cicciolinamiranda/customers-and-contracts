@@ -20,7 +20,7 @@ public class ServiceAppContext {
     public MasterFileService getMasterFileService() {
         return new MasterFileServiceImpl();
     }
-    
+
     @Bean(name = ServiceConstants.BARRED_EMPLOYEE_SERVICE)
     public BarredEmployeeService getBarredEmployeeService() {
         return new BarredEmployeeServiceImpl();

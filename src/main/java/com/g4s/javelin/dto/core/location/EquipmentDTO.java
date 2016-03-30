@@ -5,12 +5,12 @@ public class EquipmentDTO {
     private Long id;
     private String equipmentName;
 
-    
+
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -18,7 +18,7 @@ public class EquipmentDTO {
         return equipmentName;
     }
 
-    public void setEquipmentName(String equipmentName) {
+    public void setEquipmentName(final String equipmentName) {
         this.equipmentName = equipmentName;
     }
 

@@ -4,20 +4,20 @@ public class CustomerDTO {
 
     private String customerName;
     private Long id;
-    
+
     public String getCustomerName() {
         return customerName;
     }
 
-    public void setCustomerName(String customerName) {
+    public void setCustomerName(final String customerName) {
         this.customerName = customerName;
     }
 
-	public Long getId() {
-		return id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public void setId(final Long id) {
+        this.id = id;
+    }
 }

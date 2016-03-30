@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="MF_TASK_ACTIVITY")
+@Table(name = "MF_TASK_ACTIVITY")
 public class TaskActivityModel {
 
     @Id
@@ -28,7 +28,7 @@ public class TaskActivityModel {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -36,7 +36,7 @@ public class TaskActivityModel {
         return task;
     }
 
-    public void setTask(TaskModel task) {
+    public void setTask(final TaskModel task) {
         this.task = task;
     }
 
@@ -44,7 +44,7 @@ public class TaskActivityModel {
         return taskActivityName;
     }
 
-    public void setTaskActivityName(String taskActivityName) {
+    public void setTaskActivityName(final String taskActivityName) {
         this.taskActivityName = taskActivityName;
     }
 }

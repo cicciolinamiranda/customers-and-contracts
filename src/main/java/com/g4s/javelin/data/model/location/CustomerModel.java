@@ -8,8 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -32,7 +30,7 @@ public class CustomerModel {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -40,7 +38,7 @@ public class CustomerModel {
         return customerName;
     }
 
-    public void setCustomerName(String customerName) {
+    public void setCustomerName(final String customerName) {
         this.customerName = customerName;
     }
 
@@ -48,7 +46,7 @@ public class CustomerModel {
         return customerLocation;
     }
 
-    public void setCustomerLocation(List<CustomerLocationModel> customerLocation) {
+    public void setCustomerLocation(final List<CustomerLocationModel> customerLocation) {
         this.customerLocation = customerLocation;
     }
 

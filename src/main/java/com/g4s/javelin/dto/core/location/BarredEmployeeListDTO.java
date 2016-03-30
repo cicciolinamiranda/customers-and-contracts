@@ -16,22 +16,22 @@ public class BarredEmployeeListDTO {
         return barredEmployeeDTOList;
     }
 
-    public void setBarredEmployeeDTOList(List<BarredEmployeeDTO> barredEmployeeDTOList) {
+    public void setBarredEmployeeDTOList(final List<BarredEmployeeDTO> barredEmployeeDTOList) {
         this.barredEmployeeDTOList = barredEmployeeDTOList;
     }
 
     @Override
     public String toString() {
-        return "BarredEmployeeListDTO{" +
-                "barredEmployeeDTOList=" + barredEmployeeDTOList +
-                '}';
+        return "BarredEmployeeListDTO{"
+                + "barredEmployeeDTOList=" + barredEmployeeDTOList
+                + '}';
     }
 
     public Long getCustomerLocationId() {
         return customerLocationId;
     }
 
-    public void setCustomerLocationId(Long customerLocationId) {
+    public void setCustomerLocationId(final Long customerLocationId) {
         this.customerLocationId = customerLocationId;
     }
 }

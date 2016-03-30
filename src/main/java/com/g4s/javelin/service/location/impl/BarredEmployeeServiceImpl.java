@@ -1,6 +1,5 @@
 package com.g4s.javelin.service.location.impl;
 
-import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +24,7 @@ public class BarredEmployeeServiceImpl implements BarredEmployeeService {
     @Lazy
     private CustomerLocationRepository customerLocationRepository;
 
-    public void saveBarredEmployees(List<BarredEmployeeDTO> employees, Long customerLocationId) {
+    public void saveBarredEmployees(final List<BarredEmployeeDTO> employees, final Long customerLocationId) {
         List<BarredEmployeeModel> barredEmployees = Lists.newArrayList();
         CustomerLocationModel location = customerLocationRepository.findOne(customerLocationId);
         BarredEmployeeModel model;
@@ -45,7 +44,7 @@ public class BarredEmployeeServiceImpl implements BarredEmployeeService {
         barredEmployeeRepository.save(barredEmployees);
     }
 
-    public List<BarredEmployeeDTO> getBarredEmployees(Long customerLocationId) {
+    public List<BarredEmployeeDTO> getBarredEmployees(final Long customerLocationId) {
         List<BarredEmployeeModel> employees = barredEmployeeRepository.findByCustomerLocationId(customerLocationId);
         List<BarredEmployeeDTO> barredEmployees = Lists.newArrayList();
         BarredEmployeeDTO dto;

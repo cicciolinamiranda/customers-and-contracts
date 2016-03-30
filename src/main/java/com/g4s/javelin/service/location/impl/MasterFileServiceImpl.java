@@ -5,7 +5,6 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Service;
 
 import com.g4s.javelin.data.model.location.EquipmentModel;
 import com.g4s.javelin.data.model.location.ModeTransportModel;
@@ -52,7 +51,7 @@ public class MasterFileServiceImpl implements MasterFileService {
         List<EquipmentDTO> response = Lists.newArrayList();
 
         for (EquipmentModel equipment : results) {
-                response.add(modelMapper.map(equipment, EquipmentDTO.class));
+            response.add(modelMapper.map(equipment, EquipmentDTO.class));
         }
 
         return response;

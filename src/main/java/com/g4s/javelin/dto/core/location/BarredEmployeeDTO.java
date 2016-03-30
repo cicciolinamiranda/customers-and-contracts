@@ -12,31 +12,31 @@ public class BarredEmployeeDTO {
     public Long getEmployeeId() {
         return employeeId;
     }
-    public void setEmployeeId(Long employeeId) {
+    public void setEmployeeId(final Long employeeId) {
         this.employeeId = employeeId;
     }
     public String getFirstName() {
         return firstName;
     }
-    public void setFirstName(String firstName) {
+    public void setFirstName(final String firstName) {
         this.firstName = firstName;
     }
     public String getLastName() {
         return lastName;
     }
-    public void setLastName(String lastName) {
+    public void setLastName(final String lastName) {
         this.lastName = lastName;
     }
     public DateTime getStartDate() {
         return startDate;
     }
-    public void setStartDate(DateTime startDate) {
+    public void setStartDate(final DateTime startDate) {
         this.startDate = startDate;
     }
     public DateTime getEndDate() {
         return endDate;
     }
-    public void setEndDate(DateTime endDate) {
+    public void setEndDate(final DateTime endDate) {
         this.endDate = endDate;
     }
     public Long getId() {

@@ -24,12 +24,12 @@ public class BarredEmployeeModel {
     @Column(name = "EMPLOYEE_ID")
     private Long employeeId;
 
-    @Column(name = "START_DATE", nullable=false, updatable=true)
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @Column(name = "START_DATE", nullable = false, updatable = true)
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime startDate;
 
-    @Column(name = "END_DATE", nullable=true, updatable=true)
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @Column(name = "END_DATE", nullable = true, updatable = true)
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime endDate;
 
     @ManyToOne
@@ -40,7 +40,7 @@ public class BarredEmployeeModel {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -48,7 +48,7 @@ public class BarredEmployeeModel {
         return employeeId;
     }
 
-    public void setEmployeeId(Long employeeId) {
+    public void setEmployeeId(final Long employeeId) {
         this.employeeId = employeeId;
     }
 
@@ -56,7 +56,7 @@ public class BarredEmployeeModel {
         return startDate;
     }
 
-    public void setStartDate(DateTime startDate) {
+    public void setStartDate(final DateTime startDate) {
         this.startDate = startDate;
     }
 
@@ -64,7 +64,7 @@ public class BarredEmployeeModel {
         return endDate;
     }
 
-    public void setEndDate(DateTime endDate) {
+    public void setEndDate(final DateTime endDate) {
         this.endDate = endDate;
     }
 
@@ -72,9 +72,8 @@ public class BarredEmployeeModel {
         return customerLocation;
     }
 
-    public void setCustomerLocation(CustomerLocationModel customerLocation) {
+    public void setCustomerLocation(final CustomerLocationModel customerLocation) {
         this.customerLocation = customerLocation;
     }
 
-    
 }

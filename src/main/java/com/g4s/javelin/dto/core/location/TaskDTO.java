@@ -10,20 +10,20 @@ public class TaskDTO {
     public String getTaskName() {
         return taskName;
     }
-    public void setTaskName(String taskName) {
+    public void setTaskName(final String taskName) {
         this.taskName = taskName;
     }
     public List<TaskActivityDTO> getTaskActivities() {
         return taskActivities;
     }
-    public void setTaskActivities(List<TaskActivityDTO> taskActivities) {
+    public void setTaskActivities(final List<TaskActivityDTO> taskActivities) {
         this.taskActivities = taskActivities;
     }
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
+    public void setId(final Long id) {
+        this.id = id;
+    }
 
 }

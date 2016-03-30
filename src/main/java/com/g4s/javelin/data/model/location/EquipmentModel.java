@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="MF_EQUIPMENT")
+@Table(name = "MF_EQUIPMENT")
 public class EquipmentModel {
 
     @Id
@@ -23,7 +23,7 @@ public class EquipmentModel {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -31,7 +31,7 @@ public class EquipmentModel {
         return equipmentName;
     }
 
-    public void setEquipmentName(String equipmentName) {
+    public void setEquipmentName(final String equipmentName) {
         this.equipmentName = equipmentName;
     }
 }

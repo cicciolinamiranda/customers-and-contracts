@@ -5,11 +5,11 @@ public enum StatusEnum implements BaseEnum {
     INPROGRESS("IN_PROGRESS", "In Progress"),
     ARCHIVE("ARCHIVE", "Archive"),
     SUBMITTED("SUBMITTED", "Submit");
-    
+
     private final String code;
     private final String description;
 
-    private StatusEnum(final String code, final String description) {
+    StatusEnum(final String code, final String description) {
         this.code = code;
         this.description = description;
     }

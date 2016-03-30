@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 @PropertySource("classpath:application-cloudsql.properties")
 @Profile("prodsql")
-public class ProdDatabaseConfigurationProperties extends DbConfigProperties {
+public class ProdDatabaseConfigurationProperties extends AbstractDbConfigProperties {
 
     @Autowired
     private Environment env;
