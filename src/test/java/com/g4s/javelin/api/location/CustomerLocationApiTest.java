@@ -117,7 +117,7 @@ public class CustomerLocationApiTest {
     	List<CustomerLocationDTO> list = Lists.newArrayList();
     	list.add(customerLocationDTO);
     	when(customerLocationService.getCustomerLocationByAddress(Mockito.anyString())).thenReturn(list);
-    	List<CustomerLocationDTO> result = customerLocationApi.searchCustomerLocation(1L, "ADDRESS", "value");
+    	List<CustomerLocationDTO> result = customerLocationApi.searchCustomerLocation("ADDRESS", "value");
     	assertEquals(1, result.size());
     }
     
@@ -126,13 +126,13 @@ public class CustomerLocationApiTest {
     	List<CustomerLocationDTO> list = Lists.newArrayList();
     	list.add(customerLocationDTO);
     	when(customerLocationService.getCustomerLocationByCustomerName(Mockito.anyString())).thenReturn(list);
-    	List<CustomerLocationDTO> result = customerLocationApi.searchCustomerLocation(1L, "CUSTOMER", "value");
+    	List<CustomerLocationDTO> result = customerLocationApi.searchCustomerLocation("CUSTOMER", "value");
     	assertEquals(1, result.size());
     }
     @Test
     public void testSearchLocationById() {
     	when(customerLocationService.getCustomerLocationDetails(Mockito.anyLong())).thenReturn(customerLocationDTO);
-    	List<CustomerLocationDTO> result = customerLocationApi.searchCustomerLocation(1L, "ID", "1");
+    	List<CustomerLocationDTO> result = customerLocationApi.searchCustomerLocation("ID", "1");
     	assertEquals(1, result.size());
     }
 }

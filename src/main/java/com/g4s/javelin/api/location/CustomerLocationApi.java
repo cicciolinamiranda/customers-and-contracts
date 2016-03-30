@@ -82,15 +82,15 @@ public class CustomerLocationApi {
     /**
      * Seach customer location details
      *
-     * @param customerLocationDTO Customer location details
+     * @param criteria Search Criteria (Customer Name, Address, Id)
+     * @param value search value
      */
     @ApiMethod(
             name = "customer.location.search",
             path = "customer-location/search",
             httpMethod = ApiMethod.HttpMethod.POST
     )
-    public List<CustomerLocationDTO> searchCustomerLocation(@Named("customerId") final Long customerId,
-            @Named("criteria") final String criteria, @Named("value") final String value) {
+    public List<CustomerLocationDTO> searchCustomerLocation(@Named("criteria") final String criteria, @Named("value") final String value) {
         List<CustomerLocationDTO> list = Lists.newArrayList();
         SearchCriteriaEnum sCriteria = SearchCriteriaEnum.findByCode(criteria);
         if (SearchCriteriaEnum.ADDRESS.equals(sCriteria)) {
@@ -102,4 +102,36 @@ public class CustomerLocationApi {
         }
         return list;
     }
+
+    /**
+     * Update customer location status
+     *
+     * @param id Customer Location id
+     * @param status Status
+     */
+    @ApiMethod(
+            name = "customer.location.update",
+            path = "customer-location/update",
+            httpMethod = ApiMethod.HttpMethod.POST
+    )
+    public void updateCustomrerLocationStatus(@Named("id") Long id,
+    		@Named("status") String status) {
+        customerLocationService.updateCustomerLocationStatus(id, status);
+    }
+
+    /**
+     * Create empty customer location
+     *
+     * 
+     */
+    @ApiMethod(
+            name = "customer.location.create",
+            path = "customer-location/create",
+            httpMethod = ApiMethod.HttpMethod.POST
+    )
+    public CustomerLocationDTO createCustomerLocation() {
+        CustomerLocationDTO result = customerLocationService.createCustomerLocation();
+        return result;
+    }
+
 }

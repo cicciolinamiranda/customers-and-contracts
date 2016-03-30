@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
+import com.g4s.javelin.enums.StatusEnum;
+
 public class CustomerLocationDTO {
 
     private Long id;
@@ -25,6 +27,8 @@ public class CustomerLocationDTO {
     private String locationSurvey;
     private String floorPlan;
     private CustomerDTO customer;
+    private String statusStr;
+
     //SiteLocationDTO
     
     
@@ -143,4 +147,11 @@ public class CustomerLocationDTO {
     public void setCustomer(CustomerDTO customer) {
         this.customer = customer;
     }
+    public String getStatusStr() {
+        return statusStr;
+    }
+    public void setStatusStr(String statusStr) {
+        this.statusStr = statusStr;
+    }
+
 }

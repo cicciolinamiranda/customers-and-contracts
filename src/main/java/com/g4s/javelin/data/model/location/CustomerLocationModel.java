@@ -6,6 +6,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +23,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import com.g4s.javelin.data.model.workorder.WorkOrderModel;
+import com.g4s.javelin.enums.StatusEnum;
 
 @Entity
 @Table(name = "CUSTOMER_LOCATION")
@@ -87,11 +90,11 @@ public class CustomerLocationModel {
     @Embedded
     private AddressModel address;
     
-    @Column(name = "CREATED_DATE", nullable=false, updatable=true)
+    @Column(name = "CREATED_DATE", nullable=true, updatable=true)
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createdDate;
 
-    @Column(name = "SETUP_DATE", nullable=false, updatable=true)
+    @Column(name = "SETUP_DATE", nullable=true, updatable=true)
     @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime setUpDate;
     @Column(name = "SOP_DETAILS")
@@ -106,6 +109,10 @@ public class CustomerLocationModel {
     private String locationSurvey;
     @Column(name = "FLOOR_PLAN")
     private String floorPlan;
+
+    @Column(name = "STATUS")
+    @Enumerated(EnumType.STRING)
+    private StatusEnum status;
 
     public Long getId() {
         return id;
@@ -259,21 +266,29 @@ public class CustomerLocationModel {
         this.barredEmployee = barredEmployee;
     }
 
-	@Override
-	public String toString() {
-		return "CustomerLocationModel [id=" + id + ", name=" + name
-				+ ", workOrders=" + workOrders + ", modeTransports="
-				+ modeTransports + ", skills=" + skills + ", equipments="
-				+ equipments + ", tasks=" + tasks + ", siteLocations="
-				+ siteLocations + ", barredEmployee=" + barredEmployee
-				+ ", customer=" + customer + ", address=" + address
-//				+ ", createdDate=" + createdDate + ", setUpDate=" + setUpDate
-				+ ", sopDetails=" + sopDetails
-				+ ", locationInstructionsApproval="
-				+ locationInstructionsApproval + ", healthSafetySurvey="
-				+ healthSafetySurvey + ", technicalSurvey=" + technicalSurvey
-				+ ", locationSurvey=" + locationSurvey + ", floorPlan="
-				+ floorPlan + "]";
-	}
+    @Override
+    public String toString() {
+        return "CustomerLocationModel [id=" + id + ", name=" + name
+                + ", workOrders=" + workOrders + ", modeTransports="
+                + modeTransports + ", skills=" + skills + ", equipments="
+                + equipments + ", tasks=" + tasks + ", siteLocations="
+                + siteLocations + ", barredEmployee=" + barredEmployee
+                + ", customer=" + customer + ", address=" + address
+//                + ", createdDate=" + createdDate + ", setUpDate=" + setUpDate
+                + ", sopDetails=" + sopDetails
+                + ", locationInstructionsApproval="
+                + locationInstructionsApproval + ", healthSafetySurvey="
+                + healthSafetySurvey + ", technicalSurvey=" + technicalSurvey
+                + ", locationSurvey=" + locationSurvey + ", floorPlan="
+                + floorPlan + "]";
+    }
+
+    public StatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(StatusEnum status) {
+        this.status = status;
+    }
 
 }
