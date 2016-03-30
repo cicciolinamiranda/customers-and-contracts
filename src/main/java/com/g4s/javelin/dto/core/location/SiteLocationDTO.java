@@ -11,25 +11,25 @@ public class SiteLocationDTO {
     public Long getId() {
         return id;
     }
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
     public String getSiteLocationName() {
         return siteLocationName;
     }
-    public void setSiteLocationName(String siteLocationName) {
+    public void setSiteLocationName(final String siteLocationName) {
         this.siteLocationName = siteLocationName;
     }
     public String getSiteLocationEmail() {
         return siteLocationEmail;
     }
-    public void setSiteLocationEmail(String siteLocationEmail) {
+    public void setSiteLocationEmail(final String siteLocationEmail) {
         this.siteLocationEmail = siteLocationEmail;
     }
     public int getContactNumber() {
         return contactNumber;
     }
-    public void setContactNumber(int contactNumber) {
+    public void setContactNumber(final int contactNumber) {
         this.contactNumber = contactNumber;
     }
 }

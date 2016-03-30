@@ -13,7 +13,7 @@ public class BaseModel {
     @Column(
             unique = true,
             nullable = false)
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "CREATED_BY")

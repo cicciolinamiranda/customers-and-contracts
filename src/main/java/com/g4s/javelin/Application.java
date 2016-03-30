@@ -9,8 +9,8 @@ import org.springframework.context.annotation.PropertySource;
 @PropertySource("classpath:application.properties")
 public class Application {
 
-	/*
-	 * (non-Javadoc) Application configuration "entry-point" is patterned after
-	 * Spring-boot.
-	 */
+    /*
+     * (non-Javadoc) Application configuration "entry-point" is patterned after
+     * Spring-boot.
+     */
 }

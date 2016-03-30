@@ -9,14 +9,11 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="MF_TASK")
+@Table(name = "MF_TASK")
 public class TaskModel {
 
     @Id
@@ -24,7 +21,7 @@ public class TaskModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<TaskActivityModel> taskActivities;
 
     @Column
@@ -34,7 +31,7 @@ public class TaskModel {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -42,7 +39,7 @@ public class TaskModel {
         return taskName;
     }
 
-    public void setTaskName(String taskName) {
+    public void setTaskName(final String taskName) {
         this.taskName = taskName;
     }
 
@@ -50,7 +47,7 @@ public class TaskModel {
         return taskActivities;
     }
 
-    public void setTaskActivities(List<TaskActivityModel> taskActivities) {
+    public void setTaskActivities(final List<TaskActivityModel> taskActivities) {
         this.taskActivities = taskActivities;
     }
 }

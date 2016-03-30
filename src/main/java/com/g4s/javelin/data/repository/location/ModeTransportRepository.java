@@ -4,6 +4,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.g4s.javelin.data.model.location.ModeTransportModel;
 
-public interface ModeTransportRepository extends PagingAndSortingRepository<ModeTransportModel,Long> {
+public interface ModeTransportRepository extends PagingAndSortingRepository<ModeTransportModel, Long> {
 
 }

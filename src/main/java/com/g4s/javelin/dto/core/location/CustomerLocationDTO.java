@@ -26,127 +26,137 @@ public class CustomerLocationDTO {
     private String floorPlan;
     private CustomerDTO customer;
     private List<SiteLocationDTO> siteLocations;
+    private String statusStr;
+
+    //SiteLocationDTO
 
     public String getName() {
         return name;
     }
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
     public DateTime getCreatedDate() {
         return createdDate;
     }
-    public void setCreatedDate(DateTime createdDate) {
+    public void setCreatedDate(final DateTime createdDate) {
         this.createdDate = createdDate;
     }
     public List<EquipmentDTO> getEquipments() {
         return equipments;
     }
-    public void setEquipments(List<EquipmentDTO> equipments) {
+    public void setEquipments(final List<EquipmentDTO> equipments) {
         this.equipments = equipments;
     }
     public List<ModeTransportDTO> getModeOfTransports() {
         return modeOfTransports;
     }
-    public void setModeOfTransports(List<ModeTransportDTO> modeOfTransports) {
+    public void setModeOfTransports(final List<ModeTransportDTO> modeOfTransports) {
         this.modeOfTransports = modeOfTransports;
     }
     public List<SkillsDTO> getSkills() {
         return skills;
     }
-    public void setSkills(List<SkillsDTO> skills) {
+    public void setSkills(final List<SkillsDTO> skills) {
         this.skills = skills;
     }
     public List<TaskDTO> getTasks() {
         return tasks;
     }
-    public void setTasks(List<TaskDTO> tasks) {
+    public void setTasks(final List<TaskDTO> tasks) {
         this.tasks = tasks;
     }
     public List<BarredEmployeeDTO> getBarredEmployees() {
         return barredEmployees;
     }
-    public void setBarredEmployees(List<BarredEmployeeDTO> barredEmployees) {
+    public void setBarredEmployees(final List<BarredEmployeeDTO> barredEmployees) {
         this.barredEmployees = barredEmployees;
     }
 
     public List<IncidentLogMockDTO> getIncidentLogs() {
         return incidentLogs;
     }
-    public void setIncidentLogs(List<IncidentLogMockDTO> incidentLogs) {
+    public void setIncidentLogs(final List<IncidentLogMockDTO> incidentLogs) {
         this.incidentLogs = incidentLogs;
     }
     public AddressDTO getAddress() {
         return address;
     }
-    public void setAddress(AddressDTO address) {
+    public void setAddress(final AddressDTO address) {
         this.address = address;
     }
     public DateTime getSetUpDate() {
         return setUpDate;
     }
-    public void setSetUpDate(DateTime setUpDate) {
+    public void setSetUpDate(final DateTime setUpDate) {
         this.setUpDate = setUpDate;
     }
     public String getSopDetails() {
         return sopDetails;
     }
-    public void setSopDetails(String sopDetails) {
+    public void setSopDetails(final String sopDetails) {
         this.sopDetails = sopDetails;
     }
     public String getLocationInstructionsApproval() {
         return locationInstructionsApproval;
     }
-    public void setLocationInstructionsApproval(String locationInstructionsApproval) {
+    public void setLocationInstructionsApproval(final String locationInstructionsApproval) {
         this.locationInstructionsApproval = locationInstructionsApproval;
     }
     public String getHealthSafetySurvey() {
         return healthSafetySurvey;
     }
-    public void setHealthSafetySurvey(String healthSafetySurvey) {
+    public void setHealthSafetySurvey(final String healthSafetySurvey) {
         this.healthSafetySurvey = healthSafetySurvey;
     }
     public String getTechnicalSurvey() {
         return technicalSurvey;
     }
-    public void setTechnicalSurvey(String technicalSurvey) {
+    public void setTechnicalSurvey(final String technicalSurvey) {
         this.technicalSurvey = technicalSurvey;
     }
     public String getLocationSurvey() {
         return locationSurvey;
     }
-    public void setLocationSurvey(String locationSurvey) {
+    public void setLocationSurvey(final String locationSurvey) {
         this.locationSurvey = locationSurvey;
     }
     public String getFloorPlan() {
         return floorPlan;
     }
-    public void setFloorPlan(String floorPlan) {
+    public void setFloorPlan(final String floorPlan) {
         this.floorPlan = floorPlan;
     }
     public Long getId() {
         return id;
     }
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
     public Long getWorkOrderId() {
         return workOrderId;
     }
-    public void setWorkOrderId(Long workOrderId) {
+    public void setWorkOrderId(final Long workOrderId) {
         this.workOrderId = workOrderId;
     }
     public CustomerDTO getCustomer() {
         return customer;
     }
-    public void setCustomer(CustomerDTO customer) {
+    public void setCustomer(final CustomerDTO customer) {
         this.customer = customer;
+    }
+    public String getStatusStr() {
+        return statusStr;
     }
     public List<SiteLocationDTO> getSiteLocations() {
         return siteLocations;
     }
-    public void setSiteLocations(List<SiteLocationDTO> siteLocations) {
+
+    public void setSiteLocations(final List<SiteLocationDTO> siteLocations) {
         this.siteLocations = siteLocations;
+    }
+    public void setStatusStr(final String statusStr) {
+        this.statusStr = statusStr;
     }
 
 }

@@ -6,29 +6,29 @@ public class AddressDTO {
     private String longitude;
     private String latitude;
     private String postCode;
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
-	public String getLongitude() {
-		return longitude;
-	}
-	public void setLongitude(String longitude) {
-		this.longitude = longitude;
-	}
-	public String getLatitude() {
-		return latitude;
-	}
-	public void setLatitude(String latitude) {
-		this.latitude = latitude;
-	}
-	public String getPostCode() {
-		return postCode;
-	}
-	public void setPostCode(String postCode) {
-		this.postCode = postCode;
-	}
-    
+    public String getAddress() {
+        return address;
+    }
+    public void setAddress(final String address) {
+        this.address = address;
+    }
+    public String getLongitude() {
+        return longitude;
+    }
+    public void setLongitude(final String longitude) {
+        this.longitude = longitude;
+    }
+    public String getLatitude() {
+        return latitude;
+    }
+    public void setLatitude(final String latitude) {
+        this.latitude = latitude;
+    }
+    public String getPostCode() {
+        return postCode;
+    }
+    public void setPostCode(final String postCode) {
+        this.postCode = postCode;
+    }
+
 }

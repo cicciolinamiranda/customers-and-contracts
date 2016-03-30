@@ -4,12 +4,12 @@ public class CustomerDTO {
 
     private String customerName;
     private Long id;
-    
+
     public String getCustomerName() {
         return customerName;
     }
 
-    public void setCustomerName(String customerName) {
+    public void setCustomerName(final String customerName) {
         this.customerName = customerName;
     }
 
@@ -17,7 +17,7 @@ public class CustomerDTO {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 }

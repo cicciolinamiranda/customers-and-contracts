@@ -23,7 +23,7 @@ public class SkillsModel {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -31,7 +31,7 @@ public class SkillsModel {
         return skillName;
     }
 
-    public void setSkillName(String skillName) {
+    public void setSkillName(final String skillName) {
         this.skillName = skillName;
     }
 }

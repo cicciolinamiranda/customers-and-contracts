@@ -6,6 +6,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.util.CollectionUtils;
 
 import com.g4s.javelin.constants.ExceptionMessageConstants;
 import com.g4s.javelin.constants.ServiceConstants;
@@ -24,6 +25,7 @@ import com.g4s.javelin.dto.core.location.EquipmentDTO;
 import com.g4s.javelin.dto.core.location.ModeTransportDTO;
 import com.g4s.javelin.dto.core.location.SkillsDTO;
 import com.g4s.javelin.dto.core.location.TaskDTO;
+import com.g4s.javelin.enums.StatusEnum;
 import com.g4s.javelin.exception.CustomerLocationException;
 import com.g4s.javelin.service.location.BarredEmployeeService;
 import com.g4s.javelin.service.location.CustomerLocationService;
@@ -52,7 +54,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
 
     @Override
     public CustomerLocationDTO getCustomerLocationDetails(
-            Long customerLocationId) {
+            final Long customerLocationId) {
         CustomerLocationModel result = customerLocationRepository
                 .findOne(customerLocationId);
         return transformCustomerLocation(result);
@@ -60,7 +62,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
 
     @Override
     public List<CustomerLocationDTO> getCustomerLocationDetailsList(
-            Long workOrderId) {
+            final Long workOrderId) {
         List<CustomerLocationModel> results = customerLocationRepository
                 .findByWorkOrdersId(workOrderId);
         List<CustomerLocationDTO> list = Lists.newArrayList();
@@ -71,9 +73,9 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
     }
 
     @Override
-    public List<CustomerLocationDTO> getCustomerLocationByAddress(String address) {
+    public List<CustomerLocationDTO> getCustomerLocationByAddress(final String address) {
         List<CustomerLocationModel> results = customerLocationRepository.
-        		findByAddressAddressContainingIgnoreCase(address);
+                findByAddressAddressContainingIgnoreCase(address);
         List<CustomerLocationDTO> list = Lists.newArrayList();
         for (CustomerLocationModel result : results) {
             list.add(transformCustomerLocation(result));
@@ -83,9 +85,9 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
 
     @Override
     public List<CustomerLocationDTO> getCustomerLocationByCustomerName(
-            String customerName) {
+            final String customerName) {
         List<CustomerLocationModel> results = customerLocationRepository.
-        		findByCustomerCustomerNameContainingIgnoreCase(customerName);
+                findByCustomerCustomerNameContainingIgnoreCase(customerName);
         List<CustomerLocationDTO> list = Lists.newArrayList();
         for (CustomerLocationModel result : results) {
             list.add(transformCustomerLocation(result));
@@ -94,8 +96,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
     }
 
     @Override
-    public void saveCustomerLocationDetails(CustomerLocationDTO customerLocation) {
-    	System.out.println(customerLocation.getCreatedDate());
+    public void saveCustomerLocationDetails(final CustomerLocationDTO customerLocation) {
         CustomerLocationModel model;
         List<WorkOrderModel> workOrders = Lists.newArrayList();
         model = modelMapper.map(customerLocation,
@@ -106,7 +107,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         WorkOrderModel workOrder = workOrderRepository.findOne(customerLocation.getWorkOrderId());
         workOrders.add(workOrder);
         model.setWorkOrders(workOrders);
-
+        model.setStatus(StatusEnum.findByCode(customerLocation.getStatusStr()));
         // setup equipments
         model.setEquipments(transformEquipmentsToModel(customerLocation
                 .getEquipments()));
@@ -116,7 +117,6 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         model.setTasks(transformTasksToModel(customerLocation.getTasks()));
         model.setModeTransports(transformModeTransportToModel(customerLocation
                 .getModeOfTransports()));
-        System.out.println(model.toString());
         model = customerLocationRepository.save(model);
         // Save barred employess
         barredEmployeeService.saveBarredEmployees(
@@ -125,18 +125,16 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
 
     @Override
     public void addExistingCustomerLocationToAWorkOrder(
-            Long customerLocationId, Long workOrderId)
+            final Long customerLocationId, final Long workOrderId)
             throws CustomerLocationException {
         WorkOrderModel workOrder = workOrderRepository.findOne(workOrderId);
 
-        if(workOrder == null)
-        {
+        if (workOrder == null) {
             throw new CustomerLocationException(ExceptionMessageConstants.NULL_WORKORDER_FOUND);
         }
 
         CustomerLocationModel customerLocation = customerLocationRepository.findOne(customerLocationId);
-        if(customerLocation == null)
-        {
+        if (customerLocation == null) {
             throw new CustomerLocationException(ExceptionMessageConstants.NULL_EXISTING_CUSTLOC_FOUND);
         }
         List<WorkOrderModel> workOrders = customerLocation.getWorkOrders();
@@ -145,8 +143,20 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         customerLocationRepository.save(customerLocation);
     }
 
+    @Override
+    public CustomerLocationDTO createCustomerLocation() {
+        CustomerLocationModel result = customerLocationRepository.save(new CustomerLocationModel());
+        return transformCustomerLocation(result);
+    }
+
+    @Override
+    public void updateCustomerLocationStatus(final Long id, final String status) {
+        StatusEnum statusEnum = StatusEnum.findByCode(status);
+        customerLocationRepository.updateStatus(id, statusEnum);
+    }
+
     private CustomerLocationDTO transformCustomerLocation(
-            CustomerLocationModel model) {
+            final CustomerLocationModel model) {
         CustomerLocationDTO dto = new CustomerLocationDTO();
         dto = modelMapper.map(model, CustomerLocationDTO.class);
         dto.setEquipments(transformEquipments(model.getEquipments()));
@@ -159,75 +169,91 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
     }
 
     private List<EquipmentDTO> transformEquipments(
-            List<EquipmentModel> equipments) {
+            final List<EquipmentModel> equipments) {
         List<EquipmentDTO> list = Lists.newArrayList();
-        for (EquipmentModel equipment : equipments) {
-            list.add(modelMapper.map(equipment, EquipmentDTO.class));
+        if (!CollectionUtils.isEmpty(equipments)) {
+            for (EquipmentModel equipment : equipments) {
+                list.add(modelMapper.map(equipment, EquipmentDTO.class));
+            }
         }
         return list;
     }
 
     private List<EquipmentModel> transformEquipmentsToModel(
-            List<EquipmentDTO> equipments) {
+            final List<EquipmentDTO> equipments) {
         List<EquipmentModel> list = Lists.newArrayList();
-        for (EquipmentDTO equipment : equipments) {
-            list.add(modelMapper.map(equipment, EquipmentModel.class));
+        if (!CollectionUtils.isEmpty(equipments)) {
+            for (EquipmentDTO equipment : equipments) {
+                list.add(modelMapper.map(equipment, EquipmentModel.class));
+            }
         }
         return list;
     }
 
-    private List<SkillsDTO> transformSkills(List<SkillsModel> skills) {
+    private List<SkillsDTO> transformSkills(final List<SkillsModel> skills) {
         List<SkillsDTO> list = Lists.newArrayList();
-        for (SkillsModel skill : skills) {
-            list.add(modelMapper.map(skill, SkillsDTO.class));
+        if (!CollectionUtils.isEmpty(skills)) {
+            for (SkillsModel skill : skills) {
+                list.add(modelMapper.map(skill, SkillsDTO.class));
+            }
         }
         return list;
     }
 
-    private List<SkillsModel> transformSkillsToModel(List<SkillsDTO> skills) {
+    private List<SkillsModel> transformSkillsToModel(final List<SkillsDTO> skills) {
         List<SkillsModel> list = Lists.newArrayList();
-        for (SkillsDTO skill : skills) {
-            list.add(modelMapper.map(skill, SkillsModel.class));
+        if (!CollectionUtils.isEmpty(skills)) {
+            for (SkillsDTO skill : skills) {
+                list.add(modelMapper.map(skill, SkillsModel.class));
+            }
         }
         return list;
     }
 
     private List<ModeTransportDTO> transformModeTransport(
-            List<ModeTransportModel> modeTransport) {
+            final List<ModeTransportModel> modeTransport) {
         List<ModeTransportDTO> list = Lists.newArrayList();
-        for (ModeTransportModel model : modeTransport) {
-            list.add(modelMapper.map(model, ModeTransportDTO.class));
+        if (!CollectionUtils.isEmpty(modeTransport)) {
+            for (ModeTransportModel model : modeTransport) {
+                list.add(modelMapper.map(model, ModeTransportDTO.class));
+            }
         }
         return list;
     }
 
     private List<ModeTransportModel> transformModeTransportToModel(
-            List<ModeTransportDTO> modeTransport) {
+            final List<ModeTransportDTO> modeTransport) {
         List<ModeTransportModel> list = Lists.newArrayList();
-        for (ModeTransportDTO model : modeTransport) {
-            list.add(modelMapper.map(model, ModeTransportModel.class));
+        if (CollectionUtils.isEmpty(modeTransport)) {
+            for (ModeTransportDTO model : modeTransport) {
+                list.add(modelMapper.map(model, ModeTransportModel.class));
+            }
         }
         return list;
     }
 
-    private List<TaskDTO> transformTasks(List<TaskModel> tasks) {
+    private List<TaskDTO> transformTasks(final List<TaskModel> tasks) {
         List<TaskDTO> list = Lists.newArrayList();
-        for (TaskModel task : tasks) {
-            list.add(modelMapper.map(task, TaskDTO.class));
+        if (CollectionUtils.isEmpty(tasks)) {
+            for (TaskModel task : tasks) {
+                list.add(modelMapper.map(task, TaskDTO.class));
+            }
         }
         return list;
     }
 
-    private List<TaskModel> transformTasksToModel(List<TaskDTO> tasks) {
+    private List<TaskModel> transformTasksToModel(final List<TaskDTO> tasks) {
         List<TaskModel> list = Lists.newArrayList();
-        for (TaskDTO task : tasks) {
-            list.add(modelMapper.map(task, TaskModel.class));
+        if (!CollectionUtils.isEmpty(tasks)) {
+            for (TaskDTO task : tasks) {
+                list.add(modelMapper.map(task, TaskModel.class));
+            }
         }
         return list;
     }
 
     private List<BarredEmployeeDTO> getBarredEmployeeDetails(
-            Long customerLocationId) {
+            final Long customerLocationId) {
         return barredEmployeeService.getBarredEmployees(customerLocationId);
     }
 }

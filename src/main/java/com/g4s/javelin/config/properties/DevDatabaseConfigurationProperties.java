@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 @Component
 @PropertySource("classpath:application-mysql.properties")
 @Profile("devserversql")
-public class DevDatabaseConfigurationProperties extends DbConfigProperties {
+public class DevDatabaseConfigurationProperties extends AbstractDbConfigProperties {
 
     @Autowired
     private Environment env;

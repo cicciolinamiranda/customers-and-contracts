@@ -6,6 +6,8 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,6 +23,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import com.g4s.javelin.data.model.workorder.WorkOrderModel;
+import com.g4s.javelin.enums.StatusEnum;
 
 @Entity
 @Table(name = "CUSTOMER_LOCATION")
@@ -34,65 +37,65 @@ public class CustomerLocationModel {
     @Column
     private String name;
 
-    @ManyToMany(fetch=FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "CUSTLOCATION_WORKORDER",
-    joinColumns = { @JoinColumn(name = "customer_location_id",
-    referencedColumnName = "id", nullable = true) },
-    inverseJoinColumns = { @JoinColumn(name = "work_order_id",
-    referencedColumnName = "id", nullable = true) })
+        joinColumns = { @JoinColumn(name = "customer_location_id",
+        referencedColumnName = "id", nullable = true) },
+        inverseJoinColumns = { @JoinColumn(name = "work_order_id",
+        referencedColumnName = "id", nullable = true) })
     private List<WorkOrderModel> workOrders;
 
-    @ManyToMany(fetch=FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "CUSTLOCATION_TRANSPORT",
-    joinColumns = { @JoinColumn(name = "customer_location_id",
-    referencedColumnName = "id", nullable = true) },
-    inverseJoinColumns = { @JoinColumn(name = "mode_transport_id",
-    referencedColumnName = "id", nullable = true) })
+        joinColumns = { @JoinColumn(name = "customer_location_id",
+        referencedColumnName = "id", nullable = true) },
+        inverseJoinColumns = { @JoinColumn(name = "mode_transport_id",
+        referencedColumnName = "id", nullable = true) })
     private List<ModeTransportModel> modeTransports;
 
-    @ManyToMany(fetch=FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "CUSTLOCATION_SKILLS",
-    joinColumns = { @JoinColumn(name = "customer_location_id",
-    referencedColumnName = "id", nullable = true) },
-    inverseJoinColumns = { @JoinColumn(name = "skills_id",
-    referencedColumnName = "id", nullable = true) })
+        joinColumns = { @JoinColumn(name = "customer_location_id",
+        referencedColumnName = "id", nullable = true) },
+        inverseJoinColumns = { @JoinColumn(name = "skills_id",
+        referencedColumnName = "id", nullable = true) })
     private List<SkillsModel> skills;
 
-    @ManyToMany(fetch=FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "CUSTLOCATION_EQUIPMENT",
-    joinColumns = { @JoinColumn(name = "customer_location_id",
-    referencedColumnName = "id", nullable = true) },
-    inverseJoinColumns = { @JoinColumn(name = "equipment_id",
-    referencedColumnName = "id", nullable = true) })
+        joinColumns = { @JoinColumn(name = "customer_location_id",
+        referencedColumnName = "id", nullable = true) },
+        inverseJoinColumns = { @JoinColumn(name = "equipment_id",
+        referencedColumnName = "id", nullable = true) })
     private List<EquipmentModel> equipments;
 
-    @ManyToMany(fetch=FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "CUSTLOCATION_TASK",
-    joinColumns = { @JoinColumn(name = "customer_location_id",
-    referencedColumnName = "id", nullable = true) },
-    inverseJoinColumns = { @JoinColumn(name = "task_id",
-    referencedColumnName = "id", nullable = true) })
+        joinColumns = { @JoinColumn(name = "customer_location_id",
+        referencedColumnName = "id", nullable = true) },
+        inverseJoinColumns = { @JoinColumn(name = "task_id",
+        referencedColumnName = "id", nullable = true) })
     private List<TaskModel> tasks;
 
-    @OneToMany(mappedBy = "customerLocation", cascade = CascadeType.PERSIST, fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "customerLocation", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<SiteLocationModel> siteLocations;
 
-    @OneToMany(mappedBy = "customerLocation", cascade = CascadeType.PERSIST, fetch=FetchType.EAGER)
+    @OneToMany(mappedBy = "customerLocation", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<BarredEmployeeModel> barredEmployee;
 
-    @ManyToOne(fetch=FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id")
     private CustomerModel customer;
 
     @Embedded
     private AddressModel address;
-    
-    @Column(name = "CREATED_DATE", nullable=false, updatable=true)
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+
+    @Column(name = "CREATED_DATE", nullable = true, updatable = true)
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createdDate;
 
-    @Column(name = "SETUP_DATE", nullable=false, updatable=true)
-    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @Column(name = "SETUP_DATE", nullable = true, updatable = true)
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime setUpDate;
     @Column(name = "SOP_DETAILS")
     private String sopDetails;
@@ -107,11 +110,15 @@ public class CustomerLocationModel {
     @Column(name = "FLOOR_PLAN")
     private String floorPlan;
 
+    @Column(name = "STATUS")
+    @Enumerated(EnumType.STRING)
+    private StatusEnum status;
+
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -119,7 +126,7 @@ public class CustomerLocationModel {
         return workOrders;
     }
 
-    public void setWorkOrders(List<WorkOrderModel> workOrders) {
+    public void setWorkOrders(final List<WorkOrderModel> workOrders) {
         this.workOrders = workOrders;
     }
 
@@ -127,7 +134,7 @@ public class CustomerLocationModel {
         return modeTransports;
     }
 
-    public void setModeTransports(List<ModeTransportModel> modeTransports) {
+    public void setModeTransports(final List<ModeTransportModel> modeTransports) {
         this.modeTransports = modeTransports;
     }
 
@@ -135,7 +142,7 @@ public class CustomerLocationModel {
         return skills;
     }
 
-    public void setSkills(List<SkillsModel> skills) {
+    public void setSkills(final List<SkillsModel> skills) {
         this.skills = skills;
     }
 
@@ -143,7 +150,7 @@ public class CustomerLocationModel {
         return siteLocations;
     }
 
-    public void setSiteLocations(List<SiteLocationModel> siteLocations) {
+    public void setSiteLocations(final List<SiteLocationModel> siteLocations) {
         this.siteLocations = siteLocations;
     }
 
@@ -151,7 +158,7 @@ public class CustomerLocationModel {
         return equipments;
     }
 
-    public void setEquipments(List<EquipmentModel> equipments) {
+    public void setEquipments(final List<EquipmentModel> equipments) {
         this.equipments = equipments;
     }
 
@@ -159,7 +166,7 @@ public class CustomerLocationModel {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(final String name) {
         this.name = name;
     }
 
@@ -167,7 +174,7 @@ public class CustomerLocationModel {
         return tasks;
     }
 
-    public void setTasks(List<TaskModel> tasks) {
+    public void setTasks(final List<TaskModel> tasks) {
         this.tasks = tasks;
     }
 
@@ -175,7 +182,7 @@ public class CustomerLocationModel {
         return createdDate;
     }
 
-    public void setCreatedDate(DateTime createdDate) {
+    public void setCreatedDate(final DateTime createdDate) {
         this.createdDate = createdDate;
     }
 
@@ -183,7 +190,7 @@ public class CustomerLocationModel {
         return address;
     }
 
-    public void setAddress(AddressModel address) {
+    public void setAddress(final AddressModel address) {
         this.address = address;
     }
 
@@ -191,7 +198,7 @@ public class CustomerLocationModel {
         return setUpDate;
     }
 
-    public void setSetUpDate(DateTime setUpDate) {
+    public void setSetUpDate(final DateTime setUpDate) {
         this.setUpDate = setUpDate;
     }
 
@@ -199,7 +206,7 @@ public class CustomerLocationModel {
         return sopDetails;
     }
 
-    public void setSopDetails(String sopDetails) {
+    public void setSopDetails(final String sopDetails) {
         this.sopDetails = sopDetails;
     }
 
@@ -207,7 +214,7 @@ public class CustomerLocationModel {
         return locationInstructionsApproval;
     }
 
-    public void setLocationInstructionsApproval(String locationInstructionsApproval) {
+    public void setLocationInstructionsApproval(final String locationInstructionsApproval) {
         this.locationInstructionsApproval = locationInstructionsApproval;
     }
 
@@ -215,7 +222,7 @@ public class CustomerLocationModel {
         return healthSafetySurvey;
     }
 
-    public void setHealthSafetySurvey(String healthSafetySurvey) {
+    public void setHealthSafetySurvey(final String healthSafetySurvey) {
         this.healthSafetySurvey = healthSafetySurvey;
     }
 
@@ -223,7 +230,7 @@ public class CustomerLocationModel {
         return technicalSurvey;
     }
 
-    public void setTechnicalSurvey(String technicalSurvey) {
+    public void setTechnicalSurvey(final String technicalSurvey) {
         this.technicalSurvey = technicalSurvey;
     }
 
@@ -231,7 +238,7 @@ public class CustomerLocationModel {
         return customer;
     }
 
-    public void setCustomer(CustomerModel customer) {
+    public void setCustomer(final CustomerModel customer) {
         this.customer = customer;
     }
 
@@ -239,7 +246,7 @@ public class CustomerLocationModel {
         return locationSurvey;
     }
 
-    public void setLocationSurvey(String locationSurvey) {
+    public void setLocationSurvey(final String locationSurvey) {
         this.locationSurvey = locationSurvey;
     }
 
@@ -247,7 +254,7 @@ public class CustomerLocationModel {
         return floorPlan;
     }
 
-    public void setFloorPlan(String floorPlan) {
+    public void setFloorPlan(final String floorPlan) {
         this.floorPlan = floorPlan;
     }
 
@@ -255,25 +262,33 @@ public class CustomerLocationModel {
         return barredEmployee;
     }
 
-    public void setBarredEmployee(List<BarredEmployeeModel> barredEmployee) {
+    public void setBarredEmployee(final List<BarredEmployeeModel> barredEmployee) {
         this.barredEmployee = barredEmployee;
     }
 
-	@Override
-	public String toString() {
-		return "CustomerLocationModel [id=" + id + ", name=" + name
-				+ ", workOrders=" + workOrders + ", modeTransports="
-				+ modeTransports + ", skills=" + skills + ", equipments="
-				+ equipments + ", tasks=" + tasks + ", siteLocations="
-				+ siteLocations + ", barredEmployee=" + barredEmployee
-				+ ", customer=" + customer + ", address=" + address
-//				+ ", createdDate=" + createdDate + ", setUpDate=" + setUpDate
-				+ ", sopDetails=" + sopDetails
-				+ ", locationInstructionsApproval="
-				+ locationInstructionsApproval + ", healthSafetySurvey="
-				+ healthSafetySurvey + ", technicalSurvey=" + technicalSurvey
-				+ ", locationSurvey=" + locationSurvey + ", floorPlan="
-				+ floorPlan + "]";
-	}
+    @Override
+    public String toString() {
+        return "CustomerLocationModel [id=" + id + ", name=" + name
+                + ", workOrders=" + workOrders + ", modeTransports="
+                + modeTransports + ", skills=" + skills + ", equipments="
+                + equipments + ", tasks=" + tasks + ", siteLocations="
+                + siteLocations + ", barredEmployee=" + barredEmployee
+                + ", customer=" + customer + ", address=" + address
+//                + ", createdDate=" + createdDate + ", setUpDate=" + setUpDate
+                + ", sopDetails=" + sopDetails
+                + ", locationInstructionsApproval="
+                + locationInstructionsApproval + ", healthSafetySurvey="
+                + healthSafetySurvey + ", technicalSurvey=" + technicalSurvey
+                + ", locationSurvey=" + locationSurvey + ", floorPlan="
+                + floorPlan + "]";
+    }
+
+    public StatusEnum getStatus() {
+        return status;
+    }
+
+    public void setStatus(final StatusEnum status) {
+        this.status = status;
+    }
 
 }

@@ -5,7 +5,7 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 @Component
-public abstract class DbConfigProperties {
+public abstract class AbstractDbConfigProperties {
 
     @Autowired
     private Environment env;

@@ -9,7 +9,7 @@ public class ModeTransportDTO {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(final Long id) {
         this.id = id;
     }
 
@@ -17,7 +17,7 @@ public class ModeTransportDTO {
         return transportName;
     }
 
-    public void setTransportName(String transportName) {
+    public void setTransportName(final String transportName) {
         this.transportName = transportName;
     }
 

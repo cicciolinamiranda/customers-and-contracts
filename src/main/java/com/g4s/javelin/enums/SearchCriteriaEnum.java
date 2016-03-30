@@ -5,11 +5,11 @@ public enum SearchCriteriaEnum implements BaseEnum {
     ADDRESS("ADDRESS", "Address"),
     CUSTOMER("CUSTOMER", "Customer Name"),
     ID("ID", "ID");
-    
+
     private final String code;
     private final String description;
 
-    private SearchCriteriaEnum(final String code, final String description) {
+    SearchCriteriaEnum(final String code, final String description) {
         this.code = code;
         this.description = description;
     }

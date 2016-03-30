@@ -18,20 +18,20 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import com.g4s.javelin.config.properties.DbConfigProperties;
+import com.g4s.javelin.config.properties.AbstractDbConfigProperties;
 
 @EnableTransactionManagement
 @Configuration
 @EnableJpaRepositories("com.g4s.javelin.data.repository")
 public class DbConfiguration {
     @Autowired
-    private DbConfigProperties properties;
+    private AbstractDbConfigProperties properties;
 
     @Bean
     public EntityManagerFactory entityManagerFactory() {
         Properties props = new Properties();
         props.put("hibernate.dialect", "org.hibernate.dialect.MySQL5InnoDBDialect");
-        props.put("hibernate.hbm2ddl.auto","update");
+        props.put("hibernate.hbm2ddl.auto", "update");
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         factory.setJpaVendorAdapter(vendorAdapter);
@@ -66,10 +66,12 @@ public class DbConfiguration {
         datasource.setUrl(properties.getUrl());
         datasource.setUsername(properties.getUsername());
         datasource.setPassword(properties.getPassword());
-        datasource.setMaxActive(12); // Maximum CloudSQL connection per GAE instance.
+        //CSOFF: MagicNumber
+        datasource.setMaxActive(12);
         datasource.setMaxIdle(12);
         datasource.setMinIdle(12);
         datasource.setInitialSize(12);
+        //CSON: MagicNumber
         datasource.setTestOnBorrow(true);
         datasource.setValidationQuery("SELECT 1");
         return datasource;
