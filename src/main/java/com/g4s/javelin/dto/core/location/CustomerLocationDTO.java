@@ -29,7 +29,7 @@ public class CustomerLocationDTO {
     private String statusStr;
 
     //SiteLocationDTO
-    
+
     public String getName() {
         return name;
     }
@@ -151,7 +151,10 @@ public class CustomerLocationDTO {
     public List<SiteLocationDTO> getSiteLocations() {
         return siteLocations;
     }
+
+    public void setSiteLocations(final List<SiteLocationDTO> siteLocations) {
         this.siteLocations = siteLocations;
+    }
     public void setStatusStr(final String statusStr) {
         this.statusStr = statusStr;
     }
