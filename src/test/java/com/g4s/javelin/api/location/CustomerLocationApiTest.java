@@ -135,4 +135,17 @@ public class CustomerLocationApiTest {
     	List<CustomerLocationDTO> result = customerLocationApi.searchCustomerLocation("ID", "1");
     	assertEquals(1, result.size());
     }
+
+    @Test
+    public void testAddExistingCustomerLocationToAWorkOrder() throws Exception {
+        customerLocationApi.addExistingCustomerLocationToAWorkOrder(1111l, 1234l);
+        Mockito.verify(customerLocationService, Mockito.times(1)).addExistingCustomerLocationToAWorkOrder(1111l, 1234l);
+    }
+
+    @Test
+    public void testUpdateCustomerLocationDetails() throws Exception {
+        customerLocationApi.updateCustomerLocationDetails(customerLocationDTO);
+        Mockito.verify(customerLocationService, Mockito.times(1)).saveCustomerLocationDetails(
+                Mockito.any(CustomerLocationDTO.class));
+    }
 }

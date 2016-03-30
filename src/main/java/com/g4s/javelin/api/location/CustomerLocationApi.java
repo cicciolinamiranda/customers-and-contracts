@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Lazy;
 import com.g4s.javelin.constants.ApiConstants;
 import com.g4s.javelin.constants.ServiceConstants;
 import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
+import com.g4s.javelin.exception.CustomerLocationException;
 import com.g4s.javelin.enums.SearchCriteriaEnum;
 import com.g4s.javelin.service.location.CustomerLocationService;
 import com.google.api.server.spi.config.Api;
@@ -16,6 +17,11 @@ import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
+
+import java.util.List;
 
 /**
  * @author Jordan Duabe
@@ -63,15 +69,45 @@ public class CustomerLocationApi {
     }
 
     /**
+     * Save existing customer location details to an existing work order
+     *
+     * @param customerLocationId Customer Location id
+     * @param workOrderId Work order id
+     */
+    @ApiMethod(
+            name = "customer.location.add_existing",
+            path = "customer-location/add_existing",
+            httpMethod = ApiMethod.HttpMethod.POST
+    )
+    public void addExistingCustomerLocationToAWorkOrder(@Named("customerLocationId") final Long customerLocationId,
+            @Named("workOrderId") final Long workOrderId) throws CustomerLocationException {
+        customerLocationService.addExistingCustomerLocationToAWorkOrder(customerLocationId, workOrderId);
+    }
+
+    /**
      * Save customer location details
      *
      * @param customerLocationDTO Customer location details
      */
     @ApiMethod(
             name = "customer.location.add",
-            path = "customer-location",
+            path = "customer-location/add",
             httpMethod = ApiMethod.HttpMethod.POST)
     public void saveCustomerLocationDetails(final CustomerLocationDTO customerLocationDTO) {
+        customerLocationService.saveCustomerLocationDetails(customerLocationDTO);
+    }
+
+    /**
+     * Update customer location details
+     *
+     * @param customerLocationDTO Customer location details
+     */
+    @ApiMethod(
+            name = "customer.location.update",
+            path = "customer-location/update",
+            httpMethod = ApiMethod.HttpMethod.POST
+    )
+    public void updateCustomerLocationDetails(final CustomerLocationDTO customerLocationDTO) {
         customerLocationService.saveCustomerLocationDetails(customerLocationDTO);
     }
 

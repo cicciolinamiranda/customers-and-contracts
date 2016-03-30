@@ -25,10 +25,11 @@ public class CustomerLocationDTO {
     private String locationSurvey;
     private String floorPlan;
     private CustomerDTO customer;
+    private List<SiteLocationDTO> siteLocations;
     private String statusStr;
 
     //SiteLocationDTO
-
+    
     public String getName() {
         return name;
     }
@@ -147,6 +148,10 @@ public class CustomerLocationDTO {
     public String getStatusStr() {
         return statusStr;
     }
+    public List<SiteLocationDTO> getSiteLocations() {
+        return siteLocations;
+    }
+        this.siteLocations = siteLocations;
     public void setStatusStr(final String statusStr) {
         this.statusStr = statusStr;
     }
