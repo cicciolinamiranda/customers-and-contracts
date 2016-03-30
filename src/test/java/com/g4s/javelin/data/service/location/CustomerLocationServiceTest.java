@@ -166,10 +166,10 @@ public class CustomerLocationServiceTest {
     public void testGetCustomerLocationByAddress() {
         List<CustomerLocationModel> repositoryResultList = Lists.newArrayList();
         repositoryResultList.add(customerLocationModel);
-        when(customerLocationRepositoryMock.findByAddressAddressLike("1234 Jupiter Street, Manila"))
+        when(customerLocationRepositoryMock.findByAddressAddressContainingIgnoreCase("1234 Jupiter Street, Manila"))
                 .thenReturn(repositoryResultList);
         List<CustomerLocationDTO> results = customerLocationService.getCustomerLocationByAddress("1234 Jupiter Street, Manila");
-        verify(customerLocationRepositoryMock, times(1)).findByAddressAddressLike("1234 Jupiter Street, Manila");
+        verify(customerLocationRepositoryMock, times(1)).findByAddressAddressContainingIgnoreCase("1234 Jupiter Street, Manila");
         assertEquals(1, results.size());
     }
 
@@ -177,10 +177,10 @@ public class CustomerLocationServiceTest {
     public void testGetCustomerLocationByCustomerName() {
         List<CustomerLocationModel> repositoryResultList = Lists.newArrayList();
         repositoryResultList.add(customerLocationModel);
-        when(customerLocationRepositoryMock.findByCustomerCustomerName("Juan Dela Cruz"))
+        when(customerLocationRepositoryMock.findByCustomerCustomerNameContainingIgnoreCase("Juan Dela Cruz"))
                 .thenReturn(repositoryResultList);
         List<CustomerLocationDTO> results = customerLocationService.getCustomerLocationByCustomerName("Juan Dela Cruz");
-        verify(customerLocationRepositoryMock, times(1)).findByCustomerCustomerName("Juan Dela Cruz");
+        verify(customerLocationRepositoryMock, times(1)).findByCustomerCustomerNameContainingIgnoreCase("Juan Dela Cruz");
         assertEquals(1, results.size());
     }
 

@@ -12,8 +12,8 @@ public interface CustomerLocationRepository extends
 
     List<CustomerLocationModel> findByWorkOrdersId(final Long id);
 
-    List<CustomerLocationModel> findByAddressAddressLike(final String address);
+    List<CustomerLocationModel> findByAddressAddressContainingIgnoreCase(final String address);
 
 
-    List<CustomerLocationModel> findByCustomerCustomerName(final String customerName);
+    List<CustomerLocationModel> findByCustomerCustomerNameContainingIgnoreCase(final String customerName);
 }

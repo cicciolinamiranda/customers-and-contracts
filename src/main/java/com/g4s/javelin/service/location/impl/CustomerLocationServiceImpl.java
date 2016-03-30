@@ -73,7 +73,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
     @Override
     public List<CustomerLocationDTO> getCustomerLocationByAddress(String address) {
         List<CustomerLocationModel> results = customerLocationRepository.
-                findByAddressAddressLike(address);
+        		findByAddressAddressContainingIgnoreCase(address);
         List<CustomerLocationDTO> list = Lists.newArrayList();
         for (CustomerLocationModel result : results) {
             list.add(transformCustomerLocation(result));
@@ -85,7 +85,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
     public List<CustomerLocationDTO> getCustomerLocationByCustomerName(
             String customerName) {
         List<CustomerLocationModel> results = customerLocationRepository.
-        		findByCustomerCustomerName(customerName);
+        		findByCustomerCustomerNameContainingIgnoreCase(customerName);
         List<CustomerLocationDTO> list = Lists.newArrayList();
         for (CustomerLocationModel result : results) {
             list.add(transformCustomerLocation(result));

@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Lazy;
 import com.g4s.javelin.constants.ApiConstants;
 import com.g4s.javelin.constants.ServiceConstants;
 import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
+import com.g4s.javelin.enums.SearchCriteriaEnum;
 import com.g4s.javelin.service.location.CustomerLocationService;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
@@ -84,19 +85,19 @@ public class CustomerLocationApi {
      * @param customerLocationDTO Customer location details
      */
     @ApiMethod(
-            name = "customer.location.searcg",
+            name = "customer.location.search",
             path = "customer-location/search",
             httpMethod = ApiMethod.HttpMethod.POST
     )
     public List<CustomerLocationDTO> searchCustomerLocation(@Named("customerId") final Long customerId,
             @Named("criteria") final String criteria, @Named("value") final String value) {
         List<CustomerLocationDTO> list = Lists.newArrayList();
-        
-        if ("ADDRESS".equalsIgnoreCase(criteria)) {
+        SearchCriteriaEnum sCriteria = SearchCriteriaEnum.findByCode(criteria);
+        if (SearchCriteriaEnum.ADDRESS.equals(sCriteria)) {
            list = customerLocationService.getCustomerLocationByAddress(value);
-        } else if ("CUSTOMER".equalsIgnoreCase(criteria)) {
+        } else if (SearchCriteriaEnum.CUSTOMER.equals(sCriteria)) {
         	list = customerLocationService.getCustomerLocationByCustomerName(value);
-        } else if ("ID".equalsIgnoreCase(criteria)) {
+        } else if (SearchCriteriaEnum.ID.equals(sCriteria)) {
         	list.add(customerLocationService.getCustomerLocationDetails(Long.valueOf(value)));
         }
         return list;
