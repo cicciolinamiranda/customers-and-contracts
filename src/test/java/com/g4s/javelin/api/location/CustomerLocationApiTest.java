@@ -7,10 +7,11 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
 import static org.junit.Assert.assertNotNull;
 
 import java.util.List;
+
+import junit.framework.Assert;
 
 import org.joda.time.DateTime;
 import org.junit.Before;
@@ -68,6 +69,7 @@ public class CustomerLocationApiTest {
 
     private void setUpCustomerLocationDTO() {
         customerLocationDTO = new CustomerLocationDTO();
+        customerLocationDTO.setId(1L);
         AddressDTO addressDTO = new AddressDTO();
         addressDTO.setAddress("1234 Jupiter Street, Manila");
         addressDTO.setLatitude("0");
@@ -147,5 +149,18 @@ public class CustomerLocationApiTest {
         customerLocationApi.updateCustomerLocationDetails(customerLocationDTO);
         Mockito.verify(customerLocationService, Mockito.times(1)).saveCustomerLocationDetails(
                 Mockito.any(CustomerLocationDTO.class));
+    }
+
+    @Test
+    public void testUpdateStatus() throws Exception {
+        customerLocationApi.updateCustomerLocationStatus(Mockito.anyLong(), Mockito.anyString());
+        Mockito.verify(customerLocationService, Mockito.times(1)).updateCustomerLocationStatus(Mockito.anyLong(), Mockito.anyString());
+    }
+    
+    @Test
+    public void testCreate() throws Exception {
+    	when(customerLocationService.createCustomerLocation()).thenReturn(customerLocationDTO);
+        CustomerLocationDTO result = customerLocationApi.createCustomerLocation();
+        Mockito.verify(customerLocationService, Mockito.times(1)).createCustomerLocation();
     }
 }

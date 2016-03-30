@@ -134,10 +134,10 @@ public class CustomerLocationApi {
      * @param status Status
      */
     @ApiMethod(
-            name = "customer.location.update",
-            path = "customer-location/update",
+            name = "customer.location.update.status",
+            path = "customer-location/update-status",
             httpMethod = ApiMethod.HttpMethod.POST)
-    public void updateCustomrerLocationStatus(@Named("id") final Long id,
+    public void updateCustomerLocationStatus(@Named("id") final Long id,
             @Named("status") final String status) {
         customerLocationService.updateCustomerLocationStatus(id, status);
     }

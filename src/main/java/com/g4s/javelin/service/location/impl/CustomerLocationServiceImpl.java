@@ -234,7 +234,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
 
     private List<TaskDTO> transformTasks(final List<TaskModel> tasks) {
         List<TaskDTO> list = Lists.newArrayList();
-        if (CollectionUtils.isEmpty(tasks)) {
+        if (!CollectionUtils.isEmpty(tasks)) {
             for (TaskModel task : tasks) {
                 list.add(modelMapper.map(task, TaskDTO.class));
             }

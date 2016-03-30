@@ -39,6 +39,7 @@ import com.g4s.javelin.dto.core.location.EquipmentDTO;
 import com.g4s.javelin.dto.core.location.ModeTransportDTO;
 import com.g4s.javelin.dto.core.location.SkillsDTO;
 import com.g4s.javelin.dto.core.location.TaskDTO;
+import com.g4s.javelin.enums.StatusEnum;
 import com.g4s.javelin.exception.CustomerLocationException;
 import com.g4s.javelin.service.location.BarredEmployeeService;
 import com.g4s.javelin.service.location.CustomerLocationService;
@@ -216,5 +217,16 @@ public class CustomerLocationServiceTest {
         verify(customerLocationRepositoryMock, times(1)).save(any(CustomerLocationModel.class));
         doNothing().when(barredEmployeeServiceMock).saveBarredEmployees(barredEmployeeList, 1L	);
     }
+    
+    @Test
+    public void updateCustomerLocationStatus() {
+    	customerLocationService.updateCustomerLocationStatus(1L,"IN_PROGRESS");
+        Mockito.verify(customerLocationRepositoryMock, Mockito.times(1)).updateStatus(1L, StatusEnum.INPROGRESS);
+    }
 
+    public void createCustomerLocation() {
+    	when(customerLocationRepositoryMock.save(new CustomerLocationModel())).thenReturn(customerLocationModel);
+    	customerLocationService.createCustomerLocation();
+        Mockito.verify(customerLocationRepositoryMock, Mockito.times(1)).save(new CustomerLocationModel());
+    }
 }
