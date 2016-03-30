@@ -30,5 +30,4 @@ public class TaskDTO {
     public void setTaskActivities(List<TaskActivityDTO> taskActivities) {
         this.taskActivities = taskActivities;
     }
-
 }

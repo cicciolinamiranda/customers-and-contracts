@@ -62,7 +62,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
     public List<CustomerLocationDTO> getCustomerLocationDetailsList(
             Long workOrderId) {
         List<CustomerLocationModel> results = customerLocationRepository
-                .findByWorkOrders(workOrderId);
+                .findByWorkOrdersId(workOrderId);
         List<CustomerLocationDTO> list = Lists.newArrayList();
         for (CustomerLocationModel result : results) {
             list.add(transformCustomerLocation(result));
@@ -73,7 +73,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
     @Override
     public List<CustomerLocationDTO> getCustomerLocationByAddress(String address) {
         List<CustomerLocationModel> results = customerLocationRepository.
-                getCustomerLocationByAddress(address);
+        		findByAddressAddressContainingIgnoreCase(address);
         List<CustomerLocationDTO> list = Lists.newArrayList();
         for (CustomerLocationModel result : results) {
             list.add(transformCustomerLocation(result));
@@ -85,7 +85,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
     public List<CustomerLocationDTO> getCustomerLocationByCustomerName(
             String customerName) {
         List<CustomerLocationModel> results = customerLocationRepository.
-                getCustomerLocationByCustomerName(customerName);
+        		findByCustomerCustomerNameContainingIgnoreCase(customerName);
         List<CustomerLocationDTO> list = Lists.newArrayList();
         for (CustomerLocationModel result : results) {
             list.add(transformCustomerLocation(result));
@@ -95,20 +95,18 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
 
     @Override
     public void saveCustomerLocationDetails(CustomerLocationDTO customerLocation) {
+    	System.out.println(customerLocation.getCreatedDate());
         CustomerLocationModel model;
         List<WorkOrderModel> workOrders = Lists.newArrayList();
-        if (customerLocation.getId() != null) {
-            model = customerLocationRepository
-                    .findOne(customerLocation.getId());
-            workOrders = model.getWorkOrders();
-        } else {
-            model = modelMapper.map(customerLocation,
+        model = modelMapper.map(customerLocation,
                     CustomerLocationModel.class);
+        if (customerLocation.getId() != null) {
+            model.setId(customerLocation.getId());
         }
-        WorkOrderModel workOrder = workOrderRepository.findOne(customerLocation
-                .getWordOrderId());
+        WorkOrderModel workOrder = workOrderRepository.findOne(customerLocation.getWorkOrderId());
         workOrders.add(workOrder);
         model.setWorkOrders(workOrders);
+
         // setup equipments
         model.setEquipments(transformEquipmentsToModel(customerLocation
                 .getEquipments()));
@@ -118,6 +116,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         model.setTasks(transformTasksToModel(customerLocation.getTasks()));
         model.setModeTransports(transformModeTransportToModel(customerLocation
                 .getModeOfTransports()));
+        System.out.println(model.toString());
         model = customerLocationRepository.save(model);
         // Save barred employess
         barredEmployeeService.saveBarredEmployees(

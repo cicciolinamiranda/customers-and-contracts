@@ -1,9 +1,11 @@
 package com.g4s.javelin.service.location.impl;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.util.CollectionUtils;
 
 import com.g4s.javelin.data.model.location.BarredEmployeeModel;
 import com.g4s.javelin.data.model.location.CustomerLocationModel;
@@ -27,22 +29,24 @@ public class BarredEmployeeServiceImpl implements BarredEmployeeService {
         List<BarredEmployeeModel> barredEmployees = Lists.newArrayList();
         CustomerLocationModel location = customerLocationRepository.findOne(customerLocationId);
         BarredEmployeeModel model;
-        for (BarredEmployeeDTO dto : employees) {
-            model = new BarredEmployeeModel();
-            if (dto.getId() != null) {
-                model.setId(dto.getId());
+        if (!CollectionUtils.isEmpty(employees)) {
+            for (BarredEmployeeDTO dto : employees) {
+                model = new BarredEmployeeModel();
+                if (dto.getId() != null) {
+                    model.setId(dto.getId());
+                }
+                model.setEmployeeId(dto.getEmployeeId());
+                model.setStartDate(dto.getStartDate());
+                model.setEndDate(dto.getEndDate());
+                model.setCustomerLocation(location);
+                barredEmployees.add(model);
             }
-            model.setEmployeeId(dto.getEmployeeId());
-            model.setStartDate(dto.getStartDate());
-            model.setEndDate(dto.getEndDate());
-            model.setCustomerLocation(location);
-            barredEmployees.add(model);
         }
         barredEmployeeRepository.save(barredEmployees);
     }
 
     public List<BarredEmployeeDTO> getBarredEmployees(Long customerLocationId) {
-        List<BarredEmployeeModel> employees = barredEmployeeRepository.getBarredEmployeeByCustomerLocation(customerLocationId);
+        List<BarredEmployeeModel> employees = barredEmployeeRepository.findByCustomerLocationId(customerLocationId);
         List<BarredEmployeeDTO> barredEmployees = Lists.newArrayList();
         BarredEmployeeDTO dto;
         for (BarredEmployeeModel emp : employees) {
