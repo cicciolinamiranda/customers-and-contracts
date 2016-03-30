@@ -19,5 +19,11 @@ public class TaskDTO {
     public void setTaskActivities(List<TaskActivityDTO> taskActivities) {
         this.taskActivities = taskActivities;
     }
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
 
 }

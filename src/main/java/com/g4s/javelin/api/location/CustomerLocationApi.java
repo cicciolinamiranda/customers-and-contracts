@@ -1,18 +1,21 @@
 package com.g4s.javelin.api.location;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
+
 import com.g4s.javelin.constants.ApiConstants;
 import com.g4s.javelin.constants.ServiceConstants;
 import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
+import com.g4s.javelin.enums.SearchCriteriaEnum;
 import com.g4s.javelin.service.location.CustomerLocationService;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Lazy;
-
-import java.util.List;
+import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 
 /**
  * @author Jordan Duabe
@@ -74,5 +77,29 @@ public class CustomerLocationApi {
     )
     public void saveCustomerLocationDetails(final CustomerLocationDTO customerLocationDTO) {
         customerLocationService.saveCustomerLocationDetails(customerLocationDTO);
+    }
+    
+    /**
+     * Seach customer location details
+     *
+     * @param customerLocationDTO Customer location details
+     */
+    @ApiMethod(
+            name = "customer.location.search",
+            path = "customer-location/search",
+            httpMethod = ApiMethod.HttpMethod.POST
+    )
+    public List<CustomerLocationDTO> searchCustomerLocation(@Named("customerId") final Long customerId,
+            @Named("criteria") final String criteria, @Named("value") final String value) {
+        List<CustomerLocationDTO> list = Lists.newArrayList();
+        SearchCriteriaEnum sCriteria = SearchCriteriaEnum.findByCode(criteria);
+        if (SearchCriteriaEnum.ADDRESS.equals(sCriteria)) {
+           list = customerLocationService.getCustomerLocationByAddress(value);
+        } else if (SearchCriteriaEnum.CUSTOMER.equals(sCriteria)) {
+        	list = customerLocationService.getCustomerLocationByCustomerName(value);
+        } else if (SearchCriteriaEnum.ID.equals(sCriteria)) {
+        	list.add(customerLocationService.getCustomerLocationDetails(Long.valueOf(value)));
+        }
+        return list;
     }
 }

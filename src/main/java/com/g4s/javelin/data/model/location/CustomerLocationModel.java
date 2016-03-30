@@ -6,6 +6,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import com.g4s.javelin.data.model.workorder.WorkOrderModel;
@@ -32,61 +34,65 @@ public class CustomerLocationModel {
     @Column
     private String name;
 
-    @ManyToMany(cascade=CascadeType.ALL)
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name = "CUSTLOCATION_WORKORDER",
     joinColumns = { @JoinColumn(name = "customer_location_id",
-    referencedColumnName = "id") },
+    referencedColumnName = "id", nullable = true) },
     inverseJoinColumns = { @JoinColumn(name = "work_order_id",
-    referencedColumnName = "id") })
+    referencedColumnName = "id", nullable = true) })
     private List<WorkOrderModel> workOrders;
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name = "CUSTLOCATION_TRANSPORT",
     joinColumns = { @JoinColumn(name = "customer_location_id",
-    referencedColumnName = "id") },
+    referencedColumnName = "id", nullable = true) },
     inverseJoinColumns = { @JoinColumn(name = "mode_transport_id",
-    referencedColumnName = "id") })
+    referencedColumnName = "id", nullable = true) })
     private List<ModeTransportModel> modeTransports;
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name = "CUSTLOCATION_SKILLS",
     joinColumns = { @JoinColumn(name = "customer_location_id",
-    referencedColumnName = "id") },
+    referencedColumnName = "id", nullable = true) },
     inverseJoinColumns = { @JoinColumn(name = "skills_id",
-    referencedColumnName = "id") })
+    referencedColumnName = "id", nullable = true) })
     private List<SkillsModel> skills;
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name = "CUSTLOCATION_EQUIPMENT",
     joinColumns = { @JoinColumn(name = "customer_location_id",
-    referencedColumnName = "id") },
+    referencedColumnName = "id", nullable = true) },
     inverseJoinColumns = { @JoinColumn(name = "equipment_id",
-    referencedColumnName = "id") })
+    referencedColumnName = "id", nullable = true) })
     private List<EquipmentModel> equipments;
 
-    @OneToMany(cascade=CascadeType.ALL)
+    @ManyToMany(fetch=FetchType.EAGER)
     @JoinTable(name = "CUSTLOCATION_TASK",
     joinColumns = { @JoinColumn(name = "customer_location_id",
-    referencedColumnName = "id") },
+    referencedColumnName = "id", nullable = true) },
     inverseJoinColumns = { @JoinColumn(name = "task_id",
-    referencedColumnName = "id") })
+    referencedColumnName = "id", nullable = true) })
     private List<TaskModel> tasks;
 
-    @OneToMany(mappedBy = "customerLocation", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "customerLocation", cascade = CascadeType.PERSIST, fetch=FetchType.EAGER)
     private List<SiteLocationModel> siteLocations;
 
-    @OneToMany(mappedBy = "customerLocation", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "customerLocation", cascade = CascadeType.PERSIST, fetch=FetchType.EAGER)
     private List<BarredEmployeeModel> barredEmployee;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name = "customer_id")
     private CustomerModel customer;
 
     @Embedded
     private AddressModel address;
+    
+    @Column(name = "CREATED_DATE", nullable=false, updatable=true)
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createdDate;
 
-    @Column(name = "SETUP_DATE")
+    @Column(name = "SETUP_DATE", nullable=false, updatable=true)
+    @Type(type="org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime setUpDate;
     @Column(name = "SOP_DETAILS")
     private String sopDetails;
@@ -252,5 +258,22 @@ public class CustomerLocationModel {
     public void setBarredEmployee(List<BarredEmployeeModel> barredEmployee) {
         this.barredEmployee = barredEmployee;
     }
+
+	@Override
+	public String toString() {
+		return "CustomerLocationModel [id=" + id + ", name=" + name
+				+ ", workOrders=" + workOrders + ", modeTransports="
+				+ modeTransports + ", skills=" + skills + ", equipments="
+				+ equipments + ", tasks=" + tasks + ", siteLocations="
+				+ siteLocations + ", barredEmployee=" + barredEmployee
+				+ ", customer=" + customer + ", address=" + address
+//				+ ", createdDate=" + createdDate + ", setUpDate=" + setUpDate
+				+ ", sopDetails=" + sopDetails
+				+ ", locationInstructionsApproval="
+				+ locationInstructionsApproval + ", healthSafetySurvey="
+				+ healthSafetySurvey + ", technicalSurvey=" + technicalSurvey
+				+ ", locationSurvey=" + locationSurvey + ", floorPlan="
+				+ floorPlan + "]";
+	}
 
 }

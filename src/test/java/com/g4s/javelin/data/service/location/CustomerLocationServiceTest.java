@@ -125,7 +125,7 @@ public class CustomerLocationServiceTest {
         barredEmployee.setEmployeeId(1234l);
         barredEmployees.add(barredEmployee);
         customerLocationModel.setBarredEmployee(barredEmployees);
-        customerLocationModel.setCreatedDate(new DateTime());
+        //customerLocationModel.setCreatedDate(new DateTime());
         List<EquipmentModel> equipments = Lists.newArrayList();
         EquipmentModel equipment = new EquipmentModel();
         equipment.setEquipmentName("Gun");
@@ -166,10 +166,10 @@ public class CustomerLocationServiceTest {
     public void testGetCustomerLocationByAddress() {
         List<CustomerLocationModel> repositoryResultList = Lists.newArrayList();
         repositoryResultList.add(customerLocationModel);
-        when(customerLocationRepositoryMock.getCustomerLocationByAddress("1234 Jupiter Street, Manila"))
+        when(customerLocationRepositoryMock.findByAddressAddressContainingIgnoreCase("1234 Jupiter Street, Manila"))
                 .thenReturn(repositoryResultList);
         List<CustomerLocationDTO> results = customerLocationService.getCustomerLocationByAddress("1234 Jupiter Street, Manila");
-        verify(customerLocationRepositoryMock, times(1)).getCustomerLocationByAddress("1234 Jupiter Street, Manila");
+        verify(customerLocationRepositoryMock, times(1)).findByAddressAddressContainingIgnoreCase("1234 Jupiter Street, Manila");
         assertEquals(1, results.size());
     }
 
@@ -177,10 +177,10 @@ public class CustomerLocationServiceTest {
     public void testGetCustomerLocationByCustomerName() {
         List<CustomerLocationModel> repositoryResultList = Lists.newArrayList();
         repositoryResultList.add(customerLocationModel);
-        when(customerLocationRepositoryMock.getCustomerLocationByCustomerName("Juan Dela Cruz"))
+        when(customerLocationRepositoryMock.findByCustomerCustomerNameContainingIgnoreCase("Juan Dela Cruz"))
                 .thenReturn(repositoryResultList);
         List<CustomerLocationDTO> results = customerLocationService.getCustomerLocationByCustomerName("Juan Dela Cruz");
-        verify(customerLocationRepositoryMock, times(1)).getCustomerLocationByCustomerName("Juan Dela Cruz");
+        verify(customerLocationRepositoryMock, times(1)).findByCustomerCustomerNameContainingIgnoreCase("Juan Dela Cruz");
         assertEquals(1, results.size());
     }
 
@@ -214,7 +214,7 @@ public class CustomerLocationServiceTest {
         verify(workOrderRepositoryMock, times(1)).findOne(11111l);
         verify(customerLocationRepositoryMock, times(1)).findOne(1234l);
         verify(customerLocationRepositoryMock, times(1)).save(any(CustomerLocationModel.class));
-        doNothing().when(barredEmployeeServiceMock).saveBarredEmployees(barredEmployeeList, 1L);
+        doNothing().when(barredEmployeeServiceMock).saveBarredEmployees(barredEmployeeList, 1L	);
     }
 
 }
