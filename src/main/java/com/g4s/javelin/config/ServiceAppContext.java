@@ -9,10 +9,12 @@ import com.g4s.javelin.service.location.BarredEmployeeService;
 import com.g4s.javelin.service.location.CustomerLocationService;
 import com.g4s.javelin.service.location.MasterFileService;
 import com.g4s.javelin.service.location.MasterfileAssociationService;
+import com.g4s.javelin.service.location.SiteLocationService;
 import com.g4s.javelin.service.location.impl.BarredEmployeeServiceImpl;
 import com.g4s.javelin.service.location.impl.CustomerLocationServiceImpl;
 import com.g4s.javelin.service.location.impl.MasterFileServiceImpl;
 import com.g4s.javelin.service.location.impl.MasterfileAssociationServiceImpl;
+import com.g4s.javelin.service.location.impl.SiteLocationServiceImpl;
 
 @Configuration
 @Lazy
@@ -34,5 +36,9 @@ public class ServiceAppContext {
     @Bean(name = ServiceConstants.MASTERFILE_ASSOC_SERVICE)
     public MasterfileAssociationService getMasterfileAssociationService() {
         return new MasterfileAssociationServiceImpl();
+    }
+    @Bean(name = ServiceConstants.SITE_LOCATION_SERVICE)
+    public SiteLocationService getSiteLocationService() {
+        return new SiteLocationServiceImpl();
     }
 }

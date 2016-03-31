@@ -17,7 +17,11 @@ public class CustomerLocationDTO {
     private List<BarredEmployeeDTO> barredEmployees;
     private List<IncidentLogMockDTO> incidentLogs;
     private AddressDTO address;
-    private DateTime setUpDate;
+    private DateTime startDate;
+    private DateTime endDate;
+    private String startDateStr;
+    private String endDateStr;
+
     private String sopDetails;
     private String locationInstructionsApproval;
     private String healthSafetySurvey;
@@ -85,12 +89,7 @@ public class CustomerLocationDTO {
     public void setAddress(final AddressDTO address) {
         this.address = address;
     }
-    public DateTime getSetUpDate() {
-        return setUpDate;
-    }
-    public void setSetUpDate(final DateTime setUpDate) {
-        this.setUpDate = setUpDate;
-    }
+
     public String getSopDetails() {
         return sopDetails;
     }
@@ -158,5 +157,30 @@ public class CustomerLocationDTO {
     public void setStatusStr(final String statusStr) {
         this.statusStr = statusStr;
     }
+    public DateTime getStartDate() {
+        return startDate;
+    }
+    public void setStartDate(final DateTime startDate) {
+        this.startDate = startDate;
+    }
+    public DateTime getEndDate() {
+        return endDate;
+    }
+    public void setEndDate(final DateTime endDate) {
+        this.endDate = endDate;
+    }
+    public String getStartDateStr() {
+        return startDateStr;
+    }
+    public void setStartDateStr(final String startDateStr) {
+        this.startDateStr = startDateStr;
+    }
+    public String getEndDateStr() {
+        return endDateStr;
+    }
+    public void setEndDateStr(final String endDateStr) {
+        this.endDateStr = endDateStr;
+    }
+
 
 }

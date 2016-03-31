@@ -2,6 +2,7 @@ package com.g4s.javelin.service.location.impl;
 
 import java.util.List;
 
+import org.joda.time.format.DateTimeFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.util.CollectionUtils;
@@ -25,6 +26,7 @@ public class BarredEmployeeServiceImpl implements BarredEmployeeService {
     private CustomerLocationRepository customerLocationRepository;
 
     public void saveBarredEmployees(final List<BarredEmployeeDTO> employees, final Long customerLocationId) {
+        org.joda.time.format.DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/dd/yyyy");
         List<BarredEmployeeModel> barredEmployees = Lists.newArrayList();
         CustomerLocationModel location = customerLocationRepository.findOne(customerLocationId);
         BarredEmployeeModel model;
@@ -41,6 +43,9 @@ public class BarredEmployeeServiceImpl implements BarredEmployeeService {
                 model.setLastName(dto.getLastName());
                 model.setTitle(dto.getTitle());
                 model.setCustomerLocation(location);
+                if (dto.getStartDateStr() != null) {
+                    model.setStartDate(dtf.parseDateTime(dto.getStartDateStr()));
+                }
                 barredEmployees.add(model);
             }
         }
