@@ -37,6 +37,9 @@ public class BarredEmployeeServiceImpl implements BarredEmployeeService {
                 model.setEmployeeId(dto.getEmployeeId());
                 model.setStartDate(dto.getStartDate());
                 model.setEndDate(dto.getEndDate());
+                model.setFirstName(dto.getFirstName());
+                model.setLastName(dto.getLastName());
+                model.setTitle(dto.getTitle());
                 model.setCustomerLocation(location);
                 barredEmployees.add(model);
             }
