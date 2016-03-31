@@ -7,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+//CSOFF: HiddenField
 @Entity
 @Table(name = "MF_MODE_TRANSPORT")
 public class ModeTransportModel {
@@ -35,3 +36,4 @@ public class ModeTransportModel {
         this.transportName = transportName;
     }
 }
+//CSON: HiddenField

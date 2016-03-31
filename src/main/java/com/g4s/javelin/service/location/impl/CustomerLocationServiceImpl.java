@@ -11,9 +11,9 @@ import org.springframework.util.CollectionUtils;
 import com.g4s.javelin.constants.ExceptionMessageConstants;
 import com.g4s.javelin.constants.ServiceConstants;
 import com.g4s.javelin.data.model.location.AddressModel;
+import com.g4s.javelin.data.model.location.CustomerLocationEquipmentModel;
+import com.g4s.javelin.data.model.location.CustomerLocationModeOfTransportModel;
 import com.g4s.javelin.data.model.location.CustomerLocationModel;
-import com.g4s.javelin.data.model.location.EquipmentModel;
-import com.g4s.javelin.data.model.location.ModeTransportModel;
 import com.g4s.javelin.data.model.location.SkillsModel;
 import com.g4s.javelin.data.model.location.TaskModel;
 import com.g4s.javelin.data.model.workorder.WorkOrderModel;
@@ -126,14 +126,14 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         model.setAddress(modelMapper.map(customerLocation.getAddress(),
                 AddressModel.class));
         model.setTasks(transformTasksToModel(customerLocation.getTasks()));
-        model.setModeTransports(transformModeTransportToModel(customerLocation
-                .getModeOfTransports()));
         model = customerLocationRepository.save(model);
         // Save barred employess
         barredEmployeeService.saveBarredEmployees(
                 customerLocation.getBarredEmployees(), model.getId());
         // Save Location Equipments
         masterfileAssociationService.saveLocationEquipment(model.getId(), customerLocation.getEquipments());
+        // Save Location Mode of Transport
+        masterfileAssociationService.saveLocationModeOfTransport(model.getId(), customerLocation.getModeOfTransports());
 
     }
 
@@ -176,35 +176,12 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
             final CustomerLocationModel model) {
         CustomerLocationDTO dto = new CustomerLocationDTO();
         dto = modelMapper.map(model, CustomerLocationDTO.class);
-        dto.setEquipments(masterfileAssociationService.getLocationEquipments(model.getId()));
-        dto.setModeOfTransports(transformModeTransport(model
-                .getModeTransports()));
+        dto.setEquipments(getLocationEquipments(model.getLocationEquipments()));
+        dto.setModeOfTransports(getLocationModeOfTransport(model.getLocationTransports()));
         dto.setSkills(transformSkills(model.getSkills()));
         dto.setTasks(transformTasks(model.getTasks()));
         dto.setBarredEmployees(getBarredEmployeeDetails(model.getId()));
         return dto;
-    }
-
-    private List<EquipmentDTO> transformEquipments(
-            final List<EquipmentModel> equipments) {
-        List<EquipmentDTO> list = Lists.newArrayList();
-        if (!CollectionUtils.isEmpty(equipments)) {
-            for (EquipmentModel equipment : equipments) {
-                list.add(modelMapper.map(equipment, EquipmentDTO.class));
-            }
-        }
-        return list;
-    }
-
-    private List<EquipmentModel> transformEquipmentsToModel(
-            final List<EquipmentDTO> equipments) {
-        List<EquipmentModel> list = Lists.newArrayList();
-        if (!CollectionUtils.isEmpty(equipments)) {
-            for (EquipmentDTO equipment : equipments) {
-                list.add(modelMapper.map(equipment, EquipmentModel.class));
-            }
-        }
-        return list;
     }
 
     private List<SkillsDTO> transformSkills(final List<SkillsModel> skills) {
@@ -222,28 +199,6 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         if (!CollectionUtils.isEmpty(skills)) {
             for (SkillsDTO skill : skills) {
                 list.add(modelMapper.map(skill, SkillsModel.class));
-            }
-        }
-        return list;
-    }
-
-    private List<ModeTransportDTO> transformModeTransport(
-            final List<ModeTransportModel> modeTransport) {
-        List<ModeTransportDTO> list = Lists.newArrayList();
-        if (!CollectionUtils.isEmpty(modeTransport)) {
-            for (ModeTransportModel model : modeTransport) {
-                list.add(modelMapper.map(model, ModeTransportDTO.class));
-            }
-        }
-        return list;
-    }
-
-    private List<ModeTransportModel> transformModeTransportToModel(
-            final List<ModeTransportDTO> modeTransport) {
-        List<ModeTransportModel> list = Lists.newArrayList();
-        if (!CollectionUtils.isEmpty(modeTransport)) {
-            for (ModeTransportDTO model : modeTransport) {
-                list.add(modelMapper.map(model, ModeTransportModel.class));
             }
         }
         return list;
@@ -272,5 +227,37 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
     private List<BarredEmployeeDTO> getBarredEmployeeDetails(
             final Long customerLocationId) {
         return barredEmployeeService.getBarredEmployees(customerLocationId);
+    }
+
+    public List<ModeTransportDTO> getLocationModeOfTransport(final List<CustomerLocationModeOfTransportModel> transports) {
+        List<ModeTransportDTO> list = Lists.newArrayList();
+        ModeTransportDTO modeTransport;
+        if (!CollectionUtils.isEmpty(transports)) {
+            for (CustomerLocationModeOfTransportModel loc : transports) {
+                modeTransport = new ModeTransportDTO();
+                modeTransport.setId(loc.getModeTransport().getId());
+                modeTransport.setCostType(loc.getCostType());
+                modeTransport.setTransportName(loc.getModeTransport().getTransportName());
+                modeTransport.setBilled(loc.isBilled());
+                list.add(modeTransport);
+            }
+        }
+        return list;
+    }
+
+    public List<EquipmentDTO> getLocationEquipments(final List<CustomerLocationEquipmentModel> equipments) {
+        List<EquipmentDTO> list = Lists.newArrayList();
+        EquipmentDTO equipment;
+        if (!CollectionUtils.isEmpty(equipments)) {
+            for (CustomerLocationEquipmentModel loc : equipments) {
+                equipment = new EquipmentDTO();
+                equipment.setId(loc.getEquipment().getId());
+                equipment.setCostType(loc.getCostType());
+                equipment.setEquipmentName(loc.getEquipment().getEquipmentName());
+                equipment.setBilled(loc.isBilled());
+                list.add(equipment);
+            }
+        }
+        return list;
     }
 }

@@ -46,14 +46,6 @@ public class CustomerLocationModel {
     private List<WorkOrderModel> workOrders;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "CUSTLOCATION_TRANSPORT",
-        joinColumns = { @JoinColumn(name = "customer_location_id",
-        referencedColumnName = "id", nullable = true) },
-        inverseJoinColumns = { @JoinColumn(name = "mode_transport_id",
-        referencedColumnName = "id", nullable = true) })
-    private List<ModeTransportModel> modeTransports;
-
-    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "CUSTLOCATION_SKILLS",
         joinColumns = { @JoinColumn(name = "customer_location_id",
         referencedColumnName = "id", nullable = true) },
@@ -77,6 +69,9 @@ public class CustomerLocationModel {
 
     @OneToMany(mappedBy = "customerLocation", fetch = FetchType.EAGER)
     private List<CustomerLocationEquipmentModel> locationEquipments;
+
+    @OneToMany(mappedBy = "customerLocation", fetch = FetchType.EAGER)
+    private List<CustomerLocationModeOfTransportModel> locationTransports;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id")
@@ -123,14 +118,6 @@ public class CustomerLocationModel {
 
     public void setWorkOrders(final List<WorkOrderModel> workOrders) {
         this.workOrders = workOrders;
-    }
-
-    public List<ModeTransportModel> getModeTransports() {
-        return modeTransports;
-    }
-
-    public void setModeTransports(final List<ModeTransportModel> modeTransports) {
-        this.modeTransports = modeTransports;
     }
 
     public List<SkillsModel> getSkills() {
@@ -257,7 +244,7 @@ public class CustomerLocationModel {
     public String toString() {
         return "CustomerLocationModel [id=" + id + ", name=" + name
                 + ", workOrders=" + workOrders + ", modeTransports="
-                + modeTransports + ", skills=" + skills
+                + ", skills=" + skills
                 + ", tasks=" + tasks + ", siteLocations="
                 + siteLocations + ", barredEmployee=" + barredEmployee
                 + ", customer=" + customer + ", address=" + address
@@ -285,6 +272,15 @@ public class CustomerLocationModel {
     public void setLocationEquipments(
             final List<CustomerLocationEquipmentModel> locationEquipments) {
         this.locationEquipments = locationEquipments;
+    }
+
+    public List<CustomerLocationModeOfTransportModel> getLocationTransports() {
+        return locationTransports;
+    }
+
+    public void setLocationTransports(
+            final List<CustomerLocationModeOfTransportModel> locationTransports) {
+        this.locationTransports = locationTransports;
     }
 
 }

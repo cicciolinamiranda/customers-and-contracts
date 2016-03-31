@@ -45,7 +45,6 @@ import com.g4s.javelin.service.location.BarredEmployeeService;
 import com.g4s.javelin.service.location.CustomerLocationService;
 import com.g4s.javelin.service.location.MasterfileAssociationService;
 import com.g4s.javelin.service.location.impl.CustomerLocationServiceImpl;
-import com.g4s.javelin.service.location.impl.MasterfileAssociationServiceImpl;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 
 @RunWith(MockitoJUnitRunner.class)
@@ -72,7 +71,9 @@ public class CustomerLocationServiceTest {
 
     private WorkOrderModel workOrderModel;
 
-    List<EquipmentDTO> equipments = Lists.newArrayList();
+    private List<EquipmentDTO> equipments = Lists.newArrayList();
+
+    private List<ModeTransportDTO> modeTransports = Lists.newArrayList();
 
     @Before
     public void initMocks() {
@@ -110,7 +111,6 @@ public class CustomerLocationServiceTest {
         customerLocationDTO.setFloorPlan("Floor Plan");
         CustomerDTO customer = new CustomerDTO();
         customer.setCustomerName("Juan Dela Cruz");
-        List<ModeTransportDTO> modeTransports = Lists.newArrayList();
         customerLocationDTO.setModeOfTransports(modeTransports);
         List<SkillsDTO> skills = Lists.newArrayList();
         customerLocationDTO.setSkills(skills);
@@ -140,7 +140,6 @@ public class CustomerLocationServiceTest {
         equipments.add(equipment);
         customerLocationModel.setFloorPlan("Floor Plan");
         List<ModeTransportModel> modeTransports = Lists.newArrayList();
-        customerLocationModel.setModeTransports(modeTransports);
         List<SkillsModel> skills = Lists.newArrayList();
         customerLocationModel.setSkills(skills);
         List<TaskModel> tasks = Lists.newArrayList();
@@ -161,7 +160,6 @@ public class CustomerLocationServiceTest {
         List<BarredEmployeeDTO> barredEmployeeList = Lists.newArrayList();
         when(barredEmployeeServiceMock.getBarredEmployees(1234l)).thenReturn(
                 barredEmployeeList);
-        when(masterfileAssociationService.getLocationEquipments(Mockito.anyLong())).thenReturn(equipments);
         CustomerLocationDTO result = customerLocationService
                 .getCustomerLocationDetails(1234l);
         verify(customerLocationRepositoryMock, times(1)).findOne(1234l);
@@ -175,7 +173,6 @@ public class CustomerLocationServiceTest {
         repositoryResultList.add(customerLocationModel);
         when(customerLocationRepositoryMock.findByAddressAddressContainingIgnoreCase("1234 Jupiter Street, Manila"))
                 .thenReturn(repositoryResultList);
-        when(masterfileAssociationService.getLocationEquipments(Mockito.anyLong())).thenReturn(equipments);
         List<CustomerLocationDTO> results = customerLocationService.getCustomerLocationByAddress("1234 Jupiter Street, Manila");
         verify(customerLocationRepositoryMock, times(1)).findByAddressAddressContainingIgnoreCase("1234 Jupiter Street, Manila");
         assertEquals(1, results.size());
@@ -187,7 +184,6 @@ public class CustomerLocationServiceTest {
         repositoryResultList.add(customerLocationModel);
         when(customerLocationRepositoryMock.findByCustomerCustomerNameContainingIgnoreCase("Juan Dela Cruz"))
                 .thenReturn(repositoryResultList);
-        when(masterfileAssociationService.getLocationEquipments(Mockito.anyLong())).thenReturn(equipments);
         List<CustomerLocationDTO> results = customerLocationService.getCustomerLocationByCustomerName("Juan Dela Cruz");
         verify(customerLocationRepositoryMock, times(1)).findByCustomerCustomerNameContainingIgnoreCase("Juan Dela Cruz");
         assertEquals(1, results.size());
