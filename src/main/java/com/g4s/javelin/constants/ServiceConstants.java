@@ -6,6 +6,7 @@ public final class ServiceConstants {
     public static final String BARRED_EMPLOYEE_SERVICE = "barredEmployeeService";
     public static final String CUSTOMER_LOCATION_SERVICE = "customerLocationService";
     public static final String MASTERFILE_ASSOC_SERVICE = "masterFileAssociationService";
+    public static final String SITE_LOCATION_SERVICE = "siteLocationService";
 
     private ServiceConstants() {
 

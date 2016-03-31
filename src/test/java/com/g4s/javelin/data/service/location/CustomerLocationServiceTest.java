@@ -44,6 +44,7 @@ import com.g4s.javelin.exception.CustomerLocationException;
 import com.g4s.javelin.service.location.BarredEmployeeService;
 import com.g4s.javelin.service.location.CustomerLocationService;
 import com.g4s.javelin.service.location.MasterfileAssociationService;
+import com.g4s.javelin.service.location.SiteLocationService;
 import com.g4s.javelin.service.location.impl.CustomerLocationServiceImpl;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 
@@ -58,6 +59,9 @@ public class CustomerLocationServiceTest {
 
     @Mock
     private BarredEmployeeService barredEmployeeServiceMock;
+
+    @Mock
+    private SiteLocationService siteLocationService;
 
     @InjectMocks
     private CustomerLocationService customerLocationService = new CustomerLocationServiceImpl();

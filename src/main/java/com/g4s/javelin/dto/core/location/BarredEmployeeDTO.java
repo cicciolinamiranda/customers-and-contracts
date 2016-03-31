@@ -10,6 +10,9 @@ public class BarredEmployeeDTO {
     private String lastName;
     private DateTime startDate;
     private DateTime endDate;
+    private String startDateStr;
+    private String endDateStr;
+
     public Long getEmployeeId() {
         return employeeId;
     }
@@ -51,5 +54,17 @@ public class BarredEmployeeDTO {
     }
     public void setTitle(final String title) {
         this.title = title;
+    }
+    public String getStartDateStr() {
+        return startDateStr;
+    }
+    public void setStartDateStr(final String startDateStr) {
+        this.startDateStr = startDateStr;
+    }
+    public String getEndDateStr() {
+        return endDateStr;
+    }
+    public void setEndDateStr(final String endDateStr) {
+        this.endDateStr = endDateStr;
     }
 }

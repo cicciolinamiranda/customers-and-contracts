@@ -61,7 +61,7 @@ public class CustomerLocationModel {
         referencedColumnName = "id", nullable = true) })
     private List<TaskModel> tasks;
 
-    @OneToMany(mappedBy = "customerLocation", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "customerLocation", fetch = FetchType.EAGER)
     private List<SiteLocationModel> siteLocations;
 
     @OneToMany(mappedBy = "customerLocation", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
@@ -84,9 +84,14 @@ public class CustomerLocationModel {
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime createdDate;
 
-    @Column(name = "SETUP_DATE", nullable = true, updatable = true)
+    @Column(name = "START_DATE", nullable = true, updatable = true)
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime setUpDate;
+    private DateTime startDate;
+
+    @Column(name = "END_DATE", nullable = true, updatable = true)
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime endDate;
+
     @Column(name = "SOP_DETAILS")
     private String sopDetails;
     @Column(name = "LOCATION_INSTRUCTIONS_APPROVAL")
@@ -166,14 +171,6 @@ public class CustomerLocationModel {
 
     public void setAddress(final AddressModel address) {
         this.address = address;
-    }
-
-    public DateTime getSetUpDate() {
-        return setUpDate;
-    }
-
-    public void setSetUpDate(final DateTime setUpDate) {
-        this.setUpDate = setUpDate;
     }
 
     public String getSopDetails() {
@@ -281,6 +278,22 @@ public class CustomerLocationModel {
     public void setLocationTransports(
             final List<CustomerLocationModeOfTransportModel> locationTransports) {
         this.locationTransports = locationTransports;
+    }
+
+    public DateTime getStartDate() {
+        return startDate;
+    }
+
+    public void setStartDate(final DateTime startDate) {
+        this.startDate = startDate;
+    }
+
+    public DateTime getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(final DateTime endDate) {
+        this.endDate = endDate;
     }
 
 }

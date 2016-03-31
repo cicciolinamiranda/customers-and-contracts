@@ -2,6 +2,8 @@ package com.g4s.javelin.service.location.impl;
 
 import java.util.List;
 
+import org.joda.time.DateTime;
+import org.joda.time.format.DateTimeFormat;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -14,6 +16,7 @@ import com.g4s.javelin.data.model.location.AddressModel;
 import com.g4s.javelin.data.model.location.CustomerLocationEquipmentModel;
 import com.g4s.javelin.data.model.location.CustomerLocationModeOfTransportModel;
 import com.g4s.javelin.data.model.location.CustomerLocationModel;
+import com.g4s.javelin.data.model.location.SiteLocationModel;
 import com.g4s.javelin.data.model.location.SkillsModel;
 import com.g4s.javelin.data.model.location.TaskModel;
 import com.g4s.javelin.data.model.workorder.WorkOrderModel;
@@ -24,6 +27,7 @@ import com.g4s.javelin.dto.core.location.CreateCustomerLocationDTO;
 import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
 import com.g4s.javelin.dto.core.location.EquipmentDTO;
 import com.g4s.javelin.dto.core.location.ModeTransportDTO;
+import com.g4s.javelin.dto.core.location.SiteLocationDTO;
 import com.g4s.javelin.dto.core.location.SkillsDTO;
 import com.g4s.javelin.dto.core.location.TaskDTO;
 import com.g4s.javelin.enums.StatusEnum;
@@ -32,6 +36,7 @@ import com.g4s.javelin.service.location.BarredEmployeeService;
 import com.g4s.javelin.service.location.CustomerLocationService;
 import com.g4s.javelin.service.location.MasterFileService;
 import com.g4s.javelin.service.location.MasterfileAssociationService;
+import com.g4s.javelin.service.location.SiteLocationService;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 
 public class CustomerLocationServiceImpl implements CustomerLocationService {
@@ -53,6 +58,11 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
     @Lazy
     @Qualifier(ServiceConstants.MASTER_FILE_SERVICE)
     private MasterFileService masterFileService;
+
+    @Autowired
+    @Lazy
+    @Qualifier(ServiceConstants.SITE_LOCATION_SERVICE)
+    private SiteLocationService siteLocationService;
 
     @Autowired
     @Lazy
@@ -110,6 +120,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
 
     @Override
     public void saveCustomerLocationDetails(final CustomerLocationDTO customerLocation) {
+        org.joda.time.format.DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/dd/yyyy");
         CustomerLocationModel model;
         List<WorkOrderModel> workOrders = Lists.newArrayList();
         model = modelMapper.map(customerLocation,
@@ -119,6 +130,14 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         }
         WorkOrderModel workOrder = workOrderRepository.findOne(customerLocation.getWorkOrderId());
         workOrders.add(workOrder);
+        //setup createdDate
+        if (model.getCreatedDate() == null) {
+            model.setCreatedDate(DateTime.now());
+        }
+        model.setStartDate(dtf.parseDateTime(customerLocation.getStartDateStr()));
+        if (customerLocation.getEndDateStr() != null) {
+            model.setEndDate(dtf.parseDateTime(customerLocation.getEndDateStr()));
+        }
         model.setWorkOrders(workOrders);
         model.setStatus(StatusEnum.findByCode(customerLocation.getStatusStr()));
         // setup equipments
@@ -130,6 +149,8 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         // Save barred employess
         barredEmployeeService.saveBarredEmployees(
                 customerLocation.getBarredEmployees(), model.getId());
+        // Save Site Location Details
+        siteLocationService.saveSiteLocation(model.getId(), customerLocation.getSiteLocations());
         // Save Location Equipments
         masterfileAssociationService.saveLocationEquipment(model.getId(), customerLocation.getEquipments());
         // Save Location Mode of Transport
@@ -181,6 +202,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         dto.setSkills(transformSkills(model.getSkills()));
         dto.setTasks(transformTasks(model.getTasks()));
         dto.setBarredEmployees(getBarredEmployeeDetails(model.getId()));
+        dto.setSiteLocations(transformSiteLocation(model.getSiteLocations()));
         return dto;
     }
 
@@ -219,6 +241,16 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         if (!CollectionUtils.isEmpty(tasks)) {
             for (TaskDTO task : tasks) {
                 list.add(modelMapper.map(task, TaskModel.class));
+            }
+        }
+        return list;
+    }
+
+    private List<SiteLocationDTO> transformSiteLocation(final List<SiteLocationModel> siteLocations) {
+        List<SiteLocationDTO> list = Lists.newArrayList();
+        if (!CollectionUtils.isEmpty(siteLocations)) {
+            for (SiteLocationModel slm : siteLocations) {
+                list.add(modelMapper.map(slm, SiteLocationDTO.class));
             }
         }
         return list;
