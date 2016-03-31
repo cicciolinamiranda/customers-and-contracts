@@ -31,6 +31,7 @@ public class SiteLocationServiceImpl implements SiteLocationService {
         modelMapper = new ModelMapper();
     }
 
+    @Override
     public void saveSiteLocation(final Long customerLocationId, final List<SiteLocationDTO> siteLocations) {
         List<SiteLocationModel> list = Lists.newArrayList();
         CustomerLocationModel cl = customerLocationRepository.findOne(customerLocationId);
