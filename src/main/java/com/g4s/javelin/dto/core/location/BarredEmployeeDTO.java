@@ -5,6 +5,7 @@ import org.joda.time.DateTime;
 public class BarredEmployeeDTO {
     private Long id;
     private Long employeeId;
+    private String title;
     private String firstName;
     private String lastName;
     private DateTime startDate;
@@ -44,5 +45,11 @@ public class BarredEmployeeDTO {
     }
     public void setId(final Long id) {
         this.id = id;
+    }
+    public String getTitle() {
+        return title;
+    }
+    public void setTitle(final String title) {
+        this.title = title;
     }
 }

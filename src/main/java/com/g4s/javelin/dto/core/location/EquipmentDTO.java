@@ -1,10 +1,12 @@
 package com.g4s.javelin.dto.core.location;
 
+//CSOFF: HiddenField
 public class EquipmentDTO {
 
     private Long id;
     private String equipmentName;
-
+    private boolean isBilled;
+    private String costType;
 
     public Long getId() {
         return id;
@@ -22,4 +24,21 @@ public class EquipmentDTO {
         this.equipmentName = equipmentName;
     }
 
+    public boolean isBilled() {
+        return isBilled;
+    }
+
+    public void setBilled(final boolean isBilled) {
+        this.isBilled = isBilled;
+    }
+
+    public String getCostType() {
+        return costType;
+    }
+
+    public void setCostType(final String costType) {
+        this.costType = costType;
+    }
+
 }
+//CSON: HiddenField

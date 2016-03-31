@@ -16,6 +16,7 @@ import com.g4s.javelin.service.location.MasterFileService;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
+import com.google.api.server.spi.config.Named;
 
 /**
  * @author Jordan Duabe
@@ -84,5 +85,37 @@ public class MasterFileApi {
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<TaskDTO> getAllTasks() {
         return masterFileService.getAllTasks();
+    }
+
+    @ApiMethod(
+            name = "master.file.tasks.search",
+            path = "master-file/tasks/search",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<TaskDTO> searchTasks(@Named("searchTerm") final String searchTerm) {
+        return masterFileService.searchTasks(searchTerm);
+    }
+
+    @ApiMethod(
+            name = "master.file.skills.search",
+            path = "master-file/skills/search",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<SkillsDTO> searchSkills(@Named("searchTerm") final String searchTerm) {
+        return masterFileService.searchSkills(searchTerm);
+    }
+
+    @ApiMethod(
+            name = "master.file.transport.search",
+            path = "master-file/transport/search",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<ModeTransportDTO> searchTransport(@Named("searchTerm") final String searchTerm) {
+        return masterFileService.searchModeTransport(searchTerm);
+    }
+
+    @ApiMethod(
+            name = "master.file.task.search",
+            path = "master-file/task/search",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<TaskDTO> searchTask(@Named("searchTerm") final String searchTerm) {
+        return masterFileService.searchTasks(searchTerm);
     }
 }

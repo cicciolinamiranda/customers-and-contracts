@@ -36,6 +36,13 @@ public class BarredEmployeeModel {
     @JoinColumn(name = "customer_location_id", referencedColumnName = "id")
     private CustomerLocationModel customerLocation;
 
+    @Column
+    private String title;
+    @Column(name = "LAST_NAME")
+    private String lastName;
+    @Column(name = "FIRST_NAME")
+    private String firstName;
+
     public Long getId() {
         return id;
     }
@@ -74,6 +81,30 @@ public class BarredEmployeeModel {
 
     public void setCustomerLocation(final CustomerLocationModel customerLocation) {
         this.customerLocation = customerLocation;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(final String title) {
+        this.title = title;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(final String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(final String firstName) {
+        this.firstName = firstName;
     }
 
 }

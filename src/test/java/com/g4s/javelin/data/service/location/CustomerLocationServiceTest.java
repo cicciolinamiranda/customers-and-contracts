@@ -43,6 +43,7 @@ import com.g4s.javelin.enums.StatusEnum;
 import com.g4s.javelin.exception.CustomerLocationException;
 import com.g4s.javelin.service.location.BarredEmployeeService;
 import com.g4s.javelin.service.location.CustomerLocationService;
+import com.g4s.javelin.service.location.MasterfileAssociationService;
 import com.g4s.javelin.service.location.impl.CustomerLocationServiceImpl;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 
@@ -61,11 +62,18 @@ public class CustomerLocationServiceTest {
     @InjectMocks
     private CustomerLocationService customerLocationService = new CustomerLocationServiceImpl();
 
+    @Mock
+    private MasterfileAssociationService masterfileAssociationService;
+
     private CustomerLocationDTO customerLocationDTO;
 
     private CustomerLocationModel customerLocationModel;
 
     private WorkOrderModel workOrderModel;
+
+    private List<EquipmentDTO> equipments = Lists.newArrayList();
+
+    private List<ModeTransportDTO> modeTransports = Lists.newArrayList();
 
     @Before
     public void initMocks() {
@@ -103,7 +111,6 @@ public class CustomerLocationServiceTest {
         customerLocationDTO.setFloorPlan("Floor Plan");
         CustomerDTO customer = new CustomerDTO();
         customer.setCustomerName("Juan Dela Cruz");
-        List<ModeTransportDTO> modeTransports = Lists.newArrayList();
         customerLocationDTO.setModeOfTransports(modeTransports);
         List<SkillsDTO> skills = Lists.newArrayList();
         customerLocationDTO.setSkills(skills);
@@ -131,10 +138,8 @@ public class CustomerLocationServiceTest {
         EquipmentModel equipment = new EquipmentModel();
         equipment.setEquipmentName("Gun");
         equipments.add(equipment);
-        customerLocationModel.setEquipments(equipments);
         customerLocationModel.setFloorPlan("Floor Plan");
         List<ModeTransportModel> modeTransports = Lists.newArrayList();
-        customerLocationModel.setModeTransports(modeTransports);
         List<SkillsModel> skills = Lists.newArrayList();
         customerLocationModel.setSkills(skills);
         List<TaskModel> tasks = Lists.newArrayList();
@@ -160,7 +165,6 @@ public class CustomerLocationServiceTest {
         verify(customerLocationRepositoryMock, times(1)).findOne(1234l);
         verify(barredEmployeeServiceMock, times(1)).getBarredEmployees(1234l);
         assertTrue(1234l == result.getId());
-        assertEquals("Gun", result.getEquipments().get(0).getEquipmentName());
     }
 
     @Test
