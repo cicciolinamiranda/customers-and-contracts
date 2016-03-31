@@ -62,14 +62,6 @@ public class CustomerLocationModel {
     private List<SkillsModel> skills;
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "CUSTLOCATION_EQUIPMENT",
-        joinColumns = { @JoinColumn(name = "customer_location_id",
-        referencedColumnName = "id", nullable = true) },
-        inverseJoinColumns = { @JoinColumn(name = "equipment_id",
-        referencedColumnName = "id", nullable = true) })
-    private List<EquipmentModel> equipments;
-
-    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "CUSTLOCATION_TASK",
         joinColumns = { @JoinColumn(name = "customer_location_id",
         referencedColumnName = "id", nullable = true) },
@@ -82,6 +74,9 @@ public class CustomerLocationModel {
 
     @OneToMany(mappedBy = "customerLocation", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<BarredEmployeeModel> barredEmployee;
+
+    @OneToMany(mappedBy = "customerLocation", fetch = FetchType.EAGER)
+    private List<CustomerLocationEquipmentModel> locationEquipments;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id")
@@ -152,14 +147,6 @@ public class CustomerLocationModel {
 
     public void setSiteLocations(final List<SiteLocationModel> siteLocations) {
         this.siteLocations = siteLocations;
-    }
-
-    public List<EquipmentModel> getEquipments() {
-        return equipments;
-    }
-
-    public void setEquipments(final List<EquipmentModel> equipments) {
-        this.equipments = equipments;
     }
 
     public String getName() {
@@ -270,8 +257,8 @@ public class CustomerLocationModel {
     public String toString() {
         return "CustomerLocationModel [id=" + id + ", name=" + name
                 + ", workOrders=" + workOrders + ", modeTransports="
-                + modeTransports + ", skills=" + skills + ", equipments="
-                + equipments + ", tasks=" + tasks + ", siteLocations="
+                + modeTransports + ", skills=" + skills
+                + ", tasks=" + tasks + ", siteLocations="
                 + siteLocations + ", barredEmployee=" + barredEmployee
                 + ", customer=" + customer + ", address=" + address
 //                + ", createdDate=" + createdDate + ", setUpDate=" + setUpDate
@@ -289,6 +276,15 @@ public class CustomerLocationModel {
 
     public void setStatus(final StatusEnum status) {
         this.status = status;
+    }
+
+    public List<CustomerLocationEquipmentModel> getLocationEquipments() {
+        return locationEquipments;
+    }
+
+    public void setLocationEquipments(
+            final List<CustomerLocationEquipmentModel> locationEquipments) {
+        this.locationEquipments = locationEquipments;
     }
 
 }

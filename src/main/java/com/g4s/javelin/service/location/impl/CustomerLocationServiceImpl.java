@@ -31,6 +31,7 @@ import com.g4s.javelin.exception.CustomerLocationException;
 import com.g4s.javelin.service.location.BarredEmployeeService;
 import com.g4s.javelin.service.location.CustomerLocationService;
 import com.g4s.javelin.service.location.MasterFileService;
+import com.g4s.javelin.service.location.MasterfileAssociationService;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 
 public class CustomerLocationServiceImpl implements CustomerLocationService {
@@ -52,6 +53,11 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
     @Lazy
     @Qualifier(ServiceConstants.MASTER_FILE_SERVICE)
     private MasterFileService masterFileService;
+
+    @Autowired
+    @Lazy
+    @Qualifier(ServiceConstants.MASTERFILE_ASSOC_SERVICE)
+    private MasterfileAssociationService masterfileAssociationService;
 
     private ModelMapper modelMapper;
 
@@ -116,8 +122,6 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         model.setWorkOrders(workOrders);
         model.setStatus(StatusEnum.findByCode(customerLocation.getStatusStr()));
         // setup equipments
-        model.setEquipments(transformEquipmentsToModel(customerLocation
-                .getEquipments()));
         model.setSkills(transformSkillsToModel(customerLocation.getSkills()));
         model.setAddress(modelMapper.map(customerLocation.getAddress(),
                 AddressModel.class));
@@ -128,6 +132,9 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         // Save barred employess
         barredEmployeeService.saveBarredEmployees(
                 customerLocation.getBarredEmployees(), model.getId());
+        // Save Location Equipments
+        masterfileAssociationService.saveLocationEquipment(model.getId(), customerLocation.getEquipments());
+
     }
 
     @Override
@@ -169,7 +176,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
             final CustomerLocationModel model) {
         CustomerLocationDTO dto = new CustomerLocationDTO();
         dto = modelMapper.map(model, CustomerLocationDTO.class);
-        dto.setEquipments(transformEquipments(model.getEquipments()));
+        dto.setEquipments(masterfileAssociationService.getLocationEquipments(model.getId()));
         dto.setModeOfTransports(transformModeTransport(model
                 .getModeTransports()));
         dto.setSkills(transformSkills(model.getSkills()));
