@@ -224,7 +224,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
     private List<ModeTransportModel> transformModeTransportToModel(
             final List<ModeTransportDTO> modeTransport) {
         List<ModeTransportModel> list = Lists.newArrayList();
-        if (CollectionUtils.isEmpty(modeTransport)) {
+        if (!CollectionUtils.isEmpty(modeTransport)) {
             for (ModeTransportDTO model : modeTransport) {
                 list.add(modelMapper.map(model, ModeTransportModel.class));
             }
