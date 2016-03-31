@@ -20,6 +20,7 @@ import com.g4s.javelin.data.model.workorder.WorkOrderModel;
 import com.g4s.javelin.data.repository.location.CustomerLocationRepository;
 import com.g4s.javelin.data.repository.workorder.WorkOrderRepository;
 import com.g4s.javelin.dto.core.location.BarredEmployeeDTO;
+import com.g4s.javelin.dto.core.location.CreateCustomerLocationDTO;
 import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
 import com.g4s.javelin.dto.core.location.EquipmentDTO;
 import com.g4s.javelin.dto.core.location.ModeTransportDTO;
@@ -29,6 +30,7 @@ import com.g4s.javelin.enums.StatusEnum;
 import com.g4s.javelin.exception.CustomerLocationException;
 import com.g4s.javelin.service.location.BarredEmployeeService;
 import com.g4s.javelin.service.location.CustomerLocationService;
+import com.g4s.javelin.service.location.MasterFileService;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 
 public class CustomerLocationServiceImpl implements CustomerLocationService {
@@ -45,6 +47,11 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
     @Lazy
     @Qualifier(ServiceConstants.BARRED_EMPLOYEE_SERVICE)
     private BarredEmployeeService barredEmployeeService;
+
+    @Autowired
+    @Lazy
+    @Qualifier(ServiceConstants.MASTER_FILE_SERVICE)
+    private MasterFileService masterFileService;
 
     private ModelMapper modelMapper;
 
@@ -144,9 +151,12 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
     }
 
     @Override
-    public CustomerLocationDTO createCustomerLocation() {
+    public CreateCustomerLocationDTO createCustomerLocation() {
         CustomerLocationModel result = customerLocationRepository.save(new CustomerLocationModel());
-        return transformCustomerLocation(result);
+        CreateCustomerLocationDTO dto = new CreateCustomerLocationDTO();
+        dto.setCustomerLocationId(result.getId());
+        dto.setMasterfile(masterFileService.getMasterFile());
+        return dto;
     }
 
     @Override

@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Lazy;
 
 import com.g4s.javelin.constants.ApiConstants;
 import com.g4s.javelin.constants.ServiceConstants;
+import com.g4s.javelin.dto.core.location.CreateCustomerLocationDTO;
 import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
 import com.g4s.javelin.enums.SearchCriteriaEnum;
 import com.g4s.javelin.exception.CustomerLocationException;
@@ -151,8 +152,8 @@ public class CustomerLocationApi {
             name = "customer.location.create",
             path = "customer-location/create",
             httpMethod = ApiMethod.HttpMethod.POST)
-    public CustomerLocationDTO createCustomerLocation() {
-        CustomerLocationDTO result = customerLocationService.createCustomerLocation();
+    public CreateCustomerLocationDTO createCustomerLocation() {
+        CreateCustomerLocationDTO result = customerLocationService.createCustomerLocation();
         return result;
     }
 

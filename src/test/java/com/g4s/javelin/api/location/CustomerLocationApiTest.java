@@ -26,6 +26,7 @@ import com.g4s.javelin.api.location.CustomerLocationApi;
 import com.g4s.javelin.data.model.workorder.WorkOrderModel;
 import com.g4s.javelin.dto.core.location.AddressDTO;
 import com.g4s.javelin.dto.core.location.BarredEmployeeDTO;
+import com.g4s.javelin.dto.core.location.CreateCustomerLocationDTO;
 import com.g4s.javelin.dto.core.location.CustomerDTO;
 import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
 import com.g4s.javelin.dto.core.location.EquipmentDTO;
@@ -159,8 +160,8 @@ public class CustomerLocationApiTest {
     
     @Test
     public void testCreate() throws Exception {
-    	when(customerLocationService.createCustomerLocation()).thenReturn(customerLocationDTO);
-        CustomerLocationDTO result = customerLocationApi.createCustomerLocation();
+    	when(customerLocationService.createCustomerLocation()).thenReturn(new CreateCustomerLocationDTO());
+        CreateCustomerLocationDTO result = customerLocationApi.createCustomerLocation();
         Mockito.verify(customerLocationService, Mockito.times(1)).createCustomerLocation();
     }
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.util.CollectionUtils;
 
 import com.g4s.javelin.data.model.location.EquipmentModel;
 import com.g4s.javelin.data.model.location.ModeTransportModel;
@@ -15,6 +16,7 @@ import com.g4s.javelin.data.repository.location.ModeTransportRepository;
 import com.g4s.javelin.data.repository.location.SkillsRepository;
 import com.g4s.javelin.data.repository.location.TaskRepository;
 import com.g4s.javelin.dto.core.location.EquipmentDTO;
+import com.g4s.javelin.dto.core.location.MasterFileDTO;
 import com.g4s.javelin.dto.core.location.ModeTransportDTO;
 import com.g4s.javelin.dto.core.location.SkillsDTO;
 import com.g4s.javelin.dto.core.location.TaskDTO;
@@ -90,6 +92,62 @@ public class MasterFileServiceImpl implements MasterFileService {
             response.add(modelMapper.map(task, TaskDTO.class));
         }
 
+        return response;
+    }
+
+    @Override
+    public MasterFileDTO getMasterFile() {
+        MasterFileDTO dto = new MasterFileDTO();
+        dto.setEquipments(getAllEquipments());
+        dto.setModeTransport(getAllModeTransport());
+        dto.setSkills(getAllSkills());
+        dto.setTasks(getAllTasks());
+        return dto;
+    }
+
+    public List<EquipmentDTO> searchEquipments(final String searchTerm) {
+        List<EquipmentModel> results = equipmentRepository.findByEquipmentNameContainingIgnoreCase(searchTerm);
+        List<EquipmentDTO> response = Lists.newArrayList();
+        if (!CollectionUtils.isEmpty(results)) {
+            for (EquipmentModel equipment : results) {
+                response.add(modelMapper.map(equipment, EquipmentDTO.class));
+            }
+        }
+        return response;
+    }
+
+    public List<ModeTransportDTO> searchModeTransport(final String searchTerm) {
+        List<ModeTransportModel> results = modeRepository.findByTransportNameContainingIgnoreCase(searchTerm);
+        List<ModeTransportDTO> response = Lists.newArrayList();
+        if (!CollectionUtils.isEmpty(results)) {
+            for (ModeTransportModel modeTransport : results) {
+                response.add(modelMapper.map(modeTransport, ModeTransportDTO.class));
+            }
+        }
+        return response;
+    }
+
+    public List<SkillsDTO> searchSkills(final String searchTerm) {
+        List<SkillsModel> results = skillsRepository.findBySkillNameContainingIgnoreCase(searchTerm);
+        List<SkillsDTO> response = Lists.newArrayList();
+        if (!CollectionUtils.isEmpty(results)) {
+            for (SkillsModel skills : results) {
+                response.add(modelMapper.map(skills, SkillsDTO.class));
+            }
+        }
+
+        return response;
+
+    }
+
+    public List<TaskDTO> searchTasks(final String searchTerm) {
+        List<TaskModel> results = taskRepository.findByTaskNameContainingIgnoreCase(searchTerm);
+        List<TaskDTO> response = Lists.newArrayList();
+        if (!CollectionUtils.isEmpty(results)) {
+            for (TaskModel task : results) {
+                response.add(modelMapper.map(task, TaskDTO.class));
+            }
+        }
         return response;
     }
 
