@@ -222,6 +222,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         CustomerLocationDTO dto = new CustomerLocationDTO();
         dto = modelMapper.map(model, CustomerLocationDTO.class);
         dto.setEquipments(getLocationEquipments(model.getLocationEquipments()));
+        dto.setStatusStr(model.getStatus().getCode());
         dto.setModeOfTransports(getLocationModeOfTransport(model.getLocationTransports()));
         dto.setSkills(transformSkills(model.getSkills()));
         dto.setTasks(transformTasks(model.getTasks()));

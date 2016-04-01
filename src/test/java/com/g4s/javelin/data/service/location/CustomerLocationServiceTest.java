@@ -154,6 +154,7 @@ public class CustomerLocationServiceTest {
         List<WorkOrderModel> workOrders = Lists.newArrayList();
         workOrders.add(workOrderModel);
         customerLocationModel.setWorkOrders(workOrders);
+        customerLocationModel.setStatus(StatusEnum.INPROGRESS);
     }
 
     @Test
