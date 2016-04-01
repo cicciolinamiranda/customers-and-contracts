@@ -1,6 +1,6 @@
 package com.g4s.javelin.data.model.location;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,6 +22,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import com.g4s.javelin.data.model.mock.IncidentLogMockModel;
 import com.g4s.javelin.data.model.workorder.WorkOrderModel;
 import com.g4s.javelin.enums.StatusEnum;
 
@@ -43,7 +44,7 @@ public class CustomerLocationModel {
         referencedColumnName = "id", nullable = true) },
         inverseJoinColumns = { @JoinColumn(name = "work_order_id",
         referencedColumnName = "id", nullable = true) })
-    private List<WorkOrderModel> workOrders;
+    private Set<WorkOrderModel> workOrders;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "CUSTLOCATION_SKILLS",
@@ -51,7 +52,7 @@ public class CustomerLocationModel {
         referencedColumnName = "id", nullable = true) },
         inverseJoinColumns = { @JoinColumn(name = "skills_id",
         referencedColumnName = "id", nullable = true) })
-    private List<SkillsModel> skills;
+    private Set<SkillsModel> skills;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "CUSTLOCATION_TASK",
@@ -59,19 +60,27 @@ public class CustomerLocationModel {
         referencedColumnName = "id", nullable = true) },
         inverseJoinColumns = { @JoinColumn(name = "task_id",
         referencedColumnName = "id", nullable = true) })
-    private List<TaskModel> tasks;
+    private Set<TaskModel> tasks;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "CUSTLOCATION_INCIDENT",
+        joinColumns = { @JoinColumn(name = "customer_location_id",
+        referencedColumnName = "id", nullable = true) },
+        inverseJoinColumns = { @JoinColumn(name = "incident_id",
+        referencedColumnName = "id", nullable = true) })
+    private Set<IncidentLogMockModel> incidents;
 
     @OneToMany(mappedBy = "customerLocation", fetch = FetchType.EAGER)
-    private List<SiteLocationModel> siteLocations;
+    private Set<SiteLocationModel> siteLocations;
 
     @OneToMany(mappedBy = "customerLocation", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    private List<BarredEmployeeModel> barredEmployee;
+    private Set<BarredEmployeeModel> barredEmployee;
 
     @OneToMany(mappedBy = "customerLocation", fetch = FetchType.EAGER)
-    private List<CustomerLocationEquipmentModel> locationEquipments;
+    private Set<CustomerLocationEquipmentModel> locationEquipments;
 
     @OneToMany(mappedBy = "customerLocation", fetch = FetchType.EAGER)
-    private List<CustomerLocationModeOfTransportModel> locationTransports;
+    private Set<CustomerLocationModeOfTransportModel> locationTransports;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id")
@@ -117,27 +126,27 @@ public class CustomerLocationModel {
         this.id = id;
     }
 
-    public List<WorkOrderModel> getWorkOrders() {
+    public Set<WorkOrderModel> getWorkOrders() {
         return workOrders;
     }
 
-    public void setWorkOrders(final List<WorkOrderModel> workOrders) {
+    public void setWorkOrders(final Set<WorkOrderModel> workOrders) {
         this.workOrders = workOrders;
     }
 
-    public List<SkillsModel> getSkills() {
+    public Set<SkillsModel> getSkills() {
         return skills;
     }
 
-    public void setSkills(final List<SkillsModel> skills) {
+    public void setSkills(final Set<SkillsModel> skills) {
         this.skills = skills;
     }
 
-    public List<SiteLocationModel> getSiteLocations() {
+    public Set<SiteLocationModel> getSiteLocations() {
         return siteLocations;
     }
 
-    public void setSiteLocations(final List<SiteLocationModel> siteLocations) {
+    public void setSiteLocations(final Set<SiteLocationModel> siteLocations) {
         this.siteLocations = siteLocations;
     }
 
@@ -149,11 +158,11 @@ public class CustomerLocationModel {
         this.name = name;
     }
 
-    public List<TaskModel> getTasks() {
+    public Set<TaskModel> getTasks() {
         return tasks;
     }
 
-    public void setTasks(final List<TaskModel> tasks) {
+    public void setTasks(final Set<TaskModel> tasks) {
         this.tasks = tasks;
     }
 
@@ -229,11 +238,11 @@ public class CustomerLocationModel {
         this.floorPlan = floorPlan;
     }
 
-    public List<BarredEmployeeModel> getBarredEmployee() {
+    public Set<BarredEmployeeModel> getBarredEmployee() {
         return barredEmployee;
     }
 
-    public void setBarredEmployee(final List<BarredEmployeeModel> barredEmployee) {
+    public void setBarredEmployee(final Set<BarredEmployeeModel> barredEmployee) {
         this.barredEmployee = barredEmployee;
     }
 
@@ -262,21 +271,21 @@ public class CustomerLocationModel {
         this.status = status;
     }
 
-    public List<CustomerLocationEquipmentModel> getLocationEquipments() {
+    public Set<CustomerLocationEquipmentModel> getLocationEquipments() {
         return locationEquipments;
     }
 
     public void setLocationEquipments(
-            final List<CustomerLocationEquipmentModel> locationEquipments) {
+            final Set<CustomerLocationEquipmentModel> locationEquipments) {
         this.locationEquipments = locationEquipments;
     }
 
-    public List<CustomerLocationModeOfTransportModel> getLocationTransports() {
+    public Set<CustomerLocationModeOfTransportModel> getLocationTransports() {
         return locationTransports;
     }
 
     public void setLocationTransports(
-            final List<CustomerLocationModeOfTransportModel> locationTransports) {
+            final Set<CustomerLocationModeOfTransportModel> locationTransports) {
         this.locationTransports = locationTransports;
     }
 
@@ -294,6 +303,14 @@ public class CustomerLocationModel {
 
     public void setEndDate(final DateTime endDate) {
         this.endDate = endDate;
+    }
+
+    public Set<IncidentLogMockModel> getIncidents() {
+        return incidents;
+    }
+
+    public void setIncidents(final Set<IncidentLogMockModel> incidents) {
+        this.incidents = incidents;
     }
 
 }

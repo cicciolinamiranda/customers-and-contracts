@@ -1,6 +1,6 @@
 package com.g4s.javelin.data.model.location;
 
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,7 +22,7 @@ public class TaskModel {
     private Long id;
 
     @OneToMany(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<TaskActivityModel> taskActivities;
+    private Set<TaskActivityModel> taskActivities;
 
     @Column
     private String taskName;
@@ -43,11 +43,11 @@ public class TaskModel {
         this.taskName = taskName;
     }
 
-    public List<TaskActivityModel> getTaskActivities() {
+    public Set<TaskActivityModel> getTaskActivities() {
         return taskActivities;
     }
 
-    public void setTaskActivities(final List<TaskActivityModel> taskActivities) {
+    public void setTaskActivities(final Set<TaskActivityModel> taskActivities) {
         this.taskActivities = taskActivities;
     }
 }

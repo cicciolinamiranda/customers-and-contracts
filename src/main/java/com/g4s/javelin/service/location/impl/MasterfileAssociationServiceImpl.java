@@ -43,6 +43,7 @@ public class MasterfileAssociationServiceImpl implements MasterfileAssociationSe
     @Lazy
     private CustomerLocationModeOfTransportRepository locationTransportRepository;
 
+    @Override
     public void saveLocationEquipment(final Long customerLocationId, final List<EquipmentDTO> equipments) {
         if (!CollectionUtils.isEmpty(equipments)) {
             List<CustomerLocationEquipmentModel> list = Lists.newArrayList();
@@ -62,6 +63,7 @@ public class MasterfileAssociationServiceImpl implements MasterfileAssociationSe
         }
     }
 
+    @Override
     public void saveLocationModeOfTransport(final Long customerLocationId, final List<ModeTransportDTO> transports) {
         if (!CollectionUtils.isEmpty(transports)) {
             List<CustomerLocationModeOfTransportModel> list = Lists.newArrayList();

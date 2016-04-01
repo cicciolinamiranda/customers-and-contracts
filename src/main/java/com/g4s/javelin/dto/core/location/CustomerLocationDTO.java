@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
+import com.g4s.javelin.dto.mock.IncidentLogMockDTO;
+
 public class CustomerLocationDTO {
 
     private Long id;
@@ -15,7 +17,6 @@ public class CustomerLocationDTO {
     private List<SkillsDTO> skills;
     private List<TaskDTO> tasks;
     private List<BarredEmployeeDTO> barredEmployees;
-    private List<IncidentLogMockDTO> incidentLogs;
     private AddressDTO address;
     private DateTime startDate;
     private DateTime endDate;
@@ -30,6 +31,7 @@ public class CustomerLocationDTO {
     private String floorPlan;
     private CustomerDTO customer;
     private List<SiteLocationDTO> siteLocations;
+    private List<IncidentLogMockDTO> incidents;
     private String statusStr;
 
     //SiteLocationDTO
@@ -77,12 +79,6 @@ public class CustomerLocationDTO {
         this.barredEmployees = barredEmployees;
     }
 
-    public List<IncidentLogMockDTO> getIncidentLogs() {
-        return incidentLogs;
-    }
-    public void setIncidentLogs(final List<IncidentLogMockDTO> incidentLogs) {
-        this.incidentLogs = incidentLogs;
-    }
     public AddressDTO getAddress() {
         return address;
     }
@@ -181,6 +177,11 @@ public class CustomerLocationDTO {
     public void setEndDateStr(final String endDateStr) {
         this.endDateStr = endDateStr;
     }
-
+    public List<IncidentLogMockDTO> getIncidents() {
+        return incidents;
+    }
+    public void setIncidents(final List<IncidentLogMockDTO> incidents) {
+        this.incidents = incidents;
+    }
 
 }

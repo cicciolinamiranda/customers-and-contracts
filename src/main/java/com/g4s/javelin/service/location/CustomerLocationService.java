@@ -10,10 +10,11 @@ public interface CustomerLocationService {
 
     CustomerLocationDTO getCustomerLocationDetails(Long customerLocationId);
     List<CustomerLocationDTO> getCustomerLocationDetailsList(Long workOrderId);
-    void saveCustomerLocationDetails(CustomerLocationDTO customerLocation);
+    CustomerLocationDTO saveCustomerLocationDetails(CustomerLocationDTO customerLocation) throws CustomerLocationException;
     List<CustomerLocationDTO> getCustomerLocationByAddress(final String address);
     List<CustomerLocationDTO> getCustomerLocationByCustomerName(final String customerName);
     void addExistingCustomerLocationToAWorkOrder(Long customerLocationId, Long workOrderId)throws CustomerLocationException;
     CreateCustomerLocationDTO createCustomerLocation();
     void updateCustomerLocationStatus(Long id, String status);
+    List<CustomerLocationDTO> searchAllCustomerLocations(String searchTerm);
 }

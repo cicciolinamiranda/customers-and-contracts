@@ -25,6 +25,7 @@ public class BarredEmployeeServiceImpl implements BarredEmployeeService {
     @Lazy
     private CustomerLocationRepository customerLocationRepository;
 
+    @Override
     public void saveBarredEmployees(final List<BarredEmployeeDTO> employees, final Long customerLocationId) {
         org.joda.time.format.DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/dd/yyyy");
         List<BarredEmployeeModel> barredEmployees = Lists.newArrayList();
@@ -52,6 +53,7 @@ public class BarredEmployeeServiceImpl implements BarredEmployeeService {
         barredEmployeeRepository.save(barredEmployees);
     }
 
+    @Override
     public List<BarredEmployeeDTO> getBarredEmployees(final Long customerLocationId) {
         List<BarredEmployeeModel> employees = barredEmployeeRepository.findByCustomerLocationId(customerLocationId);
         List<BarredEmployeeDTO> barredEmployees = Lists.newArrayList();

@@ -9,6 +9,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.Set;
 
 import org.joda.time.DateTime;
 import org.junit.Before;
@@ -47,6 +48,7 @@ import com.g4s.javelin.service.location.MasterfileAssociationService;
 import com.g4s.javelin.service.location.SiteLocationService;
 import com.g4s.javelin.service.location.impl.CustomerLocationServiceImpl;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
+import com.google.appengine.repackaged.com.google.api.client.util.Sets;
 
 @RunWith(MockitoJUnitRunner.class)
 public class CustomerLocationServiceTest {
@@ -132,7 +134,7 @@ public class CustomerLocationServiceTest {
         address.setLongitude("0");
         address.setPostCode("1234");
         customerLocationModel.setAddress(address);
-        List<BarredEmployeeModel> barredEmployees = Lists.newArrayList();
+        Set<BarredEmployeeModel> barredEmployees = Sets.newHashSet();
         BarredEmployeeModel barredEmployee = new BarredEmployeeModel();
         barredEmployee.setEmployeeId(1234l);
         barredEmployees.add(barredEmployee);
@@ -143,17 +145,18 @@ public class CustomerLocationServiceTest {
         equipment.setEquipmentName("Gun");
         equipments.add(equipment);
         customerLocationModel.setFloorPlan("Floor Plan");
-        List<ModeTransportModel> modeTransports = Lists.newArrayList();
-        List<SkillsModel> skills = Lists.newArrayList();
+        Set<ModeTransportModel> modeTransports = Sets.newHashSet();
+        Set<SkillsModel> skills = Sets.newHashSet();
         customerLocationModel.setSkills(skills);
-        List<TaskModel> tasks = Lists.newArrayList();
+        Set<TaskModel> tasks = Sets.newHashSet();
         customerLocationModel.setTasks(tasks);
         CustomerModel customer = new CustomerModel();
         customer.setCustomerName("Juan Dela Cruz");
         customerLocationModel.setCustomer(customer );
-        List<WorkOrderModel> workOrders = Lists.newArrayList();
+        Set<WorkOrderModel> workOrders = Sets.newHashSet();
         workOrders.add(workOrderModel);
         customerLocationModel.setWorkOrders(workOrders);
+        customerLocationModel.setStatus(StatusEnum.INPROGRESS);
     }
 
     @Test
@@ -195,7 +198,7 @@ public class CustomerLocationServiceTest {
 
     @Test
     @Ignore
-    public void testSaveNewCustomerLocationDetails() {
+    public void testSaveNewCustomerLocationDetails() throws Exception {
         when(customerLocationRepositoryMock.save(customerLocationModel)).thenReturn(null);
         List<BarredEmployeeDTO> barredEmployeeList = Lists.newArrayList();
         BarredEmployeeDTO barredEmployee = new BarredEmployeeDTO();
