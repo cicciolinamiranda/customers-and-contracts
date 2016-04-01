@@ -106,16 +106,17 @@ public class CustomerLocationApi {
     }
 
     /**
-     * Seach customer location details
+     * Seach customer location details by filter
      *
      * @param criteria Search Criteria (Customer Name, Address, Id)
      * @param value search value
      */
     @ApiMethod(
-            name = "customer.location.search",
-            path = "customer-location/search",
+            name = "customer.location.search.filter",
+            path = "customer-location/search-filter",
             httpMethod = ApiMethod.HttpMethod.POST)
-    public List<CustomerLocationDTO> searchCustomerLocation(@Named("criteria") final String criteria, @Named("value") final String value) {
+    public List<CustomerLocationDTO> searchCustomerLocationByFilter(@Named("criteria") final String criteria,
+            @Named("value") final String value) {
         List<CustomerLocationDTO> list = Lists.newArrayList();
         SearchCriteriaEnum sCriteria = SearchCriteriaEnum.findByCode(criteria);
         if (SearchCriteriaEnum.ADDRESS.equals(sCriteria)) {
@@ -154,6 +155,20 @@ public class CustomerLocationApi {
             httpMethod = ApiMethod.HttpMethod.POST)
     public CreateCustomerLocationDTO createCustomerLocation() {
         CreateCustomerLocationDTO result = customerLocationService.createCustomerLocation();
+        return result;
+    }
+
+    /**
+     * Search All Location
+     *
+     *
+     */
+    @ApiMethod(
+            name = "customer.location.search",
+            path = "customer-location/search",
+            httpMethod = ApiMethod.HttpMethod.POST)
+    public List<CustomerLocationDTO> searchCustomerLocations(@Named("searchterm") final String searchTerm) {
+        List<CustomerLocationDTO> result = customerLocationService.searchAllCustomerLocations(searchTerm);
         return result;
     }
 

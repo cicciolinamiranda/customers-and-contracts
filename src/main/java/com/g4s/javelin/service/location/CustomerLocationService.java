@@ -16,4 +16,5 @@ public interface CustomerLocationService {
     void addExistingCustomerLocationToAWorkOrder(Long customerLocationId, Long workOrderId)throws CustomerLocationException;
     CreateCustomerLocationDTO createCustomerLocation();
     void updateCustomerLocationStatus(Long id, String status);
+    List<CustomerLocationDTO> searchAllCustomerLocations(String searchTerm);
 }

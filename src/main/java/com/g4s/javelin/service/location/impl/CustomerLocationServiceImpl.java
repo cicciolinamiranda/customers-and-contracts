@@ -2,6 +2,7 @@ package com.g4s.javelin.service.location.impl;
 
 import java.util.List;
 
+import org.apache.commons.lang3.math.NumberUtils;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.modelmapper.ModelMapper;
@@ -185,6 +186,22 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         dto.setCustomerLocationId(result.getId());
         dto.setMasterfile(masterFileService.getMasterFile());
         return dto;
+    }
+
+    @Override
+    public List<CustomerLocationDTO> searchAllCustomerLocations(final String searchTerm) {
+        Long id = null;
+        if (NumberUtils.isDigits(searchTerm)) {
+            id = Long.valueOf(searchTerm);
+        }
+        String likeSearchTerm = "%" + searchTerm + "%";
+        List<CustomerLocationModel> results = customerLocationRepository
+                .findByIdOrCustomerCustomerNameLikeOrAddressAddressLike(id, likeSearchTerm, likeSearchTerm);
+        List<CustomerLocationDTO> list = Lists.newArrayList();
+        for (CustomerLocationModel result : results) {
+            list.add(transformCustomerLocation(result));
+        }
+        return list;
     }
 
     @Override

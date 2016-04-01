@@ -20,6 +20,8 @@ public interface CustomerLocationRepository extends
 
     List<CustomerLocationModel> findByCustomerCustomerNameContainingIgnoreCase(final String customerName);
 
+    List<CustomerLocationModel> findByIdOrCustomerCustomerNameLikeOrAddressAddressLike(Long id, String customerName, String address);
+
     @Modifying
     @Transactional
     @Query("UPDATE CustomerLocationModel SET status= :status WHERE id=:id")
