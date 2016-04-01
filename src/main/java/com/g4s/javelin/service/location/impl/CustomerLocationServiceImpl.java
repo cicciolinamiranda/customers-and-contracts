@@ -3,12 +3,14 @@ package com.g4s.javelin.service.location.impl;
 import java.util.List;
 
 import org.apache.commons.lang3.math.NumberUtils;
+import org.hibernate.HibernateException;
 import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import com.g4s.javelin.constants.ExceptionMessageConstants;
@@ -119,8 +121,9 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         return list;
     }
 
+    @Transactional(rollbackFor = {CustomerLocationException.class})
     @Override
-    public void saveCustomerLocationDetails(final CustomerLocationDTO customerLocation) {
+    public CustomerLocationDTO saveCustomerLocationDetails(final CustomerLocationDTO customerLocation) throws CustomerLocationException {
         org.joda.time.format.DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/dd/yyyy");
         CustomerLocationModel model;
         List<WorkOrderModel> workOrders = Lists.newArrayList();
@@ -146,17 +149,21 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         model.setAddress(modelMapper.map(customerLocation.getAddress(),
                 AddressModel.class));
         model.setTasks(transformTasksToModel(customerLocation.getTasks()));
-        model = customerLocationRepository.save(model);
-        // Save barred employess
-        barredEmployeeService.saveBarredEmployees(
-                customerLocation.getBarredEmployees(), model.getId());
-        // Save Site Location Details
-        siteLocationService.saveSiteLocation(model.getId(), customerLocation.getSiteLocations());
-        // Save Location Equipments
-        masterfileAssociationService.saveLocationEquipment(model.getId(), customerLocation.getEquipments());
-        // Save Location Mode of Transport
-        masterfileAssociationService.saveLocationModeOfTransport(model.getId(), customerLocation.getModeOfTransports());
-
+        try {
+            model = customerLocationRepository.save(model);
+            // Save barred employess
+            barredEmployeeService.saveBarredEmployees(
+                    customerLocation.getBarredEmployees(), model.getId());
+            // Save Site Location Details
+            siteLocationService.saveSiteLocation(model.getId(), customerLocation.getSiteLocations());
+            // Save Location Equipments
+            masterfileAssociationService.saveLocationEquipment(model.getId(), customerLocation.getEquipments());
+            // Save Location Mode of Transport
+            masterfileAssociationService.saveLocationModeOfTransport(model.getId(), customerLocation.getModeOfTransports());
+        } catch (HibernateException e) {
+            throw new CustomerLocationException(e.getMessage());
+        }
+        return transformCustomerLocation(model);
     }
 
     @Override

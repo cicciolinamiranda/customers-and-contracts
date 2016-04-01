@@ -85,11 +85,13 @@ public class CustomerLocationApi {
      * @param customerLocationDTO Customer location details
      */
     @ApiMethod(
-            name = "customer.location.add",
-            path = "customer-location/add",
+            name = "customer.location.save",
+            path = "customer-location/save",
             httpMethod = ApiMethod.HttpMethod.POST)
-    public void saveCustomerLocationDetails(final CustomerLocationDTO customerLocationDTO) {
-        customerLocationService.saveCustomerLocationDetails(customerLocationDTO);
+    public CustomerLocationDTO saveCustomerLocationDetails(final CustomerLocationDTO customerLocationDTO)
+            throws CustomerLocationException {
+        CustomerLocationDTO response = customerLocationService.saveCustomerLocationDetails(customerLocationDTO);
+        return response;
     }
 
     /**
@@ -101,7 +103,8 @@ public class CustomerLocationApi {
             name = "customer.location.update",
             path = "customer-location/update",
             httpMethod = ApiMethod.HttpMethod.POST)
-    public void updateCustomerLocationDetails(final CustomerLocationDTO customerLocationDTO) {
+    public void updateCustomerLocationDetails(final CustomerLocationDTO customerLocationDTO)
+            throws CustomerLocationException {
         customerLocationService.saveCustomerLocationDetails(customerLocationDTO);
     }
 

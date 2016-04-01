@@ -195,7 +195,7 @@ public class CustomerLocationServiceTest {
 
     @Test
     @Ignore
-    public void testSaveNewCustomerLocationDetails() {
+    public void testSaveNewCustomerLocationDetails() throws Exception {
         when(customerLocationRepositoryMock.save(customerLocationModel)).thenReturn(null);
         List<BarredEmployeeDTO> barredEmployeeList = Lists.newArrayList();
         BarredEmployeeDTO barredEmployee = new BarredEmployeeDTO();
