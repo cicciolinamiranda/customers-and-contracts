@@ -6,6 +6,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.List;
+import java.util.Set;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,6 +31,7 @@ import com.g4s.javelin.dto.core.location.TaskDTO;
 import com.g4s.javelin.service.location.MasterFileService;
 import com.g4s.javelin.service.location.impl.MasterFileServiceImpl;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
+import com.google.appengine.repackaged.com.google.api.client.util.Sets;
 
 @RunWith(MockitoJUnitRunner.class)
 public class MasterFileServiceTest {
@@ -90,7 +92,7 @@ public class MasterFileServiceTest {
         TaskActivityModel taskActivityModel = new TaskActivityModel();
         taskActivityModel.setId(1234l);
         taskActivityModel.setTaskActivityName("Swiping");
-        List<TaskActivityModel> taskActivities = Lists.newArrayList();
+        Set<TaskActivityModel> taskActivities = Sets.newHashSet();
         taskActivities.add(taskActivityModel);
         taskModel.setTaskActivities(taskActivities);
     }

@@ -1,6 +1,7 @@
 package com.g4s.javelin.service.location.impl;
 
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.hibernate.HibernateException;
@@ -22,6 +23,7 @@ import com.g4s.javelin.data.model.location.CustomerLocationModel;
 import com.g4s.javelin.data.model.location.SiteLocationModel;
 import com.g4s.javelin.data.model.location.SkillsModel;
 import com.g4s.javelin.data.model.location.TaskModel;
+import com.g4s.javelin.data.model.mock.IncidentLogMockModel;
 import com.g4s.javelin.data.model.workorder.WorkOrderModel;
 import com.g4s.javelin.data.repository.location.CustomerLocationRepository;
 import com.g4s.javelin.data.repository.workorder.WorkOrderRepository;
@@ -33,6 +35,7 @@ import com.g4s.javelin.dto.core.location.ModeTransportDTO;
 import com.g4s.javelin.dto.core.location.SiteLocationDTO;
 import com.g4s.javelin.dto.core.location.SkillsDTO;
 import com.g4s.javelin.dto.core.location.TaskDTO;
+import com.g4s.javelin.dto.mock.IncidentLogMockDTO;
 import com.g4s.javelin.enums.StatusEnum;
 import com.g4s.javelin.exception.CustomerLocationException;
 import com.g4s.javelin.service.location.BarredEmployeeService;
@@ -41,6 +44,7 @@ import com.g4s.javelin.service.location.MasterFileService;
 import com.g4s.javelin.service.location.MasterfileAssociationService;
 import com.g4s.javelin.service.location.SiteLocationService;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
+import com.google.appengine.repackaged.com.google.api.client.util.Sets;
 
 public class CustomerLocationServiceImpl implements CustomerLocationService {
 
@@ -126,7 +130,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
     public CustomerLocationDTO saveCustomerLocationDetails(final CustomerLocationDTO customerLocation) throws CustomerLocationException {
         org.joda.time.format.DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/dd/yyyy");
         CustomerLocationModel model;
-        List<WorkOrderModel> workOrders = Lists.newArrayList();
+        Set<WorkOrderModel> workOrders = Sets.newHashSet();
         model = modelMapper.map(customerLocation,
                     CustomerLocationModel.class);
         if (customerLocation.getId() != null) {
@@ -148,6 +152,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         model.setSkills(transformSkillsToModel(customerLocation.getSkills()));
         model.setAddress(modelMapper.map(customerLocation.getAddress(),
                 AddressModel.class));
+        model.setIncidents(transformIncidentToModel(customerLocation.getIncidents()));
         model.setTasks(transformTasksToModel(customerLocation.getTasks()));
         try {
             model = customerLocationRepository.save(model);
@@ -180,7 +185,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         if (customerLocation == null) {
             throw new CustomerLocationException(ExceptionMessageConstants.NULL_EXISTING_CUSTLOC_FOUND);
         }
-        List<WorkOrderModel> workOrders = customerLocation.getWorkOrders();
+        Set<WorkOrderModel> workOrders = customerLocation.getWorkOrders();
         workOrders.add(workOrder);
         customerLocation.setWorkOrders(workOrders);
         customerLocationRepository.save(customerLocation);
@@ -228,10 +233,11 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         dto.setTasks(transformTasks(model.getTasks()));
         dto.setBarredEmployees(getBarredEmployeeDetails(model.getId()));
         dto.setSiteLocations(transformSiteLocation(model.getSiteLocations()));
+        dto.setIncidents(transformIncident(model.getIncidents()));
         return dto;
     }
 
-    private List<SkillsDTO> transformSkills(final List<SkillsModel> skills) {
+    private List<SkillsDTO> transformSkills(final Set<SkillsModel> skills) {
         List<SkillsDTO> list = Lists.newArrayList();
         if (!CollectionUtils.isEmpty(skills)) {
             for (SkillsModel skill : skills) {
@@ -241,8 +247,8 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         return list;
     }
 
-    private List<SkillsModel> transformSkillsToModel(final List<SkillsDTO> skills) {
-        List<SkillsModel> list = Lists.newArrayList();
+    private Set<SkillsModel> transformSkillsToModel(final List<SkillsDTO> skills) {
+        Set<SkillsModel> list = Sets.newHashSet();
         if (!CollectionUtils.isEmpty(skills)) {
             for (SkillsDTO skill : skills) {
                 list.add(modelMapper.map(skill, SkillsModel.class));
@@ -251,7 +257,27 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         return list;
     }
 
-    private List<TaskDTO> transformTasks(final List<TaskModel> tasks) {
+    private List<IncidentLogMockDTO> transformIncident(final Set<IncidentLogMockModel> incidents) {
+        List<IncidentLogMockDTO> list = Lists.newArrayList();
+        if (!CollectionUtils.isEmpty(incidents)) {
+            for (IncidentLogMockModel skill : incidents) {
+                list.add(modelMapper.map(skill, IncidentLogMockDTO.class));
+            }
+        }
+        return list;
+    }
+
+    private Set<IncidentLogMockModel> transformIncidentToModel(final List<IncidentLogMockDTO> incidents) {
+        Set<IncidentLogMockModel> list = Sets.newHashSet();
+        if (!CollectionUtils.isEmpty(incidents)) {
+            for (IncidentLogMockDTO skill : incidents) {
+                list.add(modelMapper.map(skill, IncidentLogMockModel.class));
+            }
+        }
+        return list;
+    }
+
+    private List<TaskDTO> transformTasks(final Set<TaskModel> tasks) {
         List<TaskDTO> list = Lists.newArrayList();
         if (!CollectionUtils.isEmpty(tasks)) {
             for (TaskModel task : tasks) {
@@ -261,8 +287,8 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         return list;
     }
 
-    private List<TaskModel> transformTasksToModel(final List<TaskDTO> tasks) {
-        List<TaskModel> list = Lists.newArrayList();
+    private Set<TaskModel> transformTasksToModel(final List<TaskDTO> tasks) {
+        Set<TaskModel> list = Sets.newHashSet();
         if (!CollectionUtils.isEmpty(tasks)) {
             for (TaskDTO task : tasks) {
                 list.add(modelMapper.map(task, TaskModel.class));
@@ -271,7 +297,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         return list;
     }
 
-    private List<SiteLocationDTO> transformSiteLocation(final List<SiteLocationModel> siteLocations) {
+    private List<SiteLocationDTO> transformSiteLocation(final Set<SiteLocationModel> siteLocations) {
         List<SiteLocationDTO> list = Lists.newArrayList();
         if (!CollectionUtils.isEmpty(siteLocations)) {
             for (SiteLocationModel slm : siteLocations) {
@@ -286,7 +312,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         return barredEmployeeService.getBarredEmployees(customerLocationId);
     }
 
-    public List<ModeTransportDTO> getLocationModeOfTransport(final List<CustomerLocationModeOfTransportModel> transports) {
+    public List<ModeTransportDTO> getLocationModeOfTransport(final Set<CustomerLocationModeOfTransportModel> transports) {
         List<ModeTransportDTO> list = Lists.newArrayList();
         ModeTransportDTO modeTransport;
         if (!CollectionUtils.isEmpty(transports)) {
@@ -302,7 +328,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         return list;
     }
 
-    public List<EquipmentDTO> getLocationEquipments(final List<CustomerLocationEquipmentModel> equipments) {
+    public List<EquipmentDTO> getLocationEquipments(final Set<CustomerLocationEquipmentModel> equipments) {
         List<EquipmentDTO> list = Lists.newArrayList();
         EquipmentDTO equipment;
         if (!CollectionUtils.isEmpty(equipments)) {
