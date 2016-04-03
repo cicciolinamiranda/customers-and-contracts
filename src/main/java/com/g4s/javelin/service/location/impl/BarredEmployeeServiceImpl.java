@@ -63,6 +63,8 @@ public class BarredEmployeeServiceImpl implements BarredEmployeeService {
             dto.setEmployeeId(emp.getEmployeeId());
             dto.setEndDate(emp.getEndDate());
             dto.setStartDate(emp.getStartDate());
+            dto.setFirstName(emp.getFirstName());
+            dto.setLastName(emp.getLastName());
             //connect to mock to get employee first name and last name
             barredEmployees.add(dto);
         }
