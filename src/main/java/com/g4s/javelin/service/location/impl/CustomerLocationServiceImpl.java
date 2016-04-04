@@ -35,6 +35,7 @@ import com.g4s.javelin.dto.core.location.ModeTransportDTO;
 import com.g4s.javelin.dto.core.location.SiteLocationDTO;
 import com.g4s.javelin.dto.core.location.SkillsDTO;
 import com.g4s.javelin.dto.core.location.TaskDTO;
+import com.g4s.javelin.dto.core.location.WorkOrderDTO;
 import com.g4s.javelin.dto.mock.IncidentLogMockDTO;
 import com.g4s.javelin.enums.StatusEnum;
 import com.g4s.javelin.exception.CustomerLocationException;
@@ -234,6 +235,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         dto.setBarredEmployees(getBarredEmployeeDetails(model.getId()));
         dto.setSiteLocations(transformSiteLocation(model.getSiteLocations()));
         dto.setIncidents(transformIncident(model.getIncidents()));
+        dto.setWorkOrderId(transformWorkOrder(model.getWorkOrders()).get(0).getId());
         return dto;
     }
 
@@ -262,6 +264,16 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         if (!CollectionUtils.isEmpty(incidents)) {
             for (IncidentLogMockModel skill : incidents) {
                 list.add(modelMapper.map(skill, IncidentLogMockDTO.class));
+            }
+        }
+        return list;
+    }
+
+    private List<WorkOrderDTO> transformWorkOrder(final Set<WorkOrderModel> workOrders) {
+        List<WorkOrderDTO> list = Lists.newArrayList();
+        if (!CollectionUtils.isEmpty(workOrders)) {
+            for (WorkOrderModel skill : workOrders) {
+                list.add(modelMapper.map(skill, WorkOrderDTO.class));
             }
         }
         return list;
