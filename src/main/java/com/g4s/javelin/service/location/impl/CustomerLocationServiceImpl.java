@@ -17,8 +17,6 @@ import org.springframework.util.CollectionUtils;
 import com.g4s.javelin.constants.ExceptionMessageConstants;
 import com.g4s.javelin.constants.ServiceConstants;
 import com.g4s.javelin.data.model.location.AddressModel;
-import com.g4s.javelin.data.model.location.CustomerLocationEquipmentModel;
-import com.g4s.javelin.data.model.location.CustomerLocationModeOfTransportModel;
 import com.g4s.javelin.data.model.location.CustomerLocationModel;
 import com.g4s.javelin.data.model.location.SiteLocationModel;
 import com.g4s.javelin.data.model.location.SkillsModel;
@@ -30,8 +28,6 @@ import com.g4s.javelin.data.repository.workorder.WorkOrderRepository;
 import com.g4s.javelin.dto.core.location.BarredEmployeeDTO;
 import com.g4s.javelin.dto.core.location.CreateCustomerLocationDTO;
 import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
-import com.g4s.javelin.dto.core.location.EquipmentDTO;
-import com.g4s.javelin.dto.core.location.ModeTransportDTO;
 import com.g4s.javelin.dto.core.location.SiteLocationDTO;
 import com.g4s.javelin.dto.core.location.SkillsDTO;
 import com.g4s.javelin.dto.core.location.TaskDTO;
@@ -227,9 +223,9 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
             final CustomerLocationModel model) {
         CustomerLocationDTO dto = new CustomerLocationDTO();
         dto = modelMapper.map(model, CustomerLocationDTO.class);
-        dto.setEquipments(getLocationEquipments(model.getLocationEquipments()));
+        dto.setEquipments(masterfileAssociationService.getLocationEquipments(model.getId()));
         dto.setStatusStr(model.getStatus().getCode());
-        dto.setModeOfTransports(getLocationModeOfTransport(model.getLocationTransports()));
+        dto.setModeOfTransports(masterfileAssociationService.getLocationModeOfTransport(model.getId()));
         dto.setSkills(transformSkills(model.getSkills()));
         dto.setTasks(transformTasks(model.getTasks()));
         dto.setBarredEmployees(getBarredEmployeeDetails(model.getId()));
@@ -322,39 +318,5 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
     private List<BarredEmployeeDTO> getBarredEmployeeDetails(
             final Long customerLocationId) {
         return barredEmployeeService.getBarredEmployees(customerLocationId);
-    }
-
-    public List<ModeTransportDTO> getLocationModeOfTransport(final Set<CustomerLocationModeOfTransportModel> transports) {
-        List<ModeTransportDTO> list = Lists.newArrayList();
-        ModeTransportDTO modeTransport;
-        if (!CollectionUtils.isEmpty(transports)) {
-            for (CustomerLocationModeOfTransportModel loc : transports) {
-                modeTransport = new ModeTransportDTO();
-                modeTransport.setAssociationId(loc.getId());
-                modeTransport.setId(loc.getModeTransport().getId());
-                modeTransport.setCostType(loc.getCostType());
-                modeTransport.setTransportName(loc.getModeTransport().getTransportName());
-                modeTransport.setBilled(loc.isBilled());
-                list.add(modeTransport);
-            }
-        }
-        return list;
-    }
-
-    public List<EquipmentDTO> getLocationEquipments(final Set<CustomerLocationEquipmentModel> equipments) {
-        List<EquipmentDTO> list = Lists.newArrayList();
-        EquipmentDTO equipment;
-        if (!CollectionUtils.isEmpty(equipments)) {
-            for (CustomerLocationEquipmentModel loc : equipments) {
-                equipment = new EquipmentDTO();
-                equipment.setAssociationId(loc.getId());
-                equipment.setId(loc.getEquipment().getId());
-                equipment.setCostType(loc.getCostType());
-                equipment.setEquipmentName(loc.getEquipment().getEquipmentName());
-                equipment.setBilled(loc.isBilled());
-                list.add(equipment);
-            }
-        }
-        return list;
     }
 }

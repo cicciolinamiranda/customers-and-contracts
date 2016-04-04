@@ -76,12 +76,6 @@ public class CustomerLocationModel {
     @OneToMany(mappedBy = "customerLocation", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Set<BarredEmployeeModel> barredEmployee;
 
-    @OneToMany(mappedBy = "customerLocation", fetch = FetchType.EAGER)
-    private Set<CustomerLocationEquipmentModel> locationEquipments;
-
-    @OneToMany(mappedBy = "customerLocation", fetch = FetchType.EAGER)
-    private Set<CustomerLocationModeOfTransportModel> locationTransports;
-
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_id")
     private CustomerModel customer;
@@ -269,24 +263,6 @@ public class CustomerLocationModel {
 
     public void setStatus(final StatusEnum status) {
         this.status = status;
-    }
-
-    public Set<CustomerLocationEquipmentModel> getLocationEquipments() {
-        return locationEquipments;
-    }
-
-    public void setLocationEquipments(
-            final Set<CustomerLocationEquipmentModel> locationEquipments) {
-        this.locationEquipments = locationEquipments;
-    }
-
-    public Set<CustomerLocationModeOfTransportModel> getLocationTransports() {
-        return locationTransports;
-    }
-
-    public void setLocationTransports(
-            final Set<CustomerLocationModeOfTransportModel> locationTransports) {
-        this.locationTransports = locationTransports;
     }
 
     public DateTime getStartDate() {
