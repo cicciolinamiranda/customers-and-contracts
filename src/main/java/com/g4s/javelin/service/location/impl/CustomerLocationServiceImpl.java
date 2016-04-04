@@ -330,6 +330,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         if (!CollectionUtils.isEmpty(transports)) {
             for (CustomerLocationModeOfTransportModel loc : transports) {
                 modeTransport = new ModeTransportDTO();
+                modeTransport.setAssociationId(loc.getId());
                 modeTransport.setId(loc.getModeTransport().getId());
                 modeTransport.setCostType(loc.getCostType());
                 modeTransport.setTransportName(loc.getModeTransport().getTransportName());
@@ -346,6 +347,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         if (!CollectionUtils.isEmpty(equipments)) {
             for (CustomerLocationEquipmentModel loc : equipments) {
                 equipment = new EquipmentDTO();
+                equipment.setAssociationId(loc.getId());
                 equipment.setId(loc.getEquipment().getId());
                 equipment.setCostType(loc.getCostType());
                 equipment.setEquipmentName(loc.getEquipment().getEquipmentName());

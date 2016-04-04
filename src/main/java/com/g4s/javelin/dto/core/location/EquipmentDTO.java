@@ -7,6 +7,7 @@ public class EquipmentDTO {
     private String equipmentName;
     private boolean isBilled;
     private String costType;
+    private Long associationId;
 
     public Long getId() {
         return id;
@@ -38,6 +39,14 @@ public class EquipmentDTO {
 
     public void setCostType(final String costType) {
         this.costType = costType;
+    }
+
+    public Long getAssociationId() {
+        return associationId;
+    }
+
+    public void setAssociationId(final Long associationId) {
+        this.associationId = associationId;
     }
 
 }
