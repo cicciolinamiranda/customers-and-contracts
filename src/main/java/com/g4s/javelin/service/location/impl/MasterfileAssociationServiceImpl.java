@@ -53,6 +53,7 @@ public class MasterfileAssociationServiceImpl implements MasterfileAssociationSe
             for (EquipmentDTO dto : equipments) {
                 model = equipmentRepository.findOne(dto.getId());
                 locEquipmentModel = new CustomerLocationEquipmentModel();
+                locEquipmentModel.setId(dto.getAssociationId());
                 locEquipmentModel.setBilled(dto.isBilled());
                 locEquipmentModel.setCostType(dto.getCostType());
                 locEquipmentModel.setCustomerLocation(locationModel);
@@ -73,6 +74,7 @@ public class MasterfileAssociationServiceImpl implements MasterfileAssociationSe
             for (ModeTransportDTO dto : transports) {
                 model = transportRepository.findOne(dto.getId());
                 locTransportModel = new CustomerLocationModeOfTransportModel();
+                locTransportModel.setId(dto.getAssociationId());
                 locTransportModel.setBilled(dto.isBilled());
                 locTransportModel.setCostType(dto.getCostType());
                 locTransportModel.setCustomerLocation(locationModel);
