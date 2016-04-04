@@ -9,5 +9,6 @@ public interface MasterfileAssociationService {
 
     void saveLocationEquipment(final Long customerLocationId, List<EquipmentDTO> equipments);
     void saveLocationModeOfTransport(final Long customerLocationId, List<ModeTransportDTO> equipments);
-
+    List<ModeTransportDTO> getLocationModeOfTransport(Long customerLocationId);
+    List<EquipmentDTO> getLocationEquipments(Long customerLocationId);
 }

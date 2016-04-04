@@ -98,5 +98,41 @@ public class MasterfileAssociationServiceImpl implements MasterfileAssociationSe
 
     }
 
+    public List<ModeTransportDTO> getLocationModeOfTransport(final Long customerLocationId) {
+        List<ModeTransportDTO> list = Lists.newArrayList();
+        ModeTransportDTO modeTransport;
+        List<CustomerLocationModeOfTransportModel> transports = locationTransportRepository.findByCustomerLocationId(customerLocationId);
+        if (!CollectionUtils.isEmpty(transports)) {
+            for (CustomerLocationModeOfTransportModel loc : transports) {
+                modeTransport = new ModeTransportDTO();
+                modeTransport.setAssociationId(loc.getId());
+                modeTransport.setId(loc.getModeTransport().getId());
+                modeTransport.setCostType(loc.getCostType());
+                modeTransport.setTransportName(loc.getModeTransport().getTransportName());
+                modeTransport.setBilled(loc.isBilled());
+                list.add(modeTransport);
+            }
+        }
+        return list;
+    }
+
+    public List<EquipmentDTO> getLocationEquipments(final Long customerLocationId) {
+        List<EquipmentDTO> list = Lists.newArrayList();
+        EquipmentDTO equipment;
+        List<CustomerLocationEquipmentModel> equipments = locationEquipmentRepository.findByCustomerLocationId(customerLocationId);
+        if (!CollectionUtils.isEmpty(equipments)) {
+            for (CustomerLocationEquipmentModel loc : equipments) {
+                equipment = new EquipmentDTO();
+                equipment.setAssociationId(loc.getId());
+                equipment.setId(loc.getEquipment().getId());
+                equipment.setCostType(loc.getCostType());
+                equipment.setEquipmentName(loc.getEquipment().getEquipmentName());
+                equipment.setBilled(loc.isBilled());
+                list.add(equipment);
+            }
+        }
+        return list;
+    }
+
 
 }
