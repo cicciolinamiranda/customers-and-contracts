@@ -51,16 +51,22 @@ public class MasterfileAssociationServiceImpl implements MasterfileAssociationSe
             CustomerLocationEquipmentModel locEquipmentModel;
             CustomerLocationModel locationModel = locationRepository.findOne(customerLocationId);
             for (EquipmentDTO dto : equipments) {
-                model = equipmentRepository.findOne(dto.getId());
-                locEquipmentModel = new CustomerLocationEquipmentModel();
-                locEquipmentModel.setId(dto.getAssociationId());
-                locEquipmentModel.setBilled(dto.isBilled());
-                locEquipmentModel.setCostType(dto.getCostType());
-                locEquipmentModel.setCustomerLocation(locationModel);
-                locEquipmentModel.setEquipment(model);
-                list.add(locEquipmentModel);
+                if (dto.isDeleted()) {
+                    locationEquipmentRepository.delete(dto.getAssociationId());
+                } else {
+                    model = equipmentRepository.findOne(dto.getId());
+                    locEquipmentModel = new CustomerLocationEquipmentModel();
+                    locEquipmentModel.setId(dto.getAssociationId());
+                    locEquipmentModel.setBilled(dto.isBilled());
+                    locEquipmentModel.setCostType(dto.getCostType());
+                    locEquipmentModel.setCustomerLocation(locationModel);
+                    locEquipmentModel.setEquipment(model);
+                    list.add(locEquipmentModel);
+                }
             }
-            locationEquipmentRepository.save(list);
+            if (list.size() > 0) {
+                locationEquipmentRepository.save(list);
+            }
         }
     }
 
@@ -72,16 +78,22 @@ public class MasterfileAssociationServiceImpl implements MasterfileAssociationSe
             CustomerLocationModeOfTransportModel locTransportModel;
             CustomerLocationModel locationModel = locationRepository.findOne(customerLocationId);
             for (ModeTransportDTO dto : transports) {
-                model = transportRepository.findOne(dto.getId());
-                locTransportModel = new CustomerLocationModeOfTransportModel();
-                locTransportModel.setId(dto.getAssociationId());
-                locTransportModel.setBilled(dto.isBilled());
-                locTransportModel.setCostType(dto.getCostType());
-                locTransportModel.setCustomerLocation(locationModel);
-                locTransportModel.setModeTransport(model);
-                list.add(locTransportModel);
+                if (dto.isDeleted()) {
+                    locationTransportRepository.delete(dto.getAssociationId());
+                } else {
+                    model = transportRepository.findOne(dto.getId());
+                    locTransportModel = new CustomerLocationModeOfTransportModel();
+                    locTransportModel.setId(dto.getAssociationId());
+                    locTransportModel.setBilled(dto.isBilled());
+                    locTransportModel.setCostType(dto.getCostType());
+                    locTransportModel.setCustomerLocation(locationModel);
+                    locTransportModel.setModeTransport(model);
+                    list.add(locTransportModel);
+                }
             }
-            locationTransportRepository.save(list);
+            if (list.size() > 0) {
+                locationTransportRepository.save(list);
+            }
         }
 
     }
