@@ -2,6 +2,7 @@ package com.g4s.javelin.dto.core.location;
 
 import org.joda.time.DateTime;
 
+//CSOFF: HiddenField
 public class BarredEmployeeDTO {
     private Long id;
     private Long employeeId;
@@ -12,6 +13,7 @@ public class BarredEmployeeDTO {
     private DateTime endDate;
     private String startDateStr;
     private String endDateStr;
+    private boolean isDeleted;
 
     public Long getEmployeeId() {
         return employeeId;
@@ -67,4 +69,12 @@ public class BarredEmployeeDTO {
     public void setEndDateStr(final String endDateStr) {
         this.endDateStr = endDateStr;
     }
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+    public void setDeleted(final boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
 }
+//CSON: HiddenField
+

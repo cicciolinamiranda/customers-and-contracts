@@ -8,6 +8,7 @@ public class ModeTransportDTO {
     private boolean isBilled;
     private String costType;
     private Long associationId;
+    private boolean isDeleted;
 
     public Long getId() {
         return id;
@@ -47,6 +48,14 @@ public class ModeTransportDTO {
 
     public void setAssociationId(final Long associationId) {
         this.associationId = associationId;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(final boolean isDeleted) {
+        this.isDeleted = isDeleted;
     }
 
 }

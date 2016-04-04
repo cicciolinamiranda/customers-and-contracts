@@ -33,21 +33,25 @@ public class BarredEmployeeServiceImpl implements BarredEmployeeService {
         BarredEmployeeModel model;
         if (!CollectionUtils.isEmpty(employees)) {
             for (BarredEmployeeDTO dto : employees) {
-                model = new BarredEmployeeModel();
-                if (dto.getId() != null) {
-                    model.setId(dto.getId());
+                if (dto.isDeleted()) {
+                    barredEmployeeRepository.delete(dto.getId());
+                } else {
+                    model = new BarredEmployeeModel();
+                    if (dto.getId() != null) {
+                        model.setId(dto.getId());
+                    }
+                    model.setEmployeeId(dto.getEmployeeId());
+                    model.setStartDate(dto.getStartDate());
+                    model.setEndDate(dto.getEndDate());
+                    model.setFirstName(dto.getFirstName());
+                    model.setLastName(dto.getLastName());
+                    model.setTitle(dto.getTitle());
+                    model.setCustomerLocation(location);
+                    if (dto.getStartDateStr() != null) {
+                        model.setStartDate(dtf.parseDateTime(dto.getStartDateStr()));
+                    }
+                    barredEmployees.add(model);
                 }
-                model.setEmployeeId(dto.getEmployeeId());
-                model.setStartDate(dto.getStartDate());
-                model.setEndDate(dto.getEndDate());
-                model.setFirstName(dto.getFirstName());
-                model.setLastName(dto.getLastName());
-                model.setTitle(dto.getTitle());
-                model.setCustomerLocation(location);
-                if (dto.getStartDateStr() != null) {
-                    model.setStartDate(dtf.parseDateTime(dto.getStartDateStr()));
-                }
-                barredEmployees.add(model);
             }
         }
         barredEmployeeRepository.save(barredEmployees);
@@ -65,7 +69,7 @@ public class BarredEmployeeServiceImpl implements BarredEmployeeService {
             dto.setStartDate(emp.getStartDate());
             dto.setFirstName(emp.getFirstName());
             dto.setLastName(emp.getLastName());
-            //connect to mock to get employee first name and last name
+            dto.setId(emp.getId());
             barredEmployees.add(dto);
         }
         return barredEmployees;
