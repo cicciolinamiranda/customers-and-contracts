@@ -80,6 +80,14 @@ public class CustomerLocationModel {
     @JoinColumn(name = "customer_id")
     private CustomerModel customer;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "PROOF_OF_DUTY_ID")
+    private ProofOfDutyModel proofOfDuty;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "METHOD_OF_RECORDING_ID")
+    private MethodOfRecordingModel methodOfRecording;
+
     @Embedded
     private AddressModel address;
 
@@ -287,6 +295,22 @@ public class CustomerLocationModel {
 
     public void setIncidents(final Set<IncidentLogMockModel> incidents) {
         this.incidents = incidents;
+    }
+
+    public ProofOfDutyModel getProofOfDuty() {
+        return proofOfDuty;
+    }
+
+    public void setProofOfDuty(final ProofOfDutyModel proofOfDuty) {
+        this.proofOfDuty = proofOfDuty;
+    }
+
+    public MethodOfRecordingModel getMethodOfRecording() {
+        return methodOfRecording;
+    }
+
+    public void setMethodOfRecording(final MethodOfRecordingModel methodOfRecording) {
+        this.methodOfRecording = methodOfRecording;
     }
 
 }
