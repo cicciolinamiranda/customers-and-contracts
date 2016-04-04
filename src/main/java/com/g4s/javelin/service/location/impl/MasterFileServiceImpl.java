@@ -8,16 +8,22 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.util.CollectionUtils;
 
 import com.g4s.javelin.data.model.location.EquipmentModel;
+import com.g4s.javelin.data.model.location.MethodOfRecordingModel;
 import com.g4s.javelin.data.model.location.ModeTransportModel;
+import com.g4s.javelin.data.model.location.ProofOfDutyModel;
 import com.g4s.javelin.data.model.location.SkillsModel;
 import com.g4s.javelin.data.model.location.TaskModel;
 import com.g4s.javelin.data.repository.location.EquipmentRepository;
+import com.g4s.javelin.data.repository.location.MethodOfRecordingRepository;
 import com.g4s.javelin.data.repository.location.ModeTransportRepository;
+import com.g4s.javelin.data.repository.location.ProofOfDutyRepository;
 import com.g4s.javelin.data.repository.location.SkillsRepository;
 import com.g4s.javelin.data.repository.location.TaskRepository;
 import com.g4s.javelin.dto.core.location.EquipmentDTO;
 import com.g4s.javelin.dto.core.location.MasterFileDTO;
+import com.g4s.javelin.dto.core.location.MethodOfRecordingDTO;
 import com.g4s.javelin.dto.core.location.ModeTransportDTO;
+import com.g4s.javelin.dto.core.location.ProofOfDutyDTO;
 import com.g4s.javelin.dto.core.location.SkillsDTO;
 import com.g4s.javelin.dto.core.location.TaskDTO;
 import com.g4s.javelin.service.location.MasterFileService;
@@ -42,6 +48,14 @@ public class MasterFileServiceImpl implements MasterFileService {
     @Autowired
     @Lazy
     private TaskRepository taskRepository;
+
+    @Autowired
+    @Lazy
+    private ProofOfDutyRepository proofOfDutyRepository;
+
+    @Autowired
+    @Lazy
+    private MethodOfRecordingRepository methodOfRecordingRepository;
 
     public MasterFileServiceImpl() {
         modelMapper = new ModelMapper();
@@ -92,6 +106,27 @@ public class MasterFileServiceImpl implements MasterFileService {
             response.add(modelMapper.map(task, TaskDTO.class));
         }
 
+        return response;
+    }
+    @Override
+    public List<ProofOfDutyDTO> getAllProofOfDuty() {
+        Iterable<ProofOfDutyModel> results = proofOfDutyRepository.findAll();
+        List<ProofOfDutyDTO> response = Lists.newArrayList();
+
+        for (ProofOfDutyModel pod : results) {
+            response.add(modelMapper.map(pod, ProofOfDutyDTO.class));
+        }
+        return response;
+    }
+
+    @Override
+    public List<MethodOfRecordingDTO> getAllMethodOfRecording() {
+        Iterable<MethodOfRecordingModel> results = methodOfRecordingRepository.findAll();
+        List<MethodOfRecordingDTO> response = Lists.newArrayList();
+
+        for (MethodOfRecordingModel mor : results) {
+            response.add(modelMapper.map(mor, MethodOfRecordingDTO.class));
+        }
         return response;
     }
 
@@ -154,5 +189,29 @@ public class MasterFileServiceImpl implements MasterFileService {
         }
         return response;
     }
+    @Override
+    public List<ProofOfDutyDTO> searchProofOfDuty(final String searchTerm) {
+        List<ProofOfDutyModel> results = proofOfDutyRepository.findByNameContainingIgnoreCase(searchTerm);
+        List<ProofOfDutyDTO> response = Lists.newArrayList();
+        if (!CollectionUtils.isEmpty(results)) {
+            for (ProofOfDutyModel pod : results) {
+                response.add(modelMapper.map(pod, ProofOfDutyDTO.class));
+            }
+        }
+        return response;
+    }
+
+    @Override
+    public List<MethodOfRecordingDTO> searchMethodOfRecording(final String searchTerm) {
+        List<MethodOfRecordingModel> results = methodOfRecordingRepository.findByNameContainingIgnoreCase(searchTerm);
+        List<MethodOfRecordingDTO> response = Lists.newArrayList();
+        if (!CollectionUtils.isEmpty(results)) {
+            for (MethodOfRecordingModel mor : results) {
+                response.add(modelMapper.map(mor, MethodOfRecordingDTO.class));
+            }
+        }
+        return response;
+    }
+
 
 }

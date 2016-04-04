@@ -33,6 +33,8 @@ public class CustomerLocationDTO {
     private List<SiteLocationDTO> siteLocations;
     private List<IncidentLogMockDTO> incidents;
     private String statusStr;
+    private ProofOfDutyDTO proofOfDuty;
+    private MethodOfRecordingDTO methodOfRecording;
 
     //SiteLocationDTO
 
@@ -182,6 +184,18 @@ public class CustomerLocationDTO {
     }
     public void setIncidents(final List<IncidentLogMockDTO> incidents) {
         this.incidents = incidents;
+    }
+    public ProofOfDutyDTO getProofOfDuty() {
+        return proofOfDuty;
+    }
+    public void setProofOfDuty(final ProofOfDutyDTO proofOfDuty) {
+        this.proofOfDuty = proofOfDuty;
+    }
+    public MethodOfRecordingDTO getMethodOfRecording() {
+        return methodOfRecording;
+    }
+    public void setMethodOfRecording(final MethodOfRecordingDTO methodOfRecording) {
+        this.methodOfRecording = methodOfRecording;
     }
 
 }

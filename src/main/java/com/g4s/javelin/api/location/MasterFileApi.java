@@ -9,7 +9,9 @@ import org.springframework.context.annotation.Lazy;
 import com.g4s.javelin.constants.ApiConstants;
 import com.g4s.javelin.constants.ServiceConstants;
 import com.g4s.javelin.dto.core.location.EquipmentDTO;
+import com.g4s.javelin.dto.core.location.MethodOfRecordingDTO;
 import com.g4s.javelin.dto.core.location.ModeTransportDTO;
+import com.g4s.javelin.dto.core.location.ProofOfDutyDTO;
 import com.g4s.javelin.dto.core.location.SkillsDTO;
 import com.g4s.javelin.dto.core.location.TaskDTO;
 import com.g4s.javelin.service.location.MasterFileService;
@@ -75,6 +77,32 @@ public class MasterFileApi {
     }
 
     /**
+     * Retrieve all proof of duty
+     *
+     * @return List of all proof of duty
+     */
+    @ApiMethod(
+            name = "master.file.proofofduty.list",
+            path = "master-file/proof-of-duty",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<ProofOfDutyDTO> getAllProofOfDuty() {
+        return masterFileService.getAllProofOfDuty();
+    }
+
+    /**
+     * Retrieve all method of recording
+     *
+     * @return List of all method of recording
+     */
+    @ApiMethod(
+            name = "master.file.methodofrecording.list",
+            path = "master-file/method-of-recording",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<MethodOfRecordingDTO> getAllMethodOfRecording() {
+        return masterFileService.getAllMethodOfRecording();
+    }
+
+    /**
      * Retrieve all tasks
      *
      * @return List of all tasks
@@ -117,5 +145,21 @@ public class MasterFileApi {
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<TaskDTO> searchTask(@Named("searchTerm") final String searchTerm) {
         return masterFileService.searchTasks(searchTerm);
+    }
+
+    @ApiMethod(
+            name = "master.file.methodofrecording.search",
+            path = "master-file/method-of-recording/search",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<MethodOfRecordingDTO> searchMethodOfRecording(@Named("searchTerm") final String searchTerm) {
+        return masterFileService.searchMethodOfRecording(searchTerm);
+    }
+
+    @ApiMethod(
+            name = "master.file.proofofduty.search",
+            path = "master-file/proof-of-duty/search",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<ProofOfDutyDTO> searchProofOfDuty(@Named("searchTerm") final String searchTerm) {
+        return masterFileService.searchProofOfDuty(searchTerm);
     }
 }

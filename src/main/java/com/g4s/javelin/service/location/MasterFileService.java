@@ -4,7 +4,9 @@ import java.util.List;
 
 import com.g4s.javelin.dto.core.location.EquipmentDTO;
 import com.g4s.javelin.dto.core.location.MasterFileDTO;
+import com.g4s.javelin.dto.core.location.MethodOfRecordingDTO;
 import com.g4s.javelin.dto.core.location.ModeTransportDTO;
+import com.g4s.javelin.dto.core.location.ProofOfDutyDTO;
 import com.g4s.javelin.dto.core.location.SkillsDTO;
 import com.g4s.javelin.dto.core.location.TaskDTO;
 
@@ -18,6 +20,10 @@ public interface MasterFileService {
 
     List<TaskDTO> getAllTasks();
 
+    List<ProofOfDutyDTO> getAllProofOfDuty();
+
+    List<MethodOfRecordingDTO> getAllMethodOfRecording();
+
     MasterFileDTO getMasterFile();
 
     List<EquipmentDTO> searchEquipments(String searchTerm);
@@ -27,4 +33,9 @@ public interface MasterFileService {
     List<SkillsDTO> searchSkills(String searchTerm);
 
     List<TaskDTO> searchTasks(String searchTerm);
+
+    List<ProofOfDutyDTO> searchProofOfDuty(String searchTerm);
+
+    List<MethodOfRecordingDTO> searchMethodOfRecording(String searchTerm);
+
 }
