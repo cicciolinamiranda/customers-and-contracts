@@ -1,122 +1,88 @@
-package com.g4s.javelin.data.model.post;
+package com.g4s.javelin.dto.core.post;
 
-import javax.persistence.Column;
-import javax.persistence.Embedded;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-
-import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
-import com.g4s.javelin.data.model.BaseModel;
-import com.g4s.javelin.data.model.masterfile.RoleModel;
+import com.g4s.javelin.dto.BaseDTO;
+import com.g4s.javelin.dto.core.masterfile.RoleDTO;
 
 //CSOFF: HiddenField
-@Entity
-@Table(name = "POST")
-public class PostModel extends BaseModel {
+public class PostDTO extends BaseDTO {
 
-    @Embedded
-    private PreferencesModel preferences;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id")
-    private RoleModel role;
-
-    @Column(name = "NAME")
+    private PreferencesDTO preferences;
+    private RoleDTO role;
     private String name;
-
-    @Column(name = "IMAGE_URL")
     private String imageUrl;
-
-    @Column(name = "NO_OF_EMPLOYEES")
     private int numberOfEmployees;
-
-    @Column(name = "START_DATE", nullable = true, updatable = true)
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime startDate;
-
-    @Column(name = "END_DATE", nullable = true, updatable = true)
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime endDate;
-
-    @Column(name = "REQUIRE_IDENTIFICATION")
+    private String startDateStr;
+    private String endDateStr;
     private boolean isIdentificationRequired;
-
-    @Column(name = "IDENTIFICATION_NUMBER")
     private String identificationNumber;
 
-    public PreferencesModel getPreferences() {
+    public PreferencesDTO getPreferences() {
         return preferences;
     }
-
-    public void setPreferences(final PreferencesModel preferences) {
+    public void setPreferences(final PreferencesDTO preferences) {
         this.preferences = preferences;
     }
-
-    public RoleModel getRole() {
+    public RoleDTO getRole() {
         return role;
     }
-
-    public void setRole(final RoleModel role) {
+    public void setRole(final RoleDTO role) {
         this.role = role;
     }
-
     public String getName() {
         return name;
     }
-
     public void setName(final String name) {
         this.name = name;
     }
-
     public String getImageUrl() {
         return imageUrl;
     }
-
     public void setImageUrl(final String imageUrl) {
         this.imageUrl = imageUrl;
     }
-
     public int getNumberOfEmployees() {
         return numberOfEmployees;
     }
-
     public void setNumberOfEmployees(final int numberOfEmployees) {
         this.numberOfEmployees = numberOfEmployees;
     }
-
     public DateTime getStartDate() {
         return startDate;
     }
-
     public void setStartDate(final DateTime startDate) {
         this.startDate = startDate;
     }
-
     public DateTime getEndDate() {
         return endDate;
     }
-
     public void setEndDate(final DateTime endDate) {
         this.endDate = endDate;
     }
-
+    public String getStartDateStr() {
+        return startDateStr;
+    }
+    public void setStartDateStr(final String startDateStr) {
+        this.startDateStr = startDateStr;
+    }
+    public String getEndDateStr() {
+        return endDateStr;
+    }
+    public void setEndDateStr(final String endDateStr) {
+        this.endDateStr = endDateStr;
+    }
     public boolean isIdentificationRequired() {
         return isIdentificationRequired;
     }
-
     public void setIdentificationRequired(final boolean isIdentificationRequired) {
         this.isIdentificationRequired = isIdentificationRequired;
     }
-
     public String getIdentificationNumber() {
         return identificationNumber;
     }
-
     public void setIdentificationNumber(final String identificationNumber) {
         this.identificationNumber = identificationNumber;
     }
