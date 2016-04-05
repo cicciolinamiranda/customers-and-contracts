@@ -50,6 +50,9 @@ public class BarredEmployeeServiceImpl implements BarredEmployeeService {
                     if (dto.getStartDateStr() != null) {
                         model.setStartDate(dtf.parseDateTime(dto.getStartDateStr()));
                     }
+                    if (dto.getEndDateStr() != null) {
+                        model.setEndDate(dtf.parseDateTime(dto.getEndDateStr()));
+                    }
                     barredEmployees.add(model);
                 }
             }
