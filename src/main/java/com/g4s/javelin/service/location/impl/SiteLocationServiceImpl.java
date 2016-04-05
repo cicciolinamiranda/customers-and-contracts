@@ -37,12 +37,18 @@ public class SiteLocationServiceImpl implements SiteLocationService {
         CustomerLocationModel cl = customerLocationRepository.findOne(customerLocationId);
         if (!CollectionUtils.isEmpty(siteLocations)) {
             for (SiteLocationDTO dto : siteLocations) {
-                SiteLocationModel sl = new SiteLocationModel();
-                sl = modelMapper.map(dto, SiteLocationModel.class);
-                sl.setCustomerLocation(cl);
-                list.add(sl);
+                if (dto.isDeleted()) {
+                    siteLocationRepository.delete(dto.getId());
+                } else {
+                    SiteLocationModel sl = new SiteLocationModel();
+                    sl = modelMapper.map(dto, SiteLocationModel.class);
+                    sl.setCustomerLocation(cl);
+                    list.add(sl);
+                }
             }
-            siteLocationRepository.save(list);
+            if (list.size() > 0) {
+                siteLocationRepository.save(list);
+            }
         }
     }
 
