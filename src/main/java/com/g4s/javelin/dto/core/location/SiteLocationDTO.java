@@ -1,12 +1,13 @@
 package com.g4s.javelin.dto.core.location;
 
-
+//CSOFF: HiddenField
 public class SiteLocationDTO {
 
     private Long id;
     private String siteLocationName;
     private String siteLocationEmail;
     private int contactNumber;
+    private boolean isDeleted;
 
     public Long getId() {
         return id;
@@ -32,4 +33,11 @@ public class SiteLocationDTO {
     public void setContactNumber(final int contactNumber) {
         this.contactNumber = contactNumber;
     }
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+    public void setDeleted(final boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
 }
+//CSON: HiddenField
