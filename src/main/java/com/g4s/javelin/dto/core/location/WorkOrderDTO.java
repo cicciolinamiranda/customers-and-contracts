@@ -1,15 +1,8 @@
 package com.g4s.javelin.dto.core.location;
 
+import com.g4s.javelin.dto.BaseDTO;
 
-public class WorkOrderDTO {
 
-    private Long id;
+public class WorkOrderDTO extends BaseDTO {
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
 }

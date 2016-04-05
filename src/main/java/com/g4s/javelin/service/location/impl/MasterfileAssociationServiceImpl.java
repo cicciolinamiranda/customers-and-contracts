@@ -9,15 +9,15 @@ import org.springframework.util.CollectionUtils;
 import com.g4s.javelin.data.model.location.CustomerLocationEquipmentModel;
 import com.g4s.javelin.data.model.location.CustomerLocationModeOfTransportModel;
 import com.g4s.javelin.data.model.location.CustomerLocationModel;
-import com.g4s.javelin.data.model.location.EquipmentModel;
-import com.g4s.javelin.data.model.location.ModeTransportModel;
+import com.g4s.javelin.data.model.masterfile.EquipmentModel;
+import com.g4s.javelin.data.model.masterfile.ModeTransportModel;
 import com.g4s.javelin.data.repository.location.CustomerLocationEquipmentRepository;
 import com.g4s.javelin.data.repository.location.CustomerLocationModeOfTransportRepository;
 import com.g4s.javelin.data.repository.location.CustomerLocationRepository;
-import com.g4s.javelin.data.repository.location.EquipmentRepository;
-import com.g4s.javelin.data.repository.location.ModeTransportRepository;
-import com.g4s.javelin.dto.core.location.EquipmentDTO;
-import com.g4s.javelin.dto.core.location.ModeTransportDTO;
+import com.g4s.javelin.data.repository.masterfile.EquipmentRepository;
+import com.g4s.javelin.data.repository.masterfile.ModeTransportRepository;
+import com.g4s.javelin.dto.core.masterfile.EquipmentDTO;
+import com.g4s.javelin.dto.core.masterfile.ModeTransportDTO;
 import com.g4s.javelin.service.location.MasterfileAssociationService;
 import com.google.common.collect.Lists;
 
@@ -108,7 +108,7 @@ public class MasterfileAssociationServiceImpl implements MasterfileAssociationSe
                 modeTransport.setAssociationId(loc.getId());
                 modeTransport.setId(loc.getModeTransport().getId());
                 modeTransport.setCostType(loc.getCostType());
-                modeTransport.setTransportName(loc.getModeTransport().getTransportName());
+                modeTransport.setName(loc.getModeTransport().getName());
                 modeTransport.setBilled(loc.isBilled());
                 list.add(modeTransport);
             }
@@ -126,7 +126,7 @@ public class MasterfileAssociationServiceImpl implements MasterfileAssociationSe
                 equipment.setAssociationId(loc.getId());
                 equipment.setId(loc.getEquipment().getId());
                 equipment.setCostType(loc.getCostType());
-                equipment.setEquipmentName(loc.getEquipment().getEquipmentName());
+                equipment.setName(loc.getEquipment().getName());
                 equipment.setBilled(loc.isBilled());
                 list.add(equipment);
             }

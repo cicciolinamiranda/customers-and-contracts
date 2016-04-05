@@ -12,10 +12,10 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.g4s.javelin.api.location.MasterFileApi;
-import com.g4s.javelin.dto.core.location.EquipmentDTO;
-import com.g4s.javelin.dto.core.location.ModeTransportDTO;
-import com.g4s.javelin.dto.core.location.SkillsDTO;
-import com.g4s.javelin.dto.core.location.TaskDTO;
+import com.g4s.javelin.dto.core.masterfile.EquipmentDTO;
+import com.g4s.javelin.dto.core.masterfile.ModeTransportDTO;
+import com.g4s.javelin.dto.core.masterfile.SkillsDTO;
+import com.g4s.javelin.dto.core.masterfile.TaskDTO;
 import com.g4s.javelin.service.location.MasterFileService;
 
 /**

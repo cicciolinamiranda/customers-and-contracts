@@ -2,13 +2,13 @@ package com.g4s.javelin.service.location;
 
 import java.util.List;
 
-import com.g4s.javelin.dto.core.location.EquipmentDTO;
-import com.g4s.javelin.dto.core.location.MasterFileDTO;
-import com.g4s.javelin.dto.core.location.MethodOfRecordingDTO;
-import com.g4s.javelin.dto.core.location.ModeTransportDTO;
-import com.g4s.javelin.dto.core.location.ProofOfDutyDTO;
-import com.g4s.javelin.dto.core.location.SkillsDTO;
-import com.g4s.javelin.dto.core.location.TaskDTO;
+import com.g4s.javelin.dto.core.masterfile.EquipmentDTO;
+import com.g4s.javelin.dto.core.masterfile.MasterFileDTO;
+import com.g4s.javelin.dto.core.masterfile.MethodOfRecordingDTO;
+import com.g4s.javelin.dto.core.masterfile.ModeTransportDTO;
+import com.g4s.javelin.dto.core.masterfile.ProofOfDutyDTO;
+import com.g4s.javelin.dto.core.masterfile.SkillsDTO;
+import com.g4s.javelin.dto.core.masterfile.TaskDTO;
 
 public interface MasterFileService {
 

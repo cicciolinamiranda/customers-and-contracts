@@ -5,7 +5,6 @@ import java.util.Set;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.hibernate.HibernateException;
-import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +18,8 @@ import com.g4s.javelin.constants.ServiceConstants;
 import com.g4s.javelin.data.model.location.AddressModel;
 import com.g4s.javelin.data.model.location.CustomerLocationModel;
 import com.g4s.javelin.data.model.location.SiteLocationModel;
-import com.g4s.javelin.data.model.location.SkillsModel;
-import com.g4s.javelin.data.model.location.TaskModel;
+import com.g4s.javelin.data.model.masterfile.SkillsModel;
+import com.g4s.javelin.data.model.masterfile.TaskModel;
 import com.g4s.javelin.data.model.mock.IncidentLogMockModel;
 import com.g4s.javelin.data.model.workorder.WorkOrderModel;
 import com.g4s.javelin.data.repository.location.CustomerLocationRepository;
@@ -29,9 +28,9 @@ import com.g4s.javelin.dto.core.location.BarredEmployeeDTO;
 import com.g4s.javelin.dto.core.location.CreateCustomerLocationDTO;
 import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
 import com.g4s.javelin.dto.core.location.SiteLocationDTO;
-import com.g4s.javelin.dto.core.location.SkillsDTO;
-import com.g4s.javelin.dto.core.location.TaskDTO;
 import com.g4s.javelin.dto.core.location.WorkOrderDTO;
+import com.g4s.javelin.dto.core.masterfile.SkillsDTO;
+import com.g4s.javelin.dto.core.masterfile.TaskDTO;
 import com.g4s.javelin.dto.mock.IncidentLogMockDTO;
 import com.g4s.javelin.enums.StatusEnum;
 import com.g4s.javelin.exception.CustomerLocationException;
@@ -135,10 +134,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         }
         WorkOrderModel workOrder = workOrderRepository.findOne(customerLocation.getWorkOrderId());
         workOrders.add(workOrder);
-        //setup createdDate
-        if (model.getCreatedDate() == null) {
-            model.setCreatedDate(DateTime.now());
-        }
+
         model.setStartDate(dtf.parseDateTime(customerLocation.getStartDateStr()));
         if (customerLocation.getEndDateStr() != null) {
             model.setEndDate(dtf.parseDateTime(customerLocation.getEndDateStr()));

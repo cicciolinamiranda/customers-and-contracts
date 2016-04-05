@@ -2,8 +2,8 @@ package com.g4s.javelin.service.location;
 
 import java.util.List;
 
-import com.g4s.javelin.dto.core.location.EquipmentDTO;
-import com.g4s.javelin.dto.core.location.ModeTransportDTO;
+import com.g4s.javelin.dto.core.masterfile.EquipmentDTO;
+import com.g4s.javelin.dto.core.masterfile.ModeTransportDTO;
 
 public interface MasterfileAssociationService {
 

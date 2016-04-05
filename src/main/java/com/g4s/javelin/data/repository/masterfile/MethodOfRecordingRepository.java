@@ -1,10 +1,10 @@
-package com.g4s.javelin.data.repository.location;
+package com.g4s.javelin.data.repository.masterfile;
 
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.g4s.javelin.data.model.location.MethodOfRecordingModel;
+import com.g4s.javelin.data.model.masterfile.MethodOfRecordingModel;
 
 public interface MethodOfRecordingRepository extends JpaRepository<MethodOfRecordingModel, Long> {
 

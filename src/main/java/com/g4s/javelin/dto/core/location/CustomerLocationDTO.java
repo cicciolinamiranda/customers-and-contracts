@@ -4,14 +4,19 @@ import java.util.List;
 
 import org.joda.time.DateTime;
 
+import com.g4s.javelin.dto.BaseDTO;
+import com.g4s.javelin.dto.core.masterfile.EquipmentDTO;
+import com.g4s.javelin.dto.core.masterfile.MethodOfRecordingDTO;
+import com.g4s.javelin.dto.core.masterfile.ModeTransportDTO;
+import com.g4s.javelin.dto.core.masterfile.ProofOfDutyDTO;
+import com.g4s.javelin.dto.core.masterfile.SkillsDTO;
+import com.g4s.javelin.dto.core.masterfile.TaskDTO;
 import com.g4s.javelin.dto.mock.IncidentLogMockDTO;
 
-public class CustomerLocationDTO {
+public class CustomerLocationDTO extends BaseDTO {
 
-    private Long id;
     private Long workOrderId;
     private String name;
-    private DateTime createdDate;
     private List<EquipmentDTO> equipments;
     private List<ModeTransportDTO> modeOfTransports;
     private List<SkillsDTO> skills;
@@ -44,12 +49,7 @@ public class CustomerLocationDTO {
     public void setName(final String name) {
         this.name = name;
     }
-    public DateTime getCreatedDate() {
-        return createdDate;
-    }
-    public void setCreatedDate(final DateTime createdDate) {
-        this.createdDate = createdDate;
-    }
+
     public List<EquipmentDTO> getEquipments() {
         return equipments;
     }
@@ -124,12 +124,7 @@ public class CustomerLocationDTO {
     public void setFloorPlan(final String floorPlan) {
         this.floorPlan = floorPlan;
     }
-    public Long getId() {
-        return id;
-    }
-    public void setId(final Long id) {
-        this.id = id;
-    }
+
     public Long getWorkOrderId() {
         return workOrderId;
     }

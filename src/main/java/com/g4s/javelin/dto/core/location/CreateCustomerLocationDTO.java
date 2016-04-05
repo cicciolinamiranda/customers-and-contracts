@@ -1,5 +1,7 @@
 package com.g4s.javelin.dto.core.location;
 
+import com.g4s.javelin.dto.core.masterfile.MasterFileDTO;
+
 public class CreateCustomerLocationDTO {
 
     Long customerLocationId;

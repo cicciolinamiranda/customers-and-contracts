@@ -15,19 +15,19 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.g4s.javelin.data.model.location.EquipmentModel;
-import com.g4s.javelin.data.model.location.ModeTransportModel;
-import com.g4s.javelin.data.model.location.SkillsModel;
-import com.g4s.javelin.data.model.location.TaskActivityModel;
-import com.g4s.javelin.data.model.location.TaskModel;
-import com.g4s.javelin.data.repository.location.EquipmentRepository;
-import com.g4s.javelin.data.repository.location.ModeTransportRepository;
-import com.g4s.javelin.data.repository.location.SkillsRepository;
-import com.g4s.javelin.data.repository.location.TaskRepository;
-import com.g4s.javelin.dto.core.location.EquipmentDTO;
-import com.g4s.javelin.dto.core.location.ModeTransportDTO;
-import com.g4s.javelin.dto.core.location.SkillsDTO;
-import com.g4s.javelin.dto.core.location.TaskDTO;
+import com.g4s.javelin.data.model.masterfile.EquipmentModel;
+import com.g4s.javelin.data.model.masterfile.ModeTransportModel;
+import com.g4s.javelin.data.model.masterfile.SkillsModel;
+import com.g4s.javelin.data.model.masterfile.TaskActivityModel;
+import com.g4s.javelin.data.model.masterfile.TaskModel;
+import com.g4s.javelin.data.repository.masterfile.EquipmentRepository;
+import com.g4s.javelin.data.repository.masterfile.ModeTransportRepository;
+import com.g4s.javelin.data.repository.masterfile.SkillsRepository;
+import com.g4s.javelin.data.repository.masterfile.TaskRepository;
+import com.g4s.javelin.dto.core.masterfile.EquipmentDTO;
+import com.g4s.javelin.dto.core.masterfile.ModeTransportDTO;
+import com.g4s.javelin.dto.core.masterfile.SkillsDTO;
+import com.g4s.javelin.dto.core.masterfile.TaskDTO;
 import com.g4s.javelin.service.location.MasterFileService;
 import com.g4s.javelin.service.location.impl.MasterFileServiceImpl;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
@@ -70,28 +70,28 @@ public class MasterFileServiceTest {
     private void setUpEquipmentModel() {
         equipmentModel = new EquipmentModel();
         equipmentModel.setId(1234l);
-        equipmentModel.setEquipmentName("Gun");
+        equipmentModel.setName("Gun");
     }
 
     private void setUpModeTransportModel() {
         modeTransportModel = new ModeTransportModel();
         modeTransportModel.setId(1234l);
-        modeTransportModel.setTransportName("Car");
+        modeTransportModel.setName("Car");
     }
 
     private void setUpSkillsModel() {
         skillsModel = new SkillsModel();
         skillsModel.setId(1234l);
-        skillsModel.setSkillName("Guard");
+        skillsModel.setName("Guard");
     }
 
     private void setUpTaskModel() {
         taskModel = new TaskModel();
         taskModel.setId(1234l);
-        taskModel.setTaskName("Guarding");
+        taskModel.setName("Guarding");
         TaskActivityModel taskActivityModel = new TaskActivityModel();
         taskActivityModel.setId(1234l);
-        taskActivityModel.setTaskActivityName("Swiping");
+        taskActivityModel.setName("Swiping");
         Set<TaskActivityModel> taskActivities = Sets.newHashSet();
         taskActivities.add(taskActivityModel);
         taskModel.setTaskActivities(taskActivities);
@@ -105,7 +105,7 @@ public class MasterFileServiceTest {
         List<EquipmentDTO> results = masterFileService.getAllEquipments();
         verify(equipmentRepositoryMock, times(1)).findAll();
         assertEquals(1, results.size());
-        assertEquals("Gun", results.get(0).getEquipmentName());
+        assertEquals("Gun", results.get(0).getName());
     }
 
     @Test
@@ -117,7 +117,7 @@ public class MasterFileServiceTest {
                 .getAllModeTransport();
         verify(modeTransportRepositoryMock, times(1)).findAll();
         assertEquals(1, results.size());
-        assertEquals("Car", results.get(0).getTransportName());
+        assertEquals("Car", results.get(0).getName());
     }
 
     @Test
@@ -128,7 +128,7 @@ public class MasterFileServiceTest {
         List<SkillsDTO> results = masterFileService.getAllSkills();
         verify(skillsRepositoryMock, times(1)).findAll();
         assertEquals(1, results.size());
-        assertEquals("Guard", results.get(0).getSkillName());
+        assertEquals("Guard", results.get(0).getName());
     }
 
     @Test
@@ -139,8 +139,8 @@ public class MasterFileServiceTest {
         List<TaskDTO> results = masterFileService.getAllTasks();
         verify(taskRepositoryMock, times(1)).findAll();
         assertEquals(1, results.size());
-        assertEquals("Guarding", results.get(0).getTaskName());
+        assertEquals("Guarding", results.get(0).getName());
         assertEquals(1, results.get(0).getTaskActivities().size());
-        assertEquals("Swiping", results.get(0).getTaskActivities().get(0).getTaskActivityName());
+        assertEquals("Swiping", results.get(0).getTaskActivities().get(0).getName());
     }
 }

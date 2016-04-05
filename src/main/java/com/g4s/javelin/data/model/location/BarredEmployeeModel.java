@@ -2,9 +2,6 @@ package com.g4s.javelin.data.model.location;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -12,14 +9,11 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import com.g4s.javelin.data.model.BaseModel;
+
 @Entity
 @Table(name = "BARRED_EMPLOYEE")
-public class BarredEmployeeModel {
-
-    @Id
-    @Column(unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class BarredEmployeeModel extends BaseModel {
 
     @Column(name = "EMPLOYEE_ID")
     private Long employeeId;
@@ -42,14 +36,6 @@ public class BarredEmployeeModel {
     private String lastName;
     @Column(name = "FIRST_NAME")
     private String firstName;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
 
     public Long getEmployeeId() {
         return employeeId;

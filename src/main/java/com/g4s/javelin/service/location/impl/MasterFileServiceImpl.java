@@ -7,25 +7,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.util.CollectionUtils;
 
-import com.g4s.javelin.data.model.location.EquipmentModel;
-import com.g4s.javelin.data.model.location.MethodOfRecordingModel;
-import com.g4s.javelin.data.model.location.ModeTransportModel;
-import com.g4s.javelin.data.model.location.ProofOfDutyModel;
-import com.g4s.javelin.data.model.location.SkillsModel;
-import com.g4s.javelin.data.model.location.TaskModel;
-import com.g4s.javelin.data.repository.location.EquipmentRepository;
-import com.g4s.javelin.data.repository.location.MethodOfRecordingRepository;
-import com.g4s.javelin.data.repository.location.ModeTransportRepository;
-import com.g4s.javelin.data.repository.location.ProofOfDutyRepository;
-import com.g4s.javelin.data.repository.location.SkillsRepository;
-import com.g4s.javelin.data.repository.location.TaskRepository;
-import com.g4s.javelin.dto.core.location.EquipmentDTO;
-import com.g4s.javelin.dto.core.location.MasterFileDTO;
-import com.g4s.javelin.dto.core.location.MethodOfRecordingDTO;
-import com.g4s.javelin.dto.core.location.ModeTransportDTO;
-import com.g4s.javelin.dto.core.location.ProofOfDutyDTO;
-import com.g4s.javelin.dto.core.location.SkillsDTO;
-import com.g4s.javelin.dto.core.location.TaskDTO;
+import com.g4s.javelin.data.model.masterfile.EquipmentModel;
+import com.g4s.javelin.data.model.masterfile.MethodOfRecordingModel;
+import com.g4s.javelin.data.model.masterfile.ModeTransportModel;
+import com.g4s.javelin.data.model.masterfile.ProofOfDutyModel;
+import com.g4s.javelin.data.model.masterfile.SkillsModel;
+import com.g4s.javelin.data.model.masterfile.TaskModel;
+import com.g4s.javelin.data.repository.masterfile.EquipmentRepository;
+import com.g4s.javelin.data.repository.masterfile.MethodOfRecordingRepository;
+import com.g4s.javelin.data.repository.masterfile.ModeTransportRepository;
+import com.g4s.javelin.data.repository.masterfile.ProofOfDutyRepository;
+import com.g4s.javelin.data.repository.masterfile.SkillsRepository;
+import com.g4s.javelin.data.repository.masterfile.TaskRepository;
+import com.g4s.javelin.dto.core.masterfile.EquipmentDTO;
+import com.g4s.javelin.dto.core.masterfile.MasterFileDTO;
+import com.g4s.javelin.dto.core.masterfile.MethodOfRecordingDTO;
+import com.g4s.javelin.dto.core.masterfile.ModeTransportDTO;
+import com.g4s.javelin.dto.core.masterfile.ProofOfDutyDTO;
+import com.g4s.javelin.dto.core.masterfile.SkillsDTO;
+import com.g4s.javelin.dto.core.masterfile.TaskDTO;
 import com.g4s.javelin.service.location.MasterFileService;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 
@@ -142,7 +142,7 @@ public class MasterFileServiceImpl implements MasterFileService {
 
     @Override
     public List<EquipmentDTO> searchEquipments(final String searchTerm) {
-        List<EquipmentModel> results = equipmentRepository.findByEquipmentNameContainingIgnoreCase(searchTerm);
+        List<EquipmentModel> results = equipmentRepository.findByNameContainingIgnoreCase(searchTerm);
         List<EquipmentDTO> response = Lists.newArrayList();
         if (!CollectionUtils.isEmpty(results)) {
             for (EquipmentModel equipment : results) {
@@ -154,7 +154,7 @@ public class MasterFileServiceImpl implements MasterFileService {
 
     @Override
     public List<ModeTransportDTO> searchModeTransport(final String searchTerm) {
-        List<ModeTransportModel> results = modeRepository.findByTransportNameContainingIgnoreCase(searchTerm);
+        List<ModeTransportModel> results = modeRepository.findByNameContainingIgnoreCase(searchTerm);
         List<ModeTransportDTO> response = Lists.newArrayList();
         if (!CollectionUtils.isEmpty(results)) {
             for (ModeTransportModel modeTransport : results) {
@@ -166,7 +166,7 @@ public class MasterFileServiceImpl implements MasterFileService {
 
     @Override
     public List<SkillsDTO> searchSkills(final String searchTerm) {
-        List<SkillsModel> results = skillsRepository.findBySkillNameContainingIgnoreCase(searchTerm);
+        List<SkillsModel> results = skillsRepository.findByNameContainingIgnoreCase(searchTerm);
         List<SkillsDTO> response = Lists.newArrayList();
         if (!CollectionUtils.isEmpty(results)) {
             for (SkillsModel skills : results) {
@@ -180,7 +180,7 @@ public class MasterFileServiceImpl implements MasterFileService {
 
     @Override
     public List<TaskDTO> searchTasks(final String searchTerm) {
-        List<TaskModel> results = taskRepository.findByTaskNameContainingIgnoreCase(searchTerm);
+        List<TaskModel> results = taskRepository.findByNameContainingIgnoreCase(searchTerm);
         List<TaskDTO> response = Lists.newArrayList();
         if (!CollectionUtils.isEmpty(results)) {
             for (TaskModel task : results) {

@@ -9,9 +9,6 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -22,18 +19,18 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
+import com.g4s.javelin.data.model.BaseModel;
+import com.g4s.javelin.data.model.masterfile.MethodOfRecordingModel;
+import com.g4s.javelin.data.model.masterfile.ProofOfDutyModel;
+import com.g4s.javelin.data.model.masterfile.SkillsModel;
+import com.g4s.javelin.data.model.masterfile.TaskModel;
 import com.g4s.javelin.data.model.mock.IncidentLogMockModel;
 import com.g4s.javelin.data.model.workorder.WorkOrderModel;
 import com.g4s.javelin.enums.StatusEnum;
 
 @Entity
 @Table(name = "CUSTOMER_LOCATION")
-public class CustomerLocationModel {
-
-    @Id
-    @Column(unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class CustomerLocationModel extends BaseModel {
 
     @Column
     private String name;
@@ -91,10 +88,6 @@ public class CustomerLocationModel {
     @Embedded
     private AddressModel address;
 
-    @Column(name = "CREATED_DATE", nullable = true, updatable = true)
-    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime createdDate;
-
     @Column(name = "START_DATE", nullable = true, updatable = true)
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime startDate;
@@ -119,14 +112,6 @@ public class CustomerLocationModel {
     @Column(name = "STATUS")
     @Enumerated(EnumType.STRING)
     private StatusEnum status;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
 
     public Set<WorkOrderModel> getWorkOrders() {
         return workOrders;
@@ -166,14 +151,6 @@ public class CustomerLocationModel {
 
     public void setTasks(final Set<TaskModel> tasks) {
         this.tasks = tasks;
-    }
-
-    public DateTime getCreatedDate() {
-        return createdDate;
-    }
-
-    public void setCreatedDate(final DateTime createdDate) {
-        this.createdDate = createdDate;
     }
 
     public AddressModel getAddress() {
@@ -250,7 +227,7 @@ public class CustomerLocationModel {
 
     @Override
     public String toString() {
-        return "CustomerLocationModel [id=" + id + ", name=" + name
+        return "CustomerLocationModel [id=" + getId() + ", name=" + name
                 + ", workOrders=" + workOrders + ", modeTransports="
                 + ", skills=" + skills
                 + ", tasks=" + tasks + ", siteLocations="

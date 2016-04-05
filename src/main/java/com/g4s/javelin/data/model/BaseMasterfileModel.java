@@ -1,16 +1,15 @@
-package com.g4s.javelin.dto.core.location;
+package com.g4s.javelin.data.model;
 
-public class ProofOfDutyDTO {
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 
-    private Long id;
+@MappedSuperclass
+public class BaseMasterfileModel extends BaseModel {
+
+    @Column(name = "NAME")
     private String name;
+    @Column(name = "DESCRIPTION")
     private String description;
-    public Long getId() {
-        return id;
-    }
-    public void setId(final Long id) {
-        this.id = id;
-    }
     public String getName() {
         return name;
     }
@@ -23,5 +22,5 @@ public class ProofOfDutyDTO {
     public void setDescription(final String description) {
         this.description = description;
     }
-}
 
+}

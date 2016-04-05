@@ -8,12 +8,12 @@ import org.springframework.context.annotation.Lazy;
 
 import com.g4s.javelin.constants.ApiConstants;
 import com.g4s.javelin.constants.ServiceConstants;
-import com.g4s.javelin.dto.core.location.EquipmentDTO;
-import com.g4s.javelin.dto.core.location.MethodOfRecordingDTO;
-import com.g4s.javelin.dto.core.location.ModeTransportDTO;
-import com.g4s.javelin.dto.core.location.ProofOfDutyDTO;
-import com.g4s.javelin.dto.core.location.SkillsDTO;
-import com.g4s.javelin.dto.core.location.TaskDTO;
+import com.g4s.javelin.dto.core.masterfile.EquipmentDTO;
+import com.g4s.javelin.dto.core.masterfile.MethodOfRecordingDTO;
+import com.g4s.javelin.dto.core.masterfile.ModeTransportDTO;
+import com.g4s.javelin.dto.core.masterfile.ProofOfDutyDTO;
+import com.g4s.javelin.dto.core.masterfile.SkillsDTO;
+import com.g4s.javelin.dto.core.masterfile.TaskDTO;
 import com.g4s.javelin.service.location.MasterFileService;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;

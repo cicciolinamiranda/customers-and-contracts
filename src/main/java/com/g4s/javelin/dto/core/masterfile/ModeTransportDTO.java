@@ -1,30 +1,14 @@
-package com.g4s.javelin.dto.core.location;
+package com.g4s.javelin.dto.core.masterfile;
+
+import com.g4s.javelin.dto.BaseMasterfileDTO;
 
 //CSOFF: HiddenField
-public class EquipmentDTO {
+public class ModeTransportDTO extends BaseMasterfileDTO {
 
-    private Long id;
-    private String equipmentName;
     private boolean isBilled;
     private String costType;
     private Long associationId;
     private boolean isDeleted;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public String getEquipmentName() {
-        return equipmentName;
-    }
-
-    public void setEquipmentName(final String equipmentName) {
-        this.equipmentName = equipmentName;
-    }
 
     public boolean isBilled() {
         return isBilled;
@@ -60,3 +44,4 @@ public class EquipmentDTO {
 
 }
 //CSON: HiddenField
+

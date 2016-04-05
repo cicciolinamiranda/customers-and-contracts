@@ -2,19 +2,13 @@ package com.g4s.javelin.data.model.mock;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
+
+import com.g4s.javelin.data.model.BaseModel;
 
 @Entity
 @Table(name = "MOCK_INCIDENT_LOG")
-public class IncidentLogMockModel {
-
-    @Id
-    @Column(unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class IncidentLogMockModel extends BaseModel {
 
     @Column
     private String title;
@@ -24,14 +18,6 @@ public class IncidentLogMockModel {
 
     @Column(name = "IMAGE_URL")
     private String imageUrl;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;

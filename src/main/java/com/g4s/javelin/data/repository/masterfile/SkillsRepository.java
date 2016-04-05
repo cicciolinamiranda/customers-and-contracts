@@ -1,12 +1,12 @@
-package com.g4s.javelin.data.repository.location;
+package com.g4s.javelin.data.repository.masterfile;
 
 import java.util.List;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
 
-import com.g4s.javelin.data.model.location.SkillsModel;
+import com.g4s.javelin.data.model.masterfile.SkillsModel;
 
 public interface SkillsRepository extends PagingAndSortingRepository<SkillsModel, Long> {
 
-    List<SkillsModel> findBySkillNameContainingIgnoreCase(final String name);
+    List<SkillsModel> findByNameContainingIgnoreCase(final String name);
 }

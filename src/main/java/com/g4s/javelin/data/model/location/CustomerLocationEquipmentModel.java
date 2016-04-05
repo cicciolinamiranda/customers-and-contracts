@@ -3,22 +3,17 @@ package com.g4s.javelin.data.model.location;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.g4s.javelin.data.model.BaseModel;
+import com.g4s.javelin.data.model.masterfile.EquipmentModel;
+
 //CSOFF: HiddenField
 @Entity
 @Table(name = "CUSTLOCATION_EQUIPMENT")
-public class CustomerLocationEquipmentModel {
-
-    @Id
-    @Column(unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class CustomerLocationEquipmentModel extends BaseModel {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_location_id", referencedColumnName = "id")
@@ -64,14 +59,6 @@ public class CustomerLocationEquipmentModel {
 
     public void setCostType(final String costType) {
         this.costType = costType;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
     }
 
 }

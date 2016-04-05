@@ -1,15 +1,9 @@
-package com.g4s.javelin.dto.core.location;
+package com.g4s.javelin.dto;
 
-public class MethodOfRecordingDTO {
-    private Long id;
+public class BaseMasterfileDTO extends BaseDTO {
+
     private String name;
     private String description;
-    public Long getId() {
-        return id;
-    }
-    public void setId(final Long id) {
-        this.id = id;
-    }
     public String getName() {
         return name;
     }

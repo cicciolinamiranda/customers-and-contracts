@@ -1,4 +1,4 @@
-package com.g4s.javelin.dto.core.location;
+package com.g4s.javelin.dto.core.masterfile;
 
 import java.util.List;
 

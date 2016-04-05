@@ -29,10 +29,10 @@ import com.g4s.javelin.dto.core.location.BarredEmployeeDTO;
 import com.g4s.javelin.dto.core.location.CreateCustomerLocationDTO;
 import com.g4s.javelin.dto.core.location.CustomerDTO;
 import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
-import com.g4s.javelin.dto.core.location.EquipmentDTO;
-import com.g4s.javelin.dto.core.location.ModeTransportDTO;
-import com.g4s.javelin.dto.core.location.SkillsDTO;
-import com.g4s.javelin.dto.core.location.TaskDTO;
+import com.g4s.javelin.dto.core.masterfile.EquipmentDTO;
+import com.g4s.javelin.dto.core.masterfile.ModeTransportDTO;
+import com.g4s.javelin.dto.core.masterfile.SkillsDTO;
+import com.g4s.javelin.dto.core.masterfile.TaskDTO;
 import com.g4s.javelin.service.location.CustomerLocationService;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 
@@ -87,7 +87,7 @@ public class CustomerLocationApiTest {
         customerLocationDTO.setCreatedDate(new DateTime());
         List<EquipmentDTO> equipments = Lists.newArrayList();
         EquipmentDTO equipmentDTO = new EquipmentDTO();
-        equipmentDTO.setEquipmentName("Gun");
+        equipmentDTO.setName("Gun");
         equipments.add(equipmentDTO);
         customerLocationDTO.setEquipments(equipments);
         customerLocationDTO.setFloorPlan("Floor Plan");
