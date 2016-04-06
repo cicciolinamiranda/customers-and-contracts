@@ -1,11 +1,7 @@
 package com.g4s.javelin.data.model;
 
 import javax.persistence.Column;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.MappedSuperclass;
-
-import com.g4s.javelin.enums.MasterfileTypeEnum;
 
 @MappedSuperclass
 public class BaseMasterfileModel extends BaseModel {
