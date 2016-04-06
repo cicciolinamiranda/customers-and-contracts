@@ -6,10 +6,8 @@ import org.joda.time.DateTime;
 
 import com.g4s.javelin.dto.BaseDTO;
 import com.g4s.javelin.dto.core.masterfile.EquipmentDTO;
-import com.g4s.javelin.dto.core.masterfile.MethodOfRecordingDTO;
+import com.g4s.javelin.dto.core.masterfile.MasterfileDTO;
 import com.g4s.javelin.dto.core.masterfile.ModeTransportDTO;
-import com.g4s.javelin.dto.core.masterfile.ProofOfDutyDTO;
-import com.g4s.javelin.dto.core.masterfile.SkillsDTO;
 import com.g4s.javelin.dto.core.masterfile.TaskDTO;
 import com.g4s.javelin.dto.mock.IncidentLogMockDTO;
 
@@ -19,7 +17,7 @@ public class CustomerLocationDTO extends BaseDTO {
     private String name;
     private List<EquipmentDTO> equipments;
     private List<ModeTransportDTO> modeOfTransports;
-    private List<SkillsDTO> skills;
+    private List<MasterfileDTO> skills;
     private List<TaskDTO> tasks;
     private List<BarredEmployeeDTO> barredEmployees;
     private AddressDTO address;
@@ -38,8 +36,8 @@ public class CustomerLocationDTO extends BaseDTO {
     private List<SiteLocationDTO> siteLocations;
     private List<IncidentLogMockDTO> incidents;
     private String statusStr;
-    private ProofOfDutyDTO proofOfDuty;
-    private MethodOfRecordingDTO methodOfRecording;
+    private MasterfileDTO proofOfDuty;
+    private MasterfileDTO methodOfRecording;
 
     //SiteLocationDTO
 
@@ -62,10 +60,10 @@ public class CustomerLocationDTO extends BaseDTO {
     public void setModeOfTransports(final List<ModeTransportDTO> modeOfTransports) {
         this.modeOfTransports = modeOfTransports;
     }
-    public List<SkillsDTO> getSkills() {
+    public List<MasterfileDTO> getSkills() {
         return skills;
     }
-    public void setSkills(final List<SkillsDTO> skills) {
+    public void setSkills(final List<MasterfileDTO> skills) {
         this.skills = skills;
     }
     public List<TaskDTO> getTasks() {
@@ -180,16 +178,16 @@ public class CustomerLocationDTO extends BaseDTO {
     public void setIncidents(final List<IncidentLogMockDTO> incidents) {
         this.incidents = incidents;
     }
-    public ProofOfDutyDTO getProofOfDuty() {
+    public MasterfileDTO getProofOfDuty() {
         return proofOfDuty;
     }
-    public void setProofOfDuty(final ProofOfDutyDTO proofOfDuty) {
+    public void setProofOfDuty(final MasterfileDTO proofOfDuty) {
         this.proofOfDuty = proofOfDuty;
     }
-    public MethodOfRecordingDTO getMethodOfRecording() {
+    public MasterfileDTO getMethodOfRecording() {
         return methodOfRecording;
     }
-    public void setMethodOfRecording(final MethodOfRecordingDTO methodOfRecording) {
+    public void setMethodOfRecording(final MasterfileDTO methodOfRecording) {
         this.methodOfRecording = methodOfRecording;
     }
 

@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.g4s.javelin.data.model.BaseModel;
-import com.g4s.javelin.data.model.masterfile.EquipmentModel;
+import com.g4s.javelin.data.model.masterfile.MasterfileModel;
 
 //CSOFF: HiddenField
 @Entity
@@ -21,7 +21,7 @@ public class CustomerLocationEquipmentModel extends BaseModel {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "equipment_id", referencedColumnName = "id")
-    private EquipmentModel equipment;
+    private MasterfileModel equipment;
 
     @Column(name = "IS_BILLED")
     private boolean isBilled;
@@ -37,11 +37,11 @@ public class CustomerLocationEquipmentModel extends BaseModel {
         this.customerLocation = customerLocation;
     }
 
-    public EquipmentModel getEquipment() {
+    public MasterfileModel getEquipment() {
         return equipment;
     }
 
-    public void setEquipment(final EquipmentModel equipment) {
+    public void setEquipment(final MasterfileModel equipment) {
         this.equipment = equipment;
     }
 

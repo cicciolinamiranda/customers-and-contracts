@@ -8,7 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.g4s.javelin.data.model.BaseModel;
-import com.g4s.javelin.data.model.masterfile.ModeTransportModel;
+import com.g4s.javelin.data.model.masterfile.MasterfileModel;
 
 //CSOFF: HiddenField
 @Entity
@@ -21,7 +21,7 @@ public class CustomerLocationModeOfTransportModel extends BaseModel {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "transport_id", referencedColumnName = "id")
-    private ModeTransportModel modeTransport;
+    private MasterfileModel modeTransport;
 
     @Column(name = "IS_BILLED")
     private boolean isBilled;
@@ -53,11 +53,11 @@ public class CustomerLocationModeOfTransportModel extends BaseModel {
         this.costType = costType;
     }
 
-    public ModeTransportModel getModeTransport() {
+    public MasterfileModel getModeTransport() {
         return modeTransport;
     }
 
-    public void setModeTransport(final ModeTransportModel modeTransport) {
+    public void setModeTransport(final MasterfileModel modeTransport) {
         this.modeTransport = modeTransport;
     }
 

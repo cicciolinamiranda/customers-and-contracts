@@ -10,12 +10,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 
-import com.g4s.javelin.data.model.masterfile.GenderModel;
-import com.g4s.javelin.data.model.masterfile.LanguageModel;
-import com.g4s.javelin.data.model.masterfile.PhysicalConditionModel;
-import com.g4s.javelin.data.model.masterfile.QualificationModel;
-import com.g4s.javelin.data.model.masterfile.ReligionModel;
-import com.g4s.javelin.data.model.masterfile.TrainingModel;
+import com.g4s.javelin.data.model.masterfile.MasterfileModel;
 
 @Embeddable
 public class PreferencesModel {
@@ -26,7 +21,7 @@ public class PreferencesModel {
         referencedColumnName = "id", nullable = true) },
         inverseJoinColumns = { @JoinColumn(name = "religion_id",
         referencedColumnName = "id", nullable = true) })
-    private Set<ReligionModel> religions;
+    private Set<MasterfileModel> religions;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "POST_LANGUAGE",
@@ -34,7 +29,7 @@ public class PreferencesModel {
         referencedColumnName = "id", nullable = true) },
         inverseJoinColumns = { @JoinColumn(name = "language_id",
         referencedColumnName = "id", nullable = true) })
-    private Set<LanguageModel> languages;
+    private Set<MasterfileModel> languages;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "POST_TRAINING",
@@ -42,7 +37,7 @@ public class PreferencesModel {
         referencedColumnName = "id", nullable = true) },
         inverseJoinColumns = { @JoinColumn(name = "training_id",
         referencedColumnName = "id", nullable = true) })
-    private Set<TrainingModel> trainings;
+    private Set<MasterfileModel> trainings;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "POST_QUALIFICATION",
@@ -50,7 +45,7 @@ public class PreferencesModel {
         referencedColumnName = "id", nullable = true) },
         inverseJoinColumns = { @JoinColumn(name = "training_id",
         referencedColumnName = "id", nullable = true) })
-    private Set<QualificationModel> qualifications;
+    private Set<MasterfileModel> qualifications;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "POST_PHYSICALCONDITION",
@@ -58,60 +53,60 @@ public class PreferencesModel {
         referencedColumnName = "id", nullable = true) },
         inverseJoinColumns = { @JoinColumn(name = "physical_condition_id",
         referencedColumnName = "id", nullable = true) })
-    private Set<PhysicalConditionModel> physicalConditions;
+    private Set<MasterfileModel> physicalConditions;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "gender_id")
-    private GenderModel gender;
+    private MasterfileModel gender;
 
     @Column(name = "HEIGHT")
     private double height;
 
-    public Set<ReligionModel> getReligions() {
+    public Set<MasterfileModel> getReligions() {
         return religions;
     }
 
-    public void setReligions(final Set<ReligionModel> religions) {
+    public void setReligions(final Set<MasterfileModel> religions) {
         this.religions = religions;
     }
 
-    public Set<LanguageModel> getLanguages() {
+    public Set<MasterfileModel> getLanguages() {
         return languages;
     }
 
-    public void setLanguages(final Set<LanguageModel> languages) {
+    public void setLanguages(final Set<MasterfileModel> languages) {
         this.languages = languages;
     }
 
-    public Set<TrainingModel> getTrainings() {
+    public Set<MasterfileModel> getTrainings() {
         return trainings;
     }
 
-    public void setTrainings(final Set<TrainingModel> trainings) {
+    public void setTrainings(final Set<MasterfileModel> trainings) {
         this.trainings = trainings;
     }
 
-    public Set<QualificationModel> getQualifications() {
+    public Set<MasterfileModel> getQualifications() {
         return qualifications;
     }
 
-    public void setQualifications(final Set<QualificationModel> qualifications) {
+    public void setQualifications(final Set<MasterfileModel> qualifications) {
         this.qualifications = qualifications;
     }
 
-    public GenderModel getGender() {
+    public MasterfileModel getGender() {
         return gender;
     }
 
-    public void setGender(final GenderModel gender) {
+    public void setGender(final MasterfileModel gender) {
         this.gender = gender;
     }
 
-    public Set<PhysicalConditionModel> getPhysicalConditions() {
+    public Set<MasterfileModel> getPhysicalConditions() {
         return physicalConditions;
     }
 
-    public void setPhysicalConditions(final Set<PhysicalConditionModel> physicalConditions) {
+    public void setPhysicalConditions(final Set<MasterfileModel> physicalConditions) {
         this.physicalConditions = physicalConditions;
     }
 

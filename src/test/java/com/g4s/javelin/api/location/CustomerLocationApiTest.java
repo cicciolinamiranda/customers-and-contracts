@@ -1,17 +1,10 @@
 package com.g4s.javelin.api.location;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
-import static org.mockito.Matchers.any;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 import static org.junit.Assert.assertNotNull;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
-
-import junit.framework.Assert;
 
 import org.joda.time.DateTime;
 import org.junit.Before;
@@ -22,16 +15,13 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.g4s.javelin.api.location.CustomerLocationApi;
-import com.g4s.javelin.data.model.workorder.WorkOrderModel;
 import com.g4s.javelin.dto.core.location.AddressDTO;
 import com.g4s.javelin.dto.core.location.BarredEmployeeDTO;
-import com.g4s.javelin.dto.core.location.CreateCustomerLocationDTO;
 import com.g4s.javelin.dto.core.location.CustomerDTO;
 import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
 import com.g4s.javelin.dto.core.masterfile.EquipmentDTO;
+import com.g4s.javelin.dto.core.masterfile.MasterfileDTO;
 import com.g4s.javelin.dto.core.masterfile.ModeTransportDTO;
-import com.g4s.javelin.dto.core.masterfile.SkillsDTO;
 import com.g4s.javelin.dto.core.masterfile.TaskDTO;
 import com.g4s.javelin.service.location.CustomerLocationService;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
@@ -95,7 +85,7 @@ public class CustomerLocationApiTest {
         customer.setCustomerName("Juan Dela Cruz");
         List<ModeTransportDTO> modeTransports = Lists.newArrayList();
         customerLocationDTO.setModeOfTransports(modeTransports);
-        List<SkillsDTO> skills = Lists.newArrayList();
+        List<MasterfileDTO> skills = Lists.newArrayList();
         customerLocationDTO.setSkills(skills);
         List<TaskDTO> tasks = Lists.newArrayList();
         customerLocationDTO.setTasks(tasks);
@@ -157,11 +147,5 @@ public class CustomerLocationApiTest {
         customerLocationApi.updateCustomerLocationStatus(Mockito.anyLong(), Mockito.anyString());
         Mockito.verify(customerLocationService, Mockito.times(1)).updateCustomerLocationStatus(Mockito.anyLong(), Mockito.anyString());
     }
-    
-    @Test
-    public void testCreate() throws Exception {
-    	when(customerLocationService.createCustomerLocation()).thenReturn(new CreateCustomerLocationDTO());
-        CreateCustomerLocationDTO result = customerLocationApi.createCustomerLocation();
-        Mockito.verify(customerLocationService, Mockito.times(1)).createCustomerLocation();
-    }
+
 }

@@ -1,10 +1,14 @@
 package com.g4s.javelin.data.model.post;
 
+import java.util.Set;
+
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -12,7 +16,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import com.g4s.javelin.data.model.BaseModel;
-import com.g4s.javelin.data.model.masterfile.RoleModel;
+import com.g4s.javelin.data.model.masterfile.MasterfileModel;
 
 //CSOFF: HiddenField
 @Entity
@@ -24,7 +28,7 @@ public class PostModel extends BaseModel {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
-    private RoleModel role;
+    private MasterfileModel role;
 
     @Column(name = "NAME")
     private String name;
@@ -49,6 +53,46 @@ public class PostModel extends BaseModel {
     @Column(name = "IDENTIFICATION_NUMBER")
     private String identificationNumber;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "POST_SKILL",
+        joinColumns = { @JoinColumn(name = "post_id",
+        referencedColumnName = "id", nullable = true) },
+        inverseJoinColumns = { @JoinColumn(name = "post_skills_id",
+        referencedColumnName = "id", nullable = true) })
+    private Set<MasterfileModel> skills;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "POST_LICENSE",
+        joinColumns = { @JoinColumn(name = "post_id",
+        referencedColumnName = "id", nullable = true) },
+        inverseJoinColumns = { @JoinColumn(name = "license_id",
+        referencedColumnName = "id", nullable = true) })
+    private Set<MasterfileModel> licenses;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "POST_UNIFORM",
+        joinColumns = { @JoinColumn(name = "post_id",
+        referencedColumnName = "id", nullable = true) },
+        inverseJoinColumns = { @JoinColumn(name = "uniform_id",
+        referencedColumnName = "id", nullable = true) })
+    private Set<MasterfileModel> uniforms;
+
+    @Column(name = "IS_BOOK_ON")
+    private boolean isBookOn;
+
+    @Column(name = "IS_BOOK_OFF")
+    private boolean isBookOff;
+
+    @Column(name = "IS_CALL_IN")
+    private boolean isCallIn;
+
+    @Column(name = "NOTES")
+    private String notes;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "call_in_frequency_id")
+    private MasterfileModel callInFrequency;
+
     public PreferencesModel getPreferences() {
         return preferences;
     }
@@ -57,11 +101,11 @@ public class PostModel extends BaseModel {
         this.preferences = preferences;
     }
 
-    public RoleModel getRole() {
+    public MasterfileModel getRole() {
         return role;
     }
 
-    public void setRole(final RoleModel role) {
+    public void setRole(final MasterfileModel role) {
         this.role = role;
     }
 

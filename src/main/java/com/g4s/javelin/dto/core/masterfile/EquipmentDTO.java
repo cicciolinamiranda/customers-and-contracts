@@ -6,9 +6,14 @@ import com.g4s.javelin.dto.BaseMasterfileDTO;
 public class EquipmentDTO extends BaseMasterfileDTO {
 
     private boolean isBilled;
-    private String costType;
     private Long associationId;
+
+    //FOR CUSTOMER LOCATION
+    private String costType;
     private boolean isDeleted;
+
+    //FOR POST
+    private int quantity;
 
     public boolean isBilled() {
         return isBilled;
@@ -40,6 +45,14 @@ public class EquipmentDTO extends BaseMasterfileDTO {
 
     public void setDeleted(final boolean isDeleted) {
         this.isDeleted = isDeleted;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(final int quantity) {
+        this.quantity = quantity;
     }
 
 }

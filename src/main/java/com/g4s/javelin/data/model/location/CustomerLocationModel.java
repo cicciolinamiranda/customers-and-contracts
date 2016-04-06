@@ -20,9 +20,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import com.g4s.javelin.data.model.BaseModel;
-import com.g4s.javelin.data.model.masterfile.MethodOfRecordingModel;
-import com.g4s.javelin.data.model.masterfile.ProofOfDutyModel;
-import com.g4s.javelin.data.model.masterfile.SkillsModel;
+import com.g4s.javelin.data.model.masterfile.MasterfileModel;
 import com.g4s.javelin.data.model.masterfile.TaskModel;
 import com.g4s.javelin.data.model.mock.IncidentLogMockModel;
 import com.g4s.javelin.data.model.workorder.WorkOrderModel;
@@ -47,9 +45,9 @@ public class CustomerLocationModel extends BaseModel {
     @JoinTable(name = "CUSTLOCATION_SKILLS",
         joinColumns = { @JoinColumn(name = "customer_location_id",
         referencedColumnName = "id", nullable = true) },
-        inverseJoinColumns = { @JoinColumn(name = "skills_id",
+        inverseJoinColumns = { @JoinColumn(name = "skill_id",
         referencedColumnName = "id", nullable = true) })
-    private Set<SkillsModel> skills;
+    private Set<MasterfileModel> skills;
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "CUSTLOCATION_TASK",
@@ -79,11 +77,11 @@ public class CustomerLocationModel extends BaseModel {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "PROOF_OF_DUTY_ID")
-    private ProofOfDutyModel proofOfDuty;
+    private MasterfileModel proofOfDuty;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "METHOD_OF_RECORDING_ID")
-    private MethodOfRecordingModel methodOfRecording;
+    private MasterfileModel methodOfRecording;
 
     @Embedded
     private AddressModel address;
@@ -121,11 +119,11 @@ public class CustomerLocationModel extends BaseModel {
         this.workOrders = workOrders;
     }
 
-    public Set<SkillsModel> getSkills() {
+    public Set<MasterfileModel> getSkills() {
         return skills;
     }
 
-    public void setSkills(final Set<SkillsModel> skills) {
+    public void setSkills(final Set<MasterfileModel> skills) {
         this.skills = skills;
     }
 
@@ -274,19 +272,19 @@ public class CustomerLocationModel extends BaseModel {
         this.incidents = incidents;
     }
 
-    public ProofOfDutyModel getProofOfDuty() {
+    public MasterfileModel getProofOfDuty() {
         return proofOfDuty;
     }
 
-    public void setProofOfDuty(final ProofOfDutyModel proofOfDuty) {
+    public void setProofOfDuty(final MasterfileModel proofOfDuty) {
         this.proofOfDuty = proofOfDuty;
     }
 
-    public MethodOfRecordingModel getMethodOfRecording() {
+    public MasterfileModel getMethodOfRecording() {
         return methodOfRecording;
     }
 
-    public void setMethodOfRecording(final MethodOfRecordingModel methodOfRecording) {
+    public void setMethodOfRecording(final MasterfileModel methodOfRecording) {
         this.methodOfRecording = methodOfRecording;
     }
 

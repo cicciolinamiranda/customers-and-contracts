@@ -11,12 +11,10 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.g4s.javelin.api.location.MasterFileApi;
-import com.g4s.javelin.dto.core.masterfile.EquipmentDTO;
-import com.g4s.javelin.dto.core.masterfile.ModeTransportDTO;
-import com.g4s.javelin.dto.core.masterfile.SkillsDTO;
+import com.g4s.javelin.dto.core.masterfile.MasterfileDTO;
 import com.g4s.javelin.dto.core.masterfile.TaskDTO;
-import com.g4s.javelin.service.location.MasterFileService;
+import com.g4s.javelin.enums.MasterfileTypeEnum;
+import com.g4s.javelin.service.location.MasterfileService;
 
 /**
  * @author Jordan Duabe
@@ -26,16 +24,16 @@ import com.g4s.javelin.service.location.MasterFileService;
 public class MasterFileApiTest {
 
     @Mock
-    private MasterFileService masterFileService;
+    private MasterfileService masterFileService;
 
     @Mock
-    private List<EquipmentDTO> equipmentList;
+    private List<MasterfileDTO> equipmentList;
 
     @Mock
-    private List<ModeTransportDTO> modeOfTransportList;
+    private List<MasterfileDTO> modeOfTransportList;
 
     @Mock
-    private List<SkillsDTO> skillList;
+    private List<MasterfileDTO> skillList;
 
     @Mock
     private List<TaskDTO> taskList;
@@ -45,19 +43,19 @@ public class MasterFileApiTest {
 
     @Test
     public void testGetAllEquipments() throws Exception {
-        Mockito.when(masterFileService.getAllEquipments()).thenReturn(equipmentList);
+        Mockito.when(masterFileService.getMasterfilesByType(MasterfileTypeEnum.LOCATION_EQUIPMENT)).thenReturn(equipmentList);
         assertNotNull(masterFileApi.getAllEquipments());
     }
 
     @Test
     public void testGetAllModesOfTransport() throws Exception {
-        Mockito.when(masterFileService.getAllModeTransport()).thenReturn(modeOfTransportList);
+        Mockito.when(masterFileService.getMasterfilesByType(MasterfileTypeEnum.MODE_TRANSPORT)).thenReturn(modeOfTransportList);
         assertNotNull(masterFileApi.getAllModesOfTransport());
     }
 
     @Test
     public void testGetAllSkills() throws Exception {
-        Mockito.when(masterFileService.getAllSkills()).thenReturn(skillList);
+        Mockito.when(masterFileService.getMasterfilesByType(MasterfileTypeEnum.LOCATION_SKILLS)).thenReturn(skillList);
         assertNotNull(masterFileApi.getAllSkills());
     }
 

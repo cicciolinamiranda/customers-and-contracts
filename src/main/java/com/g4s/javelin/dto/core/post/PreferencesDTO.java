@@ -2,57 +2,52 @@ package com.g4s.javelin.dto.core.post;
 
 import java.util.List;
 
-import com.g4s.javelin.dto.core.masterfile.GenderDTO;
-import com.g4s.javelin.dto.core.masterfile.LanguageDTO;
-import com.g4s.javelin.dto.core.masterfile.PhysicalConditionDTO;
-import com.g4s.javelin.dto.core.masterfile.QualificationDTO;
-import com.g4s.javelin.dto.core.masterfile.ReligionDTO;
-import com.g4s.javelin.dto.core.masterfile.TrainingDTO;
+import com.g4s.javelin.dto.core.masterfile.MasterfileDTO;
 
 public class PreferencesDTO {
 
-    private List<ReligionDTO> religions;
-    private List<TrainingDTO> trainings;
-    private List<QualificationDTO> qualifications;
-    private List<LanguageDTO> languages;
-    private GenderDTO gender;
-    private List<PhysicalConditionDTO> physicalConditions;
+    private List<MasterfileDTO> religions;
+    private List<MasterfileDTO> trainings;
+    private List<MasterfileDTO> qualifications;
+    private List<MasterfileDTO> languages;
+    private MasterfileDTO gender;
+    private List<MasterfileDTO> physicalConditions;
     private double height;
 
-    public List<ReligionDTO> getReligions() {
+    public List<MasterfileDTO> getReligions() {
         return religions;
     }
-    public void setReligions(final List<ReligionDTO> religions) {
+    public void setReligions(final List<MasterfileDTO> religions) {
         this.religions = religions;
     }
-    public List<TrainingDTO> getTrainings() {
+    public List<MasterfileDTO> getTrainings() {
         return trainings;
     }
-    public void setTrainings(final List<TrainingDTO> trainings) {
+    public void setTrainings(final List<MasterfileDTO> trainings) {
         this.trainings = trainings;
     }
-    public List<QualificationDTO> getQualifications() {
+    public List<MasterfileDTO> getQualifications() {
         return qualifications;
     }
-    public void setQualifications(final List<QualificationDTO> qualifications) {
+    public void setQualifications(final List<MasterfileDTO> qualifications) {
         this.qualifications = qualifications;
     }
-    public List<LanguageDTO> getLanguages() {
+    public List<MasterfileDTO> getLanguages() {
         return languages;
     }
-    public void setLanguages(final List<LanguageDTO> languages) {
+    public void setLanguages(final List<MasterfileDTO> languages) {
         this.languages = languages;
     }
-    public GenderDTO getGender() {
+    public MasterfileDTO getGender() {
         return gender;
     }
-    public void setGender(final GenderDTO gender) {
+    public void setGender(final MasterfileDTO gender) {
         this.gender = gender;
     }
-    public List<PhysicalConditionDTO> getPhysicalConditions() {
+    public List<MasterfileDTO> getPhysicalConditions() {
         return physicalConditions;
     }
-    public void setPhysicalConditions(final List<PhysicalConditionDTO> physicalConditions) {
+    public void setPhysicalConditions(final List<MasterfileDTO> physicalConditions) {
         this.physicalConditions = physicalConditions;
     }
     public double getHeight() {

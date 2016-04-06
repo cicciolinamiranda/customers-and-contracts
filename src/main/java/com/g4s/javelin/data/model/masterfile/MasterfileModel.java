@@ -6,7 +6,7 @@ import javax.persistence.Table;
 import com.g4s.javelin.data.model.BaseMasterfileModel;
 
 @Entity
-@Table(name = "MF_RELIGION")
-public class ReligionModel extends BaseMasterfileModel {
+@Table(name = "MF_LIST")
+public class MasterfileModel extends BaseMasterfileModel {
 
 }

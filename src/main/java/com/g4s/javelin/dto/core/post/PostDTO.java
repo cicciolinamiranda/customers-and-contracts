@@ -1,15 +1,18 @@
 package com.g4s.javelin.dto.core.post;
 
+import java.util.List;
+
 import org.joda.time.DateTime;
 
 import com.g4s.javelin.dto.BaseDTO;
-import com.g4s.javelin.dto.core.masterfile.RoleDTO;
+import com.g4s.javelin.dto.core.masterfile.EquipmentDTO;
+import com.g4s.javelin.dto.core.masterfile.MasterfileDTO;
 
 //CSOFF: HiddenField
 public class PostDTO extends BaseDTO {
 
     private PreferencesDTO preferences;
-    private RoleDTO role;
+    private MasterfileDTO role;
     private String name;
     private String imageUrl;
     private int numberOfEmployees;
@@ -19,6 +22,14 @@ public class PostDTO extends BaseDTO {
     private String endDateStr;
     private boolean isIdentificationRequired;
     private String identificationNumber;
+    private List<MasterfileDTO> skills;
+    private List<MasterfileDTO> licenses;
+    private List<MasterfileDTO> uniforms;
+    private List<EquipmentDTO> equipments;
+    private boolean isBookOn;
+    private boolean isBookOff;
+    private boolean isCallIn;
+    private String notes;
 
     public PreferencesDTO getPreferences() {
         return preferences;
@@ -26,10 +37,10 @@ public class PostDTO extends BaseDTO {
     public void setPreferences(final PreferencesDTO preferences) {
         this.preferences = preferences;
     }
-    public RoleDTO getRole() {
+    public MasterfileDTO getRole() {
         return role;
     }
-    public void setRole(final RoleDTO role) {
+    public void setRole(final MasterfileDTO role) {
         this.role = role;
     }
     public String getName() {
