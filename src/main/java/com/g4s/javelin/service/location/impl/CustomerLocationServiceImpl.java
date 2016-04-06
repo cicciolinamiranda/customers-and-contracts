@@ -138,6 +138,9 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         if (customerLocation.getEndDateStr() != null) {
             model.setEndDate(dtf.parseDateTime(customerLocation.getEndDateStr()));
         }
+        if (customerLocation.getLocationSurverDateStr() != null) {
+            model.setLocationSurveyDate(dtf.parseDateTime(customerLocation.getLocationSurverDateStr()));
+        }
         model.setWorkOrders(workOrders);
         model.setStatus(StatusEnum.findByCode(customerLocation.getStatusStr()));
         // setup equipments

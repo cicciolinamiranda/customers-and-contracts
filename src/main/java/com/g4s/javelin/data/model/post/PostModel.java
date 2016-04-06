@@ -93,6 +93,22 @@ public class PostModel extends BaseModel {
     @JoinColumn(name = "call_in_frequency_id")
     private MasterfileModel callInFrequency;
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "POST_SCHEDCONSTRAINT",
+        joinColumns = { @JoinColumn(name = "post_id",
+        referencedColumnName = "id", nullable = true) },
+        inverseJoinColumns = { @JoinColumn(name = "scheduling_constraint_id",
+        referencedColumnName = "id", nullable = true) })
+    private Set<MasterfileModel> schedulingConstraints;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "POST_HEALTHSAFETYREQUIREMENT",
+        joinColumns = { @JoinColumn(name = "post_id",
+        referencedColumnName = "id", nullable = true) },
+        inverseJoinColumns = { @JoinColumn(name = "health_safety_req_id",
+        referencedColumnName = "id", nullable = true) })
+    private Set<MasterfileModel> healthSafetyRequirements;
+
     public PreferencesModel getPreferences() {
         return preferences;
     }
@@ -163,6 +179,87 @@ public class PostModel extends BaseModel {
 
     public void setIdentificationNumber(final String identificationNumber) {
         this.identificationNumber = identificationNumber;
+    }
+
+    public Set<MasterfileModel> getSkills() {
+        return skills;
+    }
+
+    public void setSkills(final Set<MasterfileModel> skills) {
+        this.skills = skills;
+    }
+
+    public Set<MasterfileModel> getLicenses() {
+        return licenses;
+    }
+
+    public void setLicenses(final Set<MasterfileModel> licenses) {
+        this.licenses = licenses;
+    }
+
+    public Set<MasterfileModel> getUniforms() {
+        return uniforms;
+    }
+
+    public void setUniforms(final Set<MasterfileModel> uniforms) {
+        this.uniforms = uniforms;
+    }
+
+    public boolean isBookOn() {
+        return isBookOn;
+    }
+
+    public void setBookOn(final boolean isBookOn) {
+        this.isBookOn = isBookOn;
+    }
+
+    public boolean isBookOff() {
+        return isBookOff;
+    }
+
+    public void setBookOff(final boolean isBookOff) {
+        this.isBookOff = isBookOff;
+    }
+
+    public boolean isCallIn() {
+        return isCallIn;
+    }
+
+    public void setCallIn(final boolean isCallIn) {
+        this.isCallIn = isCallIn;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(final String notes) {
+        this.notes = notes;
+    }
+
+    public MasterfileModel getCallInFrequency() {
+        return callInFrequency;
+    }
+
+    public void setCallInFrequency(final MasterfileModel callInFrequency) {
+        this.callInFrequency = callInFrequency;
+    }
+
+    public Set<MasterfileModel> getSchedulingConstraints() {
+        return schedulingConstraints;
+    }
+
+    public void setSchedulingConstraints(final Set<MasterfileModel> schedulingConstraints) {
+        this.schedulingConstraints = schedulingConstraints;
+    }
+
+    public Set<MasterfileModel> getHealthSafetyRequirements() {
+        return healthSafetyRequirements;
+    }
+
+    public void setHealthSafetyRequirements(
+            final Set<MasterfileModel> healthSafetyRequirements) {
+        this.healthSafetyRequirements = healthSafetyRequirements;
     }
 
 }

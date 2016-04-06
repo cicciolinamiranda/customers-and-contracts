@@ -30,6 +30,8 @@ public class PostDTO extends BaseDTO {
     private boolean isBookOff;
     private boolean isCallIn;
     private String notes;
+    private List<MasterfileDTO> schedulingConstraints;
+    private List<MasterfileDTO> healthSafetyRequiremnts;
 
     public PreferencesDTO getPreferences() {
         return preferences;
@@ -96,6 +98,67 @@ public class PostDTO extends BaseDTO {
     }
     public void setIdentificationNumber(final String identificationNumber) {
         this.identificationNumber = identificationNumber;
+    }
+    public List<MasterfileDTO> getSkills() {
+        return skills;
+    }
+    public void setSkills(final List<MasterfileDTO> skills) {
+        this.skills = skills;
+    }
+    public List<MasterfileDTO> getLicenses() {
+        return licenses;
+    }
+    public void setLicenses(final List<MasterfileDTO> licenses) {
+        this.licenses = licenses;
+    }
+    public List<MasterfileDTO> getUniforms() {
+        return uniforms;
+    }
+    public void setUniforms(final List<MasterfileDTO> uniforms) {
+        this.uniforms = uniforms;
+    }
+    public List<EquipmentDTO> getEquipments() {
+        return equipments;
+    }
+    public void setEquipments(final List<EquipmentDTO> equipments) {
+        this.equipments = equipments;
+    }
+    public boolean isBookOn() {
+        return isBookOn;
+    }
+    public void setBookOn(final boolean isBookOn) {
+        this.isBookOn = isBookOn;
+    }
+    public boolean isBookOff() {
+        return isBookOff;
+    }
+    public void setBookOff(final boolean isBookOff) {
+        this.isBookOff = isBookOff;
+    }
+    public boolean isCallIn() {
+        return isCallIn;
+    }
+    public void setCallIn(final boolean isCallIn) {
+        this.isCallIn = isCallIn;
+    }
+    public String getNotes() {
+        return notes;
+    }
+    public void setNotes(final String notes) {
+        this.notes = notes;
+    }
+    public List<MasterfileDTO> getSchedulingConstraints() {
+        return schedulingConstraints;
+    }
+    public void setSchedulingConstraints(final List<MasterfileDTO> schedulingConstraints) {
+        this.schedulingConstraints = schedulingConstraints;
+    }
+    public List<MasterfileDTO> getHealthSafetyRequiremnts() {
+        return healthSafetyRequiremnts;
+    }
+    public void setHealthSafetyRequiremnts(
+            final List<MasterfileDTO> healthSafetyRequiremnts) {
+        this.healthSafetyRequiremnts = healthSafetyRequiremnts;
     }
 
 }

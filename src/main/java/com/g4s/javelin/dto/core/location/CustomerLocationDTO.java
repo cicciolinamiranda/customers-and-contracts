@@ -38,6 +38,8 @@ public class CustomerLocationDTO extends BaseDTO {
     private String statusStr;
     private MasterfileDTO proofOfDuty;
     private MasterfileDTO methodOfRecording;
+    private String locationSurverDateStr;
+    private DateTime locationSurveyDate;
 
     //SiteLocationDTO
 
@@ -189,6 +191,18 @@ public class CustomerLocationDTO extends BaseDTO {
     }
     public void setMethodOfRecording(final MasterfileDTO methodOfRecording) {
         this.methodOfRecording = methodOfRecording;
+    }
+    public String getLocationSurverDateStr() {
+        return locationSurverDateStr;
+    }
+    public void setLocationSurverDateStr(final String locationSurverDateStr) {
+        this.locationSurverDateStr = locationSurverDateStr;
+    }
+    public DateTime getLocationSurveyDate() {
+        return locationSurveyDate;
+    }
+    public void setLocationSurveyDate(final DateTime locationSurveyDate) {
+        this.locationSurveyDate = locationSurveyDate;
     }
 
 }

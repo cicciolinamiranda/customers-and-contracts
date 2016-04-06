@@ -111,6 +111,10 @@ public class CustomerLocationModel extends BaseModel {
     @Enumerated(EnumType.STRING)
     private StatusEnum status;
 
+    @Column(name = "LOCATION_SURVEY_DATE", nullable = true, updatable = true)
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    private DateTime locationSurveyDate;
+
     public Set<WorkOrderModel> getWorkOrders() {
         return workOrders;
     }
@@ -286,6 +290,14 @@ public class CustomerLocationModel extends BaseModel {
 
     public void setMethodOfRecording(final MasterfileModel methodOfRecording) {
         this.methodOfRecording = methodOfRecording;
+    }
+
+    public DateTime getLocationSurveyDate() {
+        return locationSurveyDate;
+    }
+
+    public void setLocationSurveyDate(final DateTime locationSurveyDate) {
+        this.locationSurveyDate = locationSurveyDate;
     }
 
 }
