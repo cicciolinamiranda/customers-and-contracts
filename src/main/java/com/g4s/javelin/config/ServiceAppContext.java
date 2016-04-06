@@ -7,14 +7,14 @@ import org.springframework.context.annotation.Lazy;
 import com.g4s.javelin.constants.ServiceConstants;
 import com.g4s.javelin.service.location.BarredEmployeeService;
 import com.g4s.javelin.service.location.CustomerLocationService;
-import com.g4s.javelin.service.location.MasterfileAssociationService;
-import com.g4s.javelin.service.location.MasterfileService;
+import com.g4s.javelin.service.location.LocationMasterfileAssociationService;
 import com.g4s.javelin.service.location.SiteLocationService;
 import com.g4s.javelin.service.location.impl.BarredEmployeeServiceImpl;
 import com.g4s.javelin.service.location.impl.CustomerLocationServiceImpl;
-import com.g4s.javelin.service.location.impl.MasterfileAssociationServiceImpl;
-import com.g4s.javelin.service.location.impl.MasterfileServiceImpl;
+import com.g4s.javelin.service.location.impl.LocationMasterfileAssociationServiceImpl;
 import com.g4s.javelin.service.location.impl.SiteLocationServiceImpl;
+import com.g4s.javelin.service.masterfile.MasterfileService;
+import com.g4s.javelin.service.masterfile.impl.MasterfileServiceImpl;
 
 @Configuration
 @Lazy
@@ -34,8 +34,8 @@ public class ServiceAppContext {
         return new CustomerLocationServiceImpl();
     }
     @Bean(name = ServiceConstants.MASTERFILE_ASSOC_SERVICE)
-    public MasterfileAssociationService getMasterfileAssociationService() {
-        return new MasterfileAssociationServiceImpl();
+    public LocationMasterfileAssociationService getMasterfileAssociationService() {
+        return new LocationMasterfileAssociationServiceImpl();
     }
     @Bean(name = ServiceConstants.SITE_LOCATION_SERVICE)
     public SiteLocationService getSiteLocationService() {

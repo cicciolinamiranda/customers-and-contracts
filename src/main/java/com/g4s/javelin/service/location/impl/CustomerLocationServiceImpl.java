@@ -35,9 +35,9 @@ import com.g4s.javelin.enums.StatusEnum;
 import com.g4s.javelin.exception.CustomerLocationException;
 import com.g4s.javelin.service.location.BarredEmployeeService;
 import com.g4s.javelin.service.location.CustomerLocationService;
-import com.g4s.javelin.service.location.MasterfileAssociationService;
-import com.g4s.javelin.service.location.MasterfileService;
+import com.g4s.javelin.service.location.LocationMasterfileAssociationService;
 import com.g4s.javelin.service.location.SiteLocationService;
+import com.g4s.javelin.service.masterfile.MasterfileService;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 import com.google.appengine.repackaged.com.google.api.client.util.Sets;
 
@@ -69,7 +69,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
     @Autowired
     @Lazy
     @Qualifier(ServiceConstants.MASTERFILE_ASSOC_SERVICE)
-    private MasterfileAssociationService masterfileAssociationService;
+    private LocationMasterfileAssociationService masterfileAssociationService;
 
     private ModelMapper modelMapper;
 

@@ -16,10 +16,10 @@ import com.g4s.javelin.data.repository.location.CustomerLocationRepository;
 import com.g4s.javelin.data.repository.masterfile.MasterfileRepository;
 import com.g4s.javelin.dto.core.masterfile.EquipmentDTO;
 import com.g4s.javelin.dto.core.masterfile.ModeTransportDTO;
-import com.g4s.javelin.service.location.MasterfileAssociationService;
+import com.g4s.javelin.service.location.LocationMasterfileAssociationService;
 import com.google.common.collect.Lists;
 
-public class MasterfileAssociationServiceImpl implements MasterfileAssociationService {
+public class LocationMasterfileAssociationServiceImpl implements LocationMasterfileAssociationService {
 
     @Autowired
     @Lazy

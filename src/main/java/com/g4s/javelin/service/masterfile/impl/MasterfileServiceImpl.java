@@ -1,4 +1,4 @@
-package com.g4s.javelin.service.location.impl;
+package com.g4s.javelin.service.masterfile.impl;
 
 import java.util.List;
 
@@ -14,7 +14,7 @@ import com.g4s.javelin.data.repository.masterfile.TaskRepository;
 import com.g4s.javelin.dto.core.masterfile.MasterfileDTO;
 import com.g4s.javelin.dto.core.masterfile.TaskDTO;
 import com.g4s.javelin.enums.MasterfileTypeEnum;
-import com.g4s.javelin.service.location.MasterfileService;
+import com.g4s.javelin.service.masterfile.MasterfileService;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 
 public class MasterfileServiceImpl implements MasterfileService {

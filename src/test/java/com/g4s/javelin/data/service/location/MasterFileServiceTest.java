@@ -27,8 +27,8 @@ import com.g4s.javelin.dto.core.masterfile.MasterfileDTO;
 import com.g4s.javelin.dto.core.masterfile.ModeTransportDTO;
 import com.g4s.javelin.dto.core.masterfile.TaskDTO;
 import com.g4s.javelin.enums.MasterfileTypeEnum;
-import com.g4s.javelin.service.location.MasterfileService;
-import com.g4s.javelin.service.location.impl.MasterfileServiceImpl;
+import com.g4s.javelin.service.masterfile.MasterfileService;
+import com.g4s.javelin.service.masterfile.impl.MasterfileServiceImpl;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 import com.google.appengine.repackaged.com.google.api.client.util.Sets;
 

@@ -14,7 +14,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import com.g4s.javelin.dto.core.masterfile.MasterfileDTO;
 import com.g4s.javelin.dto.core.masterfile.TaskDTO;
 import com.g4s.javelin.enums.MasterfileTypeEnum;
-import com.g4s.javelin.service.location.MasterfileService;
+import com.g4s.javelin.service.masterfile.MasterfileService;
 
 /**
  * @author Jordan Duabe
