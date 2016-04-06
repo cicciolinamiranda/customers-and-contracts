@@ -15,6 +15,10 @@ import com.g4s.javelin.service.location.impl.LocationMasterfileAssociationServic
 import com.g4s.javelin.service.location.impl.SiteLocationServiceImpl;
 import com.g4s.javelin.service.masterfile.MasterfileService;
 import com.g4s.javelin.service.masterfile.impl.MasterfileServiceImpl;
+import com.g4s.javelin.service.post.PostMasterfileAssociationService;
+import com.g4s.javelin.service.post.PostService;
+import com.g4s.javelin.service.post.impl.PostMasterfileAssociationServiceImpl;
+import com.g4s.javelin.service.post.impl.PostServiceImpl;
 
 @Configuration
 @Lazy
@@ -33,12 +37,20 @@ public class ServiceAppContext {
     public CustomerLocationService getCustomerLocationService() {
         return new CustomerLocationServiceImpl();
     }
-    @Bean(name = ServiceConstants.MASTERFILE_ASSOC_SERVICE)
-    public LocationMasterfileAssociationService getMasterfileAssociationService() {
+    @Bean(name = ServiceConstants.LOCATION_MASTERFILE_ASSOC_SERVICE)
+    public LocationMasterfileAssociationService getLocationMasterfileAssociationService() {
         return new LocationMasterfileAssociationServiceImpl();
     }
     @Bean(name = ServiceConstants.SITE_LOCATION_SERVICE)
     public SiteLocationService getSiteLocationService() {
         return new SiteLocationServiceImpl();
+    }
+    @Bean(name = ServiceConstants.POST_SERVICE)
+    public PostService getPostService() {
+        return new PostServiceImpl();
+    }
+    @Bean(name = ServiceConstants.POST_MASTERFILE_ASSOC_SERVICE)
+    public PostMasterfileAssociationService getPostMasterfileAssociationService() {
+        return new PostMasterfileAssociationServiceImpl();
     }
 }

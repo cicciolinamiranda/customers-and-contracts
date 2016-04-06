@@ -34,6 +34,8 @@ public class PostDTO extends BaseDTO {
     private List<MasterfileDTO> schedulingConstraints;
     private List<MasterfileDTO> healthSafetyRequirements;
 
+    private Long customerLocationId;
+
     public PreferencesDTO getPreferences() {
         return preferences;
     }
@@ -160,6 +162,12 @@ public class PostDTO extends BaseDTO {
     public void setHealthSafetyRequirements(
             final List<MasterfileDTO> healthSafetyRequirements) {
         this.healthSafetyRequirements = healthSafetyRequirements;
+    }
+    public Long getCustomerLocationId() {
+        return customerLocationId;
+    }
+    public void setCustomerLocationId(final Long customerLocationId) {
+        this.customerLocationId = customerLocationId;
     }
 
 }

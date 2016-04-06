@@ -6,17 +6,22 @@ import java.util.Set;
 import org.joda.time.format.DateTimeFormat;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import com.g4s.javelin.constants.ServiceConstants;
+import com.g4s.javelin.data.model.location.CustomerLocationModel;
 import com.g4s.javelin.data.model.masterfile.MasterfileModel;
 import com.g4s.javelin.data.model.post.PostModel;
 import com.g4s.javelin.data.model.post.PreferencesModel;
+import com.g4s.javelin.data.repository.location.CustomerLocationRepository;
 import com.g4s.javelin.data.repository.post.PostRepository;
 import com.g4s.javelin.dto.core.masterfile.MasterfileDTO;
 import com.g4s.javelin.dto.core.post.PostDTO;
 import com.g4s.javelin.dto.core.post.PreferencesDTO;
+import com.g4s.javelin.service.post.PostMasterfileAssociationService;
 import com.g4s.javelin.service.post.PostService;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 import com.google.appengine.repackaged.com.google.api.client.util.Sets;
@@ -28,6 +33,15 @@ public class PostServiceImpl implements PostService {
     @Autowired
     @Lazy
     private PostRepository postRepository;
+
+    @Autowired
+    @Lazy
+    private CustomerLocationRepository customerLocationRepository;
+
+    @Autowired
+    @Lazy
+    @Qualifier(ServiceConstants.POST_MASTERFILE_ASSOC_SERVICE)
+    private PostMasterfileAssociationService postMasterfileAssociationService;
 
     public PostServiceImpl() {
         modelMapper = new ModelMapper();
@@ -48,9 +62,11 @@ public class PostServiceImpl implements PostService {
                 transformPostDTO(post, model);
             }
         }
-
+        CustomerLocationModel customerLocation = customerLocationRepository.findOne(post.getCustomerLocationId());
+        model.setCustomerLocation(customerLocation);
         model = postRepository.save(model);
-        post.setId(model.getId());
+//        postMasterfileAssociationService.savePostEquipment(model.getId(), post.getEquipments());
+//        post.setId(model.getId());
         return post;
     }
 

@@ -68,7 +68,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
 
     @Autowired
     @Lazy
-    @Qualifier(ServiceConstants.MASTERFILE_ASSOC_SERVICE)
+    @Qualifier(ServiceConstants.LOCATION_MASTERFILE_ASSOC_SERVICE)
     private LocationMasterfileAssociationService masterfileAssociationService;
 
     private ModelMapper modelMapper;
