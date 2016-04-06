@@ -9,4 +9,5 @@ import com.g4s.javelin.data.model.post.PostModel;
 public interface PostRepository extends JpaRepository<PostModel, Long> {
 
     List<PostModel> findByCustomerLocationId(Long customerLocationId);
+    PostModel findByName(String name);
 }
