@@ -1,9 +1,10 @@
 package com.g4s.javelin.dto.core.location;
 
-public class CustomerDTO {
+import com.g4s.javelin.dto.BaseDTO;
+
+public class CustomerDTO extends BaseDTO {
 
     private String customerName;
-    private Long id;
 
     public String getCustomerName() {
         return customerName;
@@ -13,11 +14,4 @@ public class CustomerDTO {
         this.customerName = customerName;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
 }

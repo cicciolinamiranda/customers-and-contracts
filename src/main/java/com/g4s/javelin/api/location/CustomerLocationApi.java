@@ -8,7 +8,6 @@ import org.springframework.context.annotation.Lazy;
 
 import com.g4s.javelin.constants.ApiConstants;
 import com.g4s.javelin.constants.ServiceConstants;
-import com.g4s.javelin.dto.core.location.CreateCustomerLocationDTO;
 import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
 import com.g4s.javelin.enums.SearchCriteriaEnum;
 import com.g4s.javelin.exception.CustomerLocationException;
@@ -145,20 +144,6 @@ public class CustomerLocationApi {
     public void updateCustomerLocationStatus(@Named("id") final Long id,
             @Named("status") final String status) {
         customerLocationService.updateCustomerLocationStatus(id, status);
-    }
-
-    /**
-     * Create empty customer location
-     *
-     *
-     */
-    @ApiMethod(
-            name = "customer.location.create",
-            path = "customer-location/create",
-            httpMethod = ApiMethod.HttpMethod.POST)
-    public CreateCustomerLocationDTO createCustomerLocation() {
-        CreateCustomerLocationDTO result = customerLocationService.createCustomerLocation();
-        return result;
     }
 
     /**

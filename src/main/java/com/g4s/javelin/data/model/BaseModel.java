@@ -1,13 +1,20 @@
 package com.g4s.javelin.data.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.MappedSuperclass;
 
+import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
-public class BaseModel {
+@MappedSuperclass
+public class BaseModel implements Serializable {
 
     @Id
     @Column(
@@ -20,7 +27,14 @@ public class BaseModel {
     private String createdBy;
 
     @Column(name = "CREATED_DATE")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @CreatedDate
     private DateTime createdDate;
+
+    @Column(name = "LAST_MODIFIED_DATE")
+    @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
+    @LastModifiedDate
+    private DateTime lastModifiedDate;
 
     public Long getId() {
         return id;
@@ -44,5 +58,13 @@ public class BaseModel {
 
     public void setCreatedDate(final DateTime createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public DateTime getLastModifiedDate() {
+        return lastModifiedDate;
+    }
+
+    public void setLastModifiedDate(final DateTime lastModifiedDate) {
+        this.lastModifiedDate = lastModifiedDate;
     }
 }

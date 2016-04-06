@@ -1,23 +1,15 @@
 package com.g4s.javelin.dto.mock;
 
+import com.g4s.javelin.dto.BaseDTO;
 
-public class IncidentLogMockDTO {
 
-    private Long id;
+public class IncidentLogMockDTO extends BaseDTO {
 
     private String title;
 
     private String details;
 
     private String imageUrl;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
 
     public String getTitle() {
         return title;

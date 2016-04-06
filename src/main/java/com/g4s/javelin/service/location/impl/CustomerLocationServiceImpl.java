@@ -5,7 +5,6 @@ import java.util.Set;
 
 import org.apache.commons.lang3.math.NumberUtils;
 import org.hibernate.HibernateException;
-import org.joda.time.DateTime;
 import org.joda.time.format.DateTimeFormat;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,26 +18,25 @@ import com.g4s.javelin.constants.ServiceConstants;
 import com.g4s.javelin.data.model.location.AddressModel;
 import com.g4s.javelin.data.model.location.CustomerLocationModel;
 import com.g4s.javelin.data.model.location.SiteLocationModel;
-import com.g4s.javelin.data.model.location.SkillsModel;
-import com.g4s.javelin.data.model.location.TaskModel;
+import com.g4s.javelin.data.model.masterfile.MasterfileModel;
+import com.g4s.javelin.data.model.masterfile.TaskModel;
 import com.g4s.javelin.data.model.mock.IncidentLogMockModel;
 import com.g4s.javelin.data.model.workorder.WorkOrderModel;
 import com.g4s.javelin.data.repository.location.CustomerLocationRepository;
 import com.g4s.javelin.data.repository.workorder.WorkOrderRepository;
 import com.g4s.javelin.dto.core.location.BarredEmployeeDTO;
-import com.g4s.javelin.dto.core.location.CreateCustomerLocationDTO;
 import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
 import com.g4s.javelin.dto.core.location.SiteLocationDTO;
-import com.g4s.javelin.dto.core.location.SkillsDTO;
-import com.g4s.javelin.dto.core.location.TaskDTO;
 import com.g4s.javelin.dto.core.location.WorkOrderDTO;
+import com.g4s.javelin.dto.core.masterfile.MasterfileDTO;
+import com.g4s.javelin.dto.core.masterfile.TaskDTO;
 import com.g4s.javelin.dto.mock.IncidentLogMockDTO;
 import com.g4s.javelin.enums.StatusEnum;
 import com.g4s.javelin.exception.CustomerLocationException;
 import com.g4s.javelin.service.location.BarredEmployeeService;
 import com.g4s.javelin.service.location.CustomerLocationService;
-import com.g4s.javelin.service.location.MasterFileService;
 import com.g4s.javelin.service.location.MasterfileAssociationService;
+import com.g4s.javelin.service.location.MasterfileService;
 import com.g4s.javelin.service.location.SiteLocationService;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 import com.google.appengine.repackaged.com.google.api.client.util.Sets;
@@ -61,7 +59,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
     @Autowired
     @Lazy
     @Qualifier(ServiceConstants.MASTER_FILE_SERVICE)
-    private MasterFileService masterFileService;
+    private MasterfileService masterFileService;
 
     @Autowired
     @Lazy
@@ -135,10 +133,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         }
         WorkOrderModel workOrder = workOrderRepository.findOne(customerLocation.getWorkOrderId());
         workOrders.add(workOrder);
-        //setup createdDate
-        if (model.getCreatedDate() == null) {
-            model.setCreatedDate(DateTime.now());
-        }
+
         model.setStartDate(dtf.parseDateTime(customerLocation.getStartDateStr()));
         if (customerLocation.getEndDateStr() != null) {
             model.setEndDate(dtf.parseDateTime(customerLocation.getEndDateStr()));
@@ -189,15 +184,6 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
     }
 
     @Override
-    public CreateCustomerLocationDTO createCustomerLocation() {
-        CustomerLocationModel result = customerLocationRepository.save(new CustomerLocationModel());
-        CreateCustomerLocationDTO dto = new CreateCustomerLocationDTO();
-        dto.setCustomerLocationId(result.getId());
-        dto.setMasterfile(masterFileService.getMasterFile());
-        return dto;
-    }
-
-    @Override
     public List<CustomerLocationDTO> searchAllCustomerLocations(final String searchTerm) {
         Long id = null;
         if (NumberUtils.isDigits(searchTerm)) {
@@ -235,21 +221,21 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         return dto;
     }
 
-    private List<SkillsDTO> transformSkills(final Set<SkillsModel> skills) {
-        List<SkillsDTO> list = Lists.newArrayList();
+    private List<MasterfileDTO> transformSkills(final Set<MasterfileModel> skills) {
+        List<MasterfileDTO> list = Lists.newArrayList();
         if (!CollectionUtils.isEmpty(skills)) {
-            for (SkillsModel skill : skills) {
-                list.add(modelMapper.map(skill, SkillsDTO.class));
+            for (MasterfileModel skill : skills) {
+                list.add(modelMapper.map(skill, MasterfileDTO.class));
             }
         }
         return list;
     }
 
-    private Set<SkillsModel> transformSkillsToModel(final List<SkillsDTO> skills) {
-        Set<SkillsModel> list = Sets.newHashSet();
+    private Set<MasterfileModel> transformSkillsToModel(final List<MasterfileDTO> skills) {
+        Set<MasterfileModel> list = Sets.newHashSet();
         if (!CollectionUtils.isEmpty(skills)) {
-            for (SkillsDTO skill : skills) {
-                list.add(modelMapper.map(skill, SkillsModel.class));
+            for (MasterfileDTO skill : skills) {
+                list.add(modelMapper.map(skill, MasterfileModel.class));
             }
         }
         return list;

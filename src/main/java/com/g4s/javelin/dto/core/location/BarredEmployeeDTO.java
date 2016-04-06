@@ -2,9 +2,10 @@ package com.g4s.javelin.dto.core.location;
 
 import org.joda.time.DateTime;
 
+import com.g4s.javelin.dto.BaseDTO;
+
 //CSOFF: HiddenField
-public class BarredEmployeeDTO {
-    private Long id;
+public class BarredEmployeeDTO extends BaseDTO {
     private Long employeeId;
     private String title;
     private String firstName;
@@ -45,12 +46,7 @@ public class BarredEmployeeDTO {
     public void setEndDate(final DateTime endDate) {
         this.endDate = endDate;
     }
-    public Long getId() {
-        return id;
-    }
-    public void setId(final Long id) {
-        this.id = id;
-    }
+
     public String getTitle() {
         return title;
     }

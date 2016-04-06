@@ -8,13 +8,10 @@ import org.springframework.context.annotation.Lazy;
 
 import com.g4s.javelin.constants.ApiConstants;
 import com.g4s.javelin.constants.ServiceConstants;
-import com.g4s.javelin.dto.core.location.EquipmentDTO;
-import com.g4s.javelin.dto.core.location.MethodOfRecordingDTO;
-import com.g4s.javelin.dto.core.location.ModeTransportDTO;
-import com.g4s.javelin.dto.core.location.ProofOfDutyDTO;
-import com.g4s.javelin.dto.core.location.SkillsDTO;
-import com.g4s.javelin.dto.core.location.TaskDTO;
-import com.g4s.javelin.service.location.MasterFileService;
+import com.g4s.javelin.dto.core.masterfile.MasterfileDTO;
+import com.g4s.javelin.dto.core.masterfile.TaskDTO;
+import com.g4s.javelin.enums.MasterfileTypeEnum;
+import com.g4s.javelin.service.location.MasterfileService;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
@@ -35,7 +32,7 @@ public class MasterFileApi {
     @Autowired
     @Lazy
     @Qualifier(ServiceConstants.MASTER_FILE_SERVICE)
-    private MasterFileService masterFileService;
+    private MasterfileService masterFileService;
 
     /**
      * Retrieve all equipments
@@ -46,8 +43,8 @@ public class MasterFileApi {
             name = "master.file.equipment.list",
             path = "master-file/equipment",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public List<EquipmentDTO> getAllEquipments() {
-        return masterFileService.getAllEquipments();
+    public List<MasterfileDTO> getAllEquipments() {
+        return masterFileService.getMasterfilesByType(MasterfileTypeEnum.LOCATION_EQUIPMENT);
     }
 
     /**
@@ -59,8 +56,8 @@ public class MasterFileApi {
             name = "master.file.transport.list",
             path = "master-file/transport",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public List<ModeTransportDTO> getAllModesOfTransport() {
-        return masterFileService.getAllModeTransport();
+    public List<MasterfileDTO> getAllModesOfTransport() {
+        return masterFileService.getMasterfilesByType(MasterfileTypeEnum.MODE_TRANSPORT);
     }
 
     /**
@@ -72,8 +69,8 @@ public class MasterFileApi {
             name = "master.file.skills.list",
             path = "master-file/skills",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public List<SkillsDTO> getAllSkills() {
-        return masterFileService.getAllSkills();
+    public List<MasterfileDTO> getAllSkills() {
+        return masterFileService.getMasterfilesByType(MasterfileTypeEnum.LOCATION_SKILLS);
     }
 
     /**
@@ -85,8 +82,8 @@ public class MasterFileApi {
             name = "master.file.proofofduty.list",
             path = "master-file/proof-of-duty",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public List<ProofOfDutyDTO> getAllProofOfDuty() {
-        return masterFileService.getAllProofOfDuty();
+    public List<MasterfileDTO> getAllProofOfDuty() {
+        return masterFileService.getMasterfilesByType(MasterfileTypeEnum.PROOF_OF_DUTY);
     }
 
     /**
@@ -98,8 +95,8 @@ public class MasterFileApi {
             name = "master.file.methodofrecording.list",
             path = "master-file/method-of-recording",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public List<MethodOfRecordingDTO> getAllMethodOfRecording() {
-        return masterFileService.getAllMethodOfRecording();
+    public List<MasterfileDTO> getAllMethodOfRecording() {
+        return masterFileService.getMasterfilesByType(MasterfileTypeEnum.METHOD_OF_RECORDING);
     }
 
     /**
@@ -127,16 +124,16 @@ public class MasterFileApi {
             name = "master.file.skills.search",
             path = "master-file/skills/search",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public List<SkillsDTO> searchSkills(@Named("searchTerm") final String searchTerm) {
-        return masterFileService.searchSkills(searchTerm);
+    public List<MasterfileDTO> searchSkills(@Named("searchTerm") final String searchTerm) {
+        return masterFileService.searchMasterfileByTypeAndName(MasterfileTypeEnum.LOCATION_SKILLS, searchTerm);
     }
 
     @ApiMethod(
             name = "master.file.transport.search",
             path = "master-file/transport/search",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public List<ModeTransportDTO> searchTransport(@Named("searchTerm") final String searchTerm) {
-        return masterFileService.searchModeTransport(searchTerm);
+    public List<MasterfileDTO> searchTransport(@Named("searchTerm") final String searchTerm) {
+        return masterFileService.searchMasterfileByTypeAndName(MasterfileTypeEnum.MODE_TRANSPORT, searchTerm);
     }
 
     @ApiMethod(
@@ -151,15 +148,15 @@ public class MasterFileApi {
             name = "master.file.methodofrecording.search",
             path = "master-file/method-of-recording/search",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public List<MethodOfRecordingDTO> searchMethodOfRecording(@Named("searchTerm") final String searchTerm) {
-        return masterFileService.searchMethodOfRecording(searchTerm);
+    public List<MasterfileDTO> searchMethodOfRecording(@Named("searchTerm") final String searchTerm) {
+        return masterFileService.searchMasterfileByTypeAndName(MasterfileTypeEnum.METHOD_OF_RECORDING, searchTerm);
     }
 
     @ApiMethod(
             name = "master.file.proofofduty.search",
             path = "master-file/proof-of-duty/search",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public List<ProofOfDutyDTO> searchProofOfDuty(@Named("searchTerm") final String searchTerm) {
-        return masterFileService.searchProofOfDuty(searchTerm);
+    public List<MasterfileDTO> searchProofOfDuty(@Named("searchTerm") final String searchTerm) {
+        return masterFileService.searchMasterfileByTypeAndName(MasterfileTypeEnum.PROOF_OF_DUTY, searchTerm);
     }
 }

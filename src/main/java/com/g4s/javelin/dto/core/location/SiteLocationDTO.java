@@ -1,20 +1,15 @@
 package com.g4s.javelin.dto.core.location;
 
-//CSOFF: HiddenField
-public class SiteLocationDTO {
+import com.g4s.javelin.dto.BaseDTO;
 
-    private Long id;
+//CSOFF: HiddenField
+public class SiteLocationDTO extends BaseDTO {
+
     private String siteLocationName;
     private String siteLocationEmail;
     private int contactNumber;
     private boolean isDeleted;
 
-    public Long getId() {
-        return id;
-    }
-    public void setId(final Long id) {
-        this.id = id;
-    }
     public String getSiteLocationName() {
         return siteLocationName;
     }

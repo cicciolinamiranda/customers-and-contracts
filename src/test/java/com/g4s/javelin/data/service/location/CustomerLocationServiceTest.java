@@ -25,10 +25,8 @@ import com.g4s.javelin.data.model.location.AddressModel;
 import com.g4s.javelin.data.model.location.BarredEmployeeModel;
 import com.g4s.javelin.data.model.location.CustomerLocationModel;
 import com.g4s.javelin.data.model.location.CustomerModel;
-import com.g4s.javelin.data.model.location.EquipmentModel;
-import com.g4s.javelin.data.model.location.ModeTransportModel;
-import com.g4s.javelin.data.model.location.SkillsModel;
-import com.g4s.javelin.data.model.location.TaskModel;
+import com.g4s.javelin.data.model.masterfile.MasterfileModel;
+import com.g4s.javelin.data.model.masterfile.TaskModel;
 import com.g4s.javelin.data.model.workorder.WorkOrderModel;
 import com.g4s.javelin.data.repository.location.CustomerLocationRepository;
 import com.g4s.javelin.data.repository.workorder.WorkOrderRepository;
@@ -36,10 +34,10 @@ import com.g4s.javelin.dto.core.location.AddressDTO;
 import com.g4s.javelin.dto.core.location.BarredEmployeeDTO;
 import com.g4s.javelin.dto.core.location.CustomerDTO;
 import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
-import com.g4s.javelin.dto.core.location.EquipmentDTO;
-import com.g4s.javelin.dto.core.location.ModeTransportDTO;
-import com.g4s.javelin.dto.core.location.SkillsDTO;
-import com.g4s.javelin.dto.core.location.TaskDTO;
+import com.g4s.javelin.dto.core.masterfile.EquipmentDTO;
+import com.g4s.javelin.dto.core.masterfile.MasterfileDTO;
+import com.g4s.javelin.dto.core.masterfile.ModeTransportDTO;
+import com.g4s.javelin.dto.core.masterfile.TaskDTO;
 import com.g4s.javelin.enums.StatusEnum;
 import com.g4s.javelin.exception.CustomerLocationException;
 import com.g4s.javelin.service.location.BarredEmployeeService;
@@ -111,14 +109,14 @@ public class CustomerLocationServiceTest {
         customerLocationDTO.setCreatedDate(new DateTime());
         List<EquipmentDTO> equipments = Lists.newArrayList();
         EquipmentDTO equipmentDTO = new EquipmentDTO();
-        equipmentDTO.setEquipmentName("Gun");
+        equipmentDTO.setName("Gun");
         equipments.add(equipmentDTO);
         customerLocationDTO.setEquipments(equipments);
         customerLocationDTO.setFloorPlan("Floor Plan");
         CustomerDTO customer = new CustomerDTO();
         customer.setCustomerName("Juan Dela Cruz");
         customerLocationDTO.setModeOfTransports(modeTransports);
-        List<SkillsDTO> skills = Lists.newArrayList();
+        List<MasterfileDTO> skills = Lists.newArrayList();
         customerLocationDTO.setSkills(skills);
         List<TaskDTO> tasks = Lists.newArrayList();
         customerLocationDTO.setTasks(tasks);
@@ -140,13 +138,13 @@ public class CustomerLocationServiceTest {
         barredEmployees.add(barredEmployee);
         customerLocationModel.setBarredEmployee(barredEmployees);
         //customerLocationModel.setCreatedDate(new DateTime());
-        List<EquipmentModel> equipments = Lists.newArrayList();
-        EquipmentModel equipment = new EquipmentModel();
-        equipment.setEquipmentName("Gun");
+        List<MasterfileModel> equipments = Lists.newArrayList();
+        MasterfileModel equipment = new MasterfileModel();
+        equipment.setName("Gun");
         equipments.add(equipment);
         customerLocationModel.setFloorPlan("Floor Plan");
-        Set<ModeTransportModel> modeTransports = Sets.newHashSet();
-        Set<SkillsModel> skills = Sets.newHashSet();
+        Set<MasterfileModel> modeTransports = Sets.newHashSet();
+        Set<MasterfileModel> skills = Sets.newHashSet();
         customerLocationModel.setSkills(skills);
         Set<TaskModel> tasks = Sets.newHashSet();
         customerLocationModel.setTasks(tasks);
@@ -235,9 +233,4 @@ public class CustomerLocationServiceTest {
         Mockito.verify(customerLocationRepositoryMock, Mockito.times(1)).updateStatus(1L, StatusEnum.INPROGRESS);
     }
 
-    public void createCustomerLocation() {
-    	when(customerLocationRepositoryMock.save(new CustomerLocationModel())).thenReturn(customerLocationModel);
-    	customerLocationService.createCustomerLocation();
-        Mockito.verify(customerLocationRepositoryMock, Mockito.times(1)).save(new CustomerLocationModel());
-    }
 }

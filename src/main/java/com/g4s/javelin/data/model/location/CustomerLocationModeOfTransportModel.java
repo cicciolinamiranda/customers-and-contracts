@@ -3,21 +3,17 @@ package com.g4s.javelin.data.model.location;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.g4s.javelin.data.model.BaseModel;
+import com.g4s.javelin.data.model.masterfile.MasterfileModel;
+
 //CSOFF: HiddenField
 @Entity
 @Table(name = "CUSTLOCATION_TRANSPORT")
-public class CustomerLocationModeOfTransportModel {
-    @Id
-    @Column(unique = true, nullable = false)
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+public class CustomerLocationModeOfTransportModel extends BaseModel {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "customer_location_id", referencedColumnName = "id")
@@ -25,7 +21,7 @@ public class CustomerLocationModeOfTransportModel {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "transport_id", referencedColumnName = "id")
-    private ModeTransportModel modeTransport;
+    private MasterfileModel modeTransport;
 
     @Column(name = "IS_BILLED")
     private boolean isBilled;
@@ -57,19 +53,11 @@ public class CustomerLocationModeOfTransportModel {
         this.costType = costType;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(final Long id) {
-        this.id = id;
-    }
-
-    public ModeTransportModel getModeTransport() {
+    public MasterfileModel getModeTransport() {
         return modeTransport;
     }
 
-    public void setModeTransport(final ModeTransportModel modeTransport) {
+    public void setModeTransport(final MasterfileModel modeTransport) {
         this.modeTransport = modeTransport;
     }
 

@@ -1,16 +1,9 @@
-package com.g4s.javelin.dto.core.location;
+package com.g4s.javelin.dto;
 
-public class ProofOfDutyDTO {
+public class BaseMasterfileDTO extends BaseDTO {
 
-    private Long id;
     private String name;
     private String description;
-    public Long getId() {
-        return id;
-    }
-    public void setId(final Long id) {
-        this.id = id;
-    }
     public String getName() {
         return name;
     }
@@ -23,5 +16,5 @@ public class ProofOfDutyDTO {
     public void setDescription(final String description) {
         this.description = description;
     }
-}
 
+}
