@@ -1,4 +1,4 @@
-package com.g4s.javelin.service.location;
+package com.g4s.javelin.service.masterfile;
 
 import java.util.List;
 

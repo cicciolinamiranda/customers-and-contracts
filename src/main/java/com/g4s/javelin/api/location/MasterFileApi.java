@@ -11,7 +11,7 @@ import com.g4s.javelin.constants.ServiceConstants;
 import com.g4s.javelin.dto.core.masterfile.MasterfileDTO;
 import com.g4s.javelin.dto.core.masterfile.TaskDTO;
 import com.g4s.javelin.enums.MasterfileTypeEnum;
-import com.g4s.javelin.service.location.MasterfileService;
+import com.g4s.javelin.service.masterfile.MasterfileService;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;

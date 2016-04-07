@@ -16,6 +16,7 @@ import org.hibernate.annotations.Type;
 import org.joda.time.DateTime;
 
 import com.g4s.javelin.data.model.BaseModel;
+import com.g4s.javelin.data.model.location.CustomerLocationModel;
 import com.g4s.javelin.data.model.masterfile.MasterfileModel;
 
 //CSOFF: HiddenField
@@ -57,7 +58,7 @@ public class PostModel extends BaseModel {
     @JoinTable(name = "POST_SKILL",
         joinColumns = { @JoinColumn(name = "post_id",
         referencedColumnName = "id", nullable = true) },
-        inverseJoinColumns = { @JoinColumn(name = "post_skills_id",
+        inverseJoinColumns = { @JoinColumn(name = "skill_id",
         referencedColumnName = "id", nullable = true) })
     private Set<MasterfileModel> skills;
 
@@ -105,9 +106,13 @@ public class PostModel extends BaseModel {
     @JoinTable(name = "POST_HEALTHSAFETYREQUIREMENT",
         joinColumns = { @JoinColumn(name = "post_id",
         referencedColumnName = "id", nullable = true) },
-        inverseJoinColumns = { @JoinColumn(name = "health_safety_req_id",
+        inverseJoinColumns = { @JoinColumn(name = "health_safety_requirement_id",
         referencedColumnName = "id", nullable = true) })
     private Set<MasterfileModel> healthSafetyRequirements;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "CUSTOMER_LOCATION_ID")
+    private CustomerLocationModel customerLocation;
 
     public PreferencesModel getPreferences() {
         return preferences;
@@ -260,6 +265,14 @@ public class PostModel extends BaseModel {
     public void setHealthSafetyRequirements(
             final Set<MasterfileModel> healthSafetyRequirements) {
         this.healthSafetyRequirements = healthSafetyRequirements;
+    }
+
+    public CustomerLocationModel getCustomerLocation() {
+        return customerLocation;
+    }
+
+    public void setCustomerLocation(final CustomerLocationModel customerLocation) {
+        this.customerLocation = customerLocation;
     }
 
 }

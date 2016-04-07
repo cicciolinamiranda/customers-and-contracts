@@ -11,10 +11,12 @@ import com.g4s.javelin.dto.core.masterfile.MasterfileDTO;
 //CSOFF: HiddenField
 public class PostDTO extends BaseDTO {
 
-    private PreferencesDTO preferences;
-    private MasterfileDTO role;
     private String name;
     private String imageUrl;
+    private boolean isBookOn;
+    private boolean isBookOff;
+    private boolean isCallIn;
+    private String notes;
     private int numberOfEmployees;
     private DateTime startDate;
     private DateTime endDate;
@@ -22,16 +24,17 @@ public class PostDTO extends BaseDTO {
     private String endDateStr;
     private boolean isIdentificationRequired;
     private String identificationNumber;
+
+    private PreferencesDTO preferences;
+    private MasterfileDTO role;
     private List<MasterfileDTO> skills;
     private List<MasterfileDTO> licenses;
     private List<MasterfileDTO> uniforms;
     private List<EquipmentDTO> equipments;
-    private boolean isBookOn;
-    private boolean isBookOff;
-    private boolean isCallIn;
-    private String notes;
     private List<MasterfileDTO> schedulingConstraints;
-    private List<MasterfileDTO> healthSafetyRequiremnts;
+    private List<MasterfileDTO> healthSafetyRequirements;
+
+    private Long customerLocationId;
 
     public PreferencesDTO getPreferences() {
         return preferences;
@@ -153,12 +156,18 @@ public class PostDTO extends BaseDTO {
     public void setSchedulingConstraints(final List<MasterfileDTO> schedulingConstraints) {
         this.schedulingConstraints = schedulingConstraints;
     }
-    public List<MasterfileDTO> getHealthSafetyRequiremnts() {
-        return healthSafetyRequiremnts;
+    public List<MasterfileDTO> getHealthSafetyRequirements() {
+        return healthSafetyRequirements;
     }
-    public void setHealthSafetyRequiremnts(
-            final List<MasterfileDTO> healthSafetyRequiremnts) {
-        this.healthSafetyRequiremnts = healthSafetyRequiremnts;
+    public void setHealthSafetyRequirements(
+            final List<MasterfileDTO> healthSafetyRequirements) {
+        this.healthSafetyRequirements = healthSafetyRequirements;
+    }
+    public Long getCustomerLocationId() {
+        return customerLocationId;
+    }
+    public void setCustomerLocationId(final Long customerLocationId) {
+        this.customerLocationId = customerLocationId;
     }
 
 }
