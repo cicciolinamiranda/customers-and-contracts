@@ -2,7 +2,6 @@ package com.g4s.javelin.data.model.post;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import javax.persistence.FetchType;
@@ -16,7 +15,7 @@ import com.g4s.javelin.data.model.masterfile.MasterfileModel;
 @Embeddable
 public class PreferencesModel {
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "POST_RELIGION",
         joinColumns = { @JoinColumn(name = "post_id",
         referencedColumnName = "id", nullable = true) },
@@ -24,7 +23,7 @@ public class PreferencesModel {
         referencedColumnName = "id", nullable = true) })
     private Set<MasterfileModel> religions;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "POST_LANGUAGE",
         joinColumns = { @JoinColumn(name = "post_id",
         referencedColumnName = "id", nullable = true) },
@@ -32,7 +31,7 @@ public class PreferencesModel {
         referencedColumnName = "id", nullable = true) })
     private Set<MasterfileModel> languages;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "POST_TRAINING",
         joinColumns = { @JoinColumn(name = "post_id",
         referencedColumnName = "id", nullable = true) },
@@ -40,7 +39,7 @@ public class PreferencesModel {
         referencedColumnName = "id", nullable = true) })
     private Set<MasterfileModel> trainings;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "POST_QUALIFICATION",
         joinColumns = { @JoinColumn(name = "post_id",
         referencedColumnName = "id", nullable = true) },
@@ -48,7 +47,7 @@ public class PreferencesModel {
         referencedColumnName = "id", nullable = true) })
     private Set<MasterfileModel> qualifications;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "POST_PHYSICALCONDITION",
         joinColumns = { @JoinColumn(name = "post_id",
         referencedColumnName = "id", nullable = true) },

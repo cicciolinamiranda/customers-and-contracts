@@ -2,7 +2,6 @@ package com.g4s.javelin.data.model.post;
 
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -55,15 +54,15 @@ public class PostModel extends BaseModel {
     @Column(name = "IDENTIFICATION_NUMBER")
     private String identificationNumber;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "POST_SKILL",
         joinColumns = { @JoinColumn(name = "post_id",
         referencedColumnName = "id", nullable = true) },
-        inverseJoinColumns = { @JoinColumn(name = "post_skills_id",
+        inverseJoinColumns = { @JoinColumn(name = "skill_id",
         referencedColumnName = "id", nullable = true) })
     private Set<MasterfileModel> skills;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "POST_LICENSE",
         joinColumns = { @JoinColumn(name = "post_id",
         referencedColumnName = "id", nullable = true) },
@@ -71,7 +70,7 @@ public class PostModel extends BaseModel {
         referencedColumnName = "id", nullable = true) })
     private Set<MasterfileModel> licenses;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "POST_UNIFORM",
         joinColumns = { @JoinColumn(name = "post_id",
         referencedColumnName = "id", nullable = true) },
@@ -95,7 +94,7 @@ public class PostModel extends BaseModel {
     @JoinColumn(name = "call_in_frequency_id")
     private MasterfileModel callInFrequency;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "POST_SCHEDCONSTRAINT",
         joinColumns = { @JoinColumn(name = "post_id",
         referencedColumnName = "id", nullable = true) },
@@ -103,11 +102,11 @@ public class PostModel extends BaseModel {
         referencedColumnName = "id", nullable = true) })
     private Set<MasterfileModel> schedulingConstraints;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "POST_HEALTHSAFETYREQUIREMENT",
         joinColumns = { @JoinColumn(name = "post_id",
         referencedColumnName = "id", nullable = true) },
-        inverseJoinColumns = { @JoinColumn(name = "health_safety_req_id",
+        inverseJoinColumns = { @JoinColumn(name = "health_safety_requirement_id",
         referencedColumnName = "id", nullable = true) })
     private Set<MasterfileModel> healthSafetyRequirements;
 
