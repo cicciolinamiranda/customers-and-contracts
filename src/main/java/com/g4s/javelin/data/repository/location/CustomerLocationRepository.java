@@ -14,13 +14,16 @@ import com.g4s.javelin.enums.StatusEnum;
 public interface CustomerLocationRepository extends
         JpaRepository<CustomerLocationModel, Long> {
 
-    List<CustomerLocationModel> findByWorkOrdersId(final Long id);
+    List<CustomerLocationModel> findByWorkOrdersIdAndStatusNot(final Long id, final StatusEnum status);
 
     List<CustomerLocationModel> findByAddressAddressContainingIgnoreCase(final String address);
 
     List<CustomerLocationModel> findByCustomerCustomerNameContainingIgnoreCase(final String customerName);
 
-    List<CustomerLocationModel> findByIdOrCustomerCustomerNameLikeOrAddressAddressLike(Long id, String customerName, String address);
+    @Query("SELECT CL FROM CustomerLocationModel CL where CL.status <> ?1 AND"
+            + " (CL.id = ?2 OR CL.customer.customerName LIKE %?3% OR CL.address.address LIKE %?4%)")
+    List<CustomerLocationModel> findByStatusNotAndIdOrCustomerCustomerNameLikeOrAddressAddressLike(StatusEnum status, Long id,
+            String customerName, String address);
 
     @Modifying
     @Transactional

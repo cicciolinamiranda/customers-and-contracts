@@ -89,7 +89,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
     public List<CustomerLocationDTO> getCustomerLocationDetailsList(
             final Long workOrderId) {
         List<CustomerLocationModel> results = customerLocationRepository
-                .findByWorkOrdersId(workOrderId);
+                .findByWorkOrdersIdAndStatusNot(workOrderId, StatusEnum.ARCHIVE);
         List<CustomerLocationDTO> list = Lists.newArrayList();
         for (CustomerLocationModel result : results) {
             list.add(transformCustomerLocation(result));
@@ -194,7 +194,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
         }
         String likeSearchTerm = "%" + searchTerm + "%";
         List<CustomerLocationModel> results = customerLocationRepository
-                .findByIdOrCustomerCustomerNameLikeOrAddressAddressLike(id, likeSearchTerm, likeSearchTerm);
+                .findByStatusNotAndIdOrCustomerCustomerNameLikeOrAddressAddressLike(StatusEnum.ARCHIVE, id, likeSearchTerm, likeSearchTerm);
         List<CustomerLocationDTO> list = Lists.newArrayList();
         for (CustomerLocationModel result : results) {
             list.add(transformCustomerLocation(result));
