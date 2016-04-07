@@ -159,4 +159,173 @@ public class MasterFileApi {
     public List<MasterfileDTO> searchProofOfDuty(@Named("searchTerm") final String searchTerm) {
         return masterFileService.searchMasterfileByTypeAndName(MasterfileTypeEnum.PROOF_OF_DUTY, searchTerm);
     }
+
+    /**
+     * Retrieve all gender
+     *
+     * @return List of all available gender
+     */
+    @ApiMethod(
+            name = "master.file.gender.list",
+            path = "master-file/gender",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<MasterfileDTO> getAllGender() {
+        return masterFileService.getMasterfilesByType(MasterfileTypeEnum.GENDER);
+    }
+
+    /**
+     * Retrieve all languages
+     *
+     * @return List of all available gender
+     */
+    @ApiMethod(
+            name = "master.file.language.list",
+            path = "master-file/language",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<MasterfileDTO> getAllLanguages() {
+        return masterFileService.getMasterfilesByType(MasterfileTypeEnum.LANGUAGE);
+    }
+
+    /**
+     * Retrieve all licenses
+     *
+     * @return List of all available licenses
+     */
+    @ApiMethod(
+            name = "master.file.license.list",
+            path = "master-file/license",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<MasterfileDTO> getAllLicenses() {
+        return masterFileService.getMasterfilesByType(MasterfileTypeEnum.LICENSE);
+    }
+
+    /**
+     * Retrieve all physical conditions
+     *
+     * @return List of all available physical conditions
+     */
+    @ApiMethod(
+            name = "master.file.physicalcondition.list",
+            path = "master-file/physical-condition",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<MasterfileDTO> getAllPhysicalConditions() {
+        return masterFileService.getMasterfilesByType(MasterfileTypeEnum.PHYSICAL_CONDITION);
+    }
+
+    /**
+     * Retrieve all post equipment
+     *
+     * @return List of all available post equipment
+     */
+    @ApiMethod(
+            name = "master.file.postequipment.list",
+            path = "master-file/post-equipment",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<MasterfileDTO> getAllPostEquipments() {
+        return masterFileService.getMasterfilesByType(MasterfileTypeEnum.POST_EQUIPMENT);
+    }
+
+    /**
+     * Retrieve all skills
+     *
+     * @return List of all available skills
+     */
+    @ApiMethod(
+            name = "master.file.postskills.list",
+            path = "master-file/post-skills",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<MasterfileDTO> getAllPostSkills() {
+        return masterFileService.getMasterfilesByType(MasterfileTypeEnum.POST_SKILLS);
+    }
+
+    /**
+     * Retrieve all qualifications
+     *
+     * @return List of all available qualifications
+     */
+    @ApiMethod(
+            name = "master.file.qualification.list",
+            path = "master-file/qualification",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<MasterfileDTO> getAllQualifications() {
+        return masterFileService.getMasterfilesByType(MasterfileTypeEnum.QUALIFICATION);
+    }
+
+    /**
+     * Retrieve all religions
+     *
+     * @return List of all available religions
+     */
+    @ApiMethod(
+            name = "master.file.religion.list",
+            path = "master-file/religion",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<MasterfileDTO> getAllReligions() {
+        return masterFileService.getMasterfilesByType(MasterfileTypeEnum.RELIGION);
+    }
+
+    /**
+     * Retrieve all role
+     *
+     * @return List of all available role
+     */
+    @ApiMethod(
+            name = "master.file.role.list",
+            path = "master-file/role",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<MasterfileDTO> getAllRoles() {
+        return masterFileService.getMasterfilesByType(MasterfileTypeEnum.ROLE);
+    }
+
+    /**
+     * Retrieve all trainings
+     *
+     * @return List of all available trainings
+     */
+    @ApiMethod(
+            name = "master.file.training.list",
+            path = "master-file/training",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<MasterfileDTO> getAllTrainings() {
+        return masterFileService.getMasterfilesByType(MasterfileTypeEnum.TRAINING);
+    }
+
+    /**
+     * Retrieve all uniforms
+     *
+     * @return List of all available uniforms
+     */
+    @ApiMethod(
+            name = "master.file.uniform.list",
+            path = "master-file/uniform",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<MasterfileDTO> getAllUniforms() {
+        return masterFileService.getMasterfilesByType(MasterfileTypeEnum.UNIFORM);
+    }
+
+    /**
+     * Retrieve all call in frequency
+     *
+     * @return List of all available call in frequency
+     */
+    @ApiMethod(
+            name = "master.file.callfrequency.list",
+            path = "master-file/call-frequency",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<MasterfileDTO> getAllCallFrequency() {
+        return masterFileService.getMasterfilesByType(MasterfileTypeEnum.CALL_IN_FREQUENCY);
+    }
+
+    /**
+     * Retrieve all call in frequency
+     *
+     * @return List of all available call in frequency
+     */
+    @ApiMethod(
+            name = "master.file.healthsafetyrequirement.list",
+            path = "master-file/health-safety-requirement",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<MasterfileDTO> getAllHealthSafetyRequirements() {
+        return masterFileService.getMasterfilesByType(MasterfileTypeEnum.HEALTH_SAFETY_REQUIREMENTS);
+    }
 }
