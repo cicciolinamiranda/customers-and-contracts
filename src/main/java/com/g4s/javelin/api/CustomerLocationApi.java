@@ -70,7 +70,7 @@ public class CustomerLocationApi {
      * @param workOrderId Work order id
      */
     @ApiMethod(
-            name = "workorder/customer.location.add_existing",
+            name = "workorder.customer.location.add_existing",
             path = "workorder/customer-location/add_existing",
             httpMethod = ApiMethod.HttpMethod.POST)
     public void addExistingCustomerLocationToAWorkOrder(@Named("customerLocationId") final Long customerLocationId,
