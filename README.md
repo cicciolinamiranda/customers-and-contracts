@@ -1,9 +1,3 @@
-<<<<<<< HEAD
-work-order backend
-=============================
-
-This module contains all work-order related backend components such as customer location, posts, and audit logs.
-=======
 endpoints-skeleton
 ==================
 
@@ -58,4 +52,3 @@ A skeleton application for Google Cloud Endpoints in Java.
 [4]: https://developers.google.com/appengine/docs/java/tools/maven
 [5]: https://localhost:8080/_ah/api/explorer
 [6]: https://console.developers.google.com/
->>>>>>> 3bd1149cb6021490e44d217ad54e6639ad5b3287

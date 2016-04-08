@@ -10,11 +10,6 @@ appengine-generated/
 .project
 .settings/
 eclipse-launch-profiles/
-<<<<<<< HEAD
-
-# Netbeans
-nbactions.xml
-=======
 appengine-generated/
 
 # Netbeans
@@ -23,7 +18,6 @@ LICENSE
 test/**
 *~
 *#
->>>>>>> 3bd1149cb6021490e44d217ad54e6639ad5b3287
 
 # Intellij
 *.iml
@@ -31,8 +25,5 @@ test/**
 
 # Others
 *.orig
-<<<<<<< HEAD
-=======
 bower_components/*
 node_modules/*
->>>>>>> 3bd1149cb6021490e44d217ad54e6639ad5b3287
