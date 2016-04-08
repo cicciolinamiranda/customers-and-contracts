@@ -37,11 +37,10 @@ public class BarredEmployeeApi {
      * Save list of employees barred from a specific customer location.
      *
      * @param barredEmployees  List of employees to be barred from a specific customer location
-     * @param customerLocation Customer location where specific employees are to be barred from
      */
     @ApiMethod(
-            name = "barred.employees.add",
-            path = "barred-employees",
+            name = "workorder.barred.employees.add",
+            path = "workorder/barred-employees",
             httpMethod = ApiMethod.HttpMethod.POST)
     public void saveBarredEmployees(final BarredEmployeeListDTO barredEmployees) {
         barredEmployeeService.saveBarredEmployees(barredEmployees.getBarredEmployeeDTOList(), barredEmployees.getCustomerLocationId());
@@ -54,8 +53,8 @@ public class BarredEmployeeApi {
      * @return List of employees barred for the customer location matching the given id
      */
     @ApiMethod(
-            name = "barred.employees.list",
-            path = "barred-employees/all",
+            name = "workorder.barred.employees.list",
+            path = "workorder/barred-employees/all",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<BarredEmployeeDTO> getBarredEmployees(@Named("id") final Long customerLocationId) {
         return barredEmployeeService.getBarredEmployees(customerLocationId);
