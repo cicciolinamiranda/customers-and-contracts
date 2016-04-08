@@ -36,6 +36,10 @@ public class PostDTO extends BaseDTO {
 
     private Long customerLocationId;
 
+    private String startTime;
+    private String endTime;
+    private String postCover;
+
     public PreferencesDTO getPreferences() {
         return preferences;
     }
@@ -168,6 +172,24 @@ public class PostDTO extends BaseDTO {
     }
     public void setCustomerLocationId(final Long customerLocationId) {
         this.customerLocationId = customerLocationId;
+    }
+    public String getStartTime() {
+        return startTime;
+    }
+    public void setStartTime(final String startTime) {
+        this.startTime = startTime;
+    }
+    public String getEndTime() {
+        return endTime;
+    }
+    public void setEndTime(final String endTime) {
+        this.endTime = endTime;
+    }
+    public String getPostCover() {
+        return postCover;
+    }
+    public void setPostCover(final String postCover) {
+        this.postCover = postCover;
     }
 
 }

@@ -68,7 +68,7 @@ public class PostServiceImpl implements PostService {
         model.setCustomerLocation(customerLocation);
         try {
             model = postRepository.save(model);
-            postMasterfileAssociationService.savePostEquipment(model.getId(), post.getEquipments());
+            boolean state = postMasterfileAssociationService.savePostEquipment(model.getId(), post.getEquipments());
             post.setId(model.getId());
         } catch (HibernateException e) {
             throw new PostException(e.getMessage());
@@ -110,6 +110,9 @@ public class PostServiceImpl implements PostService {
         model.setNumberOfEmployees(dto.getNumberOfEmployees());
         model.setIdentificationNumber(dto.getIdentificationNumber());
         model.setIdentificationRequired(dto.isIdentificationRequired());
+        model.setStartTime(dto.getStartTime());
+        model.setEndTime(dto.getEndTime());
+        model.setPostCover(dto.getPostCover());
         if (dto.getStartDateStr() != null) {
             model.setStartDate(dtf.parseDateTime(dto.getStartDateStr()));
         }
