@@ -11,7 +11,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.g4s.javelin.api.location.BarredEmployeeApi;
+import com.g4s.javelin.api.BarredEmployeeApi;
 import com.g4s.javelin.data.model.location.CustomerLocationModel;
 import com.g4s.javelin.dto.core.location.BarredEmployeeDTO;
 import com.g4s.javelin.dto.core.location.BarredEmployeeListDTO;

@@ -1,4 +1,4 @@
-package com.g4s.javelin.data.service.location;
+package com.g4s.javelin.service.location;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
@@ -135,5 +135,36 @@ public class MasterFileServiceTest {
         assertEquals("Guarding", results.get(0).getName());
         assertEquals(1, results.get(0).getTaskActivities().size());
         assertEquals("Swiping", results.get(0).getTaskActivities().get(0).getName());
+    }
+
+    @Test
+    public void testSearchTasks() {
+        List<TaskModel> expectedList = Lists.newArrayList();
+        expectedList.add(taskModel);
+        when(taskRepositoryMock.findByNameContainingIgnoreCase(Mockito.anyString())).thenReturn(expectedList);
+        List<TaskDTO> results = masterFileService.searchTasks("Guarding");
+        verify(taskRepositoryMock, times(1)).findByNameContainingIgnoreCase("Guarding");
+        assertEquals(1, results.size());
+        assertEquals("Guarding", results.get(0).getName());
+        assertEquals(1, results.get(0).getTaskActivities().size());
+        assertEquals("Swiping", results.get(0).getTaskActivities().get(0).getName());
+    }
+
+    @Test
+    public void testSearchMasterfileByTypeAndName() {
+        List<MasterfileModel> expectedList = Lists.newArrayList();
+        expectedList.add(equipmentModel);
+        when(masterfileRepository.findByTypeAndNameContainingIgnoreCase(MasterfileTypeEnum.LOCATION_EQUIPMENT, "Gun")).thenReturn(expectedList);
+        List<MasterfileDTO> results = masterFileService.searchMasterfileByTypeAndName(MasterfileTypeEnum.LOCATION_EQUIPMENT, "Gun");
+        verify(masterfileRepository, times(1)).findByTypeAndNameContainingIgnoreCase(MasterfileTypeEnum.LOCATION_EQUIPMENT, "Gun");
+        assertEquals(1, results.size());
+    }
+    @Test
+    public void testSearchMasterfileByTypeAndNameNull() {
+        List<MasterfileModel> expectedList = Lists.newArrayList();
+        when(masterfileRepository.findByTypeAndNameContainingIgnoreCase(MasterfileTypeEnum.LOCATION_EQUIPMENT, "Gun")).thenReturn(expectedList);
+        List<MasterfileDTO> results = masterFileService.searchMasterfileByTypeAndName(MasterfileTypeEnum.LOCATION_EQUIPMENT, "Gun");
+        verify(masterfileRepository, times(1)).findByTypeAndNameContainingIgnoreCase(MasterfileTypeEnum.LOCATION_EQUIPMENT, "Gun");
+        assertEquals(0, results.size());
     }
 }

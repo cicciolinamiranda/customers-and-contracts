@@ -23,7 +23,7 @@ public class SiteLocationModel extends BaseModel {
     private String siteLocationEmail;
 
     @Column
-    private int contactNumber;
+    private String contactNumber;
 
     public CustomerLocationModel getCustomerLocation() {
         return customerLocation;
@@ -49,11 +49,11 @@ public class SiteLocationModel extends BaseModel {
         this.siteLocationEmail = siteLocationEmail;
     }
 
-    public int getContactNumber() {
+    public String getContactNumber() {
         return contactNumber;
     }
 
-    public void setContactNumber(final int contactNumber) {
+    public void setContactNumber(final String contactNumber) {
         this.contactNumber = contactNumber;
     }
 }

@@ -90,6 +90,15 @@ public class PostModel extends BaseModel {
     @Column(name = "NOTES")
     private String notes;
 
+    @Column(name = "START_TIME")
+    private String startTime;
+
+    @Column(name = "END_TIME")
+    private String endTime;
+
+    @Column(name = "POST_COVER")
+    private String postCover;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "call_in_frequency_id")
     private MasterfileModel callInFrequency;
@@ -273,6 +282,30 @@ public class PostModel extends BaseModel {
 
     public void setCustomerLocation(final CustomerLocationModel customerLocation) {
         this.customerLocation = customerLocation;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(final String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(final String endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getPostCover() {
+        return postCover;
+    }
+
+    public void setPostCover(final String postCover) {
+        this.postCover = postCover;
     }
 
 }

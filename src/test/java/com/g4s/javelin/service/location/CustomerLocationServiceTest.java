@@ -1,4 +1,4 @@
-package com.g4s.javelin.data.service.location;
+package com.g4s.javelin.service.location;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
@@ -121,6 +121,7 @@ public class CustomerLocationServiceTest {
         List<TaskDTO> tasks = Lists.newArrayList();
         customerLocationDTO.setTasks(tasks);
         customerLocationDTO.setCustomer(customer);
+        customerLocationDTO.setStartDateStr("05/12/2016");
     }
 
     private void setUpCustomerLocationModel() {
@@ -194,20 +195,17 @@ public class CustomerLocationServiceTest {
         assertEquals(1, results.size());
     }
 
-    @Test
     @Ignore
+    @Test
     public void testSaveNewCustomerLocationDetails() throws Exception {
-        when(customerLocationRepositoryMock.save(customerLocationModel)).thenReturn(null);
-        List<BarredEmployeeDTO> barredEmployeeList = Lists.newArrayList();
-        BarredEmployeeDTO barredEmployee = new BarredEmployeeDTO();
-        barredEmployee.setId(1111l);
-        barredEmployeeList.add(barredEmployee );
-        customerLocationModel.setId(1234l);
-
-        when(customerLocationRepositoryMock.save(customerLocationModel)).thenReturn(customerLocationModel);
+        CustomerLocationModel model = new CustomerLocationModel();
+        model.setId(1L);
+        when(workOrderRepositoryMock.findOne(11111l)).thenReturn(workOrderModel);
+        when(customerLocationRepositoryMock.save(customerLocationModel)).thenReturn(model);
         customerLocationService.saveCustomerLocationDetails(customerLocationDTO);
         verify(customerLocationRepositoryMock, times(1)).save(any(CustomerLocationModel.class));
-        doNothing().when(barredEmployeeServiceMock).saveBarredEmployees(barredEmployeeList, Mockito.anyLong());
+        doNothing().when(barredEmployeeServiceMock).saveBarredEmployees(customerLocationDTO.getBarredEmployees(), 1L);
+
     }
 
     @Test
