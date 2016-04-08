@@ -7,7 +7,7 @@ public class SiteLocationDTO extends BaseDTO {
 
     private String siteLocationName;
     private String siteLocationEmail;
-    private int contactNumber;
+    private String contactNumber;
     private boolean isDeleted;
 
     public String getSiteLocationName() {
@@ -22,10 +22,10 @@ public class SiteLocationDTO extends BaseDTO {
     public void setSiteLocationEmail(final String siteLocationEmail) {
         this.siteLocationEmail = siteLocationEmail;
     }
-    public int getContactNumber() {
+    public String getContactNumber() {
         return contactNumber;
     }
-    public void setContactNumber(final int contactNumber) {
+    public void setContactNumber(final String contactNumber) {
         this.contactNumber = contactNumber;
     }
     public boolean isDeleted() {
