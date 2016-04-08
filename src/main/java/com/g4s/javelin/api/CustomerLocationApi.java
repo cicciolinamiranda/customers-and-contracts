@@ -1,4 +1,4 @@
-package com.g4s.javelin.api.location;
+package com.g4s.javelin.api;
 
 import java.util.List;
 

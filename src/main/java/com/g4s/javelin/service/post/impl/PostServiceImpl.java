@@ -68,7 +68,7 @@ public class PostServiceImpl implements PostService {
         model.setCustomerLocation(customerLocation);
         try {
             model = postRepository.save(model);
-            postMasterfileAssociationService.savePostEquipment(model.getId(), post.getEquipments());
+            boolean state = postMasterfileAssociationService.savePostEquipment(model.getId(), post.getEquipments());
             post.setId(model.getId());
         } catch (HibernateException e) {
             throw new PostException(e.getMessage());

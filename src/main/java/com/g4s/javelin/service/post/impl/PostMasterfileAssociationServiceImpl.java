@@ -30,7 +30,7 @@ public class PostMasterfileAssociationServiceImpl implements PostMasterfileAssoc
     @Lazy
     private LocationPostEquipmentRepository postEquipmentRepository;
 
-    public void savePostEquipment(final Long postId, final List<EquipmentDTO> equipments) {
+    public boolean savePostEquipment(final Long postId, final List<EquipmentDTO> equipments) {
         if (!CollectionUtils.isEmpty(equipments)) {
             List<LocationPostEquipmentModel> list = Lists.newArrayList();
             MasterfileModel model;
@@ -51,9 +51,10 @@ public class PostMasterfileAssociationServiceImpl implements PostMasterfileAssoc
             }
             if (list.size() > 0) {
                 postEquipmentRepository.save(list);
+                return true;
             }
         }
-
+        return false;
     }
     public List<EquipmentDTO> getPostEquipments(final Long postId) {
         List<EquipmentDTO> list = Lists.newArrayList();
