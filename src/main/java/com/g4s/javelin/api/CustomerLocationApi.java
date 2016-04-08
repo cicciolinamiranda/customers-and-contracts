@@ -42,8 +42,8 @@ public class CustomerLocationApi {
      * @return Customer location matching the given id
      */
     @ApiMethod(
-            name = "customer.location.get",
-            path = "customer-location",
+            name = "workorder.customer.location.get",
+            path = "workorder/customer-location",
             httpMethod = ApiMethod.HttpMethod.GET)
     public CustomerLocationDTO getCustomerLocationDetails(@Named("id") final Long customerLocationId) {
         return customerLocationService.getCustomerLocationDetails(customerLocationId);
@@ -56,8 +56,8 @@ public class CustomerLocationApi {
      * @return List of customer locations that belong to the work order matching the given id
      */
     @ApiMethod(
-            name = "customer.location.list",
-            path = "customer-location/all",
+            name = "workorder.customer.location.list",
+            path = "workorder/customer-location/all",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<CustomerLocationDTO> getCustomerLocationDetailsList(@Named("id") final Long workOrderId) {
         return customerLocationService.getCustomerLocationDetailsList(workOrderId);
@@ -70,8 +70,8 @@ public class CustomerLocationApi {
      * @param workOrderId Work order id
      */
     @ApiMethod(
-            name = "customer.location.add_existing",
-            path = "customer-location/add_existing",
+            name = "workorder.customer.location.add_existing",
+            path = "workorder/customer-location/add_existing",
             httpMethod = ApiMethod.HttpMethod.POST)
     public void addExistingCustomerLocationToAWorkOrder(@Named("customerLocationId") final Long customerLocationId,
             @Named("workOrderId") final Long workOrderId) throws CustomerLocationException {
@@ -84,8 +84,8 @@ public class CustomerLocationApi {
      * @param customerLocationDTO Customer location details
      */
     @ApiMethod(
-            name = "customer.location.save",
-            path = "customer-location/save",
+            name = "workorder.customer.location.save",
+            path = "workorder/customer-location/save",
             httpMethod = ApiMethod.HttpMethod.POST)
     public CustomerLocationDTO saveCustomerLocationDetails(final CustomerLocationDTO customerLocationDTO)
             throws CustomerLocationException {
@@ -99,8 +99,8 @@ public class CustomerLocationApi {
      * @param customerLocationDTO Customer location details
      */
     @ApiMethod(
-            name = "customer.location.update",
-            path = "customer-location/update",
+            name = "workorder.customer.location.update",
+            path = "workorder/customer-location/update",
             httpMethod = ApiMethod.HttpMethod.POST)
     public void updateCustomerLocationDetails(final CustomerLocationDTO customerLocationDTO)
             throws CustomerLocationException {
@@ -114,8 +114,8 @@ public class CustomerLocationApi {
      * @param value search value
      */
     @ApiMethod(
-            name = "customer.location.search.filter",
-            path = "customer-location/search-filter",
+            name = "workorder.customer.location.search.filter",
+            path = "workorder/customer-location/search-filter",
             httpMethod = ApiMethod.HttpMethod.POST)
     public List<CustomerLocationDTO> searchCustomerLocationByFilter(@Named("criteria") final String criteria,
             @Named("value") final String value) {
@@ -138,8 +138,8 @@ public class CustomerLocationApi {
      * @param status Status
      */
     @ApiMethod(
-            name = "customer.location.update_status",
-            path = "customer-location/update-status",
+            name = "workorder.customer.location.update_status",
+            path = "workorder/customer-location/update-status",
             httpMethod = ApiMethod.HttpMethod.POST)
     public void updateCustomerLocationStatus(@Named("id") final Long id,
             @Named("status") final String status) {
@@ -152,8 +152,8 @@ public class CustomerLocationApi {
      *
      */
     @ApiMethod(
-            name = "customer.location.search",
-            path = "customer-location/search",
+            name = "workorder.customer.location.search",
+            path = "workorder/customer-location/search",
             httpMethod = ApiMethod.HttpMethod.POST)
     public List<CustomerLocationDTO> searchCustomerLocations(@Named("searchterm") final String searchTerm) {
         List<CustomerLocationDTO> result = customerLocationService.searchAllCustomerLocations(searchTerm);

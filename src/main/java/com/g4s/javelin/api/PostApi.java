@@ -30,8 +30,8 @@ public class PostApi {
     private PostService postService;
 
     @ApiMethod(
-            name = "customer.location.post.save",
-            path = "customer-location/post/save",
+            name = "workorder.customer.location.post.save",
+            path = "workorder/customer-location/post/save",
             httpMethod = ApiMethod.HttpMethod.POST)
     public PostDTO savePostDetails(final PostDTO postDTO)
             throws PostException, PostDuplicateException {
@@ -40,8 +40,8 @@ public class PostApi {
     }
 
     @ApiMethod(
-            name = "customer.location.post.update",
-            path = "customer-location/post/update",
+            name = "workorder.customer.location.post.update",
+            path = "workorder/customer-location/post/update",
             httpMethod = ApiMethod.HttpMethod.POST)
     public PostDTO updatePostDetails(final PostDTO postDTO)
             throws PostException, PostDuplicateException {
@@ -50,8 +50,8 @@ public class PostApi {
     }
 
     @ApiMethod(
-            name = "customer.location.post.get",
-            path = "customer-location/post/get",
+            name = "workorder.customer.location.post.get",
+            path = "workorder/customer-location/post/get",
             httpMethod = ApiMethod.HttpMethod.GET)
     public PostDTO getPostDetails(@Named("id") final Long id) {
         PostDTO response = postService.getPostDetails(id);
@@ -59,8 +59,8 @@ public class PostApi {
     }
 
     @ApiMethod(
-            name = "customer.location.post.list",
-            path = "customer-location/post/list",
+            name = "workorder.customer.location.post.list",
+            path = "workorder/customer-location/post/list",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<PostDTO> listPostDetails(@Named("locationId") final Long id) {
         List<PostDTO> response = postService.getPostByCustomerLocation(id);
