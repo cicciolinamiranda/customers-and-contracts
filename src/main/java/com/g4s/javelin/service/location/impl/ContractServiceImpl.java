@@ -32,7 +32,7 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public List<ContractDTO> getContractByNumber(final Long contractNumber) {
+    public List<ContractDTO> getContractByNumber(final String contractNumber) {
         List<ContractDTO> contractNumberSearchResults = new ArrayList<>();
 
         for (ContractDTO contractDTO : getAllContractDTO()) {
@@ -110,43 +110,43 @@ public class ContractServiceImpl implements ContractService {
         ContractDTO contractDTO8 = new ContractDTO();
         ContractDTO contractDTO9 = new ContractDTO();
 
-        contractDTO.setContractNumber(1L);
+        contractDTO.setContractNumber("1");
         contractDTO.setContractName("Contract of Contractual");
         contractDTOList.add(contractDTO);
 
-        contractDTO1.setContractNumber(2L);
+        contractDTO1.setContractNumber("2");
         contractDTO1.setContractName("Contract of Peace and Order");
         contractDTOList.add(contractDTO1);
 
-        contractDTO2.setContractNumber(3L);
+        contractDTO2.setContractNumber("3");
         contractDTO2.setContractName("Contract of Program Development");
         contractDTOList.add(contractDTO2);
 
-        contractDTO3.setContractNumber(4L);
+        contractDTO3.setContractNumber("4");
         contractDTO3.setContractName("Contract of Online Health Service");
         contractDTOList.add(contractDTO3);
 
-        contractDTO4.setContractNumber(5L);
+        contractDTO4.setContractNumber("5");
         contractDTO4.setContractName("Contract of Managerial Plan Development");
         contractDTOList.add(contractDTO4);
 
-        contractDTO5.setContractNumber(6L);
+        contractDTO5.setContractNumber("6");
         contractDTO5.setContractName("Contract of Employment Regularization");
         contractDTOList.add(contractDTO5);
 
-        contractDTO6.setContractNumber(7L);
+        contractDTO6.setContractNumber("7");
         contractDTO6.setContractName("Disclosure of Registered Company Name");
         contractDTOList.add(contractDTO6);
 
-        contractDTO7.setContractNumber(8L);
+        contractDTO7.setContractNumber("8");
         contractDTO7.setContractName("Agreement for Termination of Computer Supply Arrangement");
         contractDTOList.add(contractDTO7);
 
-        contractDTO8.setContractNumber(9L);
+        contractDTO8.setContractNumber("9");
         contractDTO8.setContractName("Distribution Fee Purchase Agreement");
         contractDTOList.add(contractDTO8);
 
-        contractDTO9.setContractNumber(10L);
+        contractDTO9.setContractNumber("10");
         contractDTO9.setContractName("Management Rights Agreement");
         contractDTOList.add(contractDTO9);
 

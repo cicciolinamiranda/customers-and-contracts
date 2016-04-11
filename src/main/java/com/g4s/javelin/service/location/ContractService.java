@@ -11,6 +11,6 @@ public interface ContractService {
 
     void createNewContract(ContractDTO contractDTO);
     List<ContractDTO> getContractsDTO();
-    List<ContractDTO> getContractByNumber(Long contractNumber);
+    List<ContractDTO> getContractByNumber(String contractNumber);
     List<ContractDTO> getContractByName(String contractName);
 }

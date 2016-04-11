@@ -5,14 +5,14 @@ package com.g4s.javelin.dto.core.location;
  */
 public class ContractDTO {
 
-    private Long contractNumber;
+    private String contractNumber;
     private String contractName;
 
-    public Long getContractNumber() {
+    public String getContractNumber() {
         return contractNumber;
     }
 
-    public void setContractNumber(final Long contractNumber) {
+    public void setContractNumber(final String contractNumber) {
         this.contractNumber = contractNumber;
     }
 
