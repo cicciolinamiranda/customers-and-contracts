@@ -53,7 +53,7 @@ public class ContractApi {
             name = "contract.number.search",
             path = "contract/number/search",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public List<ContractDTO> getContractByNumber(@Named("contractNumber") final String contractNumber) {
+    public List<ContractDTO> getContractByNumber(@Named("contractNumber") final Long contractNumber) {
         return contractService.getContractByNumber(contractNumber);
     }
 
