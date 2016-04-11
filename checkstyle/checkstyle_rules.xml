@@ -141,13 +141,13 @@
     <!--<module name="IllegalToken"/>-->
     <!--<module name="IllegalTokenText"/>-->
     <module name="InnerAssignment"/>
-    <module name="MagicNumber">
-      <property name="ignoreAnnotation" value="true"/>
-      <property name="ignoreHashCodeMethod" value="true"/>
-      <!-- some numbers are really not that magic -->
-      <property name="ignoreNumbers"
-                value="-1, 0, 1, 10, 16, 32, 64, 100, 128, 256, 512, 1000, 1024"/>
-    </module>
+    <!--<module name="MagicNumber">-->
+      <!--<property name="ignoreAnnotation" value="true"/>-->
+      <!--<property name="ignoreHashCodeMethod" value="true"/>-->
+      <!--&lt;!&ndash; some numbers are really not that magic &ndash;&gt;-->
+      <!--<property name="ignoreNumbers"-->
+                <!--value="-1, 0, 1, 10, 16, 32, 64, 100, 128, 256, 512, 1000, 1024"/>-->
+    <!--</module>-->
     <module name="MissingSwitchDefault"/>
     <module name="ModifiedControlVariable"/>
     <module name="SimplifyBooleanExpression"/>
@@ -196,9 +196,9 @@
 
     <!-- Checks for imports                              -->
     <!-- See http://checkstyle.sf.net/config_import.html -->
-    <module name="AvoidStarImport">
-      <property name="allowStaticMemberImports" value="true"/>
-    </module>
+    <!--<module name="AvoidStarImport">-->
+      <!--<property name="allowStaticMemberImports" value="true"/>-->
+    <!--</module>-->
     <!--
     <module name="AvoidStaticImport">
       <property name="excludes" value="java.lang.Math.*"/>

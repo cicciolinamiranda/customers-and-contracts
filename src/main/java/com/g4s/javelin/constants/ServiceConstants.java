@@ -9,7 +9,7 @@ public final class ServiceConstants {
     public static final String SITE_LOCATION_SERVICE = "siteLocationService";
     public static final String POST_SERVICE = "postService";
     public static final String POST_MASTERFILE_ASSOC_SERVICE = "postMasterFileAssociationService";
-
+    public static final String CONTRACT_SERVICE = "contractService";
 
     private ServiceConstants() {
 
