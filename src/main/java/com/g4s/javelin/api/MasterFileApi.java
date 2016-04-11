@@ -40,8 +40,8 @@ public class MasterFileApi {
      * @return List of all available equipments
      */
     @ApiMethod(
-            name = "master.file.equipment.list",
-            path = "master-file/equipment",
+            name = "workorder.master.file.equipment.list",
+            path = "workorder/master-file/equipment",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<MasterfileDTO> getAllEquipments() {
         return masterFileService.getMasterfilesByType(MasterfileTypeEnum.LOCATION_EQUIPMENT);
@@ -53,8 +53,8 @@ public class MasterFileApi {
      * @return List of all available modes of transport
      */
     @ApiMethod(
-            name = "master.file.transport.list",
-            path = "master-file/transport",
+            name = "workorder.master.file.transport.list",
+            path = "workorder/master-file/transport",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<MasterfileDTO> getAllModesOfTransport() {
         return masterFileService.getMasterfilesByType(MasterfileTypeEnum.MODE_TRANSPORT);
@@ -66,8 +66,8 @@ public class MasterFileApi {
      * @return List of all skills
      */
     @ApiMethod(
-            name = "master.file.skills.list",
-            path = "master-file/skills",
+            name = "workorder.master.file.skills.list",
+            path = "workorder/master-file/skills",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<MasterfileDTO> getAllSkills() {
         return masterFileService.getMasterfilesByType(MasterfileTypeEnum.LOCATION_SKILLS);
@@ -79,8 +79,8 @@ public class MasterFileApi {
      * @return List of all proof of duty
      */
     @ApiMethod(
-            name = "master.file.proofofduty.list",
-            path = "master-file/proof-of-duty",
+            name = "workorder.master.file.proofofduty.list",
+            path = "workorder/master-file/proof-of-duty",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<MasterfileDTO> getAllProofOfDuty() {
         return masterFileService.getMasterfilesByType(MasterfileTypeEnum.PROOF_OF_DUTY);
@@ -92,8 +92,8 @@ public class MasterFileApi {
      * @return List of all method of recording
      */
     @ApiMethod(
-            name = "master.file.methodofrecording.list",
-            path = "master-file/method-of-recording",
+            name = "workorder.master.file.methodofrecording.list",
+            path = "workorder/master-file/method-of-recording",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<MasterfileDTO> getAllMethodOfRecording() {
         return masterFileService.getMasterfilesByType(MasterfileTypeEnum.METHOD_OF_RECORDING);
@@ -105,56 +105,56 @@ public class MasterFileApi {
      * @return List of all tasks
      */
     @ApiMethod(
-            name = "master.file.tasks.list",
-            path = "master-file/tasks",
+            name = "workorder.master.file.tasks.list",
+            path = "workorder/master-file/tasks",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<TaskDTO> getAllTasks() {
         return masterFileService.getAllTasks();
     }
 
     @ApiMethod(
-            name = "master.file.tasks.search",
-            path = "master-file/tasks/search",
+            name = "workorder.master.file.tasks.search",
+            path = "workorder/master-file/tasks/search",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<TaskDTO> searchTasks(@Named("searchTerm") final String searchTerm) {
         return masterFileService.searchTasks(searchTerm);
     }
 
     @ApiMethod(
-            name = "master.file.skills.search",
-            path = "master-file/skills/search",
+            name = "workorder.master.file.skills.search",
+            path = "workorder/master-file/skills/search",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<MasterfileDTO> searchSkills(@Named("searchTerm") final String searchTerm) {
         return masterFileService.searchMasterfileByTypeAndName(MasterfileTypeEnum.LOCATION_SKILLS, searchTerm);
     }
 
     @ApiMethod(
-            name = "master.file.transport.search",
-            path = "master-file/transport/search",
+            name = "workorder.master.file.transport.search",
+            path = "workorder/master-file/transport/search",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<MasterfileDTO> searchTransport(@Named("searchTerm") final String searchTerm) {
         return masterFileService.searchMasterfileByTypeAndName(MasterfileTypeEnum.MODE_TRANSPORT, searchTerm);
     }
 
     @ApiMethod(
-            name = "master.file.task.search",
-            path = "master-file/task/search",
+            name = "workorder.master.file.task.search",
+            path = "workorder/master-file/task/search",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<TaskDTO> searchTask(@Named("searchTerm") final String searchTerm) {
         return masterFileService.searchTasks(searchTerm);
     }
 
     @ApiMethod(
-            name = "master.file.methodofrecording.search",
-            path = "master-file/method-of-recording/search",
+            name = "workorder.master.file.methodofrecording.search",
+            path = "workorder/master-file/method-of-recording/search",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<MasterfileDTO> searchMethodOfRecording(@Named("searchTerm") final String searchTerm) {
         return masterFileService.searchMasterfileByTypeAndName(MasterfileTypeEnum.METHOD_OF_RECORDING, searchTerm);
     }
 
     @ApiMethod(
-            name = "master.file.proofofduty.search",
-            path = "master-file/proof-of-duty/search",
+            name = "workorder.master.file.proofofduty.search",
+            path = "workorder/master-file/proof-of-duty/search",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<MasterfileDTO> searchProofOfDuty(@Named("searchTerm") final String searchTerm) {
         return masterFileService.searchMasterfileByTypeAndName(MasterfileTypeEnum.PROOF_OF_DUTY, searchTerm);
@@ -166,8 +166,8 @@ public class MasterFileApi {
      * @return List of all available gender
      */
     @ApiMethod(
-            name = "master.file.gender.list",
-            path = "master-file/gender",
+            name = "workorder.master.file.gender.list",
+            path = "workorder/master-file/gender",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<MasterfileDTO> getAllGender() {
         return masterFileService.getMasterfilesByType(MasterfileTypeEnum.GENDER);
@@ -179,8 +179,8 @@ public class MasterFileApi {
      * @return List of all available gender
      */
     @ApiMethod(
-            name = "master.file.language.list",
-            path = "master-file/language",
+            name = "workorder.master.file.language.list",
+            path = "workorder/master-file/language",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<MasterfileDTO> getAllLanguages() {
         return masterFileService.getMasterfilesByType(MasterfileTypeEnum.LANGUAGE);
@@ -192,8 +192,8 @@ public class MasterFileApi {
      * @return List of all available licenses
      */
     @ApiMethod(
-            name = "master.file.license.list",
-            path = "master-file/license",
+            name = "workorder.master.file.license.list",
+            path = "workorder/master-file/license",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<MasterfileDTO> getAllLicenses() {
         return masterFileService.getMasterfilesByType(MasterfileTypeEnum.LICENSE);
@@ -205,8 +205,8 @@ public class MasterFileApi {
      * @return List of all available physical conditions
      */
     @ApiMethod(
-            name = "master.file.physicalcondition.list",
-            path = "master-file/physical-condition",
+            name = "workorder.master.file.physicalcondition.list",
+            path = "workorder/master-file/physical-condition",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<MasterfileDTO> getAllPhysicalConditions() {
         return masterFileService.getMasterfilesByType(MasterfileTypeEnum.PHYSICAL_CONDITION);
@@ -218,8 +218,8 @@ public class MasterFileApi {
      * @return List of all available post equipment
      */
     @ApiMethod(
-            name = "master.file.postequipment.list",
-            path = "master-file/post-equipment",
+            name = "workorder.master.file.postequipment.list",
+            path = "workorder/master-file/post-equipment",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<MasterfileDTO> getAllPostEquipments() {
         return masterFileService.getMasterfilesByType(MasterfileTypeEnum.POST_EQUIPMENT);
@@ -231,8 +231,8 @@ public class MasterFileApi {
      * @return List of all available skills
      */
     @ApiMethod(
-            name = "master.file.postskills.list",
-            path = "master-file/post-skills",
+            name = "workorder.master.file.postskills.list",
+            path = "workorder/master-file/post-skills",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<MasterfileDTO> getAllPostSkills() {
         return masterFileService.getMasterfilesByType(MasterfileTypeEnum.POST_SKILLS);
@@ -244,8 +244,8 @@ public class MasterFileApi {
      * @return List of all available qualifications
      */
     @ApiMethod(
-            name = "master.file.qualification.list",
-            path = "master-file/qualification",
+            name = "workorder.master.file.qualification.list",
+            path = "workorder/master-file/qualification",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<MasterfileDTO> getAllQualifications() {
         return masterFileService.getMasterfilesByType(MasterfileTypeEnum.QUALIFICATION);
@@ -257,8 +257,8 @@ public class MasterFileApi {
      * @return List of all available religions
      */
     @ApiMethod(
-            name = "master.file.religion.list",
-            path = "master-file/religion",
+            name = "workorder.master.file.religion.list",
+            path = "workorder/master-file/religion",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<MasterfileDTO> getAllReligions() {
         return masterFileService.getMasterfilesByType(MasterfileTypeEnum.RELIGION);
@@ -270,8 +270,8 @@ public class MasterFileApi {
      * @return List of all available role
      */
     @ApiMethod(
-            name = "master.file.role.list",
-            path = "master-file/role",
+            name = "workorder.master.file.role.list",
+            path = "workorder/master-file/role",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<MasterfileDTO> getAllRoles() {
         return masterFileService.getMasterfilesByType(MasterfileTypeEnum.ROLE);
@@ -283,7 +283,7 @@ public class MasterFileApi {
      * @return List of all available trainings
      */
     @ApiMethod(
-            name = "master.file.training.list",
+            name = "workorder.master.file.training.list",
             path = "master-file/training",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<MasterfileDTO> getAllTrainings() {

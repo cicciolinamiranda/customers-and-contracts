@@ -6,7 +6,7 @@ package com.g4s.javelin.constants;
  */
 public final class ApiConstants {
 
-    public static final String API_NAME = "workorder";
+    public static final String API_NAME = "customerContract";
 
     public static final String API_VERSION = "v1";
 
