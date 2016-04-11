@@ -135,7 +135,9 @@ public class PostServiceImpl implements PostService {
         PostDTO dto = new PostDTO();
         dto = modelMapper.map(model, PostDTO.class);
         dto.setPreferences(setPreferenceDTO(model.getPreferences()));
-        dto.setRole(modelMapper.map(model.getRole(), MasterfileDTO.class));
+        if (model.getRole() != null) {
+            dto.setRole(modelMapper.map(model.getRole(), MasterfileDTO.class));
+        }
         dto.setSkills(transformMasterfileModel(model.getSkills()));
         dto.setLicenses(transformMasterfileModel(model.getLicenses()));
         dto.setUniforms(transformMasterfileModel(model.getUniforms()));
