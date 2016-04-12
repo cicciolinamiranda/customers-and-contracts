@@ -1,16 +1,17 @@
 package com.g4s.javelin.service.location.impl;
 
-import com.g4s.javelin.data.model.location.CustomerModel;
-import com.g4s.javelin.data.repository.location.CustomerRepository;
-import com.g4s.javelin.dto.core.location.CustomerDTO;
-import com.g4s.javelin.service.location.CustomerService;
-import com.google.appengine.repackaged.com.google.api.client.util.Lists;
+import java.util.List;
+
 import org.apache.commons.lang3.math.NumberUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 
-import java.util.List;
+import com.g4s.javelin.data.model.location.CustomerModel;
+import com.g4s.javelin.data.repository.location.CustomerRepository;
+import com.g4s.javelin.dto.core.location.CustomerDTO;
+import com.g4s.javelin.service.location.CustomerService;
+import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 
 public class CustomerServiceImpl implements CustomerService {
 
@@ -25,14 +26,14 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO getCustomerDetails(final Long CustomerId) {
-        CustomerModel result = customerRepository.findOne(CustomerId);
+    public CustomerDTO getCustomerDetail(final String customerNumber) {
+        CustomerModel result = customerRepository.findByCustomerNumber(customerNumber);
         return transformCustomer(result);
     }
 
     @Override
     public List<CustomerDTO> getCustomerDetailsList() {
-        List<CustomerModel> results = customerRepository.getAllCustomers();
+        List<CustomerModel> results = customerRepository.findAll();
         List<CustomerDTO> list = Lists.newArrayList();
         for (CustomerModel result : results) {
             list.add(transformCustomer(result));
@@ -66,7 +67,7 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     private CustomerDTO transformCustomer(final CustomerModel model) {
-        CustomerDTO dto;
+        CustomerDTO dto = new CustomerDTO();
         dto = modelMapper.map(model, CustomerDTO.class);
         dto.setCustomerNumber(model.getCustomerNumber());
         dto.setCustomerName(model.getCustomerName());
@@ -78,7 +79,7 @@ public class CustomerServiceImpl implements CustomerService {
         dto.setZipCode(model.getZipCode());
         dto.setState(model.getState());
         dto.setCountry(model.getCountry());
-        dto.setDUNSnumber(model.getDUNSnumber());
+        dto.setDunsNumber(model.getDunsNumber());
         dto.setPaymentMethod(model.getPaymentMethod());
         return dto;
     }

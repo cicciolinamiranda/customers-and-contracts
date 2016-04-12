@@ -1,20 +1,21 @@
 package com.g4s.javelin.data.repository.location;
 
-import com.g4s.javelin.data.model.location.CustomerModel;
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import java.util.List;
+import com.g4s.javelin.data.model.location.CustomerModel;
 
 public interface CustomerRepository extends JpaRepository<CustomerModel, Long> {
 
-    List<CustomerModel> getAllCustomers();
+    CustomerModel findByCustomerNumber(final String customerNumber);
+
+    List<CustomerModel> findAll();
 
     List<CustomerModel> findByCustomerName(final String customerName);
 
-
-//    @Query("SELECT CL FROM CustomerModel CL where CL.id <> ?1 AND"
-//            + " (CL.id = ?2 OR CL.customer.customerName LIKE %?3% OR CL.address.address LIKE %?4%)")
+    @Query("SELECT CM FROM CustomerModel CM where CM.id = ?1 OR CM.customerName LIKE %?2%")
     List<CustomerModel> findBySearchTerm(Long id, String customerName);
 
 }

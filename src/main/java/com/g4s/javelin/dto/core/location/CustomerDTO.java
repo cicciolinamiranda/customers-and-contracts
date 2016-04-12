@@ -29,7 +29,7 @@ public class CustomerDTO extends BaseDTO {
 
     private String countryCode;
 
-    private String DUNSnumber;
+    private String dunsNumber;
 
     private String paymentMethod;
 
@@ -40,7 +40,7 @@ public class CustomerDTO extends BaseDTO {
         return customerNumber;
     }
 
-    public void setCustomerNumber(String customerNumber) {
+    public void setCustomerNumber(final String customerNumber) {
         this.customerNumber = customerNumber;
     }
 
@@ -48,7 +48,7 @@ public class CustomerDTO extends BaseDTO {
         return customerName;
     }
 
-    public void setCustomerName(String customerName) {
+    public void setCustomerName(final String customerName) {
         this.customerName = customerName;
     }
 
@@ -56,7 +56,7 @@ public class CustomerDTO extends BaseDTO {
         return addressLine1;
     }
 
-    public void setAddressLine1(String addressLine1) {
+    public void setAddressLine1(final String addressLine1) {
         this.addressLine1 = addressLine1;
     }
 
@@ -64,7 +64,7 @@ public class CustomerDTO extends BaseDTO {
         return addressLine2;
     }
 
-    public void setAddressLine2(String addressLine2) {
+    public void setAddressLine2(final String addressLine2) {
         this.addressLine2 = addressLine2;
     }
 
@@ -72,7 +72,7 @@ public class CustomerDTO extends BaseDTO {
         return addressLine3;
     }
 
-    public void setAddressLine3(String addressLine3) {
+    public void setAddressLine3(final String addressLine3) {
         this.addressLine3 = addressLine3;
     }
 
@@ -80,7 +80,7 @@ public class CustomerDTO extends BaseDTO {
         return addressLine4;
     }
 
-    public void setAddressLine4(String addressLine4) {
+    public void setAddressLine4(final String addressLine4) {
         this.addressLine4 = addressLine4;
     }
 
@@ -88,7 +88,7 @@ public class CustomerDTO extends BaseDTO {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(final String city) {
         this.city = city;
     }
 
@@ -96,7 +96,7 @@ public class CustomerDTO extends BaseDTO {
         return zipCode;
     }
 
-    public void setZipCode(String zipCode) {
+    public void setZipCode(final String zipCode) {
         this.zipCode = zipCode;
     }
 
@@ -104,7 +104,7 @@ public class CustomerDTO extends BaseDTO {
         return state;
     }
 
-    public void setState(String state) {
+    public void setState(final String state) {
         this.state = state;
     }
 
@@ -112,7 +112,7 @@ public class CustomerDTO extends BaseDTO {
         return country;
     }
 
-    public void setCountry(String country) {
+    public void setCountry(final String country) {
         this.country = country;
     }
 
@@ -120,23 +120,23 @@ public class CustomerDTO extends BaseDTO {
         return countryCode;
     }
 
-    public void setCountryCode(String countryCode) {
+    public void setCountryCode(final String countryCode) {
         this.countryCode = countryCode;
     }
 
-    public String getDUNSnumber() {
-        return DUNSnumber;
+    public String getDunsNumber() {
+        return dunsNumber;
     }
 
-    public void setDUNSnumber(String DUNSnumber) {
-        this.DUNSnumber = DUNSnumber;
+    public void setDunsNumber(final String dunsNumber) {
+        this.dunsNumber = dunsNumber;
     }
 
     public String getPaymentMethod() {
         return paymentMethod;
     }
 
-    public void setPaymentMethod(String paymentMethod) {
+    public void setPaymentMethod(final String paymentMethod) {
         this.paymentMethod = paymentMethod;
     }
 
