@@ -2,7 +2,7 @@ CREATE DATABASE javelin;
 
 USE javelin;
 
-CREATE TABLE customer (
+CREATE TABLE CUSTOMER (
 	id 						INTEGER 		NOT NULL	UNIQUE	AUTO_INCREMENT,
 	customer_num			VARCHAR(30)		NOT NULL	UNIQUE	,
 	name 					VARCHAR(360) 	NOT NULL			,
@@ -19,7 +19,7 @@ CREATE TABLE customer (
 );
 
 -- First Record
-INSERT INTO customer (
+INSERT INTO CUSTOMER (
 			customer_num,
 			name,
 			address1,
@@ -48,7 +48,7 @@ INSERT INTO customer (
 );
 
 -- Second Record
-INSERT INTO customer (
+INSERT INTO CUSTOMER (
 			customer_num,
 			name,
 			address1,
@@ -77,7 +77,7 @@ INSERT INTO customer (
 );
 
 -- Third Record
-INSERT INTO customer(
+INSERT INTO CUSTOMER (
 			customer_num,
 			name,
 			address1,
@@ -107,7 +107,7 @@ INSERT INTO customer(
 );
 
 -- Fourth Record
-INSERT INTO customer(
+INSERT INTO CUSTOMER (
 			customer_num,
 			name,
 			address1,
@@ -137,7 +137,7 @@ INSERT INTO customer(
 );
 
 -- Fifth Record
-INSERT INTO customer(
+INSERT INTO CUSTOMER (
 			customer_num,
 			name,
 			address1,
