@@ -1,5 +1,7 @@
 package com.g4s.javelin.dto.core.audit;
 
+import java.util.List;
+
 import org.joda.time.DateTime;
 
 import com.g4s.javelin.enums.ObjectTypeEnum;
@@ -8,7 +10,7 @@ public class AuditLogDTO {
 
     private String revisionNumber;
     private ObjectTypeEnum objectType;
-    private DiffDTO body;
+    private List<DiffDTO> body;
     private String ipAddress;
     private DateTime createdDate;
 
@@ -28,11 +30,11 @@ public class AuditLogDTO {
         this.objectType = objectType;
     }
 
-    public DiffDTO getBody() {
+    public List<DiffDTO> getBody() {
         return body;
     }
 
-    public void setBody(final DiffDTO body) {
+    public void setBody(final List<DiffDTO> body) {
         this.body = body;
     }
 
