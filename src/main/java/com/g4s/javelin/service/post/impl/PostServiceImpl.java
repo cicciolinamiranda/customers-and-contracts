@@ -49,9 +49,11 @@ public class PostServiceImpl implements PostService {
     public PostServiceImpl() {
         modelMapper = new ModelMapper();
     }
-    @Transactional(rollbackFor = {PostException.class})
+
+    @Transactional(rollbackFor = { PostException.class })
     @Override
-    public PostDTO  savePostDetails(final PostDTO post) throws PostException, PostDuplicateException {
+    public PostDTO savePostDetails(final PostDTO post) throws PostException,
+            PostDuplicateException {
         PostDTO response = new PostDTO();
         PostModel model = new PostModel();
         if (post.getId() != null) {
@@ -64,12 +66,16 @@ public class PostServiceImpl implements PostService {
                 transformPostDTO(post, model);
             }
         }
-        CustomerLocationModel customerLocation = customerLocationRepository.findOne(post.getCustomerLocationId());
+        CustomerLocationModel customerLocation = customerLocationRepository
+                .findOne(post.getCustomerLocationId());
         model.setCustomerLocation(customerLocation);
         try {
             model = postRepository.save(model);
-            boolean state = postMasterfileAssociationService.savePostEquipment(model.getId(), post.getEquipments());
-            post.setId(model.getId());
+            if (model != null) {
+                boolean state = postMasterfileAssociationService
+                        .savePostEquipment(model.getId(), post.getEquipments());
+                post.setId(model.getId());
+            }
         } catch (HibernateException e) {
             throw new PostException(e.getMessage());
         }
@@ -78,7 +84,8 @@ public class PostServiceImpl implements PostService {
 
     @Override
     public List<PostDTO> getPostByCustomerLocation(final Long customerLocationId) {
-        List<PostModel> results = postRepository.findByCustomerLocationId(customerLocationId);
+        List<PostModel> results = postRepository
+                .findByCustomerLocationId(customerLocationId);
         List<PostDTO> list = Lists.newArrayList();
         if (!CollectionUtils.isEmpty(results)) {
             for (PostModel model : results) {
@@ -99,7 +106,8 @@ public class PostServiceImpl implements PostService {
     }
 
     private PostModel transformPostDTO(final PostDTO dto, final PostModel model) {
-        org.joda.time.format.DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/dd/yyyy");
+        org.joda.time.format.DateTimeFormatter dtf = DateTimeFormat
+                .forPattern("MM/dd/yyyy");
         model.setId(dto.getId());
         model.setName(dto.getName());
         model.setImageUrl(dto.getImageUrl());
@@ -126,12 +134,14 @@ public class PostServiceImpl implements PostService {
         model.setSkills(transformMasterfileDTO(dto.getSkills()));
         model.setLicenses(transformMasterfileDTO(dto.getLicenses()));
         model.setUniforms(transformMasterfileDTO(dto.getUniforms()));
-        model.setHealthSafetyRequirements(transformMasterfileDTO(dto.getHealthSafetyRequirements()));
+        model.setHealthSafetyRequirements(transformMasterfileDTO(dto
+                .getHealthSafetyRequirements()));
         return model;
     }
 
     private PostDTO transformPostModel(final PostModel model) {
-        org.joda.time.format.DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/dd/yyyy");
+        org.joda.time.format.DateTimeFormatter dtf = DateTimeFormat
+                .forPattern("MM/dd/yyyy");
         PostDTO dto = new PostDTO();
         dto = modelMapper.map(model, PostDTO.class);
         dto.setPreferences(setPreferenceDTO(model.getPreferences()));
@@ -141,12 +151,15 @@ public class PostServiceImpl implements PostService {
         dto.setSkills(transformMasterfileModel(model.getSkills()));
         dto.setLicenses(transformMasterfileModel(model.getLicenses()));
         dto.setUniforms(transformMasterfileModel(model.getUniforms()));
-        dto.setHealthSafetyRequirements(transformMasterfileModel(model.getHealthSafetyRequirements()));
-        dto.setEquipments(postMasterfileAssociationService.getPostEquipments(model.getId()));
+        dto.setHealthSafetyRequirements(transformMasterfileModel(model
+                .getHealthSafetyRequirements()));
+        dto.setEquipments(postMasterfileAssociationService
+                .getPostEquipments(model.getId()));
         return dto;
     }
 
-    private List<MasterfileDTO> transformMasterfileModel(final Set<MasterfileModel> models) {
+    private List<MasterfileDTO> transformMasterfileModel(
+            final Set<MasterfileModel> models) {
         List<MasterfileDTO> list = Lists.newArrayList();
         if (!CollectionUtils.isEmpty(models)) {
             for (MasterfileModel model : models) {
@@ -156,7 +169,8 @@ public class PostServiceImpl implements PostService {
         return list;
     }
 
-    private Set<MasterfileModel> transformMasterfileDTO(final List<MasterfileDTO> dtos) {
+    private Set<MasterfileModel> transformMasterfileDTO(
+            final List<MasterfileDTO> dtos) {
         Set<MasterfileModel> list = new HashSet<MasterfileModel>();
         if (!CollectionUtils.isEmpty(dtos)) {
             for (MasterfileDTO dto : dtos) {
@@ -171,8 +185,10 @@ public class PostServiceImpl implements PostService {
         if (dto != null) {
             model.setHeight(dto.getHeight());
             model.setLanguages(transformMasterfileDTO(dto.getLanguages()));
-            model.setPhysicalConditions(transformMasterfileDTO(dto.getPhysicalConditions()));
-            model.setQualifications(transformMasterfileDTO(dto.getQualifications()));
+            model.setPhysicalConditions(transformMasterfileDTO(dto
+                    .getPhysicalConditions()));
+            model.setQualifications(transformMasterfileDTO(dto
+                    .getQualifications()));
             model.setReligions(transformMasterfileDTO(dto.getReligions()));
             model.setTrainings(transformMasterfileDTO(dto.getTrainings()));
         }
@@ -183,12 +199,15 @@ public class PostServiceImpl implements PostService {
         PreferencesDTO dto = new PreferencesDTO();
         if (model != null) {
             if (model.getGender() != null) {
-                dto.setGender(modelMapper.map(model.getGender(), MasterfileDTO.class));
+                dto.setGender(modelMapper.map(model.getGender(),
+                        MasterfileDTO.class));
             }
             dto.setHeight(model.getHeight());
             dto.setLanguages(transformMasterfileModel(model.getLanguages()));
-            dto.setPhysicalConditions(transformMasterfileModel(model.getPhysicalConditions()));
-            dto.setQualifications(transformMasterfileModel(model.getQualifications()));
+            dto.setPhysicalConditions(transformMasterfileModel(model
+                    .getPhysicalConditions()));
+            dto.setQualifications(transformMasterfileModel(model
+                    .getQualifications()));
             dto.setReligions(transformMasterfileModel(model.getReligions()));
             dto.setTrainings(transformMasterfileModel(model.getTrainings()));
         }
