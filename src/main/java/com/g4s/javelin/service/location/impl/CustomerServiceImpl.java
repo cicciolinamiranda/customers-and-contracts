@@ -6,10 +6,13 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.util.CollectionUtils;
 
+import com.g4s.javelin.data.model.location.CustomerLocationModel;
 import com.g4s.javelin.data.model.location.CustomerModel;
 import com.g4s.javelin.data.repository.location.CustomerRepository;
 import com.g4s.javelin.dto.core.location.CustomerDTO;
+import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
 import com.g4s.javelin.service.location.CustomerService;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 
@@ -66,8 +69,18 @@ public class CustomerServiceImpl implements CustomerService {
         return list;
     }
 
+    private List<CustomerLocationDTO> transformCustomerLocation(final List<CustomerLocationModel> customerLocations) {
+        List<CustomerLocationDTO> list = Lists.newArrayList();
+        if (!CollectionUtils.isEmpty(customerLocations)) {
+            for (CustomerLocationModel customerLocation : customerLocations) {
+                list.add(modelMapper.map(customerLocation, CustomerLocationDTO.class));
+            }
+        }
+        return list;
+    }
+    
     private CustomerDTO transformCustomer(final CustomerModel model) {
-        CustomerDTO dto = new CustomerDTO();
+        CustomerDTO dto;
         dto = modelMapper.map(model, CustomerDTO.class);
         dto.setCustomerNumber(model.getCustomerNumber());
         dto.setCustomerName(model.getCustomerName());
@@ -81,6 +94,7 @@ public class CustomerServiceImpl implements CustomerService {
         dto.setCountry(model.getCountry());
         dto.setDunsNumber(model.getDunsNumber());
         dto.setPaymentMethod(model.getPaymentMethod());
+        dto.setCustomerLocation(transformCustomerLocation(model.getCustomerLocation()));
         return dto;
     }
 

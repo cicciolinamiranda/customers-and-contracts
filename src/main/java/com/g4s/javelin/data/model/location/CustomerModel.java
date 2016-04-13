@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -55,7 +56,7 @@ public class CustomerModel extends BaseModel {
     @Column
     private String paymentMethod;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<CustomerLocationModel> customerLocation;
 
 
@@ -171,4 +172,22 @@ public class CustomerModel extends BaseModel {
         this.customerLocation = customerLocation;
     }
 
+    @Override
+    public String toString() {
+        return "CustomerModel{" + "customerNumber='" + customerNumber
+                + '\'' + ", customerName='" + customerName + '\''
+                + ", addressLine1='" + addressLine1 + '\''
+                + ", addressLine2='" + addressLine2 + '\''
+                + ", addressLine3='" + addressLine3 + '\''
+                + ", addressLine4='" + addressLine4 + '\''
+                + ", city='" + city + '\''
+                + ", zipCode='" + zipCode + '\''
+                + ", state='" + state + '\''
+                + ", country='" + country + '\''
+                + ", countryCode='" + countryCode + '\''
+                + ", dunsNumber='" + dunsNumber + '\''
+                + ", paymentMethod='" + paymentMethod + '\''
+                + ", customerLocation=" + customerLocation
+                + '}';
+    }
 }

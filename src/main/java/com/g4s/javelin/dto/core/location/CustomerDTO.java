@@ -2,7 +2,6 @@ package com.g4s.javelin.dto.core.location;
 
 import java.util.List;
 
-import com.g4s.javelin.data.model.location.CustomerLocationModel;
 import com.g4s.javelin.dto.BaseDTO;
 
 public class CustomerDTO extends BaseDTO {
@@ -33,7 +32,7 @@ public class CustomerDTO extends BaseDTO {
 
     private String paymentMethod;
 
-    private List<CustomerLocationModel> customerLocation;
+    private List<CustomerLocationDTO> customerLocation;
 
 
     public String getCustomerNumber() {
@@ -140,12 +139,30 @@ public class CustomerDTO extends BaseDTO {
         this.paymentMethod = paymentMethod;
     }
 
-    public List<CustomerLocationModel> getCustomerLocation() {
+    public List<CustomerLocationDTO> getCustomerLocation() {
         return customerLocation;
     }
 
-    public void setCustomerLocation(final List<CustomerLocationModel> customerLocation) {
+    public void setCustomerLocation(final List<CustomerLocationDTO> customerLocation) {
         this.customerLocation = customerLocation;
     }
 
+    @Override
+    public String toString() {
+        return "CustomerModel{" + "customerNumber='" + customerNumber
+                + '\'' + ", customerName='" + customerName + '\''
+                + ", addressLine1='" + addressLine1 + '\''
+                + ", addressLine2='" + addressLine2 + '\''
+                + ", addressLine3='" + addressLine3 + '\''
+                + ", addressLine4='" + addressLine4 + '\''
+                + ", city='" + city + '\''
+                + ", zipCode='" + zipCode + '\''
+                + ", state='" + state + '\''
+                + ", country='" + country + '\''
+                + ", countryCode='" + countryCode + '\''
+                + ", dunsNumber='" + dunsNumber + '\''
+                + ", paymentMethod='" + paymentMethod + '\''
+                + ", customerLocation=" + customerLocation
+                + '}';
+    }
 }
