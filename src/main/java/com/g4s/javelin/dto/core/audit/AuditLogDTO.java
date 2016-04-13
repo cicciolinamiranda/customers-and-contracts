@@ -54,4 +54,11 @@ public class AuditLogDTO {
         this.createdDate = createdDate;
     }
 
+    @Override
+    public String toString() {
+        return "AuditLogDTO [revisionNumber=" + revisionNumber
+                + ", objectType=" + objectType + ", body=" + body
+                + ", ipAddress=" + ipAddress + ", createdDate=" + createdDate
+                + "]";
+    }
 }
