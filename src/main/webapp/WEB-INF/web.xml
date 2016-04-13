@@ -5,7 +5,7 @@
         <init-param>
             <param-name>services</param-name>
             <param-value>
-                com.cloudsherpas.payroll.api.PayrollResource
+                com.g4s.javelin.api.PayrollResource
             </param-value>
         </init-param>
     </servlet>
