@@ -2,8 +2,10 @@ package com.g4s.javelin.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.context.annotation.Lazy;
 
+import com.g4s.javelin.aspect.AuditLogAspect;
 import com.g4s.javelin.constants.ServiceConstants;
 import com.g4s.javelin.service.location.BarredEmployeeService;
 import com.g4s.javelin.service.location.CustomerLocationService;
@@ -25,6 +27,7 @@ import com.g4s.javelin.service.post.impl.PostServiceImpl;
 
 @Configuration
 @Lazy
+@EnableAspectJAutoProxy
 public class ServiceAppContext {
 
     @Bean(name = ServiceConstants.MASTER_FILE_SERVICE)
@@ -65,5 +68,8 @@ public class ServiceAppContext {
     @Bean(name = ServiceConstants.CUSTOMER_SERVICE)
     public CustomerService getCustomerService() {
         return new CustomerServiceImpl();
+    @Bean
+    public AuditLogAspect getAuditLogAspect() {
+        return new AuditLogAspect();
     }
 }

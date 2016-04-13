@@ -284,7 +284,7 @@ public class MasterFileApi {
      */
     @ApiMethod(
             name = "workorder.master.file.training.list",
-            path = "master-file/training",
+            path = "workorder/master-file/training",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<MasterfileDTO> getAllTrainings() {
         return masterFileService.getMasterfilesByType(MasterfileTypeEnum.TRAINING);
@@ -296,8 +296,8 @@ public class MasterFileApi {
      * @return List of all available uniforms
      */
     @ApiMethod(
-            name = "master.file.uniform.list",
-            path = "master-file/uniform",
+            name = "workorder.master.file.uniform.list",
+            path = "workorder/master-file/uniform",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<MasterfileDTO> getAllUniforms() {
         return masterFileService.getMasterfilesByType(MasterfileTypeEnum.UNIFORM);
@@ -309,8 +309,8 @@ public class MasterFileApi {
      * @return List of all available call in frequency
      */
     @ApiMethod(
-            name = "master.file.callfrequency.list",
-            path = "master-file/call-frequency",
+            name = "workorder.master.file.callfrequency.list",
+            path = "workorder/master-file/call-frequency",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<MasterfileDTO> getAllCallFrequency() {
         return masterFileService.getMasterfilesByType(MasterfileTypeEnum.CALL_IN_FREQUENCY);
@@ -322,8 +322,8 @@ public class MasterFileApi {
      * @return List of all available call in frequency
      */
     @ApiMethod(
-            name = "master.file.healthsafetyrequirement.list",
-            path = "master-file/health-safety-requirement",
+            name = "workorder.master.file.healthsafetyrequirement.list",
+            path = "workorder/master-file/health-safety-requirement",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<MasterfileDTO> getAllHealthSafetyRequirements() {
         return masterFileService.getMasterfilesByType(MasterfileTypeEnum.HEALTH_SAFETY_REQUIREMENTS);
