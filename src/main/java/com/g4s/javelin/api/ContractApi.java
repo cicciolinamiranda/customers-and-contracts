@@ -33,6 +33,11 @@ public class ContractApi {
     @Qualifier(ServiceConstants.CONTRACT_SERVICE)
     private ContractService contractService;
 
+    /**
+     * Save Contract
+     *
+     * @param contractDTO Contract object
+     */
     @ApiMethod(
             name = "contract.post",
             path = "contract/post",
@@ -41,6 +46,11 @@ public class ContractApi {
         contractService.createNewContract(contractDTO);
     }
 
+    /**
+     * Retrieve all contracts
+     *
+     * @return All contracts
+     */
     @ApiMethod(
             name = "contract.list",
             path = "contract/list",
@@ -49,14 +59,26 @@ public class ContractApi {
         return contractService.getContractsDTO();
     }
 
+    /**
+     * Search contract by number
+     *
+     * @param contractNumber Contract identification number
+     * @return Contract using number
+     */
     @ApiMethod(
             name = "contract.number.search",
             path = "contract/number/search",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public List<ContractDTO> getContractByNumber(@Named("contractNumber") final Long contractNumber) {
+    public List<ContractDTO> getContractByNumber(@Named("contractNumber") final String contractNumber) {
         return contractService.getContractByNumber(contractNumber);
     }
 
+    /**
+     * Search contract by name
+     *
+     * @param contractName Contract name
+     * @return Contract using name
+     */
     @ApiMethod(
             name = "contract.name.search",
             path = "contract/name/search",

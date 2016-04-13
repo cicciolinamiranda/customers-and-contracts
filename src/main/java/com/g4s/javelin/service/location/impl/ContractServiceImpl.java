@@ -3,6 +3,7 @@ package com.g4s.javelin.service.location.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.joda.time.DateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 
@@ -32,7 +33,7 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public List<ContractDTO> getContractByNumber(final Long contractNumber) {
+    public List<ContractDTO> getContractByNumber(final String contractNumber) {
         List<ContractDTO> contractNumberSearchResults = new ArrayList<>();
 
         for (ContractDTO contractDTO : getAllContractDTO()) {
@@ -61,6 +62,13 @@ public class ContractServiceImpl implements ContractService {
         ContractModel contract = new ContractModel();
         if (contractDTO != null) {
             contract.setContractName(contractDTO.getContractName());
+            contract.setContractNumber(contractDTO.getContractNumber());
+            contract.setContractTitle(contractDTO.getContractTitle());
+            contract.setContractStartDate(contractDTO.getContractStartDate());
+            contract.setContractEndDate(contractDTO.getContractEndDate());
+            contract.setContractReviewDate(contractDTO.getContractReviewDate());
+            contract.setContractSignedDate(contractDTO.getContractSignedDate());
+            contract.setContractWEFDate(contractDTO.getContractWEFDate());
         }
         return contract;
     }
@@ -69,6 +77,13 @@ public class ContractServiceImpl implements ContractService {
         ContractDTO contractDTO = new ContractDTO();
         if (contractModel != null) {
             contractDTO.setContractName(contractModel.getContractName());
+            contractDTO.setContractNumber(contractModel.getContractNumber());
+            contractDTO.setContractTitle(contractModel.getContractTitle());
+            contractDTO.setContractStartDate(contractModel.getContractStartDate());
+            contractDTO.setContractEndDate(contractModel.getContractEndDate());
+            contractDTO.setContractReviewDate(contractModel.getContractReviewDate());
+            contractDTO.setContractSignedDate(contractModel.getContractSignedDate());
+            contractDTO.setContractWEFDate(contractModel.getContractWEFDate());
         }
         return contractDTO;
     }
@@ -104,63 +119,69 @@ public class ContractServiceImpl implements ContractService {
         ContractDTO contractDTO2 = new ContractDTO();
         ContractDTO contractDTO3 = new ContractDTO();
         ContractDTO contractDTO4 = new ContractDTO();
-        ContractDTO contractDTO5 = new ContractDTO();
-        ContractDTO contractDTO6 = new ContractDTO();
-        ContractDTO contractDTO7 = new ContractDTO();
-        ContractDTO contractDTO8 = new ContractDTO();
-        ContractDTO contractDTO9 = new ContractDTO();
 
         //Contract number constants
-        final Long contractNumber1 = 1L;
-        final Long contractNumber2 = 2L;
-        final Long contractNumber3 = 3L;
-        final Long contractNumber4 = 4L;
-        final Long contractNumber5 = 5L;
-        final Long contractNumber6 = 6L;
-        final Long contractNumber7 = 7L;
-        final Long contractNumber8 = 8L;
-        final Long contractNumber9 = 9L;
-        final Long contractNumber10 = 10L;
+        final String contractNumber1 = "1";
+        final String contractNumber2 = "2";
+        final String contractNumber3 = "3";
+        final String contractNumber4 = "4";
+        final String contractNumber5 = "5";
+
+        //Dates
+        final int year = 2017;
+        final int month = 5;
+        final int day = 20;
+        DateTime dt = new DateTime();
 
         contractDTO.setContractNumber(contractNumber1);
+        contractDTO.setContractTitle("Contract of Associates");
         contractDTO.setContractName("Contract of Contractual");
+        contractDTO.setContractStartDate(dt);
+        contractDTO.setContractEndDate(dt.withDate(year, month, day));
+        contractDTO.setContractReviewDate(dt.withDate(year, month, day));
+        contractDTO.setContractSignedDate(dt.withDate(year, month, day));
+        contractDTO.setContractWEFDate(dt.withDate(year, month, day));
         contractDTOList.add(contractDTO);
 
         contractDTO1.setContractNumber(contractNumber2);
+        contractDTO1.setContractTitle("Peace and Order in Land and Sea Agreement");
         contractDTO1.setContractName("Contract of Peace and Order");
+        contractDTO1.setContractStartDate(dt);
+        contractDTO1.setContractEndDate(dt.withDate(year, month, day));
+        contractDTO1.setContractReviewDate(dt.withDate(year, month, day));
+        contractDTO1.setContractSignedDate(dt.withDate(year, month, day));
+        contractDTO1.setContractWEFDate(dt.withDate(year, month, day));
         contractDTOList.add(contractDTO1);
 
         contractDTO2.setContractNumber(contractNumber3);
         contractDTO2.setContractName("Contract of Program Development");
+        contractDTO2.setContractTitle("Development for Educational Curriculum on Secondary Levels");
+        contractDTO2.setContractStartDate(dt);
+        contractDTO2.setContractEndDate(dt.withDate(year, month, day));
+        contractDTO2.setContractReviewDate(dt.withDate(year, month, day));
+        contractDTO2.setContractSignedDate(dt.withDate(year, month, day));
+        contractDTO2.setContractWEFDate(dt.withDate(year, month, day));
         contractDTOList.add(contractDTO2);
 
         contractDTO3.setContractNumber(contractNumber4);
         contractDTO3.setContractName("Contract of Online Health Service");
+        contractDTO3.setContractTitle("Program Health Service for Filipino Citizens");
+        contractDTO3.setContractStartDate(dt);
+        contractDTO3.setContractEndDate(dt.withDate(year, month, day));
+        contractDTO3.setContractReviewDate(dt.withDate(year, month, day));
+        contractDTO3.setContractSignedDate(dt.withDate(year, month, day));
+        contractDTO3.setContractWEFDate(dt.withDate(year, month, day));
         contractDTOList.add(contractDTO3);
 
         contractDTO4.setContractNumber(contractNumber5);
         contractDTO4.setContractName("Contract of Managerial Plan Development");
+        contractDTO4.setContractTitle("Information for Executive Enhancement Plans");
+        contractDTO4.setContractStartDate(dt);
+        contractDTO4.setContractEndDate(dt.withDate(year, month, day));
+        contractDTO4.setContractReviewDate(dt.withDate(year, month, day));
+        contractDTO4.setContractSignedDate(dt.withDate(year, month, day));
+        contractDTO4.setContractWEFDate(dt.withDate(year, month, day));
         contractDTOList.add(contractDTO4);
-
-        contractDTO5.setContractNumber(contractNumber6);
-        contractDTO5.setContractName("Contract of Employment Regularization");
-        contractDTOList.add(contractDTO5);
-
-        contractDTO6.setContractNumber(contractNumber7);
-        contractDTO6.setContractName("Disclosure of Registered Company Name");
-        contractDTOList.add(contractDTO6);
-
-        contractDTO7.setContractNumber(contractNumber8);
-        contractDTO7.setContractName("Agreement for Termination of Computer Supply Arrangement");
-        contractDTOList.add(contractDTO7);
-
-        contractDTO8.setContractNumber(contractNumber9);
-        contractDTO8.setContractName("Distribution Fee Purchase Agreement");
-        contractDTOList.add(contractDTO8);
-
-        contractDTO9.setContractNumber(contractNumber10);
-        contractDTO9.setContractName("Management Rights Agreement");
-        contractDTOList.add(contractDTO9);
 
         return contractDTOList;
     }
