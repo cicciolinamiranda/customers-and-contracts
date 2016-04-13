@@ -68,6 +68,8 @@ public class ServiceAppContext {
     @Bean(name = ServiceConstants.CUSTOMER_SERVICE)
     public CustomerService getCustomerService() {
         return new CustomerServiceImpl();
+    }
+
     @Bean
     public AuditLogAspect getAuditLogAspect() {
         return new AuditLogAspect();
