@@ -79,8 +79,8 @@ public class CustomerApi {
     @ApiMethod(
             name = "customer.search",
             path = "customer/search",
-            httpMethod = ApiMethod.HttpMethod.POST)
-    public List<CustomerDTO> searchCustomer(@Named("searchterm") final String searchTerm) {
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<CustomerDTO> searchCustomer(@Named("searchTerm") final String searchTerm) {
         List<CustomerDTO> result = customerService.searchAllCustomers(searchTerm);
         return result;
     }
