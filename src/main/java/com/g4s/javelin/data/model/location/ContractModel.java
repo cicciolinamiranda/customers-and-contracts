@@ -120,4 +120,18 @@ public class ContractModel extends BaseModel {
     public void setName(final String name) {
         this.name = name;
     }
+    
+    @Override
+    public String toString() {
+        return "ContractModel{" + "customerNumber='" + customerNumber
+                + '\'' + ", name='" + name + '\''
+                + ", number='" + number + '\''
+                + ", title='" + title + '\''
+                + ", startDate='" + startDate + '\''
+                + ", endDate='" + endDate + '\''
+                + ", signedDate='" + signedDate + '\''
+                + ", reviewDate='" + reviewDate + '\''
+                + ", wefDate='" + wefDate
+                + '}';
+    }
 }

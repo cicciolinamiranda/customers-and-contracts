@@ -88,4 +88,18 @@ public class ContractDTO {
     public void setTitle(final String title) {
         this.title = title;
     }
+
+    @Override
+    public String toString() {
+        return "ContractModel{" + "customerNumber='" + customerNumber
+                + '\'' + ", name='" + name + '\''
+                + ", number='" + number + '\''
+                + ", title='" + title + '\''
+                + ", startDate='" + startDate + '\''
+                + ", endDate='" + endDate + '\''
+                + ", signedDate='" + signedDate + '\''
+                + ", reviewDate='" + reviewDate + '\''
+                + ", wefDate='" + wefDate
+                + '}';
+    }
 }
