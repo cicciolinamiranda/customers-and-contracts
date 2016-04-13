@@ -78,22 +78,10 @@ public class CustomerServiceImpl implements CustomerService {
         }
         return list;
     }
-    
+
     private CustomerDTO transformCustomer(final CustomerModel model) {
         CustomerDTO dto;
         dto = modelMapper.map(model, CustomerDTO.class);
-        dto.setCustomerNumber(model.getCustomerNumber());
-        dto.setCustomerName(model.getCustomerName());
-        dto.setAddressLine1(model.getAddressLine1());
-        dto.setAddressLine2(model.getAddressLine2());
-        dto.setAddressLine3(model.getAddressLine3());
-        dto.setAddressLine4(model.getAddressLine4());
-        dto.setCity(model.getCity());
-        dto.setZipCode(model.getZipCode());
-        dto.setState(model.getState());
-        dto.setCountry(model.getCountry());
-        dto.setDunsNumber(model.getDunsNumber());
-        dto.setPaymentMethod(model.getPaymentMethod());
         dto.setCustomerLocation(transformCustomerLocation(model.getCustomerLocation()));
         return dto;
     }
