@@ -17,97 +17,107 @@ import com.g4s.javelin.data.model.BaseModel;
 @Table(name = "CONTRACT")
 public class ContractModel extends BaseModel {
 
+    @Column(name = "customer_number")
+    private String customerNumber;
+
     @Column(name = "contract_number")
-    private String contractNumber;
+    private String number;
 
     @Column(name = "contract_name")
-    private String contractName;
+    private String name;
 
     @Column(name = "contract_title")
-    private String contractTitle;
+    private String title;
 
     @Column(name = "contract_start_date")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime contractStartDate;
+    private DateTime startDate;
 
     @Column(name = "contract_end_date")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime contractEndDate;
+    private DateTime endDate;
 
     @Column(name = "contract_review_date")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime contractReviewDate;
+    private DateTime reviewDate;
 
     @Column(name = "contract_signed_date")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime contractSignedDate;
+    private DateTime signedDate;
 
     @Column(name = "contract_wef_date")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
-    private DateTime contractWEFDate;
+    private DateTime wefDate;
 
-    public DateTime getContractReviewDate() {
-        return contractReviewDate;
+    public String getCustomerNumber() {
+        return customerNumber;
     }
 
-    public void setContractReviewDate(final DateTime contractReviewDate) {
-        this.contractReviewDate = contractReviewDate;
+    public void setCustomerNumber(final String customerNumber) {
+        this.customerNumber = customerNumber;
     }
 
-    public DateTime getContractWEFDate() {
-        return contractWEFDate;
+    public DateTime getWefDate() {
+        return wefDate;
     }
 
-    public void setContractWEFDate(final DateTime contractWEFDate) {
-        this.contractWEFDate = contractWEFDate;
+    public void setWefDate(final DateTime wefDate) {
+        this.wefDate = wefDate;
     }
 
-    public DateTime getContractSignedDate() {
-        return contractSignedDate;
+    public DateTime getSignedDate() {
+        return signedDate;
     }
 
-    public void setContractSignedDate(final DateTime contractSignedDate) {
-        this.contractSignedDate = contractSignedDate;
+    public void setSignedDate(final DateTime signedDate) {
+        this.signedDate = signedDate;
     }
 
-    public DateTime getContractStartDate() {
-        return contractStartDate;
-
+    public DateTime getReviewDate() {
+        return reviewDate;
     }
 
-    public void setContractStartDate(final DateTime contractStartDate) {
-        this.contractStartDate = contractStartDate;
+    public void setReviewDate(final DateTime reviewDate) {
+        this.reviewDate = reviewDate;
     }
 
-    public DateTime getContractEndDate() {
-        return contractEndDate;
+    public DateTime getEndDate() {
+        return endDate;
     }
 
-    public void setContractEndDate(final DateTime contractEndDate) {
-        this.contractEndDate = contractEndDate;
+    public void setEndDate(final DateTime endDate) {
+        this.endDate = endDate;
     }
 
-    public String getContractTitle() {
-        return contractTitle;
+    public DateTime getStartDate() {
+        return startDate;
     }
 
-    public void setContractTitle(final String contractTitle) {
-        this.contractTitle = contractTitle;
+    public void setStartDate(final DateTime startDate) {
+        this.startDate = startDate;
     }
 
-    public String getContractNumber() {
-        return contractNumber;
+    public String getTitle() {
+        return title;
     }
 
-    public void setContractNumber(final String contractNumber) {
-        this.contractNumber = contractNumber;
+    public void setTitle(final String title) {
+        this.title = title;
     }
 
-    public String getContractName() {
-        return contractName;
+    public String getNumber() {
+        return number;
     }
 
-    public void setContractName(final String contractName) {
-        this.contractName = contractName;
+    public void setNumber(final String number) {
+        this.number = number;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(final String name) {
+        this.name = name;
     }
 }

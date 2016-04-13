@@ -7,76 +7,85 @@ import org.joda.time.DateTime;
  */
 public class ContractDTO {
 
-    private String contractNumber;
-    private String contractName;
-    private String contractTitle;
-    private DateTime contractStartDate;
-    private DateTime contractEndDate;
-    private DateTime contractReviewDate;
-    private DateTime contractSignedDate;
-    private DateTime contractWEFDate;
+    private String customerNumber;
+    private String number;
+    private String name;
+    private String title;
+    private DateTime startDate;
+    private DateTime endDate;
+    private DateTime reviewDate;
+    private DateTime signedDate;
+    private DateTime wefDate;
 
-    public DateTime getContractReviewDate() {
-        return contractReviewDate;
+    public String getNumber() {
+        return number;
     }
 
-    public void setContractReviewDate(final DateTime contractReviewDate) {
-        this.contractReviewDate = contractReviewDate;
+    public void setNumber(final String number) {
+        this.number = number;
     }
 
-    public DateTime getContractWEFDate() {
-        return contractWEFDate;
+    public String getName() {
+        return name;
     }
 
-    public void setContractWEFDate(final DateTime contractWEFDate) {
-        this.contractWEFDate = contractWEFDate;
+    public void setName(final String name) {
+        this.name = name;
     }
 
-    public DateTime getContractSignedDate() {
-        return contractSignedDate;
+    public String getCustomerNumber() {
+        return customerNumber;
     }
 
-    public void setContractSignedDate(final DateTime contractSignedDate) {
-        this.contractSignedDate = contractSignedDate;
+    public void setCustomerNumber(final String customerNumber) {
+        this.customerNumber = customerNumber;
     }
 
-    public String getContractTitle() {
-        return contractTitle;
+    public DateTime getWefDate() {
+        return wefDate;
     }
 
-    public void setContractTitle(final String contractTitle) {
-        this.contractTitle = contractTitle;
+    public void setWefDate(final DateTime wefDate) {
+        this.wefDate = wefDate;
     }
 
-    public DateTime getContractStartDate() {
-        return contractStartDate;
+    public DateTime getSignedDate() {
+        return signedDate;
     }
 
-    public void setContractStartDate(final DateTime contractStartDate) {
-        this.contractStartDate = contractStartDate;
+    public void setSignedDate(final DateTime signedDate) {
+        this.signedDate = signedDate;
     }
 
-    public DateTime getContractEndDate() {
-        return contractEndDate;
+    public DateTime getReviewDate() {
+        return reviewDate;
     }
 
-    public void setContractEndDate(final DateTime contractEndDate) {
-        this.contractEndDate = contractEndDate;
+    public void setReviewDate(final DateTime reviewDate) {
+        this.reviewDate = reviewDate;
     }
 
-    public String getContractNumber() {
-        return contractNumber;
+    public DateTime getEndDate() {
+        return endDate;
     }
 
-    public void setContractNumber(final String contractNumber) {
-        this.contractNumber = contractNumber;
+    public void setEndDate(final DateTime endDate) {
+        this.endDate = endDate;
     }
 
-    public String getContractName() {
-        return contractName;
+    public DateTime getStartDate() {
+        return startDate;
     }
 
-    public void setContractName(final String contractName) {
-        this.contractName = contractName;
+    public void setStartDate(final DateTime startDate) {
+        this.startDate = startDate;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(final String title) {
+        this.title = title;
     }
 }
