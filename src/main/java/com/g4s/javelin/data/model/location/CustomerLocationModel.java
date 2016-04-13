@@ -72,7 +72,7 @@ public class CustomerLocationModel extends BaseModel {
     private Set<BarredEmployeeModel> barredEmployee;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "customer_id")
+    @JoinColumn(name = "customerNumber")
     private CustomerModel customer;
 
     @ManyToOne(fetch = FetchType.EAGER)
