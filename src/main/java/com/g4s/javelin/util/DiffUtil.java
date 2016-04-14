@@ -8,7 +8,8 @@ import org.javers.core.diff.Diff;
 import org.javers.core.diff.changetype.ValueChange;
 
 import com.g4s.javelin.dto.core.audit.DiffDTO;
-import com.google.appengine.repackaged.com.google.api.client.util.Lists;
+import com.google.common.collect.Lists;
+
 
 public class DiffUtil {
 
@@ -23,8 +24,13 @@ public class DiffUtil {
                     .get(i);
             DiffDTO diffDTO = new DiffDTO();
             diffDTO.setFieldName(change.getPropertyName());
-            diffDTO.setOldValue(change.getLeft().toString());
-            diffDTO.setNewValue(change.getRight().toString());
+            change.getLeft().toString();
+            List<String> oldValues = Lists.newArrayList();
+            oldValues.add(change.getLeft().toString());
+            diffDTO.setOldValue(oldValues);
+            List<String> newValues = Lists.newArrayList();
+            newValues.add(change.getRight().toString());
+            diffDTO.setNewValue(newValues);
             response.add(diffDTO);
         }
         return response;

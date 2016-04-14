@@ -120,7 +120,7 @@ public class ContractModel extends BaseModel {
     public void setName(final String name) {
         this.name = name;
     }
-    
+
     @Override
     public String toString() {
         return "ContractModel{" + "customerNumber='" + customerNumber
