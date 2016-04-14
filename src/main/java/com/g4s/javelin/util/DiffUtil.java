@@ -23,8 +23,13 @@ public class DiffUtil {
                     .get(i);
             DiffDTO diffDTO = new DiffDTO();
             diffDTO.setFieldName(change.getPropertyName());
-            diffDTO.setOldValue(change.getLeft().toString());
-            diffDTO.setNewValue(change.getRight().toString());
+            change.getLeft().toString();
+            List<String> oldValues = Lists.newArrayList();
+            oldValues.add(change.getLeft().toString());
+            diffDTO.setOldValue(oldValues);
+            List<String> newValues = Lists.newArrayList();
+            newValues.add(change.getRight().toString());
+            diffDTO.setNewValue(newValues);
             response.add(diffDTO);
         }
         return response;
