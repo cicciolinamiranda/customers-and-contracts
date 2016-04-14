@@ -8,7 +8,8 @@ import org.javers.core.diff.Diff;
 import org.javers.core.diff.changetype.ValueChange;
 
 import com.g4s.javelin.dto.core.audit.DiffDTO;
-import com.google.appengine.repackaged.com.google.api.client.util.Lists;
+import com.google.common.collect.Lists;
+
 
 public class DiffUtil {
 
