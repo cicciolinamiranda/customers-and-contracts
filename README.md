@@ -6,4 +6,3 @@ This module contains all work-order related backend components such as customer 
 * Run create_data.sql
 * Script does 3 things: creates javelin database, creates customer table and populates customer table with 5 customer records.
 
-
