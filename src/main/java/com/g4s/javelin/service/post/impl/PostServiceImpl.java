@@ -1,18 +1,5 @@
 package com.g4s.javelin.service.post.impl;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import org.hibernate.HibernateException;
-import org.joda.time.format.DateTimeFormat;
-import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
-
 import com.g4s.javelin.constants.ServiceConstants;
 import com.g4s.javelin.data.model.location.CustomerLocationModel;
 import com.g4s.javelin.data.model.masterfile.MasterfileModel;
@@ -28,6 +15,18 @@ import com.g4s.javelin.exception.PostException;
 import com.g4s.javelin.service.post.PostMasterfileAssociationService;
 import com.g4s.javelin.service.post.PostService;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
+import org.hibernate.HibernateException;
+import org.joda.time.format.DateTimeFormat;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class PostServiceImpl implements PostService {
 
@@ -50,35 +49,46 @@ public class PostServiceImpl implements PostService {
         modelMapper = new ModelMapper();
     }
 
-    @Transactional(rollbackFor = { PostException.class })
+    @Transactional(rollbackFor = {PostException.class})
     @Override
-    public PostDTO savePostDetails(final PostDTO post) throws PostException,
-            PostDuplicateException {
-        PostDTO response = new PostDTO();
+    public PostDTO savePostDetails(final PostDTO post) throws PostException, PostDuplicateException {
         PostModel model = new PostModel();
+
         if (post.getId() != null) {
-            transformPostDTO(post, model);
-        } else {
-            PostModel duplicate = postRepository.findByName(post.getName());
-            if (duplicate != null) {
-                throw new PostDuplicateException("Duplicate found.");
+            final PostDTO existingPost = getPostDetails(post.getId());
+            final String existingPostName = existingPost.getName();
+
+            if (existingPostName != null && existingPostName.equals(post.getName())) {
+                throw new PostException("Post name is already used.");
             } else {
                 transformPostDTO(post, model);
             }
+        } else {
+            PostModel duplicate = postRepository.findByName(post.getName());
+
+            if (duplicate != null) {
+                if (post.getName().equals(duplicate.getName())) {
+                    post.setName(post.getName().concat("-copy"));
+                }
+            }
+
+            transformPostDTO(post, model);
         }
-        CustomerLocationModel customerLocation = customerLocationRepository
-                .findOne(post.getCustomerLocationId());
+
+        CustomerLocationModel customerLocation = customerLocationRepository.findOne(post.getCustomerLocationId());
         model.setCustomerLocation(customerLocation);
+
         try {
             model = postRepository.save(model);
+
             if (model != null) {
-                boolean state = postMasterfileAssociationService
-                        .savePostEquipment(model.getId(), post.getEquipments());
+                postMasterfileAssociationService.savePostEquipment(model.getId(), post.getEquipments());
                 post.setId(model.getId());
             }
         } catch (HibernateException e) {
             throw new PostException(e.getMessage());
         }
+
         return post;
     }
 
@@ -99,9 +109,11 @@ public class PostServiceImpl implements PostService {
     public PostDTO getPostDetails(final Long id) {
         PostDTO dto = new PostDTO();
         PostModel result = postRepository.findOne(id);
+
         if (result != null) {
             dto = transformPostModel(result);
         }
+
         return dto;
     }
 
@@ -140,10 +152,7 @@ public class PostServiceImpl implements PostService {
     }
 
     private PostDTO transformPostModel(final PostModel model) {
-        org.joda.time.format.DateTimeFormatter dtf = DateTimeFormat
-                .forPattern("MM/dd/yyyy");
-        PostDTO dto = new PostDTO();
-        dto = modelMapper.map(model, PostDTO.class);
+        PostDTO dto = modelMapper.map(model, PostDTO.class);
         dto.setPreferences(setPreferenceDTO(model.getPreferences()));
         if (model.getRole() != null) {
             dto.setRole(modelMapper.map(model.getRole(), MasterfileDTO.class));
