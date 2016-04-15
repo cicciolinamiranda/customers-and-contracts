@@ -88,7 +88,7 @@ public class CustomerServiceImpl implements CustomerService {
             id = Long.valueOf(searchTerm);
         }
         String likeSearchTerm = "%" + searchTerm + "%";
-        List<CustomerModel> results = customerRepository.findBySearchTerm(id, likeSearchTerm);
+        List<CustomerModel> results = customerRepository.searchCustomer(id, likeSearchTerm);
         List<CustomerDTO> list = Lists.newArrayList();
         for (CustomerModel result : results) {
             list.add(transformCustomer(result));

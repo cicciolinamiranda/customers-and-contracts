@@ -14,22 +14,24 @@ import com.g4s.javelin.data.model.BaseModel;
 @Table(name = "CUSTOMER")
 public class CustomerModel extends BaseModel {
 
-    @Column
+    @Column(unique = true,
+            length = 360)
     private String customerName;
 
-    @Column
+    @Column(length = 30)
     private String customerNumber;
 
-    @Column
+    @Column(length = 30)
     private String customerCode;
 
-    @Column
+    @Column(length = 30)
     private String dunsNumber;
 
-    @Column
+    @Column(unique = true,
+            length = 30)
     private String accountNumber;
 
-    @Column
+    @Column(length = 240)
     private String accountDescription;
 
     @Column
