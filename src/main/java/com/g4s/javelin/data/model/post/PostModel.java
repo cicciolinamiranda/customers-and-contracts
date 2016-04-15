@@ -123,6 +123,9 @@ public class PostModel extends BaseModel {
     @JoinColumn(name = "CUSTOMER_LOCATION_ID")
     private CustomerLocationModel customerLocation;
 
+    @Column(name = "CHARGE_RATE")
+    private double chargeRate;
+
     public PreferencesModel getPreferences() {
         return preferences;
     }
@@ -306,6 +309,14 @@ public class PostModel extends BaseModel {
 
     public void setPostCover(final String postCover) {
         this.postCover = postCover;
+    }
+
+    public double getChargeRate() {
+        return chargeRate;
+    }
+
+    public void setChargeRate(final double chargeRate) {
+        this.chargeRate = chargeRate;
     }
 
 }
