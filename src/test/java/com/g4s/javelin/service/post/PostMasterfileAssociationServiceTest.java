@@ -1,8 +1,8 @@
 package com.g4s.javelin.service.post;
 
-import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.util.List;
 
@@ -17,11 +17,14 @@ import org.mockito.Mockito;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.g4s.javelin.data.model.masterfile.MasterfileModel;
+import com.g4s.javelin.data.model.post.LocationPostAllowancesModel;
 import com.g4s.javelin.data.model.post.LocationPostEquipmentModel;
 import com.g4s.javelin.data.model.post.PostModel;
 import com.g4s.javelin.data.repository.masterfile.MasterfileRepository;
+import com.g4s.javelin.data.repository.post.LocationPostAllowancesRepository;
 import com.g4s.javelin.data.repository.post.LocationPostEquipmentRepository;
 import com.g4s.javelin.data.repository.post.PostRepository;
+import com.g4s.javelin.dto.core.masterfile.AllowancesDTO;
 import com.g4s.javelin.dto.core.masterfile.EquipmentDTO;
 import com.g4s.javelin.enums.MasterfileTypeEnum;
 import com.g4s.javelin.service.post.impl.PostMasterfileAssociationServiceImpl;
@@ -38,6 +41,9 @@ public class PostMasterfileAssociationServiceTest {
     @Mock
     private LocationPostEquipmentRepository postEquipmentRepository;
 
+    @Mock
+    private LocationPostAllowancesRepository postAllowancesRepository;
+
     @InjectMocks
     private PostMasterfileAssociationService service = new PostMasterfileAssociationServiceImpl();
  
@@ -46,6 +52,11 @@ public class PostMasterfileAssociationServiceTest {
     List<LocationPostEquipmentModel> postEquipmentList = Lists.newArrayList();
     List<EquipmentDTO> dto = Lists.newArrayList();
 
+    MasterfileModel allowancesModel;
+    LocationPostAllowancesModel postAllowancesModel;
+    List<LocationPostAllowancesModel> postAllowancesList = Lists.newArrayList();
+    List<AllowancesDTO> allowancesDTO = Lists.newArrayList();
+
     PostModel post;
     @Before
     public void init() {
@@ -53,6 +64,11 @@ public class PostMasterfileAssociationServiceTest {
         setUpEquipmentDTO();
         setUpMasterfileModel();
         setUpPostEquipmentModel();
+
+        //Allowances
+        setUpMasterfileAllowancesModel();
+        setUpPostAllowancesModel();
+        setUpAllowancesDTO();
     }
 
     private void setUpMasterfileModel() {
@@ -60,6 +76,13 @@ public class PostMasterfileAssociationServiceTest {
         model.setId(1L);
         model.setType(MasterfileTypeEnum.POST_EQUIPMENT);
         model.setName("Post Equipment 1");
+    }
+
+    private void setUpMasterfileAllowancesModel() {
+        allowancesModel = new MasterfileModel();
+        allowancesModel.setId(1L);
+        allowancesModel.setType(MasterfileTypeEnum.POST_EQUIPMENT);
+        allowancesModel.setName("Post Equipment 1");
     }
 
     private void setUpPostEquipmentModel() {
@@ -71,7 +94,27 @@ public class PostMasterfileAssociationServiceTest {
         postEquipmentList.add(postEquipmentModel);
        
     }
+
+    private void setUpPostAllowancesModel() {
+        postAllowancesModel = new LocationPostAllowancesModel();
+        postAllowancesModel.setAllowances(allowancesModel);
+        postAllowancesModel.setPost(post);
+        postAllowancesModel.setBilled(true);
+        postAllowancesModel.setAmount(1.3);
+        postAllowancesModel.setId(1L);
+        postAllowancesList.add(postAllowancesModel);
+       
+    }
     
+    private void setUpAllowancesDTO() {
+        AllowancesDTO al = new AllowancesDTO();
+        al.setAssociationId(1L);
+        al.setId(1L);
+        al.setBilled(true);
+        al.setAmount(1.3);
+        allowancesDTO.add(al);
+    }
+
     private void setUpEquipmentDTO() {
         EquipmentDTO eq = new EquipmentDTO();
         eq.setAssociationId(1L);
@@ -82,16 +125,16 @@ public class PostMasterfileAssociationServiceTest {
     }
 
     private void setUpPost() {
-    	post = new PostModel();
-    	post.setId(1L);
+        post = new PostModel();
+        post.setId(1L);
     }
 
     @Test
     public void testSavePostEquipment() {
-    	EquipmentDTO eq = new EquipmentDTO();
-    	eq.setDeleted(true);
-    	eq.setAssociationId(1L);
-    	dto.add(eq);
+        EquipmentDTO eq = new EquipmentDTO();
+        eq.setDeleted(true);
+        eq.setAssociationId(1L);
+        dto.add(eq);
         when(postRepository.findOne(1L)).thenReturn(post);
         when(masterfileRepository.findOne(Mockito.anyLong())).thenReturn(model);
         service.savePostEquipment(Mockito.anyLong(), dto);
@@ -100,12 +143,35 @@ public class PostMasterfileAssociationServiceTest {
 
     @Test
     public void testGetPostEquipments() {
-    	EquipmentDTO eq = new EquipmentDTO();
-    	eq.setDeleted(true);
-    	eq.setAssociationId(1L);
-    	dto.add(eq);
+        EquipmentDTO eq = new EquipmentDTO();
+        eq.setDeleted(true);
+        eq.setAssociationId(1L);
+        dto.add(eq);
         when(postEquipmentRepository.findByPostId(Mockito.anyLong())).thenReturn(postEquipmentList);
         List<EquipmentDTO> response = service.getPostEquipments(1L);
+        Assert.assertEquals(1, response.size());
+    }
+
+    @Test
+    public void testSavePostAllowances() {
+        AllowancesDTO eq = new AllowancesDTO();
+        eq.setDeleted(true);
+        eq.setAssociationId(1L);
+        allowancesDTO.add(eq);
+        when(postRepository.findOne(1L)).thenReturn(post);
+        when(masterfileRepository.findOne(Mockito.anyLong())).thenReturn(allowancesModel);
+        service.savePostAllowances(Mockito.anyLong(), allowancesDTO);
+        verify(postAllowancesRepository, times(1)).delete(1L);
+    }
+
+    @Test
+    public void testGetPostAllowancess() {
+        AllowancesDTO eq = new AllowancesDTO();
+        eq.setDeleted(true);
+        eq.setAssociationId(1L);
+        allowancesDTO.add(eq);
+        when(postAllowancesRepository.findByPostId(Mockito.anyLong())).thenReturn(postAllowancesList);
+        List<AllowancesDTO> response = service.getPostAllowances(1L);
         Assert.assertEquals(1, response.size());
     }
 }

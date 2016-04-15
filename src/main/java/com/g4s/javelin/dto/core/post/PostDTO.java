@@ -5,6 +5,7 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import com.g4s.javelin.dto.BaseDTO;
+import com.g4s.javelin.dto.core.masterfile.AllowancesDTO;
 import com.g4s.javelin.dto.core.masterfile.EquipmentDTO;
 import com.g4s.javelin.dto.core.masterfile.MasterfileDTO;
 
@@ -33,6 +34,7 @@ public class PostDTO extends BaseDTO {
     private List<EquipmentDTO> equipments;
     private List<MasterfileDTO> schedulingConstraints;
     private List<MasterfileDTO> healthSafetyRequirements;
+    private List<AllowancesDTO> allowances;
 
     private Long customerLocationId;
 
@@ -191,7 +193,12 @@ public class PostDTO extends BaseDTO {
     public void setPostCover(final String postCover) {
         this.postCover = postCover;
     }
-
+    public List<AllowancesDTO> getAllowances() {
+        return allowances;
+    }
+    public void setAllowances(final List<AllowancesDTO> allowances) {
+        this.allowances = allowances;
+    }
 }
 //CSON: HiddenField
 

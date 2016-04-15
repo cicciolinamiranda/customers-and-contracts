@@ -50,19 +50,14 @@ public class PostServiceImpl implements PostService {
         modelMapper = new ModelMapper();
     }
 
-    @Transactional(rollbackFor = {PostException.class})
+    @Transactional(rollbackFor = { PostException.class })
     @Override
-    public PostDTO savePostDetails(final PostDTO post) throws PostException, PostDuplicateException {
+    public PostDTO savePostDetails(final PostDTO post) throws PostException,
+            PostDuplicateException {
         PostModel model = new PostModel();
-
         if (post.getId() != null) {
             final PostDTO existingPost = getPostDetails(post.getId());
-
-            if (isDuplicateName(post, existingPost)) {
-                throw new PostException("Post name is already used.");
-            } else {
-                transformPostDTO(post, model);
-            }
+            isPosNameDuplicateForEdit(post, existingPost, model);
         } else {
             PostModel duplicate = postRepository.findByName(post.getName());
 
@@ -75,14 +70,18 @@ public class PostServiceImpl implements PostService {
             transformPostDTO(post, model);
         }
 
-        CustomerLocationModel customerLocation = customerLocationRepository.findOne(post.getCustomerLocationId());
+        CustomerLocationModel customerLocation = customerLocationRepository
+                .findOne(post.getCustomerLocationId());
         model.setCustomerLocation(customerLocation);
 
         try {
             model = postRepository.save(model);
 
             if (model != null) {
-                postMasterfileAssociationService.savePostEquipment(model.getId(), post.getEquipments());
+                postMasterfileAssociationService.savePostEquipment(
+                        model.getId(), post.getEquipments());
+                postMasterfileAssociationService.savePostAllowances(
+                        model.getId(), post.getAllowances());
                 post.setId(model.getId());
             }
         } catch (HibernateException e) {
@@ -92,9 +91,18 @@ public class PostServiceImpl implements PostService {
         return post;
     }
 
-    private boolean isDuplicateName(final PostDTO post,
-            final PostDTO existingPost) {
-        return existingPost.getName() != null && post.getId() != existingPost.getId() && existingPost.getName().equals(post.getName());
+    private void isPosNameDuplicateForEdit(final PostDTO post,
+            final PostDTO existingDTO, final PostModel model)
+            throws PostException {
+        PostModel availablePost = postRepository.findByName(post.getName());
+
+        if (existingDTO.getName() != null && availablePost.getName() != null
+                && !existingDTO.getName().equals(post.getName())
+                && post.getName().equals(availablePost.getName())) {
+            throw new PostException("Post name is already used.");
+        } else {
+            transformPostDTO(post, model);
+        }
     }
 
     @Override
@@ -170,6 +178,8 @@ public class PostServiceImpl implements PostService {
                 .getHealthSafetyRequirements()));
         dto.setEquipments(postMasterfileAssociationService
                 .getPostEquipments(model.getId()));
+        dto.setAllowances(postMasterfileAssociationService
+                .getPostAllowances(model.getId()));
         return dto;
     }
 
