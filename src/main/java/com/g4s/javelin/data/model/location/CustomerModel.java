@@ -2,11 +2,12 @@ package com.g4s.javelin.data.model.location;
 
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.FetchType;
+import javax.persistence.CascadeType;
 
 import com.g4s.javelin.data.model.BaseModel;
 
@@ -49,8 +50,11 @@ public class CustomerModel extends BaseModel {
     @Column
     private String tbc;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<CustomerLocationModel> customerLocation;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private List<ContactModel> contacts;
 
     public String getCustomerName() {
         return customerName;
