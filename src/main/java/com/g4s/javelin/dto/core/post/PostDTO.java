@@ -39,6 +39,7 @@ public class PostDTO extends BaseDTO {
     private String startTime;
     private String endTime;
     private String postCover;
+    private double chargeRate;
 
     public PreferencesDTO getPreferences() {
         return preferences;
@@ -191,7 +192,12 @@ public class PostDTO extends BaseDTO {
     public void setPostCover(final String postCover) {
         this.postCover = postCover;
     }
-
+    public double getChargeRate() {
+        return chargeRate;
+    }
+    public void setChargeRate(final double chargeRate) {
+        this.chargeRate = chargeRate;
+    }
 }
 //CSON: HiddenField
 
