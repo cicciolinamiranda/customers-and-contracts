@@ -1,6 +1,14 @@
 package com.g4s.javelin.api;
 
+import com.g4s.javelin.dto.core.location.ContactDTO;
+import com.g4s.javelin.service.location.ContactService;
+import com.g4s.javelin.service.location.impl.ContactServiceImpl;
 import org.junit.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+
+import java.util.List;
 
 import static org.junit.Assert.*;
 
@@ -9,13 +17,27 @@ import static org.junit.Assert.*;
  */
 public class ContactApiTest {
 
+    @Mock
+    ContactService contactService;
+
+    @Mock
+    ContactDTO contactDTO;
+
+    @Mock
+    private List<ContactDTO> contactDTOList;
+
+    @InjectMocks
+    private ContactApi contactApi = new ContactApi();
+
     @Test
     public void testSaveContact() throws Exception {
 
-    }
+ //       contactApi.saveContact(contactDTO);
+//        Mockito.
 
-    @Test
-    public void testGetContactDetailsList() throws Exception {
+//        barredEmployeeApi.saveBarredEmployees(barredEmployeesList);
+//        Mockito.verify(barredEmployeeService, Mockito.times(1)).saveBarredEmployees(Mockito.anyListOf(
+//                BarredEmployeeDTO.class), Mockito.anyLong());
 
     }
 

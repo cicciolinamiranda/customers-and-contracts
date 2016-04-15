@@ -1,14 +1,15 @@
 package com.g4s.javelin.service.location.impl;
 
-import com.g4s.javelin.data.model.location.ContactModel;
-import com.g4s.javelin.data.repository.location.ContactRepository;
-import com.g4s.javelin.dto.core.location.ContactDTO;
-import com.g4s.javelin.service.location.ContactService;
+import java.util.List;
+
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 
-import java.util.List;
+import com.g4s.javelin.data.model.location.ContactModel;
+import com.g4s.javelin.data.repository.location.ContactRepository;
+import com.g4s.javelin.dto.core.location.ContactDTO;
+import com.g4s.javelin.service.location.ContactService;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 
 /**
@@ -46,7 +47,6 @@ public class ContactServiceImpl implements ContactService {
             list.add(transformContact(result));
         }
         return list;
-
     }
 
     private ContactDTO transformContact(final ContactModel contactModel) {

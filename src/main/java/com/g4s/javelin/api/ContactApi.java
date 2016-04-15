@@ -1,18 +1,20 @@
 package com.g4s.javelin.api;
 
-import com.g4s.javelin.constants.ApiConstants;
-import com.g4s.javelin.constants.ServiceConstants;
-import com.g4s.javelin.dto.core.location.ContactDTO;
-import com.g4s.javelin.service.location.ContactService;
-import com.google.api.server.spi.config.Api;
-import com.google.api.server.spi.config.ApiMethod;
-import com.google.api.server.spi.config.ApiNamespace;
-import com.google.api.server.spi.config.Named;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
 
-import java.util.List;
+import com.g4s.javelin.constants.ApiConstants;
+import com.g4s.javelin.constants.ServiceConstants;
+import com.g4s.javelin.dto.core.location.ContactDTO;
+import com.g4s.javelin.service.location.ContactService;
+
+import com.google.api.server.spi.config.Api;
+import com.google.api.server.spi.config.ApiMethod;
+import com.google.api.server.spi.config.ApiNamespace;
+import com.google.api.server.spi.config.Named;
 
 /**
  * Created by jalonzo on 4/14/16.
