@@ -1,6 +1,5 @@
 package com.g4s.javelin.service.post.impl;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -28,6 +27,7 @@ import com.g4s.javelin.exception.PostException;
 import com.g4s.javelin.service.post.PostMasterfileAssociationService;
 import com.g4s.javelin.service.post.PostService;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
+import com.google.appengine.repackaged.com.google.api.client.util.Sets;
 
 public class PostServiceImpl implements PostService {
 
@@ -50,36 +50,51 @@ public class PostServiceImpl implements PostService {
         modelMapper = new ModelMapper();
     }
 
-    @Transactional(rollbackFor = { PostException.class })
+    @Transactional(rollbackFor = {PostException.class})
     @Override
-    public PostDTO savePostDetails(final PostDTO post) throws PostException,
-            PostDuplicateException {
-        PostDTO response = new PostDTO();
+    public PostDTO savePostDetails(final PostDTO post) throws PostException, PostDuplicateException {
         PostModel model = new PostModel();
+
         if (post.getId() != null) {
-            transformPostDTO(post, model);
-        } else {
-            PostModel duplicate = postRepository.findByName(post.getName());
-            if (duplicate != null) {
-                throw new PostDuplicateException("Duplicate found.");
+            final PostDTO existingPost = getPostDetails(post.getId());
+
+            if (isDuplicateName(post, existingPost)) {
+                throw new PostException("Post name is already used.");
             } else {
                 transformPostDTO(post, model);
             }
+        } else {
+            PostModel duplicate = postRepository.findByName(post.getName());
+
+            if (duplicate != null) {
+                if (post.getName().equals(duplicate.getName())) {
+                    post.setName(post.getName().concat("-copy"));
+                }
+            }
+
+            transformPostDTO(post, model);
         }
-        CustomerLocationModel customerLocation = customerLocationRepository
-                .findOne(post.getCustomerLocationId());
+
+        CustomerLocationModel customerLocation = customerLocationRepository.findOne(post.getCustomerLocationId());
         model.setCustomerLocation(customerLocation);
+
         try {
             model = postRepository.save(model);
+
             if (model != null) {
-                boolean state = postMasterfileAssociationService
-                        .savePostEquipment(model.getId(), post.getEquipments());
+                postMasterfileAssociationService.savePostEquipment(model.getId(), post.getEquipments());
                 post.setId(model.getId());
             }
         } catch (HibernateException e) {
             throw new PostException(e.getMessage());
         }
+
         return post;
+    }
+
+    private boolean isDuplicateName(final PostDTO post,
+            final PostDTO existingPost) {
+        return existingPost.getName() != null && post.getId() != existingPost.getId() && existingPost.getName().equals(post.getName());
     }
 
     @Override
@@ -171,7 +186,7 @@ public class PostServiceImpl implements PostService {
 
     private Set<MasterfileModel> transformMasterfileDTO(
             final List<MasterfileDTO> dtos) {
-        Set<MasterfileModel> list = new HashSet<MasterfileModel>();
+        Set<MasterfileModel> list = Sets.newHashSet();
         if (!CollectionUtils.isEmpty(dtos)) {
             for (MasterfileDTO dto : dtos) {
                 list.add(modelMapper.map(dto, MasterfileModel.class));
