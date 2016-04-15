@@ -39,6 +39,7 @@ public class PostDTO extends BaseDTO {
     private String startTime;
     private String endTime;
     private String postCover;
+    private MasterfileDTO callInFrequency;
 
     public PreferencesDTO getPreferences() {
         return preferences;
@@ -190,6 +191,12 @@ public class PostDTO extends BaseDTO {
     }
     public void setPostCover(final String postCover) {
         this.postCover = postCover;
+    }
+    public MasterfileDTO getCallInFrequency() {
+        return callInFrequency;
+    }
+    public void setCallInFrequency(final MasterfileDTO callInFrequency) {
+        this.callInFrequency = callInFrequency;
     }
 
 }

@@ -136,6 +136,9 @@ public class PostServiceImpl implements PostService {
         model.setUniforms(transformMasterfileDTO(dto.getUniforms()));
         model.setHealthSafetyRequirements(transformMasterfileDTO(dto
                 .getHealthSafetyRequirements()));
+        if (dto.getCallInFrequency() != null) {
+            model.setCallInFrequency(modelMapper.map(dto.getCallInFrequency(), MasterfileModel.class));
+        }
         return model;
     }
 
