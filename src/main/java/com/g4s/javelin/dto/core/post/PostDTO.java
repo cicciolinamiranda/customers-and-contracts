@@ -41,6 +41,8 @@ public class PostDTO extends BaseDTO {
     private String startTime;
     private String endTime;
     private String postCover;
+    private double chargeRate;
+    private MasterfileDTO callInFrequency;
 
     public PreferencesDTO getPreferences() {
         return preferences;
@@ -196,8 +198,20 @@ public class PostDTO extends BaseDTO {
     public List<AllowancesDTO> getAllowances() {
         return allowances;
     }
+    public double getChargeRate() {
+        return chargeRate;
+    }
     public void setAllowances(final List<AllowancesDTO> allowances) {
         this.allowances = allowances;
+    }
+    public void setChargeRate(final double chargeRate) {
+        this.chargeRate = chargeRate;
+    }
+    public MasterfileDTO getCallInFrequency() {
+        return callInFrequency;
+    }
+    public void setCallInFrequency(final MasterfileDTO callInFrequency) {
+        this.callInFrequency = callInFrequency;
     }
 }
 //CSON: HiddenField
