@@ -1,8 +1,9 @@
 package com.g4s.javelin.service.location;
 
+import java.util.List;
+
 import com.g4s.javelin.dto.core.location.ContactDTO;
 
-import java.util.List;
 
 /**
  * Created by jalonzo on 4/14/16.
