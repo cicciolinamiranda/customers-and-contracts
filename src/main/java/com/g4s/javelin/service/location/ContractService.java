@@ -1,0 +1,18 @@
+package com.g4s.javelin.service.location;
+
+import java.util.List;
+
+import com.g4s.javelin.dto.core.location.ContractDTO;
+
+/**
+ * Created by apadilla on 4/8/16.
+ */
+public interface ContractService {
+
+    ContractDTO createNewContract(ContractDTO contractDTO);
+    List<ContractDTO> getContractsDTO();
+    List<ContractDTO> getContractByNumber(String contractNumber);
+    List<ContractDTO> getContractByName(String contractName);
+    List<ContractDTO> getContractByCustomerNumber(String contractName);
+    List<ContractDTO> searchContract(String searchTerm);
+}
