@@ -55,7 +55,7 @@ public class ContactModel extends BaseModel {
     private boolean inactive;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "accountNumber")
+    @JoinColumn(name = "customerId")
     private CustomerModel customer;
 
     public String getContactAccountNumber() {
