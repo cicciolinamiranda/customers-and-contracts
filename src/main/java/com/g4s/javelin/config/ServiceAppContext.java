@@ -6,11 +6,15 @@ import org.springframework.context.annotation.Lazy;
 
 import com.g4s.javelin.constants.ServiceConstants;
 import com.g4s.javelin.service.location.BarredEmployeeService;
+import com.g4s.javelin.service.location.ContactService;
 import com.g4s.javelin.service.location.CustomerLocationService;
+import com.g4s.javelin.service.location.CustomerService;
 import com.g4s.javelin.service.location.LocationMasterfileAssociationService;
 import com.g4s.javelin.service.location.SiteLocationService;
 import com.g4s.javelin.service.location.impl.BarredEmployeeServiceImpl;
+import com.g4s.javelin.service.location.impl.ContactServiceImpl;
 import com.g4s.javelin.service.location.impl.CustomerLocationServiceImpl;
+import com.g4s.javelin.service.location.impl.CustomerServiceImpl;
 import com.g4s.javelin.service.location.impl.LocationMasterfileAssociationServiceImpl;
 import com.g4s.javelin.service.location.impl.SiteLocationServiceImpl;
 import com.g4s.javelin.service.masterfile.MasterfileService;
@@ -19,6 +23,7 @@ import com.g4s.javelin.service.post.PostMasterfileAssociationService;
 import com.g4s.javelin.service.post.PostService;
 import com.g4s.javelin.service.post.impl.PostMasterfileAssociationServiceImpl;
 import com.g4s.javelin.service.post.impl.PostServiceImpl;
+
 
 @Configuration
 @Lazy
@@ -52,5 +57,15 @@ public class ServiceAppContext {
     @Bean(name = ServiceConstants.POST_MASTERFILE_ASSOC_SERVICE)
     public PostMasterfileAssociationService getPostMasterfileAssociationService() {
         return new PostMasterfileAssociationServiceImpl();
+    }
+
+    @Bean(name = ServiceConstants.CUSTOMER_SERVICE)
+    public CustomerService getCustomerService() {
+        return new CustomerServiceImpl();
+    }
+
+    @Bean (name = ServiceConstants.CONTACT_SERVICE)
+    public ContactService getContactService() {
+        return new ContactServiceImpl();
     }
 }
