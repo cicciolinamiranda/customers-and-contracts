@@ -43,6 +43,7 @@ public class PostDTO extends BaseDTO {
     private String postCover;
     private double chargeRate;
     private MasterfileDTO callInFrequency;
+    private boolean isDuplicateForm;
 
     public PreferencesDTO getPreferences() {
         return preferences;
@@ -212,6 +213,12 @@ public class PostDTO extends BaseDTO {
     }
     public void setCallInFrequency(final MasterfileDTO callInFrequency) {
         this.callInFrequency = callInFrequency;
+    }
+    public boolean isDuplicateForm() {
+        return isDuplicateForm;
+    }
+    public void setDuplicateForm(final boolean isDuplicateForm) {
+        this.isDuplicateForm = isDuplicateForm;
     }
 }
 //CSON: HiddenField

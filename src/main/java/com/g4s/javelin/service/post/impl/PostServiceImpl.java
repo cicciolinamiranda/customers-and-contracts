@@ -56,17 +56,15 @@ public class PostServiceImpl implements PostService {
             PostDuplicateException {
         PostModel model = new PostModel();
         if (post.getId() != null) {
-            final PostDTO existingPost = getPostDetails(post.getId());
-            isPosNameDuplicateForEdit(post, existingPost, model);
+            PostDTO existingPost = getPostDetails(post.getId());
+            isPostNameDuplicateForEdit(post, existingPost, model);
         } else {
             PostModel duplicate = postRepository.findByName(post.getName());
-
-            if (duplicate != null) {
-                if (post.getName().equals(duplicate.getName())) {
-                    post.setName(post.getName().concat("-copy"));
-                }
+            if (isPostNameDuplicateValid(post, duplicate)) {
+                post.setName(duplicate.getName().concat("-copy"));
+            } else if (duplicate != null && !post.isDuplicateForm()) {
+                throw new PostException("Post name is already used.");
             }
-
             transformPostDTO(post, model);
         }
 
@@ -91,12 +89,12 @@ public class PostServiceImpl implements PostService {
         return post;
     }
 
-    private void isPosNameDuplicateForEdit(final PostDTO post,
+    private void isPostNameDuplicateForEdit(final PostDTO post,
             final PostDTO existingDTO, final PostModel model)
             throws PostException {
         PostModel availablePost = postRepository.findByName(post.getName());
 
-        if (existingDTO.getName() != null && availablePost.getName() != null
+        if (existingDTO.getName() != null && availablePost != null
                 && !existingDTO.getName().equals(post.getName())
                 && post.getName().equals(availablePost.getName())) {
             throw new PostException("Post name is already used.");
@@ -105,6 +103,9 @@ public class PostServiceImpl implements PostService {
         }
     }
 
+    private boolean isPostNameDuplicateValid(final PostDTO post, final PostModel duplicate) {
+        return post.isDuplicateForm() && duplicate != null && duplicate.getName() != null;
+    }
     @Override
     public List<PostDTO> getPostByCustomerLocation(final Long customerLocationId) {
         List<PostModel> results = postRepository
@@ -163,7 +164,8 @@ public class PostServiceImpl implements PostService {
                 .getHealthSafetyRequirements()));
         model.setChargeRate(dto.getChargeRate());
         if (dto.getCallInFrequency() != null) {
-            model.setCallInFrequency(modelMapper.map(dto.getCallInFrequency(), MasterfileModel.class));
+            model.setCallInFrequency(modelMapper.map(dto.getCallInFrequency(),
+                    MasterfileModel.class));
         }
         return model;
     }
