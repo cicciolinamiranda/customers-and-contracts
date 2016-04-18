@@ -5,6 +5,7 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import com.g4s.javelin.dto.BaseDTO;
+import com.g4s.javelin.dto.core.masterfile.AllowancesDTO;
 import com.g4s.javelin.dto.core.masterfile.EquipmentDTO;
 import com.g4s.javelin.dto.core.masterfile.MasterfileDTO;
 
@@ -33,6 +34,7 @@ public class PostDTO extends BaseDTO {
     private List<EquipmentDTO> equipments;
     private List<MasterfileDTO> schedulingConstraints;
     private List<MasterfileDTO> healthSafetyRequirements;
+    private List<AllowancesDTO> allowances;
 
     private Long customerLocationId;
 
@@ -41,6 +43,7 @@ public class PostDTO extends BaseDTO {
     private String postCover;
     private double chargeRate;
     private MasterfileDTO callInFrequency;
+    private boolean isDuplicateForm;
 
     public PreferencesDTO getPreferences() {
         return preferences;
@@ -193,8 +196,14 @@ public class PostDTO extends BaseDTO {
     public void setPostCover(final String postCover) {
         this.postCover = postCover;
     }
+    public List<AllowancesDTO> getAllowances() {
+        return allowances;
+    }
     public double getChargeRate() {
         return chargeRate;
+    }
+    public void setAllowances(final List<AllowancesDTO> allowances) {
+        this.allowances = allowances;
     }
     public void setChargeRate(final double chargeRate) {
         this.chargeRate = chargeRate;
@@ -204,6 +213,12 @@ public class PostDTO extends BaseDTO {
     }
     public void setCallInFrequency(final MasterfileDTO callInFrequency) {
         this.callInFrequency = callInFrequency;
+    }
+    public boolean isDuplicateForm() {
+        return isDuplicateForm;
+    }
+    public void setDuplicateForm(final boolean isDuplicateForm) {
+        this.isDuplicateForm = isDuplicateForm;
     }
 }
 //CSON: HiddenField
