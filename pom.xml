@@ -11,11 +11,19 @@
     <artifactId>customer-contracts</artifactId>
 
     <properties>
-        <appengine.app.version>1</appengine.app.version>
         <appengine.target.version>1.9.34</appengine.target.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>4.1.8.RELEASE</spring.version>
 
+        <!-- DEV CONFIGS -->
+        <app.id>javelin-dev</app.id>
+        <app.version>1</app.version>
+        <app.module>customer-contracts</app.module>
+
+        <!-- QA CONFIGS -->
+        <!--<app.id>javelin-qa</app.id>
+        <app.version>baseline</app.version>
+        <app.module>scheduling-backend</app.module>-->
     </properties>
 
     <dependencies>
@@ -268,7 +276,9 @@
                             <includes>
                                 <include>WEB-INF/*.discovery</include>
                                 <include>WEB-INF/*.api</include>
+                                <include>WEB-INF/appengine-web.xml</include>
                             </includes>
+                            <filtering>true</filtering>
                         </resource>
                     </webResources>
                 </configuration>
