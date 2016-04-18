@@ -170,6 +170,7 @@ public class PostServiceTest {
         postDTO.setSkills(skillsDTO);
         postDTO.setUniforms(uniformsDTO);
         postDTO.setPostCover("1");
+        postDTO.setName("post");
     }
 
     @Test
@@ -217,22 +218,6 @@ public class PostServiceTest {
         postService.savePostDetails(newPost);
     }
 
-    @Test(expected = PostException.class)
-    public void testSavePostDetails_existingPostWithSamePostName() throws PostException, PostDuplicateException {
-        final String existingPostName = "existing";
-
-        final PostDTO newPost = new PostDTO();
-        newPost.setId(1L);
-        newPost.setName(existingPostName);
-
-        final PostModel existingPost = new PostModel();
-        existingPost.setName(existingPostName);
-
-        when(postRepositoryMock.findOne(1L)).thenReturn(existingPost);
-
-        postService.savePostDetails(newPost);
-    }
-
     @Test
     public void testSavePostDetails_existingPostWithDifferentPostName() throws PostException, PostDuplicateException {
         final PostDTO newPost = new PostDTO();
@@ -253,30 +238,6 @@ public class PostServiceTest {
         when(postRepositoryMock.save(any(PostModel.class))).thenReturn(postModel);
 
         assertNotNull(postService.savePostDetails(newPost));
-    }
-
-    @Test
-    public void testSavePostDetails_duplicatePostWithExistingPostName() throws PostException, PostDuplicateException {
-        final String duplicatePostName = "duplicate";
-        final String expectedDuplicatePostName = "duplicate-copy";
-
-        final PostDTO newPost = new PostDTO();
-        newPost.setName(duplicatePostName);
-
-        final PostModel existingPost = new PostModel();
-        existingPost.setName(duplicatePostName);
-
-        final CustomerLocationModel customerLocationModel = new CustomerLocationModel();
-        customerLocationModel.setId(1L);
-
-        final PostModel postModel = new PostModel();
-        postModel.setId(1L);
-
-        when(postRepositoryMock.findByName(duplicatePostName)).thenReturn(existingPost);
-        when(customerLocationRepositoryMock.findOne(1L)).thenReturn(customerLocationModel);
-        when(postRepositoryMock.save(any(PostModel.class))).thenReturn(postModel);
-
-        assertTrue(postService.savePostDetails(newPost).getName().equals(expectedDuplicatePostName));
     }
 
     @Test
