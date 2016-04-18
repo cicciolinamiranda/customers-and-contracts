@@ -51,7 +51,7 @@ public class PostServiceImpl implements PostService {
         modelMapper = new ModelMapper();
     }
 
-    @Transactional(rollbackFor = { PostException.class })
+    @Transactional(rollbackFor = {PostException.class})
     @Override
     public PostDTO savePostDetails(final PostDTO post) throws PostException,
             PostDuplicateException {
@@ -93,8 +93,7 @@ public class PostServiceImpl implements PostService {
         return post;
     }
 
-    private void isPostNameDuplicateForEdit(final PostDTO post,
-            final PostDTO existingDTO, final PostModel model)
+    private void isPostNameDuplicateForEdit(final PostDTO post, final PostDTO existingDTO, final PostModel model)
             throws PostException {
         PostModel availablePost = postRepository.findByName(post.getName());
 
@@ -106,6 +105,7 @@ public class PostServiceImpl implements PostService {
             transformPostDTO(post, model);
         }
     }
+
 
     @Override
     public List<PostDTO> getPostByCustomerLocation(final Long customerLocationId) {

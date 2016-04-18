@@ -5,7 +5,7 @@
         <init-param>
             <param-name>services</param-name>
             <param-value>
-                com.cloudsherpas.payroll.api.PayrollResource
+                com.g4s.javelin.api.PayrollResource
             </param-value>
         </init-param>
     </servlet>
@@ -30,11 +30,11 @@
 
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        
+
         <param-value>
-          com.g4s.javelin.config.DAOAppContext
-          com.g4s.javelin.config.ServiceAppContext
-          com.g4s.javelin.Application
+            com.g4s.javelin.config.DAOAppContext
+            com.g4s.javelin.config.ServiceAppContext
+            com.g4s.javelin.Application
         </param-value>
 
     </context-param>
