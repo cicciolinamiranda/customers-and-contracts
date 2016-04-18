@@ -6,13 +6,10 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
-import org.springframework.util.CollectionUtils;
 
-import com.g4s.javelin.data.model.location.CustomerLocationModel;
 import com.g4s.javelin.data.model.location.CustomerModel;
 import com.g4s.javelin.data.repository.location.CustomerRepository;
 import com.g4s.javelin.dto.core.location.CustomerDTO;
-import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
 import com.g4s.javelin.service.location.CustomerService;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 
@@ -29,14 +26,14 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public CustomerDTO getCustomerDetail(final String customerNumber) {
+    public CustomerDTO getCustomerByCustomerNumber(final String customerNumber) {
         CustomerModel result = customerRepository.findByCustomerNumber(customerNumber);
         return transformCustomer(result);
     }
 
     @Override
-    public List<CustomerDTO> getCustomerDetailsList() {
-        List<CustomerModel> results = customerRepository.findAll();
+    public List<CustomerDTO> getCustomerByCustomerName(final String customerName) {
+        List<CustomerModel> results = customerRepository.findByCustomerName(customerName);
         List<CustomerDTO> list = Lists.newArrayList();
         for (CustomerModel result : results) {
             list.add(transformCustomer(result));
@@ -45,8 +42,38 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public List<CustomerDTO> getCustomerByCustomerName(final String customerName) {
-        List<CustomerModel> results = customerRepository.findByCustomerName(customerName);
+    public List<CustomerDTO> getCustomerByCustomerCode(final String customerCode) {
+        List<CustomerModel> results = customerRepository.findByCustomerCode(customerCode);
+        List<CustomerDTO> list = Lists.newArrayList();
+        for (CustomerModel result : results) {
+            list.add(transformCustomer(result));
+        }
+        return list;
+    }
+
+    @Override
+    public List<CustomerDTO> getCustomerByManualCustomerCode(final String manualCustomerCode) {
+        List<CustomerModel> results = customerRepository.findByManualCustomerCode(manualCustomerCode);
+        List<CustomerDTO> list = Lists.newArrayList();
+        for (CustomerModel result : results) {
+            list.add(transformCustomer(result));
+        }
+        return list;
+    }
+
+    @Override
+    public List<CustomerDTO> getCustomerByVatNumber(final String vatNumber) {
+        List<CustomerModel> results = customerRepository.findByVatNumber(vatNumber);
+        List<CustomerDTO> list = Lists.newArrayList();
+        for (CustomerModel result : results) {
+            list.add(transformCustomer(result));
+        }
+        return list;
+    }
+
+    @Override
+    public List<CustomerDTO> getCustomerByDunsNumber(final String dunsNumber) {
+        List<CustomerModel> results = customerRepository.findByDunsNumber(dunsNumber);
         List<CustomerDTO> list = Lists.newArrayList();
         for (CustomerModel result : results) {
             list.add(transformCustomer(result));
@@ -61,7 +88,7 @@ public class CustomerServiceImpl implements CustomerService {
             id = Long.valueOf(searchTerm);
         }
         String likeSearchTerm = "%" + searchTerm + "%";
-        List<CustomerModel> results = customerRepository.findBySearchTerm(id, likeSearchTerm);
+        List<CustomerModel> results = customerRepository.searchCustomer(id, likeSearchTerm);
         List<CustomerDTO> list = Lists.newArrayList();
         for (CustomerModel result : results) {
             list.add(transformCustomer(result));
@@ -69,12 +96,12 @@ public class CustomerServiceImpl implements CustomerService {
         return list;
     }
 
-    private List<CustomerLocationDTO> transformCustomerLocation(final List<CustomerLocationModel> customerLocations) {
-        List<CustomerLocationDTO> list = Lists.newArrayList();
-        if (!CollectionUtils.isEmpty(customerLocations)) {
-            for (CustomerLocationModel customerLocation : customerLocations) {
-                list.add(modelMapper.map(customerLocation, CustomerLocationDTO.class));
-            }
+    @Override
+    public List<CustomerDTO> getCustomerList() {
+        List<CustomerModel> results = customerRepository.findAll();
+        List<CustomerDTO> list = Lists.newArrayList();
+        for (CustomerModel result : results) {
+            list.add(transformCustomer(result));
         }
         return list;
     }
@@ -82,7 +109,9 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerDTO transformCustomer(final CustomerModel model) {
         CustomerDTO dto;
         dto = modelMapper.map(model, CustomerDTO.class);
-        dto.setCustomerLocation(transformCustomerLocation(model.getCustomerLocation()));
+//        dto.setCustomerLocation(transformCustomerLocation(model.getCustomerLocation()));
+//        dto.setContract(transformContract(model.getContract()));
+//        dto.setContacts(transformCustomerContact(model.getContacts()));
         return dto;
     }
 

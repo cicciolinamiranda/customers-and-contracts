@@ -10,12 +10,16 @@ import com.g4s.javelin.data.model.location.CustomerModel;
 public interface CustomerRepository extends JpaRepository<CustomerModel, Long> {
 
     CustomerModel findByCustomerNumber(final String customerNumber);
-
+    List<CustomerModel> findByCustomerCode(final String customerCode);
+    List<CustomerModel> findByCustomerName(final String customerName);
+    List<CustomerModel> findByManualCustomerCode(final String manualCustomerCode);
+    List<CustomerModel> findByVatNumber(final String vatNumber);
+    List<CustomerModel> findByDunsNumber(final String dunsNumber);
     List<CustomerModel> findAll();
 
-    List<CustomerModel> findByCustomerName(final String customerName);
-
-    @Query("SELECT CM FROM CustomerModel CM where CM.id = ?1 OR CM.customerName LIKE %?2%")
-    List<CustomerModel> findBySearchTerm(Long id, String customerName);
+    @Query("SELECT CM FROM CustomerModel CM where CM.id = ?1 OR CM.customerName LIKE %?2%"
+            + " OR CM.customerNumber LIKE %?2% OR CM.customerCode LIKE %?2% OR CM.vatNumber LIKE %?2%"
+            + " OR CM.manualCustomerCode LIKE %?2% OR CM.dunsNumber LIKE %?2%")
+    List<CustomerModel> searchCustomer(Long id, String searchTerm);
 
 }

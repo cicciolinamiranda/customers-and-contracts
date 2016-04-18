@@ -148,6 +148,10 @@ public class PostServiceImpl implements PostService {
         model.setUniforms(transformMasterfileDTO(dto.getUniforms()));
         model.setHealthSafetyRequirements(transformMasterfileDTO(dto
                 .getHealthSafetyRequirements()));
+        model.setChargeRate(dto.getChargeRate());
+        if (dto.getCallInFrequency() != null) {
+            model.setCallInFrequency(modelMapper.map(dto.getCallInFrequency(), MasterfileModel.class));
+        }
         return model;
     }
 
@@ -200,6 +204,10 @@ public class PostServiceImpl implements PostService {
                     .getQualifications()));
             model.setReligions(transformMasterfileDTO(dto.getReligions()));
             model.setTrainings(transformMasterfileDTO(dto.getTrainings()));
+            if (dto.getGender() != null) {
+                model.setGender(modelMapper.map(dto.getGender(),
+                        MasterfileModel.class));
+            }
         }
         return model;
     }

@@ -35,25 +35,81 @@ public class CustomerApi {
      * @return Customer Customer matching the given customer number
      */
     @ApiMethod(
-            name = "customer.get",
-            path = "customer",
+            name = "customer.get.byCustomerNumber",
+            path = "customer/customerNumber",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public CustomerDTO getCustomerDetail(@Named("customerNumber") final String customerNumber) {
-        return customerService.getCustomerDetail(customerNumber);
+    public CustomerDTO getCustomerByCustomerNumber(@Named("customerNumber") final String customerNumber) {
+        return customerService.getCustomerByCustomerNumber(customerNumber);
     }
 
     /**
-     * Retrieve a specific customer by customerNumber
+     * Retrieve a specific customer by customerName
      *
      * @param customerName Customer name
-     * @return Customer Customer matching the given customer number
+     * @return List of Customers     matching the given customer number
      */
     @ApiMethod(
-            name = "customer.getByName",
-            path = "customer/getByName",
+            name = "customer.get.byCustomerName",
+            path = "customer/customerName",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<CustomerDTO> getCustomerByCustomerName(@Named("customerName") final String customerName) {
         return customerService.getCustomerByCustomerName(customerName);
+    }
+
+    /**
+     * Retrieve a specific customer by customerCode
+     *
+     * @param customerCode Customer code
+     * @return List of Customers matching the given customer number
+     */
+    @ApiMethod(
+            name = "customer.get.byCustomerCode",
+            path = "customer/customerCode",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<CustomerDTO> getCustomerByCustomerCode(@Named("customerCode") final String customerCode) {
+        return customerService.getCustomerByCustomerCode(customerCode);
+    }
+
+    /**
+     * Retrieve a specific customer by manualCustomerCode
+     *
+     * @param manualCustomerCode Manual Customer code
+     * @return List of Customers matching the given manual customer number
+     */
+    @ApiMethod(
+            name = "customer.get.byManualCustomerCode",
+            path = "customer/manualCustomerCode",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<CustomerDTO> getCustomerByManualCustomerCode(@Named("manualCustomerCode") final String manualCustomerCode) {
+        return customerService.getCustomerByManualCustomerCode(manualCustomerCode);
+    }
+
+    /**
+     * Retrieve a specific customer by manualCustomerCode
+     *
+     * @param vatNumber VAT number
+     * @return List of Customers matching the given VAT number
+     */
+    @ApiMethod(
+            name = "customer.get.byVatNumber",
+            path = "customer/vatNumber",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<CustomerDTO> getCustomerByVatNumber(@Named("vatNumber") final String vatNumber) {
+        return customerService.getCustomerByVatNumber(vatNumber);
+    }
+
+    /**
+     * Retrieve a specific customer by manualCustomerCode
+     *
+     * @param dunsNumber DUNS number
+     * @return List of Customers matching the given DUNS number
+     */
+    @ApiMethod(
+            name = "customer.get.byDunsNumber",
+            path = "customer/dunsNumber",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<CustomerDTO> getCustomerByDunsNumber(@Named("dunsNumber") final String dunsNumber) {
+        return customerService.getCustomerByDunsNumber(dunsNumber);
     }
 
     /**
@@ -63,12 +119,11 @@ public class CustomerApi {
      */
     @ApiMethod(
             name = "customer.list",
-            path = "customer/all",
+            path = "customer/list",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public List<CustomerDTO> getCustomerDetailsList() {
-        return customerService.getCustomerDetailsList();
+    public List<CustomerDTO> getCustomerList() {
+        return customerService.getCustomerList();
     }
-
 
     /**
      * Search All Customers
