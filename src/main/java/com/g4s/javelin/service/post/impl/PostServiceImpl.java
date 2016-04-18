@@ -12,6 +12,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import com.g4s.javelin.constants.ExceptionMessageConstants;
 import com.g4s.javelin.constants.ServiceConstants;
 import com.g4s.javelin.data.model.location.CustomerLocationModel;
 import com.g4s.javelin.data.model.masterfile.MasterfileModel;
@@ -60,12 +61,15 @@ public class PostServiceImpl implements PostService {
             isPostNameDuplicateForEdit(post, existingPost, model);
         } else {
             PostModel duplicate = postRepository.findByName(post.getName());
-            if (isPostNameDuplicateValid(post, duplicate)) {
-                post.setName(duplicate.getName().concat("-copy"));
-            } else if (duplicate != null && !post.isDuplicateForm()) {
-                throw new PostException("Post name is already used.");
+            if (duplicate != null) {
+                throw new PostException(ExceptionMessageConstants.POST_DUPLICATE_NAME);
             }
+
             transformPostDTO(post, model);
+        }
+
+        if (post.getName() == null) {
+            throw new PostException(ExceptionMessageConstants.POST_REQUIRED_NAME);
         }
 
         CustomerLocationModel customerLocation = customerLocationRepository
@@ -96,15 +100,12 @@ public class PostServiceImpl implements PostService {
         if (existingDTO.getName() != null && availablePost != null
                 && !existingDTO.getName().equals(post.getName())
                 && post.getName().equals(availablePost.getName())) {
-            throw new PostException("Post name is already used.");
+            throw new PostException(ExceptionMessageConstants.POST_DUPLICATE_NAME);
         } else {
             transformPostDTO(post, model);
         }
     }
 
-    private boolean isPostNameDuplicateValid(final PostDTO post, final PostModel duplicate) {
-        return post.isDuplicateForm() && duplicate != null && duplicate.getName() != null;
-    }
 
     @Override
     public List<PostDTO> getPostByCustomerLocation(final Long customerLocationId) {

@@ -83,6 +83,7 @@ public class PostServiceTest {
     private void setUpPost() {
         postModel = new PostModel();
         postModel.setId(1L);
+        postModel.setName("Name");
     }
 
     private void setUpPostModelList() {
@@ -192,7 +193,7 @@ public class PostServiceTest {
     @Test
     public void testSavePostDetails_newPost() throws PostException, PostDuplicateException {
         final PostDTO newPost = new PostDTO();
-
+        newPost.setName("Name");
         final CustomerLocationModel customerLocationModel = new CustomerLocationModel();
         customerLocationModel.setId(1L);
 

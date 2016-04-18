@@ -9,7 +9,8 @@ public final class ExceptionMessageConstants {
     public static final String INVALID_LOGIN = "Invalid login credentials";
     public static final String NULL_WORKORDER_FOUND = "No workorder found on the provided id";
     public static final String NULL_EXISTING_CUSTLOC_FOUND = "No customer location found on the provided id";
-
+    public static final String POST_DUPLICATE_NAME = "Post name is already used.";
+    public static final String POST_REQUIRED_NAME = "Post name is required";
     private ExceptionMessageConstants() {
     }
 }
