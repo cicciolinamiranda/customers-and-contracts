@@ -169,6 +169,7 @@ public class PostServiceTest {
         postDTO.setSkills(skillsDTO);
         postDTO.setUniforms(uniformsDTO);
         postDTO.setPostCover("1");
+        postDTO.setName("post");
     }
 
     @Test

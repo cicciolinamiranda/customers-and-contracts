@@ -328,4 +328,17 @@ public class MasterFileApi {
     public List<MasterfileDTO> getAllHealthSafetyRequirements() {
         return masterFileService.getMasterfilesByType(MasterfileTypeEnum.HEALTH_SAFETY_REQUIREMENTS);
     }
+
+    /**
+     * Retrieve all post allowances
+     *
+     * @return List of all available post allowances
+     */
+    @ApiMethod(
+            name = "workorder.master.file.postallowances.list",
+            path = "workorder/master-file/postallowances",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<MasterfileDTO> getAllPostAllowances() {
+        return masterFileService.getMasterfilesByType(MasterfileTypeEnum.POST_ALLOWANCES);
+    }
 }

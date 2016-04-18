@@ -1,6 +1,5 @@
 package com.g4s.javelin.service.post.impl;
 
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -28,6 +27,7 @@ import com.g4s.javelin.exception.PostException;
 import com.g4s.javelin.service.post.PostMasterfileAssociationService;
 import com.g4s.javelin.service.post.PostService;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
+import com.google.appengine.repackaged.com.google.api.client.util.Sets;
 
 public class PostServiceImpl implements PostService {
 
@@ -54,34 +54,58 @@ public class PostServiceImpl implements PostService {
     @Override
     public PostDTO savePostDetails(final PostDTO post) throws PostException,
             PostDuplicateException {
-        PostDTO response = new PostDTO();
         PostModel model = new PostModel();
         if (post.getId() != null) {
-            transformPostDTO(post, model);
+            PostDTO existingPost = getPostDetails(post.getId());
+            isPostNameDuplicateForEdit(post, existingPost, model);
         } else {
             PostModel duplicate = postRepository.findByName(post.getName());
-            if (duplicate != null) {
-                throw new PostDuplicateException("Duplicate found.");
-            } else {
-                transformPostDTO(post, model);
+            if (isPostNameDuplicateValid(post, duplicate)) {
+                post.setName(duplicate.getName().concat("-copy"));
+            } else if (duplicate != null && !post.isDuplicateForm()) {
+                throw new PostException("Post name is already used.");
             }
+            transformPostDTO(post, model);
         }
+
         CustomerLocationModel customerLocation = customerLocationRepository
                 .findOne(post.getCustomerLocationId());
         model.setCustomerLocation(customerLocation);
+
         try {
             model = postRepository.save(model);
+
             if (model != null) {
-                boolean state = postMasterfileAssociationService
-                        .savePostEquipment(model.getId(), post.getEquipments());
+                postMasterfileAssociationService.savePostEquipment(
+                        model.getId(), post.getEquipments());
+                postMasterfileAssociationService.savePostAllowances(
+                        model.getId(), post.getAllowances());
                 post.setId(model.getId());
             }
         } catch (HibernateException e) {
             throw new PostException(e.getMessage());
         }
+
         return post;
     }
 
+    private void isPostNameDuplicateForEdit(final PostDTO post,
+            final PostDTO existingDTO, final PostModel model)
+            throws PostException {
+        PostModel availablePost = postRepository.findByName(post.getName());
+
+        if (existingDTO.getName() != null && availablePost != null
+                && !existingDTO.getName().equals(post.getName())
+                && post.getName().equals(availablePost.getName())) {
+            throw new PostException("Post name is already used.");
+        } else {
+            transformPostDTO(post, model);
+        }
+    }
+
+    private boolean isPostNameDuplicateValid(final PostDTO post, final PostModel duplicate) {
+        return post.isDuplicateForm() && duplicate != null && duplicate.getName() != null;
+    }
     @Override
     public List<PostDTO> getPostByCustomerLocation(final Long customerLocationId) {
         List<PostModel> results = postRepository
@@ -140,7 +164,8 @@ public class PostServiceImpl implements PostService {
                 .getHealthSafetyRequirements()));
         model.setChargeRate(dto.getChargeRate());
         if (dto.getCallInFrequency() != null) {
-            model.setCallInFrequency(modelMapper.map(dto.getCallInFrequency(), MasterfileModel.class));
+            model.setCallInFrequency(modelMapper.map(dto.getCallInFrequency(),
+                    MasterfileModel.class));
         }
         return model;
     }
@@ -161,6 +186,8 @@ public class PostServiceImpl implements PostService {
                 .getHealthSafetyRequirements()));
         dto.setEquipments(postMasterfileAssociationService
                 .getPostEquipments(model.getId()));
+        dto.setAllowances(postMasterfileAssociationService
+                .getPostAllowances(model.getId()));
         return dto;
     }
 
@@ -177,7 +204,7 @@ public class PostServiceImpl implements PostService {
 
     private Set<MasterfileModel> transformMasterfileDTO(
             final List<MasterfileDTO> dtos) {
-        Set<MasterfileModel> list = new HashSet<MasterfileModel>();
+        Set<MasterfileModel> list = Sets.newHashSet();
         if (!CollectionUtils.isEmpty(dtos)) {
             for (MasterfileDTO dto : dtos) {
                 list.add(modelMapper.map(dto, MasterfileModel.class));
