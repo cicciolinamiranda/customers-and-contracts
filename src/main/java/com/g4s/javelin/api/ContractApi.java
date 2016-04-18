@@ -72,7 +72,7 @@ public class ContractApi {
             name = "contract.get.byCustomerId",
             path = "contract/customerId",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public List<ContractDTO> getContractByCustomerId(@Named("id") final Long customerId) {`
+    public List<ContractDTO> getContractByCustomerId(@Named("id") final Long customerId) {
         return contractService.getContractByCustomerId(customerId);
     }
 
