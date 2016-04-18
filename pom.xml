@@ -16,15 +16,19 @@
         <spring.version>4.1.8.RELEASE</spring.version>
 
         <!-- DEV CONFIGS -->
-        <app.id>javelin-dev</app.id>
+         <app.id>javelin-dev</app.id>
         <app.version>1</app.version>
         <app.module>customer-contracts</app.module>
 
         <!-- QA CONFIGS -->
         <!--<app.id>javelin-qa</app.id>
-        <app.version>baseline</app.version>
-        <app.module>scheduling-backend</app.module>-->
-    </properties>
+        <app.version>1</app.version>
+        <app.module>customer-contracts</app.module>-->
+        
+<!--         <app.id>javelin-uat</app.id>
+        <app.version>1</app.version>
+        <app.module>customer-contracts</app.module>
+    </properties> -->
 
     <dependencies>
         <!-- Compile/runtime dependencies -->
