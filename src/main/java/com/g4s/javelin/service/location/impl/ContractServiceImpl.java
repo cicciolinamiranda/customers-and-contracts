@@ -92,8 +92,8 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public List<ContractDTO> getContractByCustomerNumber(final String contractNumber) {
-        List<ContractModel> results = contractRepository.findByCustomerNumber(contractNumber);
+    public List<ContractDTO> getContractByCustomerId(final Long customerId) {
+        List<ContractModel> results = contractRepository.findByCustomerId(customerId);
         List<ContractDTO> list = Lists.newArrayList();
         for (ContractModel result : results) {
             list.add(transformContract(result));

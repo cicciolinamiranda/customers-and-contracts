@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 import com.g4s.javelin.data.model.BaseModel;
 
 @Entity

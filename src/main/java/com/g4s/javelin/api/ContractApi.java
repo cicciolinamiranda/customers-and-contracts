@@ -1,6 +1,7 @@
 package com.g4s.javelin.api;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -27,6 +28,8 @@ import com.google.api.server.spi.config.Named;
                 ownerName = ApiConstants.API_NAMESPACE_OWNER_NAME),
         description = ApiConstants.API_DESCRIPTION)
 public class ContractApi {
+
+    private static final Logger LOGGER = Logger.getLogger(ContractApi.class.getName());
 
     @Autowired
     @Lazy
@@ -61,16 +64,16 @@ public class ContractApi {
     }
 
     /**
-     * Retrieve all contracts by customerNumber
+     * Retrieve all contracts by customerId
      *
      * @return All contracts
      */
     @ApiMethod(
-            name = "contract.list.byCustomerNumber",
-            path = "contract/list/customerNumber",
+            name = "contract.get.byCustomerId",
+            path = "contract/customerId",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public List<ContractDTO> getAllContractsByCustomerNumber(@Named("customerNumber") final String customerNumber) {
-        return contractService.getContractByCustomerNumber(customerNumber);
+    public List<ContractDTO> getContractByCustomerId(@Named("id") final Long customerId) {`
+        return contractService.getContractByCustomerId(customerId);
     }
 
     /**
@@ -80,8 +83,8 @@ public class ContractApi {
      * @return Contract using number
      */
     @ApiMethod(
-            name = "contract.list.byNumber",
-            path = "contract/list/number",
+            name = "contract.get.byNumber",
+            path = "contract/number",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<ContractDTO> getContractByNumber(@Named("contractNumber") final String contractNumber) {
         return contractService.getContractByNumber(contractNumber);
@@ -94,8 +97,8 @@ public class ContractApi {
      * @return Contract using name
      */
     @ApiMethod(
-            name = "contract.list.byContractName",
-            path = "contract/list/contractName",
+            name = "contract.get.byContractName",
+            path = "contract/contractName",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<ContractDTO> getContractByName(@Named("contractName") final String contractName) {
         return contractService.getContractByName(contractName);

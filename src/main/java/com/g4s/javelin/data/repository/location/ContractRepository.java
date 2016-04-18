@@ -14,7 +14,7 @@ public interface ContractRepository extends JpaRepository<ContractModel, Long> {
 
     List<ContractModel> findAll();
 
-    List<ContractModel> findByCustomerNumber(final String customerNumber);
+    List<ContractModel> findByCustomerId(final Long id);
 
     List<ContractModel> findByNumber(final String number);
 

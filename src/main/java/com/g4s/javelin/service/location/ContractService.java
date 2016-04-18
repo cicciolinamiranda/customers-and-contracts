@@ -13,6 +13,6 @@ public interface ContractService {
     List<ContractDTO> getContractsDTO();
     List<ContractDTO> getContractByNumber(String contractNumber);
     List<ContractDTO> getContractByName(String contractName);
-    List<ContractDTO> getContractByCustomerNumber(String contractName);
+    List<ContractDTO> getContractByCustomerId(Long id);
     List<ContractDTO> searchContract(String searchTerm);
 }
