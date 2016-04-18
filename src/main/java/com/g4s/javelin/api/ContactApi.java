@@ -10,6 +10,7 @@ import com.g4s.javelin.constants.ApiConstants;
 import com.g4s.javelin.constants.ServiceConstants;
 import com.g4s.javelin.dto.core.location.ContactDTO;
 import com.g4s.javelin.service.location.ContactService;
+
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;

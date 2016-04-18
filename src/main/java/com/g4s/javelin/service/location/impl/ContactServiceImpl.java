@@ -47,7 +47,6 @@ public class ContactServiceImpl implements ContactService {
             list.add(transformContact(result));
         }
         return list;
-
     }
 
     private ContactDTO transformContact(final ContactModel contactModel) {
@@ -57,55 +56,3 @@ public class ContactServiceImpl implements ContactService {
         return contactDTO;
     }
 }
-
-
-//    private ContactModel transformContactDTOtoModel(final ContactDTO contactDTO) {
-//        ContactModel contact = new ContactModel();
-//        if (contactDTO != null) {
-//            contact.setContactAccountNumber(contactDTO.getContactAccountNumber());
-//            contact.setSalutation(contactDTO.getSalutation());
-//            contact.setFirstName(contactDTO.getFirstName());
-//            contact.setMiddleName(contactDTO.getMiddleName());
-//            contact.setLastName(contactDTO.getLastName());
-//            contact.setJobTitle(contactDTO.getJobTitle());
-//            contact.setPhone1(contactDTO.getPhone1());
-//            contact.setPhone2(contactDTO.getPhone2());
-//            contact.setMobile(contactDTO.getMobile());
-//            contact.setEmail(contactDTO.getEmail());
-//            contact.setFax(contactDTO.getFax());
-//            contact.setPrimaryContact(contactDTO.getPrimaryContact());
-//            contact.setInactive(contactDTO.isInactive());
-//        }
-//        return contact;
-//    }
-//
-//    private ContactDTO transformContactModeltoDTO(final ContactModel contractModel) {
-//        ContactDTO contactDTO = new ContactDTO();
-//        if (contractModel != null) {
-//            contactDTO.setContactAccountNumber(contractModel.getContactAccountNumber());
-//            contactDTO.setSalutation(contractModel.getSalutation());
-//            contactDTO.setFirstName(contractModel.getFirstName());
-//            contactDTO.setMiddleName(contractModel.getMiddleName());
-//            contactDTO.setLastName(contractModel.getLastName());
-//            contactDTO.setJobTitle(contractModel.getJobTitle());
-//            contactDTO.setPhone1(contractModel.getPhone1());
-//            contactDTO.setPhone2(contractModel.getPhone2());
-//            contactDTO.setMobile(contractModel.getMobile());
-//            contactDTO.setEmail(contractModel.getEmail());
-//            contactDTO.setFax(contractModel.getFax());
-//            contactDTO.setPrimaryContact(contractModel.getPrimaryContact());
-//            contactDTO.setInactive(contractModel.isInactive());
-//        }
-//        return contactDTO;
-//    }
-//
-//    private List<ContactDTO> transformContactModelListToDTO(final List<ContactModel> contactModelList) {
-//        List<ContactDTO> contactDTOList = new ArrayList<>();
-//        for (ContactModel contactModel : contactModelList) {
-//            if (contactModel != null) {
-//                contactDTOList.add(transformContactModeltoDTO(contactModel));
-//            }
-//        }
-//        return contactDTOList;
-//    }
-//

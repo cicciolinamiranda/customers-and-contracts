@@ -12,6 +12,8 @@ public class BaseDTO {
 
     private DateTime lastModifiedDate;
 
+    private String ipAddress;
+
     public Long getId() {
         return id;
     }
@@ -44,4 +46,11 @@ public class BaseDTO {
         this.lastModifiedDate = lastModifiedDate;
     }
 
+    public String getIpAddress() {
+        return ipAddress;
+    }
+
+    public void setIpAddress(final String ipAddress) {
+        this.ipAddress = ipAddress;
+    }
 }

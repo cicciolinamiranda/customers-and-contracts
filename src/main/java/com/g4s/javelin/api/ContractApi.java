@@ -1,7 +1,6 @@
 package com.g4s.javelin.api;
 
 import java.util.List;
-import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -28,8 +27,6 @@ import com.google.api.server.spi.config.Named;
                 ownerName = ApiConstants.API_NAMESPACE_OWNER_NAME),
         description = ApiConstants.API_DESCRIPTION)
 public class ContractApi {
-
-    private static final Logger LOGGER = Logger.getLogger(ContractApi.class.getName());
 
     @Autowired
     @Lazy

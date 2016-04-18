@@ -20,7 +20,6 @@ import com.g4s.javelin.service.location.impl.CustomerLocationServiceImpl;
 import com.g4s.javelin.service.location.impl.CustomerServiceImpl;
 import com.g4s.javelin.service.location.impl.LocationMasterfileAssociationServiceImpl;
 import com.g4s.javelin.service.location.impl.SiteLocationServiceImpl;
-
 import com.g4s.javelin.service.masterfile.MasterfileService;
 import com.g4s.javelin.service.masterfile.impl.MasterfileServiceImpl;
 import com.g4s.javelin.service.post.PostMasterfileAssociationService;
