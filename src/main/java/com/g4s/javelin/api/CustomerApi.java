@@ -1,11 +1,5 @@
 package com.g4s.javelin.api;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
-import org.springframework.context.annotation.Lazy;
-
 import com.g4s.javelin.constants.ApiConstants;
 import com.g4s.javelin.constants.ServiceConstants;
 import com.g4s.javelin.dto.core.location.CustomerDTO;
@@ -14,6 +8,11 @@ import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
+
+import java.util.List;
 
 @Api(
         name = ApiConstants.API_NAME,
@@ -136,8 +135,7 @@ public class CustomerApi {
             path = "customer/search",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<CustomerDTO> searchCustomer(@Named("searchTerm") final String searchTerm) {
-        List<CustomerDTO> result = customerService.searchAllCustomers(searchTerm);
-        return result;
+        return customerService.searchAllCustomers(searchTerm);
     }
 
 }
