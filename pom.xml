@@ -18,7 +18,7 @@
 <!-- WORK ORDER CONFIGS -->
         <!-- DEV CONFIGS -->
          <app.id>javelin-dev</app.id>
-        <app.version>1</app.version>
+        <app.version>2</app.version>
         <app.module>customer-contracts</app.module>
         
                 <!-- DEV CS PLAYGROUND CONFIGS -->
