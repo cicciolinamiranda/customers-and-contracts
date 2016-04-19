@@ -19,7 +19,7 @@
         <!-- DEV CONFIGS -->
          <app.id>javelin-dev</app.id>
         <app.version>1</app.version>
-        <app.module>ess-backend</app.module>
+        <app.module>customer-contracts</app.module>
         
                 <!-- DEV CS PLAYGROUND CONFIGS -->
 <!--           <app.id>cs-development-playground</app.id>
