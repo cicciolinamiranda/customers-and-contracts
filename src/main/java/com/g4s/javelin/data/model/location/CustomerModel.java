@@ -54,26 +54,12 @@ public class CustomerModel extends BaseModel {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<CustomerLocationModel> customerLocation;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    private List<ContactModel> contacts;
-
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    private List<ContractModel> contract;
-
     public String getCustomerName() {
         return customerName;
     }
 
     public void setCustomerName(final String customerName) {
         this.customerName = customerName;
-    }
-
-    public List<CustomerLocationModel> getCustomerLocation() {
-        return customerLocation;
-    }
-
-    public void setCustomerLocation(final List<CustomerLocationModel> customerLocation) {
-        this.customerLocation = customerLocation;
     }
 
     public String getCustomerNumber() {
