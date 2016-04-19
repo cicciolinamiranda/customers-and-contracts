@@ -15,20 +15,23 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>4.1.8.RELEASE</spring.version>
 
+<!-- WORK ORDER CONFIGS -->
         <!-- DEV CONFIGS -->
          <app.id>javelin-dev</app.id>
         <app.version>1</app.version>
         <app.module>customer-contracts</app.module>
+        
+                <!-- DEV CS PLAYGROUND CONFIGS -->
+<!--           <app.id>cs-development-playground</app.id>
+        <app.version>1</app.version>
+        <app.module>customer-contracts</app.module> -->
 
         <!-- QA CONFIGS -->
-        <!--<app.id>javelin-qa</app.id>
+<!--         <app.id>javelin-qa</app.id>
         <app.version>1</app.version>
-        <app.module>customer-contracts</app.module>-->
-        
-<!--         <app.id>javelin-uat</app.id>
-        <app.version>1</app.version>
-        <app.module>customer-contracts</app.module>
-    </properties> -->
+        <app.module>customer-contracts</app.module> -->
+
+    </properties>
 
     <dependencies>
         <!-- Compile/runtime dependencies -->
