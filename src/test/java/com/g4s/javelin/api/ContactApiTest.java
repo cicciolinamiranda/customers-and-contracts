@@ -1,10 +1,7 @@
 package com.g4s.javelin.api;
 
-import com.g4s.javelin.data.model.location.ContactModel;
-import com.g4s.javelin.data.repository.location.ContactRepository;
 import com.g4s.javelin.dto.core.location.ContactDTO;
 import com.g4s.javelin.service.location.ContactService;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -28,13 +25,12 @@ public class ContactApiTest {
 
     @Mock
     ContactDTO contactDTO;
-    
+
     @Mock
     List<ContactDTO> contactDTOList;
 
     @InjectMocks
     private ContactApi contactApi = new ContactApi();
-
 
     @Test
     public void testSaveContact() throws Exception {
