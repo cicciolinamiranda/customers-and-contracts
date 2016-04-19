@@ -31,6 +31,11 @@
         <app.version>1</app.version>
         <app.module>customer-contracts</app.module> -->
 
+        <!-- UAT CONFIGS -->
+<!--         <app.id>javelin-uat</app.id>
+        <app.version>1</app.version>
+        <app.module>customer-contracts</app.module> -->
+
     </properties>
 
     <dependencies>
