@@ -10,7 +10,7 @@ public final class ServiceConstants {
     public static final String POST_SERVICE = "postService";
     public static final String POST_MASTERFILE_ASSOC_SERVICE = "postMasterFileAssociationService";
     public static final String CUSTOMER_SERVICE = "customerService";
-    public static final String CONTRACT_SERVICE = "contactService";
+    public static final String CONTRACT_SERVICE = "contractService";
     public static final String CONTACT_SERVICE = "contactService";
 
     private ServiceConstants() {

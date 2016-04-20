@@ -9,6 +9,7 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+
 import com.g4s.javelin.data.model.BaseModel;
 
 @Entity
@@ -53,23 +54,12 @@ public class CustomerModel extends BaseModel {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private List<CustomerLocationModel> customerLocation;
 
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
-    private List<ContactModel> contacts;
-
     public String getCustomerName() {
         return customerName;
     }
 
     public void setCustomerName(final String customerName) {
         this.customerName = customerName;
-    }
-
-    public List<CustomerLocationModel> getCustomerLocation() {
-        return customerLocation;
-    }
-
-    public void setCustomerLocation(final List<CustomerLocationModel> customerLocation) {
-        this.customerLocation = customerLocation;
     }
 
     public String getCustomerNumber() {

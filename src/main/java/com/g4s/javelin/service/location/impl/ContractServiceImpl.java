@@ -3,6 +3,9 @@ package com.g4s.javelin.service.location.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang3.math.NumberUtils;
+import org.joda.time.format.DateTimeFormat;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Lazy;
 
@@ -10,6 +13,7 @@ import com.g4s.javelin.data.model.location.ContractModel;
 import com.g4s.javelin.data.repository.location.ContractRepository;
 import com.g4s.javelin.dto.core.location.ContractDTO;
 import com.g4s.javelin.service.location.ContractService;
+import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 
 /**
  * Created by apadilla on 4/8/16.
@@ -20,90 +24,96 @@ public class ContractServiceImpl implements ContractService {
     @Lazy
     private ContractRepository contractRepository;
 
+    private ModelMapper modelMapper;
+
+    public ContractServiceImpl() {
+        modelMapper = new ModelMapper();
+    }
+
     @Override
-    public void createNewContract(final ContractDTO contractDTO) {
-        ContractModel contractModel = transformContractDTOtoModel(contractDTO);
-        contractRepository.save(contractModel);
+    public ContractDTO createNewContract(final ContractDTO contractDTO) {
+        org.joda.time.format.DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/dd/yyyy");
+
+        ContractModel model;
+        model = modelMapper.map(contractDTO, ContractModel.class);
+        if (contractDTO.getId() != null) {
+            model.setId(contractDTO.getId());
+        }
+        if (contractDTO.getStartDateStr() != null) {
+            model.setStartDate(dtf.parseDateTime(contractDTO.getStartDateStr()));
+        }
+
+        if (contractDTO.getEndDateStr() != null) {
+            model.setEndDate(dtf.parseDateTime(contractDTO.getEndDateStr()));
+        }
+        if (contractDTO.getSignedDateStr() != null) {
+            model.setSignedDate(dtf.parseDateTime(contractDTO.getSignedDateStr()));
+        }
+
+        if (contractDTO.getReviewDateStr() != null) {
+            model.setReviewDate(dtf.parseDateTime(contractDTO.getReviewDateStr()));
+        }
+
+        if (contractDTO.getWefDateStr() != null) {
+            model.setWefDate(dtf.parseDateTime(contractDTO.getWefDateStr()));
+        }
+        contractRepository.save(model);
+        return transformContract(model);
     }
 
     @Override
     public List<ContractDTO> getContractsDTO() {
-        List<ContractDTO> contractDTOList = transformContractModelListToDTO(contractRepository.findAll());
-        return contractDTOList;
+        List<ContractModel> results = contractRepository.findAll();
+        List<ContractDTO> list = Lists.newArrayList();
+        for (ContractModel result : results) {
+            list.add(transformContract(result));
+        }
+        return list;
     }
 
     @Override
     public List<ContractDTO> getContractByNumber(final String contractNumber) {
-        List<ContractDTO> contractNumberSearchResults = new ArrayList<>();
-        List<ContractDTO> allContracts = transformContractModelListToDTO(contractRepository.findAll());
-
-        for (ContractDTO contractDTO : allContracts) {
-            if (contractDTO != null) {
-                if (contractDTO.getNumber().equals(contractNumber)) {
-                    contractNumberSearchResults.add(contractDTO);
-                }
-            }
+        List<ContractModel> results = contractRepository.findByNumber(contractNumber);
+        List<ContractDTO> list = Lists.newArrayList();
+        for (ContractModel result : results) {
+            list.add(transformContract(result));
         }
-
-        return contractNumberSearchResults;
+        return list;
     }
 
     @Override
     public List<ContractDTO> getContractByName(final String contractName) {
-        List<ContractDTO> contractNameSearchResults = new ArrayList<>();
-        List<ContractDTO> allContracts = transformContractModelListToDTO(contractRepository.findAll());
-
-        for (ContractDTO contractDTO : allContracts) {
-            if (contractDTO != null) {
-                if (contractDTO.getName().equals(contractName) || contractDTO.getName().contains(contractName)) {
-                    contractNameSearchResults.add(contractDTO);
-                }
-            }
+        List<ContractModel> results = contractRepository.findByName(contractName);
+        List<ContractDTO> list = Lists.newArrayList();
+        for (ContractModel result : results) {
+            list.add(transformContract(result));
         }
-
-        return removeDuplicateElements(contractNameSearchResults);
+        return list;
     }
 
-    private ContractModel transformContractDTOtoModel(final ContractDTO contractDTO) {
-        ContractModel contract = new ContractModel();
-        if (contractDTO != null) {
-            contract.setCustomerNumber(contractDTO.getCustomerNumber());
-            contract.setName(contractDTO.getName());
-            contract.setNumber(contractDTO.getNumber());
-            contract.setTitle(contractDTO.getTitle());
-            contract.setStartDate(contractDTO.getStartDate());
-            contract.setEndDate(contractDTO.getEndDate());
-            contract.setReviewDate(contractDTO.getReviewDate());
-            contract.setSignedDate(contractDTO.getSignedDate());
-            contract.setWefDate(contractDTO.getWefDate());
+    @Override
+    public List<ContractDTO> getContractByCustomerId(final Long customerId) {
+        List<ContractModel> results = contractRepository.findByCustomerId(customerId);
+        List<ContractDTO> list = Lists.newArrayList();
+        for (ContractModel result : results) {
+            list.add(transformContract(result));
         }
-        return contract;
+        return list;
     }
 
-    private ContractDTO transformContractModeltoDTO(final ContractModel contractModel) {
-        ContractDTO contractDTO = new ContractDTO();
-        if (contractModel != null) {
-            contractDTO.setCustomerNumber(contractModel.getCustomerNumber());
-            contractDTO.setName(contractModel.getName());
-            contractDTO.setNumber(contractModel.getNumber());
-            contractDTO.setTitle(contractModel.getTitle());
-            contractDTO.setStartDate(contractModel.getStartDate());
-            contractDTO.setEndDate(contractModel.getEndDate());
-            contractDTO.setReviewDate(contractModel.getReviewDate());
-            contractDTO.setSignedDate(contractModel.getSignedDate());
-            contractDTO.setWefDate(contractModel.getWefDate());
+    @Override
+    public List<ContractDTO> searchContract(final String searchTerm) {
+        Long id = null;
+        if (NumberUtils.isDigits(searchTerm)) {
+            id = Long.valueOf(searchTerm);
         }
-        return contractDTO;
-    }
-
-    private List<ContractDTO> transformContractModelListToDTO(final List<ContractModel> contractModelList) {
-        List<ContractDTO> contractDTOList = new ArrayList<>();
-        for (ContractModel contractModel : contractModelList) {
-            if (contractModel != null) {
-                contractDTOList.add(transformContractModeltoDTO(contractModel));
-            }
+        String likeSearchTerm = "%" + searchTerm + "%";
+        List<ContractModel> results = contractRepository.findBySearchTerm(id, likeSearchTerm);
+        List<ContractDTO> list = Lists.newArrayList();
+        for (ContractModel result : results) {
+            list.add(transformContract(result));
         }
-        return contractDTOList;
+        return list;
     }
 
     private List<ContractDTO> removeDuplicateElements(final List<ContractDTO> contractDTOs) {
@@ -115,6 +125,17 @@ public class ContractServiceImpl implements ContractService {
             }
         }
         return filteredElements;
+    }
+
+    private ContractDTO transformContract(final ContractModel model) {
+        org.joda.time.format.DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/dd/yyyy");
+        ContractDTO dto = modelMapper.map(model, ContractDTO.class);
+        dto.setStartDateStr(dtf.print(model.getStartDate()));
+        dto.setEndDateStr(dtf.print(model.getEndDate()));
+        dto.setReviewDateStr(dtf.print(model.getReviewDate()));
+        dto.setSignedDateStr(dtf.print(model.getSignedDate()));
+        dto.setWefDateStr(dtf.print(model.getWefDate()));
+        return dto;
     }
 
 }

@@ -2,10 +2,12 @@ package com.g4s.javelin.data.model.location;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.hibernate.annotations.Type;
-
 import org.joda.time.DateTime;
 
 import com.g4s.javelin.data.model.BaseModel;
@@ -48,6 +50,10 @@ public class ContractModel extends BaseModel {
     @Column(name = "contract_wef_date")
     @Type(type = "org.jadira.usertype.dateandtime.joda.PersistentDateTime")
     private DateTime wefDate;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "customer_id")
+    private CustomerModel customer;
 
     public String getCustomerNumber() {
         return customerNumber;
@@ -121,17 +127,12 @@ public class ContractModel extends BaseModel {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "ContractModel{" + "customerNumber='" + customerNumber
-                + '\'' + ", name='" + name + '\''
-                + ", number='" + number + '\''
-                + ", title='" + title + '\''
-                + ", startDate='" + startDate + '\''
-                + ", endDate='" + endDate + '\''
-                + ", signedDate='" + signedDate + '\''
-                + ", reviewDate='" + reviewDate + '\''
-                + ", wefDate='" + wefDate
-                + '}';
+    public CustomerModel getCustomer() {
+        return customer;
     }
+
+    public void setCustomer(final CustomerModel customer) {
+        this.customer = customer;
+    }
+
 }
