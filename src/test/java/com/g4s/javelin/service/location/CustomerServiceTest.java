@@ -30,30 +30,11 @@ public class CustomerServiceTest {
     @InjectMocks
     private CustomerService customerService = new CustomerServiceImpl();
 
-    private CustomerDTO customerDTO;
-
     private CustomerModel customerModel, customerModel2;
 
     @Before
     public void setUp() throws Exception {
-        setupCustomerDTO();
         setupCustomerModel();
-    }
-
-    private void setupCustomerDTO() {
-        customerDTO = new CustomerDTO();
-
-//        customerDTO.setId(1L);
-//        customerDTO.setCustomerNumber("123456");
-//        customerDTO.setCustomerName("Sherlock Holmes");
-//        customerDTO.setCustomerCode("CD-123");
-//        customerDTO.setDunsNumber("111000");
-//        customerDTO.setAccountNumber("883134");
-//        customerDTO.setAccountDescription("This is the account description");
-//        customerDTO.setManualCustomerCode("454545");
-//        customerDTO.setVatNumber("908070");
-//        customerDTO.setAddressLine1("221B Baker Street");
-//        customerDTO.setCity("Westminster");
     }
 
     private void setupCustomerModel() {
@@ -134,7 +115,6 @@ public class CustomerServiceTest {
         assertEquals("John Watson", customerList.get(1).getCustomerName());
         assertEquals("CD-123", customerList.get(1).getCustomerCode());
 
-
     }
 
     @Test
@@ -153,6 +133,7 @@ public class CustomerServiceTest {
 
     }
 
+    @Test
     public void testGetCustomerByVatNumber() throws Exception {
         List<CustomerModel> customerModelList = new ArrayList<CustomerModel>();
         customerModelList.add(customerModel2);
@@ -163,10 +144,11 @@ public class CustomerServiceTest {
         assertTrue(!customerList.isEmpty());
         assertEquals(1, customerList.size());
         assertEquals("098765", customerList.get(0).getCustomerNumber());
-        assertEquals("James Waston", customerList.get(0).getCustomerName());
+        assertEquals("John Watson", customerList.get(0).getCustomerName());
         assertEquals("999771", customerList.get(0).getVatNumber());
     }
 
+    @Test
     public void testGetCustomerByDunsNumber() throws Exception {
         List<CustomerModel> customerModelList = new ArrayList<CustomerModel>();
         customerModelList.add(customerModel);
@@ -181,11 +163,38 @@ public class CustomerServiceTest {
         assertEquals("111000", customerList.get(0).getDunsNumber());
     }
 
+    @Test
     public void testSearchAllCustomers() throws Exception {
+        String searchTerm = "Watson";
+        String searchTermDigit = "670000";
+        List<CustomerModel> customerModelList = new ArrayList<CustomerModel>();
+        customerModelList.add(customerModel2);
 
+        Mockito.when(customerRepository.searchCustomer(Mockito.anyLong(), Mockito.anyString())).thenReturn(customerModelList);
+        List<CustomerDTO> customerList = customerService.searchAllCustomers(searchTerm);
+
+        assertTrue(!customerList.isEmpty());
+        assertEquals(1, customerList.size());
+        assertEquals("John Watson", customerList.get(0).getCustomerName());
+
+        customerList = customerService.searchAllCustomers(searchTermDigit);
+        assertEquals(1, customerList.size());
     }
 
+    @Test
     public void testGetCustomerList() throws Exception {
+        List<CustomerModel> customerModelList = new ArrayList<CustomerModel>();
+        customerModelList.add(customerModel);
+        customerModelList.add(customerModel2);
+
+        Mockito.when(customerRepository.findAll()).thenReturn(customerModelList);
+
+        List<CustomerDTO> customerList = customerService.getCustomerList();
+        assertTrue(!customerList.isEmpty());
+        assertEquals(2, customerList.size());
+
+        assertEquals("Sherlock Holmes", customerList.get(0).getCustomerName());
+        assertEquals("John Watson", customerList.get(1).getCustomerName());
 
     }
 }
