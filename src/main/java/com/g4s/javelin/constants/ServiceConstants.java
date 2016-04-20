@@ -12,6 +12,7 @@ public final class ServiceConstants {
     public static final String CUSTOMER_SERVICE = "customerService";
     public static final String CONTRACT_SERVICE = "contractService";
     public static final String CONTACT_SERVICE = "contactService";
+//    public static final String STORAGE_SERVICE = "storageService";
 
     private ServiceConstants() {
 

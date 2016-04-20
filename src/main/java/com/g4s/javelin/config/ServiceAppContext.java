@@ -76,4 +76,9 @@ public class ServiceAppContext {
     public ContractService getContractService() {
         return new ContractServiceImpl();
     }
+
+//    @Bean (name = ServiceConstants.STORAGE_SERVICE)
+//    public ContractService getStorageService() {
+//        return new StorageServiceImpl();
+//    }
 }
