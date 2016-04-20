@@ -127,8 +127,7 @@ public class ContactServiceImplTest extends TestCase {
         Mockito.when(contactRepository.findByContactAccountNumber("999999")).thenReturn(contactModelList);
 
         List<ContactDTO> contactDTOList = contactService.getContactByAccountNumber("999999");
-
-        assertTrue(!contactDTOList.isEmpty());
+        
         Mockito.verify(contactRepository, Mockito.times(1)).findByContactAccountNumber("999999");
         assertTrue(!contactDTOList.isEmpty());
         assertEquals(1, contactDTOList.size());
