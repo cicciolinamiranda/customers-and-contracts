@@ -14,7 +14,6 @@ public class AuditLogDTO {
     private String ipAddress;
     private DateTime createdDate;
     private String createdBy;
-    private String changeDescription;
 
     public String getRevisionNumber() {
         return revisionNumber;
@@ -56,7 +55,6 @@ public class AuditLogDTO {
         this.createdDate = createdDate;
     }
 
-    
     public String getCreatedBy() {
         return createdBy;
     }
@@ -65,21 +63,11 @@ public class AuditLogDTO {
         this.createdBy = createdBy;
     }
 
-    public String getChangeDescription() {
-        return changeDescription;
-    }
-
-    public void setChangeDescription(final String changeDescription) {
-        this.changeDescription = changeDescription;
-    }
-
     @Override
     public String toString() {
         return "AuditLogDTO [revisionNumber=" + revisionNumber
                 + ", objectType=" + objectType + ", body=" + body
                 + ", ipAddress=" + ipAddress + ", createdDate=" + createdDate
-                + ", createdBy=" + createdBy + ", changeDescription="
-                + changeDescription + "]";
+                + ", createdBy=" + createdBy + "]";
     }
-
 }
