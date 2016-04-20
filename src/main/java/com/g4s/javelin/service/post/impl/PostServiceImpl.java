@@ -60,7 +60,7 @@ public class PostServiceImpl implements PostService {
             PostDTO existingPost = getPostDetails(post.getId());
             isPostNameDuplicateForEdit(post, existingPost, model);
         } else {
-            PostModel duplicate = postRepository.findByName(post.getName());
+            PostModel duplicate = postRepository.findByNameAndCustomerLocationId(post.getName(), post.getCustomerLocationId());
             if (duplicate != null) {
                 throw new PostException(ExceptionMessageConstants.POST_DUPLICATE_NAME);
             }

@@ -12,6 +12,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import java.util.List;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertSame;
 
 /**
  * Created by jalonzo on 4/16/16.
@@ -26,7 +27,7 @@ public class ContactApiTest {
     ContactDTO contactDTO;
 
     @Mock
-    private List<ContactDTO> contactDTOList;
+    List<ContactDTO> contactDTOList;
 
     @InjectMocks
     private ContactApi contactApi = new ContactApi();
@@ -39,7 +40,8 @@ public class ContactApiTest {
 
     @Test
     public void testGetContactByAccountNumber() throws Exception {
-        Mockito.when(contactService.getContactByAccountNumber(Mockito.anyString())).thenReturn(contactDTOList);
+        Mockito.when(contactService.getContactByAccountNumber("001122")).thenReturn(contactDTOList);
+        assertSame(contactDTOList, contactApi.getContactByAccountNumber("001122"));
         assertNotNull(contactService.getContactByAccountNumber("001122"));
     }
 }

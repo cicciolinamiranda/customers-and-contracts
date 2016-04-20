@@ -10,4 +10,5 @@ public interface PostRepository extends JpaRepository<PostModel, Long> {
 
     List<PostModel> findByCustomerLocationId(Long customerLocationId);
     PostModel findByName(String name);
+    PostModel findByNameAndCustomerLocationId(String name, Long customerLocationId);
 }
