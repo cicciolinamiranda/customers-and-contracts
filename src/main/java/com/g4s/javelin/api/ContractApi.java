@@ -16,6 +16,8 @@ import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * @author apadilla
  * @since 4/8/16.
@@ -43,7 +45,7 @@ public class ContractApi {
             path = "contract/save",
             httpMethod = ApiMethod.HttpMethod.POST)
     public ContractDTO saveContractDetails(final ContractDTO contractDTO) {
-        ContractDTO response = contractService.createNewContract(contractDTO);
+        ContractDTO response = contractService.saveContract(contractDTO);
         return response;
     }
 
@@ -115,5 +117,17 @@ public class ContractApi {
         return result;
     }
 
+    /**
+     * Init Contract
+     *
+     */
+    @ApiMethod(
+            name = "contract.init",
+            path = "contract/init",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public ContractDTO initializeContract() {
+        ContractDTO response = contractService.initializeContract();
+        return response;
+    }
 
 }

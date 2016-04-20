@@ -9,7 +9,8 @@ import com.g4s.javelin.dto.core.location.ContractDTO;
  */
 public interface ContractService {
 
-    ContractDTO createNewContract(ContractDTO contractDTO);
+    ContractDTO saveContract(ContractDTO contractDTO);
+    ContractDTO initializeContract();
     List<ContractDTO> getContractsDTO();
     List<ContractDTO> getContractByNumber(String contractNumber);
     List<ContractDTO> getContractByName(String contractName);
