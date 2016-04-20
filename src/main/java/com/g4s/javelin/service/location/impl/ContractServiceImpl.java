@@ -31,7 +31,7 @@ public class ContractServiceImpl implements ContractService {
     }
 
     @Override
-    public ContractDTO createNewContract(final ContractDTO contractDTO) {
+    public ContractDTO saveContract(final ContractDTO contractDTO) {
         org.joda.time.format.DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/dd/yyyy");
 
         ContractModel model;
@@ -57,6 +57,14 @@ public class ContractServiceImpl implements ContractService {
         if (contractDTO.getWefDateStr() != null) {
             model.setWefDate(dtf.parseDateTime(contractDTO.getWefDateStr()));
         }
+        contractRepository.save(model);
+        return transformContract(model);
+    }
+
+
+    @Override
+    public ContractDTO initializeContract() {
+        ContractModel model = new ContractModel();
         contractRepository.save(model);
         return transformContract(model);
     }
