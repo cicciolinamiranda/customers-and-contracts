@@ -39,11 +39,12 @@ public class ContractApi {
      * @param contractDTO Contract object
      */
     @ApiMethod(
-            name = "contract.post",
-            path = "contract/post",
+            name = "contract.save",
+            path = "contract/save",
             httpMethod = ApiMethod.HttpMethod.POST)
-    public void createNewContract(final ContractDTO contractDTO) {
-        contractService.createNewContract(contractDTO);
+    public ContractDTO saveContractDetails(final ContractDTO contractDTO) {
+        ContractDTO response = contractService.createNewContract(contractDTO);
+        return response;
     }
 
     /**
@@ -53,10 +54,23 @@ public class ContractApi {
      */
     @ApiMethod(
             name = "contract.list",
-            path = "contract/list",
+            path = "contract/all",
             httpMethod = ApiMethod.HttpMethod.GET)
-    public List<ContractDTO> getContracts() {
+    public List<ContractDTO> getAllContracts() {
         return contractService.getContractsDTO();
+    }
+
+    /**
+     * Retrieve all contracts by customerId
+     *
+     * @return All contracts
+     */
+    @ApiMethod(
+            name = "contract.get.byCustomerId",
+            path = "contract/customerId",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<ContractDTO> getContractByCustomerId(@Named("id") final Long customerId) {
+        return contractService.getContractByCustomerId(customerId);
     }
 
     /**
@@ -66,8 +80,8 @@ public class ContractApi {
      * @return Contract using number
      */
     @ApiMethod(
-            name = "contract.number.search",
-            path = "contract/number/search",
+            name = "contract.get.byNumber",
+            path = "contract/number",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<ContractDTO> getContractByNumber(@Named("contractNumber") final String contractNumber) {
         return contractService.getContractByNumber(contractNumber);
@@ -80,11 +94,25 @@ public class ContractApi {
      * @return Contract using name
      */
     @ApiMethod(
-            name = "contract.name.search",
-            path = "contract/name/search",
+            name = "contract.get.byContractName",
+            path = "contract/contractName",
             httpMethod = ApiMethod.HttpMethod.GET)
     public List<ContractDTO> getContractByName(@Named("contractName") final String contractName) {
         return contractService.getContractByName(contractName);
+    }
+
+    /**
+     *
+     * @param searchTerm
+     * @return
+     */
+    @ApiMethod(
+            name = "contract.search",
+            path = "contract/search",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public List<ContractDTO> searchAllContracts(@Named("searchterm") final String searchTerm) {
+        List<ContractDTO> result = contractService.searchContract(searchTerm);
+        return result;
     }
 
 

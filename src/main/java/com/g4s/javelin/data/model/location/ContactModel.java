@@ -8,6 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.g4s.javelin.data.model.BaseModel;
+
 /**
  * Created by jalonzo on 4/14/16.
  */
@@ -55,7 +56,7 @@ public class ContactModel extends BaseModel {
     private boolean inactive;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "customerId")
+    @JoinColumn(name = "customer_id")
     private CustomerModel customer;
 
     public String getContactAccountNumber() {

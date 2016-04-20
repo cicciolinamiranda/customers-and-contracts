@@ -2,10 +2,13 @@ package com.g4s.javelin.dto.core.location;
 
 import org.joda.time.DateTime;
 
+import com.g4s.javelin.dto.BaseDTO;
+
+
 /**
  * Created by apadilla on 4/8/16.
  */
-public class ContractDTO {
+public class ContractDTO extends BaseDTO {
 
     private String customerNumber;
     private String number;
@@ -16,6 +19,12 @@ public class ContractDTO {
     private DateTime reviewDate;
     private DateTime signedDate;
     private DateTime wefDate;
+    private CustomerDTO customer;
+    private String startDateStr;
+    private String endDateStr;
+    private String reviewDateStr;
+    private String signedDateStr;
+    private String wefDateStr;
 
     public String getNumber() {
         return number;
@@ -87,6 +96,54 @@ public class ContractDTO {
 
     public void setTitle(final String title) {
         this.title = title;
+    }
+
+    public CustomerDTO getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(final CustomerDTO customer) {
+        this.customer = customer;
+    }
+
+    public String getStartDateStr() {
+        return startDateStr;
+    }
+
+    public void setStartDateStr(final String startDateStr) {
+        this.startDateStr = startDateStr;
+    }
+
+    public String getEndDateStr() {
+        return endDateStr;
+    }
+
+    public void setEndDateStr(final String endDateStr) {
+        this.endDateStr = endDateStr;
+    }
+
+    public String getReviewDateStr() {
+        return reviewDateStr;
+    }
+
+    public void setReviewDateStr(final String reviewDateStr) {
+        this.reviewDateStr = reviewDateStr;
+    }
+
+    public String getSignedDateStr() {
+        return signedDateStr;
+    }
+
+    public void setSignedDateStr(final String signedDateStr) {
+        this.signedDateStr = signedDateStr;
+    }
+
+    public String getWefDateStr() {
+        return wefDateStr;
+    }
+
+    public void setWefDateStr(final String wefDateStr) {
+        this.wefDateStr = wefDateStr;
     }
 
     @Override

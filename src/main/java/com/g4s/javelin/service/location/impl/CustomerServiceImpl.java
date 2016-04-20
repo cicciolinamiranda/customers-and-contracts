@@ -109,9 +109,6 @@ public class CustomerServiceImpl implements CustomerService {
     private CustomerDTO transformCustomer(final CustomerModel model) {
         CustomerDTO dto;
         dto = modelMapper.map(model, CustomerDTO.class);
-//        dto.setCustomerLocation(transformCustomerLocation(model.getCustomerLocation()));
-//        dto.setContract(transformContract(model.getContract()));
-//        dto.setContacts(transformCustomerContact(model.getContacts()));
         return dto;
     }
 

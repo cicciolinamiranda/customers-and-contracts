@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.g4s.javelin.data.model.location.ContactModel;
 
+
 /**
  * Created by jalonzo on 4/14/16.
  */
