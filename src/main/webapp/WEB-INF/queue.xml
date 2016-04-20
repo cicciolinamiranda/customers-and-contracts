@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<queue-entries>
+    <queue>
+        <name>default</name>
+        <rate>20/s</rate>
+    </queue>
+    <queue>
+        <name>audit-log-queue</name>
+        <rate>20/s</rate>
+    </queue>
+</queue-entries>
