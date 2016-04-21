@@ -1,9 +1,13 @@
 package com.g4s.javelin.aspect;
 
-import org.aspectj.lang.JoinPoint;
+import com.g4s.javelin.annotation.Loggable;
+import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
+import com.g4s.javelin.dto.core.post.PostDTO;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
 
 import java.util.logging.Logger;
 
@@ -19,57 +23,78 @@ public class AuditLogAspect {
     private static final Logger LOGGER = Logger.getLogger(AuditLogAspect.class.getName());
 
     /**
-     * Save customer location service method pointcut
+     * Get all methods annotated with @Loggable.
      */
-    @Pointcut("execution(* com.g4s.javelin.service.location.CustomerLocationService.saveCustomerLocationDetails(..))")
-    public void getSaveCustomerLocationDetailsPointcut() {
-    }
-
-    /**
-     * Archive customer location service method pointcut
-     */
-    @Pointcut("execution(* com.g4s.javelin.service.location.CustomerLocationService.updateCustomerLocationStatus(..))")
-    public void getUpdateCustomerLocationStatusPointcut() {
-    }
-
-    /**
-     * Save post service method pointcut
-     */
-    @Pointcut("execution(* com.g4s.javelin.service.post.PostService.savePostDetails(..))")
-    public void getSavePostDetailsPointcut() {
-    }
-
-
-    /**
-     * Capture save action from the customer location service and record to the audit log.
-     *
-     * @param joinPoint CustomerDTO passed to the customer location service
-     */
-    @Before("getSaveCustomerLocationDetailsPointcut()")
-    public void captureSaveCustomerLocationDetailsAction(final JoinPoint joinPoint) {
-        //TODO: Replace with audit log implementation
-        LOGGER.info("Hijacked save customer location details action: " + joinPoint.getArgs()[0].toString());
+    @Pointcut("@annotation(com.g4s.javelin.annotation.Loggable))")
+    public void getLoggableMethods() {
     }
 
     /**
      * Capture save action from the customer location service and record to the audit log.
      *
-     * @param joinPoint CustomerDTO passed to the customer location service
+     * @param joinPoint {@link com.g4s.javelin.service.CustomerLocationService#saveCustomerLocationDetails(CustomerLocationDTO)}
      */
-    @Before("getUpdateCustomerLocationStatusPointcut()")
-    public void captureUpdateCustomerLocationStatusAction(final JoinPoint joinPoint) {
-        //TODO: Replace with audit log implementation
-        LOGGER.info("Hijacked archive customer location status action: " + joinPoint.getArgs()[0].toString());
+    @SuppressWarnings("all")
+    @Around("getLoggableMethods() && args(customerLocation)")
+    public void captureSaveCustomerLocationDetailsAction(final ProceedingJoinPoint joinPoint,
+                                                         final CustomerLocationDTO customerLocation) {
+        LOGGER.info("Inside " + joinPoint.getSignature().getName());
+
+        final Loggable loggable = getLoggableMethodAnnotation(joinPoint);
+        LOGGER.info(loggable.objectType().getCode());
+
+        //TODO: Add call to task queue once it is available
+    }
+
+    /**
+     * Capture save action from the customer location service and record to the audit log.
+     *
+     * @param joinPoint {@link com.g4s.javelin.service.location.CustomerLocationService#updateCustomerLocationStatus(Long, String)}
+     */
+    @SuppressWarnings("all")
+    @Around("getLoggableMethods() && args(id, status)")
+    public void captureUpdateCustomerLocationStatusAction(final ProceedingJoinPoint joinPoint,
+                                                          final Long id, final String status) {
+        LOGGER.info("Inside " + joinPoint.getSignature().getName());
+
+        final Loggable loggable = getLoggableMethodAnnotation(joinPoint);
+        LOGGER.info(loggable.objectType().getCode());
     }
 
     /**
      * Capture save action from the post service and record to the audit log.
      *
-     * @param joinPoint PostDTO passed to the customer location service
+     * @param joinPoint {@link com.g4s.javelin.service.post.impl.PostServiceImpl#savePostDetails(PostDTO)}
      */
-    @Before("getSavePostDetailsPointcut()")
-    public void captureSavePostDetailsAction(final JoinPoint joinPoint) {
-        //TODO: Replace with audit log implementation
-        LOGGER.info("Hijacked save post details action: " + joinPoint.getArgs()[0].toString());
+    @SuppressWarnings("all")
+    @Around("getLoggableMethods() && args(post)")
+    public void captureSavePostDetailsAction(final ProceedingJoinPoint joinPoint, final PostDTO post) {
+        LOGGER.info("Inside " + joinPoint.getSignature().getName());
+
+        final Loggable loggable = getLoggableMethodAnnotation(joinPoint);
+        LOGGER.info(loggable.objectType().getCode());
+    }
+
+    /**
+     * Retrieve {@link com.g4s.javelin.annotation.Loggable} annotation from annotated method
+     *
+     * @param joinPoint Methods annotated with {@link com.g4s.javelin.annotation.Loggable}
+     * @return {@link com.g4s.javelin.annotation.Loggable} object
+     */
+    private Loggable getLoggableMethodAnnotation(final ProceedingJoinPoint joinPoint) {
+        final MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
+        final String methodName = methodSignature.getMethod().getName();
+        final Class<?>[] parameterTypes = methodSignature.getMethod().getParameterTypes();
+
+        Loggable loggable = null;
+
+        try {
+            loggable = joinPoint.getTarget().getClass().getMethod(methodName, parameterTypes)
+                    .getAnnotation(Loggable.class);
+        } catch (final NoSuchMethodException e) {
+            LOGGER.severe(e.getMessage());
+        }
+
+        return loggable;
     }
 }
