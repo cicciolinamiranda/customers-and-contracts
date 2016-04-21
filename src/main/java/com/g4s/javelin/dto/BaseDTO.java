@@ -14,6 +14,8 @@ public class BaseDTO {
 
     private String ipAddress;
 
+    private String reasonForChange;
+
     public Long getId() {
         return id;
     }
@@ -52,5 +54,21 @@ public class BaseDTO {
 
     public void setIpAddress(final String ipAddress) {
         this.ipAddress = ipAddress;
+    }
+
+    public String getReasonForChange() {
+        return reasonForChange;
+    }
+
+    public void setReasonForChange(final String reasonForChange) {
+        this.reasonForChange = reasonForChange;
+    }
+
+    @Override
+    public String toString() {
+        return "BaseDTO [id=" + id + ", createdBy=" + createdBy
+                + ", createdDate=" + createdDate + ", lastModifiedDate="
+                + lastModifiedDate + ", ipAddress=" + ipAddress
+                + ", reasonForChange=" + reasonForChange + "]";
     }
 }

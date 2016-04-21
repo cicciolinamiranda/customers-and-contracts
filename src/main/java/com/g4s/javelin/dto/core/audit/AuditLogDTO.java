@@ -14,6 +14,7 @@ public class AuditLogDTO {
     private String ipAddress;
     private DateTime createdDate;
     private String createdBy;
+    private String reasonForChange;
 
     public String getRevisionNumber() {
         return revisionNumber;
@@ -63,11 +64,11 @@ public class AuditLogDTO {
         this.createdBy = createdBy;
     }
 
-    @Override
-    public String toString() {
-        return "AuditLogDTO [revisionNumber=" + revisionNumber
-                + ", objectType=" + objectType + ", body=" + body
-                + ", ipAddress=" + ipAddress + ", createdDate=" + createdDate
-                + ", createdBy=" + createdBy + "]";
+    public String getReasonForChange() {
+        return reasonForChange;
+    }
+
+    public void setReasonForChange(final String reasonForChange) {
+        this.reasonForChange = reasonForChange;
     }
 }
