@@ -7,11 +7,8 @@ import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
 import com.g4s.javelin.dto.core.post.PostDTO;
 import com.g4s.javelin.service.location.CustomerLocationService;
 import com.g4s.javelin.service.post.PostService;
+import com.g4s.javelin.taskqueue.worker.AuditLogTaskWorker;
 import com.g4s.javelin.util.AuditLogUtil;
-import com.google.appengine.api.taskqueue.Queue;
-import com.google.appengine.api.taskqueue.QueueFactory;
-import com.google.appengine.api.taskqueue.TaskOptions;
-import com.google.appengine.repackaged.org.codehaus.jackson.map.ObjectMapper;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -21,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
 
-import java.io.IOException;
 import java.util.logging.Logger;
 
 /**
@@ -36,10 +32,6 @@ public class AuditLogAspect {
 
     private static final Logger LOGGER = Logger.getLogger(AuditLogAspect.class.getName());
 
-    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
-
-    private static final String AUDIT_LOG_TASK_QUEUE_URL = "saveAuditLog";
-
     @Autowired
     @Lazy
     @Qualifier(ServiceConstants.CUSTOMER_LOCATION_SERVICE)
@@ -50,10 +42,10 @@ public class AuditLogAspect {
     @Qualifier(ServiceConstants.POST_SERVICE)
     private PostService postService;
 
-    private Queue auditLogQueue;
+    private AuditLogTaskWorker auditLogTaskWorker;
 
-    private AuditLogAspect() {
-        auditLogQueue = QueueFactory.getQueue("audit-log-queue");
+    public AuditLogAspect() {
+        auditLogTaskWorker = new AuditLogTaskWorker();
     }
 
     /**
@@ -84,8 +76,9 @@ public class AuditLogAspect {
                 final CustomerLocationDTO newCustomerLocation = (CustomerLocationDTO) joinPoint.proceed();
                 final AuditLogDTO auditLog = AuditLogUtil.getOldAndNewValue(oldCustomerLocation, newCustomerLocation);
                 auditLog.setObjectType(loggable.objectType());
+                auditLog.setReasonForChange(customerLocation.getReasonForChange());
 
-                callAuditLogTaskQueue(auditLog);
+                auditLogTaskWorker.saveLog(auditLog);
             } catch (final Throwable e) {
                 LOGGER.severe(e.getMessage());
             }
@@ -112,7 +105,7 @@ public class AuditLogAspect {
             final AuditLogDTO auditLog = AuditLogUtil.getOldAndNewValue(oldCustomerLocation, newCustomerLocation);
             auditLog.setObjectType(loggable.objectType());
 
-            callAuditLogTaskQueue(auditLog);
+            auditLogTaskWorker.saveLog(auditLog);
         } catch (final Throwable e) {
             LOGGER.severe(e.getMessage());
         }
@@ -137,8 +130,9 @@ public class AuditLogAspect {
                 final PostDTO newPost = (PostDTO) joinPoint.proceed();
                 final AuditLogDTO auditLog = AuditLogUtil.getOldAndNewValue(oldPost, newPost);
                 auditLog.setObjectType(loggable.objectType());
+                auditLog.setReasonForChange(post.getReasonForChange());
 
-                callAuditLogTaskQueue(auditLog);
+                auditLogTaskWorker.saveLog(auditLog);
             } catch (final Throwable e) {
                 LOGGER.severe(e.getMessage());
             }
@@ -166,20 +160,6 @@ public class AuditLogAspect {
         }
 
         return loggable;
-    }
-
-    /**
-     * Call the save audit log endpoint of the audit log queue
-     *
-     * @param auditLog Audit log details to be saved
-     */
-    private void callAuditLogTaskQueue(final AuditLogDTO auditLog) {
-        try {
-            auditLogQueue.add(TaskOptions.Builder.withUrl(AUDIT_LOG_TASK_QUEUE_URL).payload(OBJECT_MAPPER
-                    .writeValueAsString(auditLog)));
-        } catch (final IOException e) {
-            LOGGER.severe(e.getMessage());
-        }
     }
 }
 //CSON: IllegalCatch
