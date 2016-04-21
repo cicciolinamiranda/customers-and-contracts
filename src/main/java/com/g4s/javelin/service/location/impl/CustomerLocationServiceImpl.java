@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.g4s.javelin.annotation.Loggable;
+import com.g4s.javelin.enums.LoggableActionsEnum;
 import com.g4s.javelin.enums.ObjectTypeEnum;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.hibernate.HibernateException;
@@ -124,7 +125,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
 
     @Transactional(rollbackFor = {CustomerLocationException.class})
     @Override
-    @Loggable(objectType = ObjectTypeEnum.CUSTOMERLOCATION)
+    @Loggable(objectType = ObjectTypeEnum.CUSTOMERLOCATION, action = LoggableActionsEnum.SAVE_CUSTOMER_LOCATION)
     public CustomerLocationDTO saveCustomerLocationDetails(final CustomerLocationDTO customerLocation) throws CustomerLocationException {
         org.joda.time.format.DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/dd/yyyy");
         CustomerLocationModel model;
@@ -206,7 +207,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
     }
 
     @Override
-    @Loggable(objectType = ObjectTypeEnum.CUSTOMERLOCATION)
+    @Loggable(objectType = ObjectTypeEnum.CUSTOMERLOCATION, action = LoggableActionsEnum.ARCHIVE_CUSTOMER_LOCATION)
     public void updateCustomerLocationStatus(final Long id, final String status) {
         StatusEnum statusEnum = StatusEnum.findByCode(status);
         customerLocationRepository.updateStatus(id, statusEnum);

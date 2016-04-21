@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Set;
 
 import com.g4s.javelin.annotation.Loggable;
+import com.g4s.javelin.enums.LoggableActionsEnum;
 import com.g4s.javelin.enums.ObjectTypeEnum;
 import org.hibernate.HibernateException;
 import org.joda.time.format.DateTimeFormat;
@@ -55,7 +56,7 @@ public class PostServiceImpl implements PostService {
 
     @Transactional(rollbackFor = {PostException.class})
     @Override
-    @Loggable(objectType = ObjectTypeEnum.POST)
+    @Loggable(objectType = ObjectTypeEnum.POST, action = LoggableActionsEnum.SAVE_POST)
     public PostDTO savePostDetails(final PostDTO post) throws PostException,
             PostDuplicateException {
         PostModel model = new PostModel();
