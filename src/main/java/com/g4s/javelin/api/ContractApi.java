@@ -16,6 +16,9 @@ import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
 
+//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletResponse;
+
 
 /**
  * @author apadilla
@@ -33,6 +36,12 @@ public class ContractApi {
     @Lazy
     @Qualifier(ServiceConstants.CONTRACT_SERVICE)
     private ContractService contractService;
+
+//    @Autowired
+//    @Lazy
+//    @Qualifier(ServiceConstants.STORAGE_SERVICE)
+//    private StorageService storageServiceService;
+
 
     /**
      * Save Contract
@@ -117,8 +126,8 @@ public class ContractApi {
     }
 
     /**
-     * Init Contract
      *
+     * @return contractDTO
      */
     @ApiMethod(
             name = "contract.init",
@@ -128,5 +137,17 @@ public class ContractApi {
         ContractDTO response = contractService.initializeContract();
         return response;
     }
+
+    /**
+     * *
+     * @return
+     */
+//    @ApiMethod(
+//            name = "contract.upload",
+//            path = "contract/upload",
+//            httpMethod = ApiMethod.HttpMethod.POST)
+//    public void uploadFile(HttpServletRequest request, HttpServletResponse response) {
+//        storageService.upload(request);
+//    }
 
 }
