@@ -83,6 +83,11 @@ public class ServiceAppContext {
         return new ContractServiceImpl();
     }
 
+//  @Bean (name = ServiceConstants.STORAGE_SERVICE)
+//  public ContractService getStorageService() {
+//      return new StorageServiceImpl();
+//  }
+
     @Bean
     public AuditLogAspect getAuditLogAspect() {
         return new AuditLogAspect();
