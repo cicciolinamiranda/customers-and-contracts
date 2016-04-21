@@ -16,6 +16,10 @@ import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
 import com.google.api.server.spi.config.Named;
 
+//import javax.servlet.http.HttpServletRequest;
+//import javax.servlet.http.HttpServletResponse;
+
+
 /**
  * @author apadilla
  * @since 4/8/16.
@@ -33,6 +37,12 @@ public class ContractApi {
     @Qualifier(ServiceConstants.CONTRACT_SERVICE)
     private ContractService contractService;
 
+//    @Autowired
+//    @Lazy
+//    @Qualifier(ServiceConstants.STORAGE_SERVICE)
+//    private StorageService storageServiceService;
+
+
     /**
      * Save Contract
      *
@@ -43,7 +53,7 @@ public class ContractApi {
             path = "contract/save",
             httpMethod = ApiMethod.HttpMethod.POST)
     public ContractDTO saveContractDetails(final ContractDTO contractDTO) {
-        ContractDTO response = contractService.createNewContract(contractDTO);
+        ContractDTO response = contractService.saveContract(contractDTO);
         return response;
     }
 
@@ -115,5 +125,29 @@ public class ContractApi {
         return result;
     }
 
+    /**
+     *
+     * @return contractDTO
+     */
+    @ApiMethod(
+            name = "contract.init",
+            path = "contract/init",
+            httpMethod = ApiMethod.HttpMethod.GET)
+    public ContractDTO initializeContract() {
+        ContractDTO response = contractService.initializeContract();
+        return response;
+    }
+
+    /**
+     * *
+     * @return
+     */
+//    @ApiMethod(
+//            name = "contract.upload",
+//            path = "contract/upload",
+//            httpMethod = ApiMethod.HttpMethod.POST)
+//    public void uploadFile(HttpServletRequest request, HttpServletResponse response) {
+//        storageService.upload(request);
+//    }
 
 }
