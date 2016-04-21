@@ -1,6 +1,7 @@
 package com.g4s.javelin.api;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -24,6 +25,7 @@ import com.google.api.server.spi.config.Named;
                 ownerName = ApiConstants.API_NAMESPACE_OWNER_NAME),
         description = ApiConstants.API_DESCRIPTION)
 public class PostApi {
+    private static final Logger LOGGER = Logger.getLogger(PostApi.class.getName());
     @Autowired
     @Lazy
     @Qualifier(ServiceConstants.POST_SERVICE)
@@ -35,6 +37,8 @@ public class PostApi {
             httpMethod = ApiMethod.HttpMethod.POST)
     public PostDTO savePostDetails(final PostDTO postDTO)
             throws PostException, PostDuplicateException {
+        LOGGER.info("Inside savePostDetails()");
+        LOGGER.info(postDTO.getImageUrl());
         PostDTO response = postService.savePostDetails(postDTO);
         return response;
     }

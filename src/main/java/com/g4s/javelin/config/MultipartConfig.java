@@ -5,20 +5,20 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import com.g4s.javelin.constants.UploadConstants;
+
 @Configuration
 @Lazy
 public class MultipartConfig {
-    private final int maxInMemorySize = 1048576;
-    private final int maxUploadSize = 20971520;
 
     @Bean
     public CommonsMultipartResolver multipartResolver() {
         CommonsMultipartResolver resolver = new CommonsMultipartResolver();
-        resolver.setDefaultEncoding("utf-8");
+        resolver.setDefaultEncoding(UploadConstants.DEFAULT_ENCODING);
         // 1MB
-        resolver.setMaxInMemorySize(maxInMemorySize);
+        resolver.setMaxInMemorySize(UploadConstants.MAX_IN_MEMORY_SIZE);
         // 20MB
-        resolver.setMaxUploadSize(maxUploadSize);
+        resolver.setMaxUploadSize(UploadConstants.MAX_UPLOAD_SIZE);
         return resolver;
     }
 }

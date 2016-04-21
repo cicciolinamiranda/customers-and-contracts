@@ -1,6 +1,6 @@
-package com.g4s.javelin.constants;
+package com.g4s.javelin.enums;
 
-public enum CORSHeaders {
+public enum CORSHeadersEnum {
     ACCESS_CONTROL_ALLOW_ORIGIN("Access-Control-Allow-Origin"),
     ACCESS_CONTROL_ALLOW_CREDENTIALS("Access-Control-Allow-Credentials"),
     ACCESS_CONTROL_ALLOW_METHODS("Access-Control-Allow-Methods"),
@@ -13,7 +13,7 @@ public enum CORSHeaders {
 
     private String value;
 
-    CORSHeaders(final String s) {
+    CORSHeadersEnum(final String s) {
         this.value = s;
     }
 

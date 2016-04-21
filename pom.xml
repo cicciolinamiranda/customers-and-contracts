@@ -84,7 +84,17 @@
 	      <artifactId>gcloud-java</artifactId>
 	      <version>0.2.0</version>
 	    </dependency>
+	    <dependency>                        <!-- Google Core Libraries for Java -->
+	        <groupId>com.google.guava</groupId>
+	        <artifactId>guava</artifactId>  <!-- https://github.com/google/guava/wiki -->
+	        <version>19.0</version>
+	    </dependency>
         <!-- Spring Dependencies -->
+        <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>2.5</version>
+		</dependency>        
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-core</artifactId>

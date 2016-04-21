@@ -14,7 +14,8 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import com.g4s.javelin.constants.CORSHeaders;
+
+import com.g4s.javelin.enums.CORSHeadersEnum;
 
 public class CORSFilter implements Filter {
     private static final Logger LOGGER = Logger.getLogger(CORSFilter.class.getName());
@@ -32,22 +33,22 @@ public class CORSFilter implements Filter {
 
     private void preflight(final HttpServletRequest requestContext, final HttpServletResponse responseContext, final String origin) {
         checkOrigin(requestContext, responseContext, origin);
-        String requestMethods = requestContext.getHeader(CORSHeaders.ACCESS_CONTROL_REQUEST_METHOD.getValue());
+        String requestMethods = requestContext.getHeader(CORSHeadersEnum.ACCESS_CONTROL_REQUEST_METHOD.getValue());
         if (requestMethods != null) {
             if (allowedMethods != null) {
                 requestMethods = this.allowedMethods;
             }
-            responseContext.setHeader(CORSHeaders.ACCESS_CONTROL_ALLOW_METHODS.getValue(), requestMethods);
+            responseContext.setHeader(CORSHeadersEnum.ACCESS_CONTROL_ALLOW_METHODS.getValue(), requestMethods);
         }
-        String allowHeaders = requestContext.getHeader(CORSHeaders.ACCESS_CONTROL_REQUEST_HEADERS.getValue());
+        String allowHeaders = requestContext.getHeader(CORSHeadersEnum.ACCESS_CONTROL_REQUEST_HEADERS.getValue());
         if (allowHeaders != null) {
             if (allowedHeaders != null) {
                 allowHeaders = this.allowedHeaders;
             }
-            responseContext.setHeader(CORSHeaders.ACCESS_CONTROL_ALLOW_HEADERS.getValue(), allowHeaders);
+            responseContext.setHeader(CORSHeadersEnum.ACCESS_CONTROL_ALLOW_HEADERS.getValue(), allowHeaders);
         }
         if (corsMaxAge > -1) {
-            responseContext.setHeader(CORSHeaders.ACCESS_CONTROL_MAX_AGE.getValue(), String.valueOf(corsMaxAge));
+            responseContext.setHeader(CORSHeadersEnum.ACCESS_CONTROL_MAX_AGE.getValue(), String.valueOf(corsMaxAge));
         }
 
     }
@@ -57,10 +58,10 @@ public class CORSFilter implements Filter {
             throw new RuntimeException("Origin not allowed: " + origin);
         } else {
             responseContext.setStatus(HttpServletResponse.SC_OK);
-            responseContext.setHeader(CORSHeaders.ACCESS_CONTROL_ALLOW_ORIGIN.getValue(), origin);
-            responseContext.setHeader(CORSHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS.getValue(), Boolean.toString(allowCredentials));
+            responseContext.setHeader(CORSHeadersEnum.ACCESS_CONTROL_ALLOW_ORIGIN.getValue(), origin);
+            responseContext.setHeader(CORSHeadersEnum.ACCESS_CONTROL_ALLOW_CREDENTIALS.getValue(), Boolean.toString(allowCredentials));
             if (exposedHeaders != null) {
-                responseContext.setHeader(CORSHeaders.ACCESS_CONTROL_EXPOSE_HEADERS.getValue(), exposedHeaders);
+                responseContext.setHeader(CORSHeadersEnum.ACCESS_CONTROL_EXPOSE_HEADERS.getValue(), exposedHeaders);
             }
         }
     }
