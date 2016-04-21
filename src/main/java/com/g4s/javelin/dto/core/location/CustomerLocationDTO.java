@@ -211,7 +211,7 @@ public class CustomerLocationDTO extends BaseDTO {
         return reasonForChange;
     }
 
-    public void setReasonForChange(String reasonForChange) {
+    public void setReasonForChange(final String reasonForChange) {
         this.reasonForChange = reasonForChange;
     }
 }
