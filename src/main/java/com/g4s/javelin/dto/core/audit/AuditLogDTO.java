@@ -71,4 +71,13 @@ public class AuditLogDTO {
     public void setReasonForChange(final String reasonForChange) {
         this.reasonForChange = reasonForChange;
     }
+
+    @Override
+    public String toString() {
+        return "AuditLogDTO [revisionNumber=" + revisionNumber
+                + ", objectType=" + objectType + ", body=" + body
+                + ", ipAddress=" + ipAddress + ", createdDate=" + createdDate
+                + ", createdBy=" + createdBy + ", reasonForChange="
+                + reasonForChange + "]";
+    }
 }
