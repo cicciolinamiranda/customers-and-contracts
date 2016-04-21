@@ -2,6 +2,7 @@ package com.g4s.javelin.dto.core.audit;
 
 import java.util.List;
 
+import com.g4s.javelin.enums.LoggableActionsEnum;
 import org.joda.time.DateTime;
 
 import com.g4s.javelin.enums.ObjectTypeEnum;
@@ -13,6 +14,8 @@ public class AuditLogDTO {
     private List<DiffDTO> body;
     private String ipAddress;
     private DateTime createdDate;
+    private LoggableActionsEnum loggableAction;
+    private String reasonForChange;
 
     public String getRevisionNumber() {
         return revisionNumber;
@@ -54,11 +57,27 @@ public class AuditLogDTO {
         this.createdDate = createdDate;
     }
 
+    public LoggableActionsEnum getLoggableAction() {
+        return loggableAction;
+    }
+
+    public void setLoggableAction(final LoggableActionsEnum loggableAction) {
+        this.loggableAction = loggableAction;
+    }
+
+    public String getReasonForChange() {
+        return reasonForChange;
+    }
+
+    public void setReasonForChange(final String reasonForChange) {
+        this.reasonForChange = reasonForChange;
+    }
+
     @Override
     public String toString() {
-        return "AuditLogDTO [revisionNumber=" + revisionNumber
-                + ", objectType=" + objectType + ", body=" + body
-                + ", ipAddress=" + ipAddress + ", createdDate=" + createdDate
-                + "]";
+        return "AuditLogDTO{" + "revisionNumber='" + revisionNumber + '\'' + ", objectType=" + objectType
+                + ", body=" + body + ", ipAddress='" + ipAddress + '\'' + ", createdDate=" + createdDate
+                + ", loggableAction=" + loggableAction + ", reasonForChange='" + reasonForChange + '\''
+                + '}';
     }
 }

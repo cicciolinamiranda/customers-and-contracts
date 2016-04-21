@@ -1,13 +1,21 @@
 package com.g4s.javelin.aspect;
 
 import com.g4s.javelin.annotation.Loggable;
+import com.g4s.javelin.constants.ServiceConstants;
+import com.g4s.javelin.dto.core.audit.AuditLogDTO;
 import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
 import com.g4s.javelin.dto.core.post.PostDTO;
+import com.g4s.javelin.service.location.CustomerLocationService;
+import com.g4s.javelin.service.post.PostService;
+import com.g4s.javelin.util.AuditLogUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.logging.Logger;
 
@@ -17,10 +25,21 @@ import java.util.logging.Logger;
  * <p/>
  * AOP implementation for interception of service methods used in the creation of audit logs.
  */
+//CSOFF: IllegalCatch
 @Aspect
 public class AuditLogAspect {
 
     private static final Logger LOGGER = Logger.getLogger(AuditLogAspect.class.getName());
+
+    @Autowired
+    @Lazy
+    @Qualifier(ServiceConstants.CUSTOMER_LOCATION_SERVICE)
+    private CustomerLocationService customerLocationService;
+
+    @Autowired
+    @Lazy
+    @Qualifier(ServiceConstants.POST_SERVICE)
+    private PostService postService;
 
     /**
      * Get all methods annotated with @Loggable.
@@ -41,9 +60,20 @@ public class AuditLogAspect {
         LOGGER.info("Inside " + joinPoint.getSignature().getName());
 
         final Loggable loggable = getLoggableMethodAnnotation(joinPoint);
-        LOGGER.info(loggable.objectType().getCode());
 
-        //TODO: Add call to task queue once it is available
+        if (customerLocation.getId() != null) {
+            final CustomerLocationDTO oldCustomerLocation = customerLocationService.getCustomerLocationDetails(
+                    customerLocation.getId());
+
+            try {
+                final CustomerLocationDTO newCustomerLocation = (CustomerLocationDTO) joinPoint.proceed();
+
+                final AuditLogDTO auditLog = AuditLogUtil.getOldAndNewValue(oldCustomerLocation, customerLocation);
+                auditLog.setObjectType(loggable.objectType());
+            } catch (final Throwable e) {
+                LOGGER.severe(e.getMessage());
+            }
+        }
     }
 
     /**
@@ -98,3 +128,4 @@ public class AuditLogAspect {
         return loggable;
     }
 }
+//CSON: IllegalCatch
