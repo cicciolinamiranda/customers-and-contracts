@@ -2,9 +2,9 @@ package com.g4s.javelin.dto.core.audit;
 
 import java.util.List;
 
-import com.g4s.javelin.enums.LoggableActionsEnum;
 import org.joda.time.DateTime;
 
+import com.g4s.javelin.enums.LoggableActionsEnum;
 import com.g4s.javelin.enums.ObjectTypeEnum;
 //CSOFF_ALL:
 public class AuditLogDTO {

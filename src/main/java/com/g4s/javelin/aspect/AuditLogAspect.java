@@ -1,14 +1,7 @@
 package com.g4s.javelin.aspect;
 
-import com.g4s.javelin.annotation.Loggable;
-import com.g4s.javelin.constants.ServiceConstants;
-import com.g4s.javelin.dto.core.audit.AuditLogDTO;
-import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
-import com.g4s.javelin.dto.core.post.PostDTO;
-import com.g4s.javelin.service.location.CustomerLocationService;
-import com.g4s.javelin.service.post.PostService;
-import com.g4s.javelin.taskqueue.worker.AuditLogTaskWorker;
-import com.g4s.javelin.util.AuditLogUtil;
+import java.util.logging.Logger;
+
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -18,7 +11,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
 
-import java.util.logging.Logger;
+import com.g4s.javelin.annotation.Loggable;
+import com.g4s.javelin.constants.ServiceConstants;
+import com.g4s.javelin.dto.core.audit.AuditLogDTO;
+import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
+import com.g4s.javelin.dto.core.post.PostDTO;
+import com.g4s.javelin.service.location.CustomerLocationService;
+import com.g4s.javelin.service.post.PostService;
+import com.g4s.javelin.taskqueue.worker.AuditLogTaskWorker;
+import com.g4s.javelin.util.AuditLogUtil;
 
 /**
  * @author Jordan Duabe
@@ -79,7 +80,7 @@ public class AuditLogAspect {
                 final AuditLogDTO auditLog = AuditLogUtil.getOldAndNewValue(oldCustomerLocation, newCustomerLocation);
                 auditLog.setObjectType(loggable.objectType());
                 auditLog.setLoggableAction(loggable.action());
-                auditLog.setReasonForChange(customerLocation.getReasonForChange());
+                auditLog.setReason(customerLocation.getReasonForChange());
 
                 auditLogTaskWorker.saveLog(auditLog);
             } catch (final Throwable e) {
@@ -142,7 +143,7 @@ public class AuditLogAspect {
                 final AuditLogDTO auditLog = AuditLogUtil.getOldAndNewValue(oldPost, newPost);
                 auditLog.setObjectType(loggable.objectType());
                 auditLog.setLoggableAction(loggable.action());
-                auditLog.setReasonForChange(post.getReasonForChange());
+                auditLog.setReason(post.getReasonForChange());
 
                 auditLogTaskWorker.saveLog(auditLog);
 

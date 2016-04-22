@@ -31,8 +31,7 @@ public class TaskQueueController {
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json");
- 
-            LOGGER.info(MAPPER.writeValueAsString(auditLog));
+
             connection.setRequestProperty("Content-Length", ""
                 + Integer.toString(MAPPER.writeValueAsString(auditLog).getBytes().length));
             connection.setRequestProperty("Content-Language", "en-US");
