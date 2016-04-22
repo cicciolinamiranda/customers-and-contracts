@@ -1,17 +1,11 @@
 package com.g4s.javelin.dto.core.audit;
 
-import java.util.List;
-
 import org.joda.time.DateTime;
-
-import com.g4s.javelin.enums.LoggableActionsEnum;
-import com.g4s.javelin.enums.ObjectTypeEnum;
 //CSOFF_ALL:
 public class AuditLogDTO {
 
-    private LoggableActionsEnum loggableAction;
-    private ObjectTypeEnum objectType;
-    private List<DiffDTO> body;
+    private String objectType;
+    private String body;
     private String ip_address;
     private String reason;
     private String namespace;
@@ -20,19 +14,19 @@ public class AuditLogDTO {
     private DateTime revision_date;
     private String revised_by;
 
-    public ObjectTypeEnum getObjectType() {
+    public String getObjectType() {
         return objectType;
     }
 
-    public void setObjectType(final ObjectTypeEnum objectType) {
+    public void setObjectType(final String objectType) {
         this.objectType = objectType;
     }
 
-    public List<DiffDTO> getBody() {
+    public String getBody() {
         return body;
     }
 
-    public void setBody(final List<DiffDTO> body) {
+    public void setBody(final String body) {
         this.body = body;
     }
 
@@ -59,14 +53,6 @@ public class AuditLogDTO {
 	public void setIp_address(final String ip_address) {
 		this.ip_address = ip_address;
 	}
-
-    public LoggableActionsEnum getLoggableAction() {
-        return loggableAction;
-    }
-
-    public void setLoggableAction(final LoggableActionsEnum loggableAction) {
-        this.loggableAction = loggableAction;
-    }
 
 	public String getNamespace() {
 		return namespace;

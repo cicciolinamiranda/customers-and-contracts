@@ -78,8 +78,8 @@ public class AuditLogAspect {
             try {
                 newCustomerLocation = (CustomerLocationDTO) joinPoint.proceed();
                 final AuditLogDTO auditLog = AuditLogUtil.getOldAndNewValue(oldCustomerLocation, newCustomerLocation);
-                auditLog.setObjectType(loggable.objectType());
-                auditLog.setLoggableAction(loggable.action());
+                auditLog.setObjectType(loggable.objectType().getCode());
+                auditLog.setAction(loggable.action().getCode());
                 auditLog.setReason(customerLocation.getReasonForChange());
 
                 auditLogTaskWorker.saveLog(auditLog);
@@ -110,8 +110,8 @@ public class AuditLogAspect {
         try {
             newCustomerLocation = (CustomerLocationDTO) joinPoint.proceed();
             final AuditLogDTO auditLog = AuditLogUtil.getOldAndNewValue(oldCustomerLocation, newCustomerLocation);
-            auditLog.setLoggableAction(loggable.action());
-            auditLog.setObjectType(loggable.objectType());
+            auditLog.setAction(loggable.action().getCode());
+            auditLog.setObjectType(loggable.objectType().getCode());
 
             auditLogTaskWorker.saveLog(auditLog);
         } catch (final Throwable e) {
@@ -141,8 +141,8 @@ public class AuditLogAspect {
             try {
                 newPost = (PostDTO) joinPoint.proceed();
                 final AuditLogDTO auditLog = AuditLogUtil.getOldAndNewValue(oldPost, newPost);
-                auditLog.setObjectType(loggable.objectType());
-                auditLog.setLoggableAction(loggable.action());
+                auditLog.setObjectType(loggable.objectType().getCode());
+                auditLog.setReason(loggable.action().getCode());
                 auditLog.setReason(post.getReasonForChange());
 
                 auditLogTaskWorker.saveLog(auditLog);
