@@ -1,7 +1,5 @@
 package com.g4s.javelin.util;
 
-import java.util.UUID;
-
 import org.joda.time.DateTime;
 
 import com.g4s.javelin.dto.BaseDTO;
@@ -24,8 +22,8 @@ public class AuditLogUtil extends DiffDTO {
         AuditLogDTO response = new AuditLogDTO();
         response.setBody(new DiffUtil().getOldAndNewValue(oldValue, newValue));
         response.setIpAddress(newValue.getIpAddress());
-        response.setCreatedDate(DateTime.now());
-        response.setRevisionNumber(UUID.randomUUID().toString());
+        response.setRevisionDate(DateTime.now());
+       // response.setRevisionNumber(UUID.randomUUID().toString());
         return response;
     }
 }

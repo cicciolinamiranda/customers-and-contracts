@@ -5,24 +5,18 @@ import java.util.List;
 import org.joda.time.DateTime;
 
 import com.g4s.javelin.enums.ObjectTypeEnum;
-
+//CSOFF_ALL:
 public class AuditLogDTO {
 
-    private String revisionNumber;
     private ObjectTypeEnum objectType;
     private List<DiffDTO> body;
-    private String ipAddress;
-    private DateTime createdDate;
-    private String createdBy;
-    private String reasonForChange;
-
-    public String getRevisionNumber() {
-        return revisionNumber;
-    }
-
-    public void setRevisionNumber(final String revisionNumber) {
-        this.revisionNumber = revisionNumber;
-    }
+    private String ip_address;
+    private String reason;
+    private String namespace;
+    private String object_id;
+    private String action;
+    private DateTime revision_date;
+    private String revised_by;
 
     public ObjectTypeEnum getObjectType() {
         return objectType;
@@ -41,43 +35,74 @@ public class AuditLogDTO {
     }
 
     public String getIpAddress() {
-        return ipAddress;
+        return ip_address;
     }
 
     public void setIpAddress(final String ipAddress) {
-        this.ipAddress = ipAddress;
+        this.ip_address = ipAddress;
     }
 
-    public DateTime getCreatedDate() {
-        return createdDate;
+    public String getReason() {
+        return reason;
     }
 
-    public void setCreatedDate(final DateTime createdDate) {
-        this.createdDate = createdDate;
+    public void setReason(final String reason) {
+        this.reason = reason;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
-    }
+    public String getIp_address() {
+		return ip_address;
+	}
 
-    public void setCreatedBy(final String createdBy) {
-        this.createdBy = createdBy;
-    }
+	public void setIp_address(final String ip_address) {
+		this.ip_address = ip_address;
+	}
 
-    public String getReasonForChange() {
-        return reasonForChange;
-    }
+	public String getNamespace() {
+		return namespace;
+	}
 
-    public void setReasonForChange(final String reasonForChange) {
-        this.reasonForChange = reasonForChange;
-    }
+	public void setNamespace(final String namespace) {
+		this.namespace = namespace;
+	}
 
-    @Override
+	public String getObject_id() {
+		return object_id;
+	}
+
+	public void setObject_id(final String object_id) {
+		this.object_id = object_id;
+	}
+
+	public String getAction() {
+		return action;
+	}
+
+	public void setAction(final String action) {
+		this.action = action;
+	}
+
+	public DateTime getRevisionDate() {
+		return revision_date;
+	}
+
+	public void setRevisionDate(final DateTime revision_date) {
+		this.revision_date = revision_date;
+	}
+
+	public String getRevisedBy() {
+		return revised_by;
+	}
+
+	public void setRevisedBy(final String revised_by) {
+		this.revised_by = revised_by;
+	}
+
+	@Override
     public String toString() {
-        return "AuditLogDTO [revisionNumber=" + revisionNumber
-                + ", objectType=" + objectType + ", body=" + body
-                + ", ipAddress=" + ipAddress + ", createdDate=" + createdDate
-                + ", createdBy=" + createdBy + ", reasonForChange="
-                + reasonForChange + "]";
+        return "AuditLogDTO [objectType=" + objectType + ", body=" + body
+                + ", ipAddress=" + ip_address + ", reason="
+                + reason + "]";
     }
 }
+//CSON_ALL:
