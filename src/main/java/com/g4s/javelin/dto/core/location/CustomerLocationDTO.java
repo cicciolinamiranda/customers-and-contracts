@@ -41,8 +41,6 @@ public class CustomerLocationDTO extends BaseDTO {
     private String locationSurverDateStr;
     private DateTime locationSurveyDate;
 
-    private String reasonForChange;
-
     //SiteLocationDTO
 
     public String getName() {
@@ -205,13 +203,5 @@ public class CustomerLocationDTO extends BaseDTO {
     }
     public void setLocationSurveyDate(final DateTime locationSurveyDate) {
         this.locationSurveyDate = locationSurveyDate;
-    }
-
-    public String getReasonForChange() {
-        return reasonForChange;
-    }
-
-    public void setReasonForChange(final String reasonForChange) {
-        this.reasonForChange = reasonForChange;
     }
 }

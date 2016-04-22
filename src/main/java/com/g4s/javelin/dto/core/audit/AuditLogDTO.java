@@ -15,7 +15,7 @@ public class AuditLogDTO {
     private String ipAddress;
     private DateTime createdDate;
     private LoggableActionsEnum loggableAction;
-	private String createdBy;
+    private String createdBy;
     private String reasonForChange;
 
     public String getRevisionNumber() {
@@ -66,7 +66,7 @@ public class AuditLogDTO {
         this.loggableAction = loggableAction;
     }
 
-	 public String getCreatedBy() {
+    public String getCreatedBy() {
         return createdBy;
     }
 

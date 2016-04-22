@@ -63,18 +63,19 @@ public class AuditLogAspect {
     @SuppressWarnings("all")
     @Around("getLoggableMethods() && args(customerLocation)")
     public Object captureSaveCustomerLocationDetailsAction(final ProceedingJoinPoint joinPoint,
-                                                         final CustomerLocationDTO customerLocation) throws Throwable {
+                                                           final CustomerLocationDTO customerLocation) {
         LOGGER.info("Inside " + joinPoint.getSignature().getName());
 
         final Loggable loggable = getLoggableMethodAnnotation(joinPoint);
-        LOGGER.info(loggable.objectType().getCode());
+
+        CustomerLocationDTO newCustomerLocation = null;
 
         if (customerLocation.getId() != null) {
             final CustomerLocationDTO oldCustomerLocation = customerLocationService.getCustomerLocationDetails(
                     customerLocation.getId());
 
             try {
-                final CustomerLocationDTO newCustomerLocation = (CustomerLocationDTO) joinPoint.proceed();
+                newCustomerLocation = (CustomerLocationDTO) joinPoint.proceed();
                 final AuditLogDTO auditLog = AuditLogUtil.getOldAndNewValue(oldCustomerLocation, newCustomerLocation);
                 auditLog.setObjectType(loggable.objectType());
                 auditLog.setReasonForChange(customerLocation.getReasonForChange());
@@ -84,6 +85,8 @@ public class AuditLogAspect {
                 LOGGER.severe(e.getMessage());
             }
         }
+
+        return newCustomerLocation;
     }
 
     /**
@@ -94,15 +97,16 @@ public class AuditLogAspect {
     @SuppressWarnings("all")
     @Around("getLoggableMethods() && args(id, status)")
     public Object captureUpdateCustomerLocationStatusAction(final ProceedingJoinPoint joinPoint,
-                                                          final Long id, final String status) throws Throwable {
+                                                            final Long id, final String status) {
         LOGGER.info("Inside " + joinPoint.getSignature().getName());
 
         final Loggable loggable = getLoggableMethodAnnotation(joinPoint);
 
         final CustomerLocationDTO oldCustomerLocation = customerLocationService.getCustomerLocationDetails(id);
+        CustomerLocationDTO newCustomerLocation = null;
 
         try {
-            final CustomerLocationDTO newCustomerLocation = (CustomerLocationDTO) joinPoint.proceed();
+            newCustomerLocation = (CustomerLocationDTO) joinPoint.proceed();
             final AuditLogDTO auditLog = AuditLogUtil.getOldAndNewValue(oldCustomerLocation, newCustomerLocation);
             auditLog.setObjectType(loggable.objectType());
 
@@ -110,6 +114,8 @@ public class AuditLogAspect {
         } catch (final Throwable e) {
             LOGGER.severe(e.getMessage());
         }
+
+        return newCustomerLocation;
     }
 
     /**
@@ -119,25 +125,30 @@ public class AuditLogAspect {
      */
     @SuppressWarnings("all")
     @Around("getLoggableMethods() && args(post)")
-    public void captureSavePostDetailsAction(final ProceedingJoinPoint joinPoint, final PostDTO post) {
+    public Object captureSavePostDetailsAction(final ProceedingJoinPoint joinPoint, final PostDTO post) {
         LOGGER.info("Inside " + joinPoint.getSignature().getName());
 
         final Loggable loggable = getLoggableMethodAnnotation(joinPoint);
+
+        PostDTO newPost = null;
 
         if (post.getId() != null) {
             final PostDTO oldPost = postService.getPostDetails(post.getId());
 
             try {
-                final PostDTO newPost = (PostDTO) joinPoint.proceed();
+                newPost = (PostDTO) joinPoint.proceed();
                 final AuditLogDTO auditLog = AuditLogUtil.getOldAndNewValue(oldPost, newPost);
                 auditLog.setObjectType(loggable.objectType());
                 auditLog.setReasonForChange(post.getReasonForChange());
 
                 auditLogTaskWorker.saveLog(auditLog);
+
             } catch (final Throwable e) {
                 LOGGER.severe(e.getMessage());
             }
         }
+
+        return newPost;
     }
 
     /**

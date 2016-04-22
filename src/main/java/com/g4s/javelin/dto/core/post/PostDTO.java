@@ -44,8 +44,6 @@ public class PostDTO extends BaseDTO {
     private double chargeRate;
     private MasterfileDTO callInFrequency;
 
-    private String reasonForChange;
-
     public PreferencesDTO getPreferences() {
         return preferences;
     }
@@ -214,14 +212,6 @@ public class PostDTO extends BaseDTO {
     }
     public void setCallInFrequency(final MasterfileDTO callInFrequency) {
         this.callInFrequency = callInFrequency;
-    }
-
-    public String getReasonForChange() {
-        return reasonForChange;
-    }
-
-    public void setReasonForChange(final String reasonForChange) {
-        this.reasonForChange = reasonForChange;
     }
 }
 //CSON: HiddenField
