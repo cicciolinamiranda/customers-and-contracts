@@ -102,9 +102,9 @@ public class CustomerLocationApi {
             name = "workorder.customer.location.update",
             path = "workorder/customer-location/update",
             httpMethod = ApiMethod.HttpMethod.POST)
-    public void updateCustomerLocationDetails(final CustomerLocationDTO customerLocationDTO)
+    public CustomerLocationDTO updateCustomerLocationDetails(final CustomerLocationDTO customerLocationDTO)
             throws CustomerLocationException {
-        customerLocationService.saveCustomerLocationDetails(customerLocationDTO);
+        return customerLocationService.saveCustomerLocationDetails(customerLocationDTO);
     }
 
     /**

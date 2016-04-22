@@ -2,6 +2,7 @@ package com.g4s.javelin.service.location.impl;
 
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import com.g4s.javelin.annotation.Loggable;
 import com.g4s.javelin.enums.LoggableActionsEnum;
@@ -45,6 +46,7 @@ import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 import com.google.appengine.repackaged.com.google.api.client.util.Sets;
 
 public class CustomerLocationServiceImpl implements CustomerLocationService {
+    private static final Logger LOGGER = Logger.getLogger(CustomerLocationServiceImpl.class.getName());
 
     @Autowired
     @Lazy

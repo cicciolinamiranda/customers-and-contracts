@@ -62,11 +62,12 @@ public class AuditLogAspect {
      */
     @SuppressWarnings("all")
     @Around("getLoggableMethods() && args(customerLocation)")
-    public void captureSaveCustomerLocationDetailsAction(final ProceedingJoinPoint joinPoint,
-                                                         final CustomerLocationDTO customerLocation) {
+    public Object captureSaveCustomerLocationDetailsAction(final ProceedingJoinPoint joinPoint,
+                                                         final CustomerLocationDTO customerLocation) throws Throwable {
         LOGGER.info("Inside " + joinPoint.getSignature().getName());
 
         final Loggable loggable = getLoggableMethodAnnotation(joinPoint);
+        LOGGER.info(loggable.objectType().getCode());
 
         if (customerLocation.getId() != null) {
             final CustomerLocationDTO oldCustomerLocation = customerLocationService.getCustomerLocationDetails(
@@ -92,8 +93,8 @@ public class AuditLogAspect {
      */
     @SuppressWarnings("all")
     @Around("getLoggableMethods() && args(id, status)")
-    public void captureUpdateCustomerLocationStatusAction(final ProceedingJoinPoint joinPoint,
-                                                          final Long id, final String status) {
+    public Object captureUpdateCustomerLocationStatusAction(final ProceedingJoinPoint joinPoint,
+                                                          final Long id, final String status) throws Throwable {
         LOGGER.info("Inside " + joinPoint.getSignature().getName());
 
         final Loggable loggable = getLoggableMethodAnnotation(joinPoint);
