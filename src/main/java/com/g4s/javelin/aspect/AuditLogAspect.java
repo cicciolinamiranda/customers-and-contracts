@@ -1,27 +1,52 @@
 package com.g4s.javelin.aspect;
 
 import com.g4s.javelin.annotation.Loggable;
+import com.g4s.javelin.constants.ServiceConstants;
+import com.g4s.javelin.dto.core.audit.AuditLogDTO;
 import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
 import com.g4s.javelin.dto.core.post.PostDTO;
+import com.g4s.javelin.service.location.CustomerLocationService;
+import com.g4s.javelin.service.post.PostService;
+import com.g4s.javelin.taskqueue.worker.AuditLogTaskWorker;
+import com.g4s.javelin.util.AuditLogUtil;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Lazy;
 
 import java.util.logging.Logger;
 
-//CSOFF: IllegalThrows
 /**
  * @author Jordan Duabe
  * @since 04/12/2016
  * <p/>
  * AOP implementation for interception of service methods used in the creation of audit logs.
  */
+//CSOFF: IllegalCatch
 @Aspect
 public class AuditLogAspect {
 
     private static final Logger LOGGER = Logger.getLogger(AuditLogAspect.class.getName());
+
+    @Autowired
+    @Lazy
+    @Qualifier(ServiceConstants.CUSTOMER_LOCATION_SERVICE)
+    private CustomerLocationService customerLocationService;
+
+    @Autowired
+    @Lazy
+    @Qualifier(ServiceConstants.POST_SERVICE)
+    private PostService postService;
+
+    private AuditLogTaskWorker auditLogTaskWorker;
+
+    public AuditLogAspect() {
+        auditLogTaskWorker = new AuditLogTaskWorker();
+    }
 
     /**
      * Get all methods annotated with @Loggable.
@@ -38,16 +63,31 @@ public class AuditLogAspect {
     @SuppressWarnings("all")
     @Around("getLoggableMethods() && args(customerLocation)")
     public Object captureSaveCustomerLocationDetailsAction(final ProceedingJoinPoint joinPoint,
-                                                         final CustomerLocationDTO customerLocation) throws Throwable {
+                                                           final CustomerLocationDTO customerLocation) {
         LOGGER.info("Inside " + joinPoint.getSignature().getName());
 
         final Loggable loggable = getLoggableMethodAnnotation(joinPoint);
-        LOGGER.info(loggable.objectType().getCode());
 
-        //TODO: Add call to task queue once it is available
+        CustomerLocationDTO newCustomerLocation = null;
 
-        Object retVal = joinPoint.proceed();
-        return retVal;
+        if (customerLocation.getId() != null) {
+            final CustomerLocationDTO oldCustomerLocation = customerLocationService.getCustomerLocationDetails(
+                    customerLocation.getId());
+
+            try {
+                newCustomerLocation = (CustomerLocationDTO) joinPoint.proceed();
+                final AuditLogDTO auditLog = AuditLogUtil.getOldAndNewValue(oldCustomerLocation, newCustomerLocation);
+                auditLog.setObjectType(loggable.objectType());
+                auditLog.setLoggableAction(loggable.action());
+                auditLog.setReasonForChange(customerLocation.getReasonForChange());
+
+                auditLogTaskWorker.saveLog(auditLog);
+            } catch (final Throwable e) {
+                LOGGER.severe(e.getMessage());
+            }
+        }
+
+        return newCustomerLocation;
     }
 
     /**
@@ -58,16 +98,26 @@ public class AuditLogAspect {
     @SuppressWarnings("all")
     @Around("getLoggableMethods() && args(id, status)")
     public Object captureUpdateCustomerLocationStatusAction(final ProceedingJoinPoint joinPoint,
-                                                          final Long id, final String status) throws Throwable {
+                                                            final Long id, final String status) {
         LOGGER.info("Inside " + joinPoint.getSignature().getName());
 
         final Loggable loggable = getLoggableMethodAnnotation(joinPoint);
-        LOGGER.info(loggable.objectType().getCode());
 
-        //TODO: Add call to task queue once it is available
+        final CustomerLocationDTO oldCustomerLocation = customerLocationService.getCustomerLocationDetails(id);
+        CustomerLocationDTO newCustomerLocation = null;
 
-        Object retVal = joinPoint.proceed();
-        return retVal;
+        try {
+            newCustomerLocation = (CustomerLocationDTO) joinPoint.proceed();
+            final AuditLogDTO auditLog = AuditLogUtil.getOldAndNewValue(oldCustomerLocation, newCustomerLocation);
+            auditLog.setLoggableAction(loggable.action());
+            auditLog.setObjectType(loggable.objectType());
+
+            auditLogTaskWorker.saveLog(auditLog);
+        } catch (final Throwable e) {
+            LOGGER.severe(e.getMessage());
+        }
+
+        return newCustomerLocation;
     }
 
     /**
@@ -77,16 +127,31 @@ public class AuditLogAspect {
      */
     @SuppressWarnings("all")
     @Around("getLoggableMethods() && args(post)")
-    public Object captureSavePostDetailsAction(final ProceedingJoinPoint joinPoint, final PostDTO post) throws Throwable {
+    public Object captureSavePostDetailsAction(final ProceedingJoinPoint joinPoint, final PostDTO post) {
         LOGGER.info("Inside " + joinPoint.getSignature().getName());
 
         final Loggable loggable = getLoggableMethodAnnotation(joinPoint);
-        LOGGER.info(loggable.objectType().getCode());
 
-        //TODO: Add call to task queue once it is available
+        PostDTO newPost = null;
 
-        Object retVal = joinPoint.proceed();
-        return retVal;
+        if (post.getId() != null) {
+            final PostDTO oldPost = postService.getPostDetails(post.getId());
+
+            try {
+                newPost = (PostDTO) joinPoint.proceed();
+                final AuditLogDTO auditLog = AuditLogUtil.getOldAndNewValue(oldPost, newPost);
+                auditLog.setObjectType(loggable.objectType());
+                auditLog.setLoggableAction(loggable.action());
+                auditLog.setReasonForChange(post.getReasonForChange());
+
+                auditLogTaskWorker.saveLog(auditLog);
+
+            } catch (final Throwable e) {
+                LOGGER.severe(e.getMessage());
+            }
+        }
+
+        return newPost;
     }
 
     /**
@@ -112,4 +177,4 @@ public class AuditLogAspect {
         return loggable;
     }
 }
-//CSON: IllegalThrows
+//CSON: IllegalCatch
