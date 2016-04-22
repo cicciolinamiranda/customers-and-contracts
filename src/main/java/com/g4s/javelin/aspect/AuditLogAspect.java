@@ -36,14 +36,17 @@ public class AuditLogAspect {
      */
     @SuppressWarnings("all")
     @Around("getLoggableMethods() && args(customerLocation)")
-    public void captureSaveCustomerLocationDetailsAction(final ProceedingJoinPoint joinPoint,
-                                                         final CustomerLocationDTO customerLocation) {
+    public Object captureSaveCustomerLocationDetailsAction(final ProceedingJoinPoint joinPoint,
+                                                         final CustomerLocationDTO customerLocation) throws Throwable {
         LOGGER.info("Inside " + joinPoint.getSignature().getName());
 
         final Loggable loggable = getLoggableMethodAnnotation(joinPoint);
         LOGGER.info(loggable.objectType().getCode());
 
         //TODO: Add call to task queue once it is available
+
+        Object retVal = joinPoint.proceed();
+        return retVal;
     }
 
     /**
@@ -53,12 +56,17 @@ public class AuditLogAspect {
      */
     @SuppressWarnings("all")
     @Around("getLoggableMethods() && args(id, status)")
-    public void captureUpdateCustomerLocationStatusAction(final ProceedingJoinPoint joinPoint,
-                                                          final Long id, final String status) {
+    public Object captureUpdateCustomerLocationStatusAction(final ProceedingJoinPoint joinPoint,
+                                                          final Long id, final String status) throws Throwable{
         LOGGER.info("Inside " + joinPoint.getSignature().getName());
 
         final Loggable loggable = getLoggableMethodAnnotation(joinPoint);
         LOGGER.info(loggable.objectType().getCode());
+
+        //TODO: Add call to task queue once it is available
+
+        Object retVal = joinPoint.proceed();
+        return retVal;
     }
 
     /**
@@ -68,11 +76,16 @@ public class AuditLogAspect {
      */
     @SuppressWarnings("all")
     @Around("getLoggableMethods() && args(post)")
-    public void captureSavePostDetailsAction(final ProceedingJoinPoint joinPoint, final PostDTO post) {
+    public Object captureSavePostDetailsAction(final ProceedingJoinPoint joinPoint, final PostDTO post) throws Throwable{
         LOGGER.info("Inside " + joinPoint.getSignature().getName());
 
         final Loggable loggable = getLoggableMethodAnnotation(joinPoint);
         LOGGER.info(loggable.objectType().getCode());
+
+        //TODO: Add call to task queue once it is available
+
+        Object retVal = joinPoint.proceed();
+        return retVal;
     }
 
     /**
