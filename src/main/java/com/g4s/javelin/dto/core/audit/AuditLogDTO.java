@@ -2,6 +2,7 @@ package com.g4s.javelin.dto.core.audit;
 
 import java.util.List;
 
+import com.g4s.javelin.enums.LoggableActionsEnum;
 import org.joda.time.DateTime;
 
 import com.g4s.javelin.enums.ObjectTypeEnum;
@@ -13,6 +14,7 @@ public class AuditLogDTO {
     private List<DiffDTO> body;
     private String ipAddress;
     private DateTime createdDate;
+    private LoggableActionsEnum loggableAction;
     private String createdBy;
     private String reasonForChange;
 
@@ -54,6 +56,14 @@ public class AuditLogDTO {
 
     public void setCreatedDate(final DateTime createdDate) {
         this.createdDate = createdDate;
+    }
+
+    public LoggableActionsEnum getLoggableAction() {
+        return loggableAction;
+    }
+
+    public void setLoggableAction(final LoggableActionsEnum loggableAction) {
+        this.loggableAction = loggableAction;
     }
 
     public String getCreatedBy() {
