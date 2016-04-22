@@ -6,6 +6,8 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.joda.time.DateTime;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,6 +38,9 @@ public class CustomerLocationApiTest {
 
     @Mock
     private CustomerLocationService customerLocationService;
+
+    @Mock
+    private HttpServletRequest request;
 
     @Mock
     private CustomerLocationDTO customerLocationDTO;
@@ -101,7 +106,7 @@ public class CustomerLocationApiTest {
 
     @Test
     public void testSaveCustomerLocationDetails() throws Exception {
-        customerLocationApi.saveCustomerLocationDetails(customerLocationDTO);
+        customerLocationApi.saveCustomerLocationDetails(customerLocationDTO, request);
         Mockito.verify(customerLocationService, Mockito.times(1)).saveCustomerLocationDetails(
                 Mockito.any(CustomerLocationDTO.class));
     }
@@ -138,7 +143,7 @@ public class CustomerLocationApiTest {
 
     @Test
     public void testUpdateCustomerLocationDetails() throws Exception {
-        customerLocationApi.updateCustomerLocationDetails(customerLocationDTO);
+        customerLocationApi.updateCustomerLocationDetails(customerLocationDTO, request);
         Mockito.verify(customerLocationService, Mockito.times(1)).saveCustomerLocationDetails(
                 Mockito.any(CustomerLocationDTO.class));
     }

@@ -24,12 +24,20 @@ public class DiffUtil {
                     .get(i);
             DiffDTO diffDTO = new DiffDTO();
             diffDTO.setFieldName(change.getPropertyName());
-            change.getLeft().toString();
+            //change.getLeft().toString();
             List<String> oldValues = Lists.newArrayList();
-            oldValues.add(change.getLeft().toString());
+            if (null == change.getLeft()) {
+                oldValues.add("");
+            } else {
+                oldValues.add(change.getLeft().toString());
+            }
             diffDTO.setOldValue(oldValues);
             List<String> newValues = Lists.newArrayList();
-            newValues.add(change.getRight().toString());
+            if (null == change.getRight()) {
+                newValues.add("");
+            } else {
+                newValues.add(change.getRight().toString());
+            }
             diffDTO.setNewValue(newValues);
             response.add(diffDTO);
         }

@@ -5,13 +5,13 @@ public class AuditLogDTO {
 
     private String objectType;
     private String body;
-    private String ip_address = "127.0.0.0";
+    private String ip_address;
     private String reason;
     private String namespace = "US";
-    private String object_id = "1729";
+    private String object_id;
     private String action;
     private String revision_date;
-    private String revised_by = "REVISED";
+    private String revised_by = "User";
 
     public String getObjectType() {
         return objectType;

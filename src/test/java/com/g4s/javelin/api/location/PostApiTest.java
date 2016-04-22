@@ -5,6 +5,8 @@ import static org.mockito.Mockito.when;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,6 +34,9 @@ public class PostApiTest {
 
     @Mock
     private PostService postServiceMock;
+    
+    @Mock
+    private HttpServletRequest request;
 
     @InjectMocks
     private PostApi postApiMock = new PostApi();
@@ -148,12 +153,12 @@ public class PostApiTest {
     @Test
     public void testSavePostDetails() throws PostException, PostDuplicateException {
         when(postServiceMock.savePostDetails(postDTO)).thenReturn(postDTO);
-        assertNotNull(postApiMock.savePostDetails(postDTO));
+        assertNotNull(postApiMock.savePostDetails(postDTO, request));
     }
 
     @Test
     public void testUpdatePostDetails() throws PostException, PostDuplicateException {
         when(postServiceMock.savePostDetails(postDTO)).thenReturn(postDTO);
-        assertNotNull(postApiMock.savePostDetails(postDTO));
+        assertNotNull(postApiMock.savePostDetails(postDTO, request));
     }
 }
