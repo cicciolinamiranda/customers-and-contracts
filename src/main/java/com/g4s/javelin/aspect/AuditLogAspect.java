@@ -90,17 +90,15 @@ public class AuditLogAspect {
             LOGGER.severe(e.getMessage());
         }
 
-        if (newCustomerLocation.getWorkOrderId() != null
-                && oldCustomerLocation != null) {
-            AuditLogDTO auditLog = AuditLogUtil.getOldAndNewValue(
-                    oldCustomerLocation, newCustomerLocation);
-            auditLog.setObject_id(String.valueOf(newCustomerLocation.getId()));
-            auditLog.setObjectType(loggable.objectType().getCode());
-            auditLog.setAction(loggable.action().getCode());
-            auditLog.setIp_address(customerLocation.getIpAddress());
-            auditLog.setReason(customerLocation.getReasonForChange());
-            auditLogTaskWorker.saveLog(auditLog);
-        }
+        final AuditLogDTO auditLog = AuditLogUtil.getOldAndNewValue(oldCustomerLocation, newCustomerLocation);
+        auditLog.setObjectType(loggable.objectType().getCode());
+        auditLog.setAction(loggable.action().getCode());
+        auditLog.setReason(customerLocation.getReasonForChange());
+        auditLog.setObject_id(String.valueOf(newCustomerLocation.getId()));
+        auditLog.setIp_address(customerLocation.getIpAddress());
+
+        auditLogTaskWorker.saveLog(auditLog);
+
 
         return newCustomerLocation;
     }
@@ -160,26 +158,25 @@ public class AuditLogAspect {
         PostDTO newPost = null;
         PostDTO oldPost = null;
         if (post.getId() != null) {
+            LOGGER.info("ID " + post.getId());
             oldPost = postService.getPostDetails(post.getId());
         }
 
         try {
             newPost = (PostDTO) joinPoint.proceed();
+            LOGGER.info("NEW ID" + newPost.getId());
         } catch (final Throwable e) {
             LOGGER.severe(e.getMessage());
         }
 
-        if (oldPost != null) {
-            final AuditLogDTO auditLog = AuditLogUtil.getOldAndNewValue(
-                    oldPost, newPost);
-            auditLog.setObject_id(String.valueOf(newPost.getId()));
-            auditLog.setObjectType(loggable.objectType().getCode());
-            auditLog.setAction(loggable.action().getCode());
-            auditLog.setIp_address(post.getIpAddress());
-            auditLog.setReason(post.getReasonForChange());
+        final AuditLogDTO auditLog = AuditLogUtil.getOldAndNewValue(oldPost, newPost);
+        auditLog.setObjectType(loggable.objectType().getCode());
+        auditLog.setAction(loggable.action().getCode());
+        auditLog.setReason(post.getReasonForChange());
+        auditLog.setObject_id(String.valueOf(newPost.getId()));
+        auditLog.setIp_address(post.getIpAddress());
 
-            auditLogTaskWorker.saveLog(auditLog);
-        }
+        auditLogTaskWorker.saveLog(auditLog);
 
         return newPost;
     }
