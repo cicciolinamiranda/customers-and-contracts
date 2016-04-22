@@ -24,7 +24,7 @@ public class DiffUtil {
                     .get(i);
             DiffDTO diffDTO = new DiffDTO();
             diffDTO.setFieldName(change.getPropertyName());
-            change.getLeft().toString();
+            //change.getLeft().toString();
             List<String> oldValues = Lists.newArrayList();
             oldValues.add(change.getLeft().toString());
             diffDTO.setOldValue(oldValues);
