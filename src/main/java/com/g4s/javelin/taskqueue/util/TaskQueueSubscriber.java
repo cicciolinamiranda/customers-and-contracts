@@ -22,9 +22,12 @@ public final class TaskQueueSubscriber {
         boolean isSubscribed = false;
 
         final Queue queue = getTaskQueue(taskQueue);
-
+        LOGGER.info("Queue used: " + queue.getQueueName());
         try {
-            queue.add(TaskOptions.Builder.withUrl(url).payload(OBJECT_MAPPER.writeValueAsString(auditLog)));
+            LOGGER.info(OBJECT_MAPPER.writeValueAsString(auditLog));
+            queue.add(TaskOptions.Builder.withUrl(url).method(TaskOptions.Method.POST)
+                    .header("Content-type", "application/json")
+                    .payload(OBJECT_MAPPER.writeValueAsString(auditLog)));
 
             isSubscribed = true;
         } catch (final IOException e) {
