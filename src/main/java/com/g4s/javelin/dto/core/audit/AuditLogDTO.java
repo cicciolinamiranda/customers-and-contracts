@@ -15,6 +15,7 @@ public class AuditLogDTO {
     private String ipAddress;
     private DateTime createdDate;
     private LoggableActionsEnum loggableAction;
+	private String createdBy;
     private String reasonForChange;
 
     public String getRevisionNumber() {
@@ -65,6 +66,14 @@ public class AuditLogDTO {
         this.loggableAction = loggableAction;
     }
 
+	 public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(final String createdBy) {
+        this.createdBy = createdBy;
+    }
+
     public String getReasonForChange() {
         return reasonForChange;
     }
@@ -75,9 +84,10 @@ public class AuditLogDTO {
 
     @Override
     public String toString() {
-        return "AuditLogDTO{" + "revisionNumber='" + revisionNumber + '\'' + ", objectType=" + objectType
-                + ", body=" + body + ", ipAddress='" + ipAddress + '\'' + ", createdDate=" + createdDate
-                + ", loggableAction=" + loggableAction + ", reasonForChange='" + reasonForChange + '\''
-                + '}';
+        return "AuditLogDTO [revisionNumber=" + revisionNumber
+                + ", objectType=" + objectType + ", body=" + body
+                + ", ipAddress=" + ipAddress + ", createdDate=" + createdDate
+                + ", createdBy=" + createdBy + ", reasonForChange="
+                + reasonForChange + "]";
     }
 }
