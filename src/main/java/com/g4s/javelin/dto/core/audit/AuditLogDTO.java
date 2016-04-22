@@ -13,6 +13,8 @@ public class AuditLogDTO {
     private List<DiffDTO> body;
     private String ipAddress;
     private DateTime createdDate;
+    private String createdBy;
+    private String reasonForChange;
 
     public String getRevisionNumber() {
         return revisionNumber;
@@ -54,11 +56,28 @@ public class AuditLogDTO {
         this.createdDate = createdDate;
     }
 
+    public String getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(final String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getReasonForChange() {
+        return reasonForChange;
+    }
+
+    public void setReasonForChange(final String reasonForChange) {
+        this.reasonForChange = reasonForChange;
+    }
+
     @Override
     public String toString() {
         return "AuditLogDTO [revisionNumber=" + revisionNumber
                 + ", objectType=" + objectType + ", body=" + body
                 + ", ipAddress=" + ipAddress + ", createdDate=" + createdDate
-                + "]";
+                + ", createdBy=" + createdBy + ", reasonForChange="
+                + reasonForChange + "]";
     }
 }
