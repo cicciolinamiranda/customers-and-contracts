@@ -31,8 +31,8 @@ public class AuditLogUtil extends DiffDTO {
             response.setBody(null);
         }
 
-        response.setIpAddress(newValue.getIpAddress());
-        response.setRevisionDate(DateTime.now());
+        response.setIp_address(newValue.getIpAddress());
+        response.setRevision_date(DateTime.now().toString());
        // response.setRevisionNumber(UUID.randomUUID().toString());
         return response;
     }

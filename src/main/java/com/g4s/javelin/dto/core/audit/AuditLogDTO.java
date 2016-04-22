@@ -1,18 +1,17 @@
 package com.g4s.javelin.dto.core.audit;
 
-import org.joda.time.DateTime;
 //CSOFF_ALL:
 public class AuditLogDTO {
 
     private String objectType;
     private String body;
-    private String ip_address;
+    private String ip_address = "127.0.0.0";
     private String reason;
-    private String namespace;
-    private String object_id;
+    private String namespace = "US";
+    private String object_id = "1729";
     private String action;
-    private DateTime revision_date;
-    private String revised_by;
+    private String revision_date;
+    private String revised_by = "REVISED";
 
     public String getObjectType() {
         return objectType;
@@ -30,14 +29,6 @@ public class AuditLogDTO {
         this.body = body;
     }
 
-    public String getIpAddress() {
-        return ip_address;
-    }
-
-    public void setIpAddress(final String ipAddress) {
-        this.ip_address = ipAddress;
-    }
-
     public String getReason() {
         return reason;
     }
@@ -47,58 +38,57 @@ public class AuditLogDTO {
     }
 
     public String getIp_address() {
-		return ip_address;
-	}
+        return ip_address;
+    }
 
-	public void setIp_address(final String ip_address) {
-		this.ip_address = ip_address;
-	}
+    public void setIp_address(final String ip_address) {
+        this.ip_address = ip_address;
+    }
 
-	public String getNamespace() {
-		return namespace;
-	}
+    public String getNamespace() {
+        return namespace;
+    }
 
-	public void setNamespace(final String namespace) {
-		this.namespace = namespace;
-	}
+    public void setNamespace(final String namespace) {
+        this.namespace = namespace;
+    }
 
-	public String getObject_id() {
-		return object_id;
-	}
+    public String getObject_id() {
+        return object_id;
+    }
 
-	public void setObject_id(final String object_id) {
-		this.object_id = object_id;
-	}
+    public void setObject_id(final String object_id) {
+        this.object_id = object_id;
+    }
 
-	public String getAction() {
-		return action;
-	}
+    public String getAction() {
+        return action;
+    }
 
-	public void setAction(final String action) {
-		this.action = action;
-	}
+    public void setAction(final String action) {
+        this.action = action;
+    }
 
-	public DateTime getRevisionDate() {
-		return revision_date;
-	}
+    public String getRevision_date() {
+        return revision_date;
+    }
 
-	public void setRevisionDate(final DateTime revision_date) {
-		this.revision_date = revision_date;
-	}
+    public void setRevision_date(String revision_date) {
+        this.revision_date = revision_date;
+    }
 
-	public String getRevisedBy() {
-		return revised_by;
-	}
+    public String getRevised_by() {
+        return revised_by;
+    }
 
-	public void setRevisedBy(final String revised_by) {
-		this.revised_by = revised_by;
-	}
+    public void setRevised_by(final String revised_by) {
+        this.revised_by = revised_by;
+    }
 
-	@Override
+    @Override
     public String toString() {
-        return "AuditLogDTO [objectType=" + objectType + ", body=" + body
-                + ", ipAddress=" + ip_address + ", reason="
+        return "AuditLogDTO [objectType=" + objectType + ", body=" + body + ", ipAddress=" + ip_address + ", reason="
                 + reason + "]";
     }
 }
-//CSON_ALL:
+// CSON_ALL:
