@@ -11,6 +11,7 @@ import org.aspectj.lang.reflect.MethodSignature;
 
 import java.util.logging.Logger;
 
+//CSOFF: IllegalThrows
 /**
  * @author Jordan Duabe
  * @since 04/12/2016
@@ -57,7 +58,7 @@ public class AuditLogAspect {
     @SuppressWarnings("all")
     @Around("getLoggableMethods() && args(id, status)")
     public Object captureUpdateCustomerLocationStatusAction(final ProceedingJoinPoint joinPoint,
-                                                          final Long id, final String status) throws Throwable{
+                                                          final Long id, final String status) throws Throwable {
         LOGGER.info("Inside " + joinPoint.getSignature().getName());
 
         final Loggable loggable = getLoggableMethodAnnotation(joinPoint);
@@ -76,7 +77,7 @@ public class AuditLogAspect {
      */
     @SuppressWarnings("all")
     @Around("getLoggableMethods() && args(post)")
-    public Object captureSavePostDetailsAction(final ProceedingJoinPoint joinPoint, final PostDTO post) throws Throwable{
+    public Object captureSavePostDetailsAction(final ProceedingJoinPoint joinPoint, final PostDTO post) throws Throwable {
         LOGGER.info("Inside " + joinPoint.getSignature().getName());
 
         final Loggable loggable = getLoggableMethodAnnotation(joinPoint);
@@ -111,3 +112,4 @@ public class AuditLogAspect {
         return loggable;
     }
 }
+//CSON: IllegalThrows
