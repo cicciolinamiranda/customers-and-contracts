@@ -25,8 +25,8 @@ public class AuditLogUtil extends DiffDTO {
     private static AuditLogDTO helper(final BaseDTO oldValue, final BaseDTO newValue) throws IOException {
         AuditLogDTO response = new AuditLogDTO();
         response.setBody(OBJECT_MAPPER.writeValueAsString(new DiffUtil().getOldAndNewValue(oldValue, newValue)));
-        response.setIpAddress(newValue.getIpAddress());
-        response.setRevisionDate(DateTime.now());
+        response.setIp_address(newValue.getIpAddress());
+        response.setRevision_date(DateTime.now().toString());
        // response.setRevisionNumber(UUID.randomUUID().toString());
         return response;
     }

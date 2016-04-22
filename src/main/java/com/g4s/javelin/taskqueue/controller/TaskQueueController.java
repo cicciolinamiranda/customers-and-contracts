@@ -9,11 +9,15 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.logging.Logger;
 
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.g4s.javelin.dto.core.audit.AuditLogDTO;
+import com.g4s.javelin.enums.ObjectTypeEnum;
+import com.google.appengine.repackaged.org.codehaus.jackson.map.ObjectMapper;
 
 @RestController
 @RequestMapping("/tasks")
@@ -22,18 +26,27 @@ public class TaskQueueController {
     private static final Logger LOGGER = Logger.getLogger(TaskQueueController.class.getName());
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
-    @RequestMapping("/saveAuditLog")
-    public void saveAuditLog(final AuditLogDTO auditLog) throws IOException {
+    @RequestMapping(value = "/saveAuditLog", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
+    public void saveAuditLog(@RequestBody final AuditLogDTO auditLog) throws IOException {
         HttpURLConnection connection = null;
+        String logURL = "";
+
+        LOGGER.info(MAPPER.writeValueAsString(auditLog));
         try {
-             // Create connection
-            URL url = new URL("https://reports-dot-javelin-dev.appspot.com/reports/v1/auditlog/location/log");
+            // Create connection
+            if (auditLog.getObjectType().equals(ObjectTypeEnum.CUSTOMERLOCATION.getCode())) {
+                logURL = "https://reports-dot-javelin-dev.appspot.com/reports/v1/auditlog/location/log";
+            } else if (auditLog.getObjectType().equals(ObjectTypeEnum.POST.getCode())) {
+                logURL = "https://reports-dot-javelin-dev.appspot.com/reports/v1/auditlog/post/log";
+            }
+
+            URL url = new URL(logURL);
             connection = (HttpURLConnection) url.openConnection();
             connection.setRequestMethod("POST");
             connection.setRequestProperty("Content-Type", "application/json");
 
-            connection.setRequestProperty("Content-Length", ""
-                + Integer.toString(MAPPER.writeValueAsString(auditLog).getBytes().length));
+            connection.setRequestProperty("Content-Length",
+                    "" + Integer.toString(MAPPER.writeValueAsString(auditLog).getBytes().length));
             connection.setRequestProperty("Content-Language", "en-US");
 
             connection.setUseCaches(false);
