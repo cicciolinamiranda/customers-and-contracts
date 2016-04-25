@@ -20,7 +20,6 @@
          <app.id>javelin-dev</app.id>
         <app.version>smp</app.version>
         <app.module>customer-contracts</app.module>
-        <customer.contracts.bucket>javelin-mss-images</customer.contracts.bucket>
         
         <!-- DEV CS PLAYGROUND CONFIGS 
         <app.id>cs-development-playground</app.id>

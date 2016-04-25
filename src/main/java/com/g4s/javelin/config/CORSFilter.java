@@ -29,6 +29,12 @@ public class CORSFilter implements Filter {
 
     public CORSFilter() {
         allowedOrigins.add("http://localhost:8081");
+        allowedOrigins.add("http://localhost:8080");
+        allowedOrigins.add("https://9-dot-mss-frontend-dot-javelin-dev.appspot.com");
+        allowedOrigins.add("https://smp-dot-customer-contracts-dot-javelin-dev.appspot.com");
+//        allowedOrigins.add("https://customer-contracts-dot-javelin-dev.appspot.com");
+//        allowedOrigins.add("https://customer-contracts-dot-javelin-qa.appspot.com");
+//        allowedOrigins.add("https://customer-contracts-dot-javelin-uat.appspot.com");
     }
 
     private void preflight(final HttpServletRequest requestContext, final HttpServletResponse responseContext, final String origin) {
@@ -78,6 +84,8 @@ public class CORSFilter implements Filter {
         HttpServletResponse responseContext = (HttpServletResponse) response;
         try {
             String origin = requestContext.getHeader("ORIGIN");
+            LOGGER.info("ORIGIN " + origin);
+            LOGGER.info(allowedOrigins.toString());
             if (requestContext.getMethod().equalsIgnoreCase("OPTIONS")) {
                 LOGGER.info("Attempting to set pre-flight response headers.");
                 preflight(requestContext, responseContext, origin);
