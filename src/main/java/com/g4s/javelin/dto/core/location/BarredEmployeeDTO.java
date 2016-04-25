@@ -1,11 +1,15 @@
 package com.g4s.javelin.dto.core.location;
 
+import org.javers.core.metamodel.annotation.Entity;
+import org.javers.core.metamodel.annotation.Id;
 import org.joda.time.DateTime;
 
 import com.g4s.javelin.dto.BaseDTO;
 
 //CSOFF: HiddenField
+@Entity
 public class BarredEmployeeDTO extends BaseDTO {
+    @Id
     private Long employeeId;
     private String title;
     private String firstName;
