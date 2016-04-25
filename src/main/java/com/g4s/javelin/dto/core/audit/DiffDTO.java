@@ -1,38 +1,20 @@
 package com.g4s.javelin.dto.core.audit;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DiffDTO {
 
     private String fieldName;
-    private List<String> oldValue;
-    private List<String> newValue;
+    private List<String> changes;
 
     public DiffDTO() {
+        changes = new ArrayList<String>();
     }
 
-    public DiffDTO(final String fieldName, final List<String> oldValue,
-            final List<String> newValue) {
-        super();
+    public DiffDTO(final String fieldName, final List<String> changes) {
         this.fieldName = fieldName;
-        this.oldValue = oldValue;
-        this.newValue = newValue;
-    }
-
-    public List<String> getOldValue() {
-        return oldValue;
-    }
-
-    public void setOldValue(final List<String> oldValue) {
-        this.oldValue = oldValue;
-    }
-
-    public List<String> getNewValue() {
-        return newValue;
-    }
-
-    public void setNewValue(final List<String> newValue) {
-        this.newValue = newValue;
+        this.changes = changes;
     }
 
     public String getFieldName() {
@@ -43,10 +25,12 @@ public class DiffDTO {
         this.fieldName = fieldName;
     }
 
-
-    @Override
-    public String toString() {
-        return "DiffDTO [fieldName=" + fieldName + ", oldValue=" + oldValue
-                + ", newValue=" + newValue + "]";
+    public List<String> getChanges() {
+        return changes;
     }
+
+    public void setChanges(final List<String> changes) {
+        this.changes = changes;
+    }
+
 }
