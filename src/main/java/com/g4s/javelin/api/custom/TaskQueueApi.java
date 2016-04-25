@@ -1,4 +1,4 @@
-package com.g4s.javelin.taskqueue.controller;
+package com.g4s.javelin.api.custom;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -19,11 +19,18 @@ import com.g4s.javelin.dto.core.audit.AuditLogDTO;
 import com.g4s.javelin.enums.ObjectTypeEnum;
 import com.google.appengine.repackaged.org.codehaus.jackson.map.ObjectMapper;
 
+/**
+ * @author Sharlyn Mae Pandes
+ * @since 4/18/2016
+ *
+ * 4/20/16 - Renamed from TaskQueueController
+ * */
+
 @RestController
 @RequestMapping("/tasks")
-public class TaskQueueController {
+public class TaskQueueApi {
 
-    private static final Logger LOGGER = Logger.getLogger(TaskQueueController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(TaskQueueApi.class.getName());
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
     @RequestMapping(value = "/saveAuditLog", method = RequestMethod.POST, consumes = MediaType.APPLICATION_JSON_VALUE)
@@ -74,7 +81,6 @@ public class TaskQueueController {
                 connection.disconnect();
             }
         }
-        LOGGER.info("Saving Audit Logs");
     }
 
 }

@@ -1,6 +1,7 @@
 package com.g4s.javelin.api;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -27,6 +28,7 @@ import com.google.api.server.spi.config.Named;
                 ownerName = ApiConstants.API_NAMESPACE_OWNER_NAME),
         description = ApiConstants.API_DESCRIPTION)
 public class PostApi {
+    private static final Logger LOGGER = Logger.getLogger(PostApi.class.getName());
     @Autowired
     @Lazy
     @Qualifier(ServiceConstants.POST_SERVICE)

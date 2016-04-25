@@ -36,6 +36,7 @@
           com.g4s.javelin.config.ServiceAppContext
           com.g4s.javelin.Application
           com.g4s.javelin.taskqueue.config.TaskQueueContextConfig
+          com.g4s.javelin.config.MultipartConfig
         </param-value>
 
     </context-param>
@@ -48,4 +49,15 @@
         <servlet-name>rest-dispatcher</servlet-name>
         <url-pattern>/*</url-pattern>
     </servlet-mapping>
+    
+    <filter>
+        <filter-name>corsFilter</filter-name>
+        <filter-class>
+            com.g4s.javelin.config.CORSFilter
+        </filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>corsFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>
