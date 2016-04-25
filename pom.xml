@@ -18,9 +18,9 @@
 
         <!-- WORK ORDER CONFIGS -->
         <!-- DEV CONFIGS -->
-         <app.id>javelin-dev</app.id>
+<!--          <app.id>javelin-dev</app.id>
         <app.version>smp</app.version>
-        <app.module>customer-contracts</app.module>
+        <app.module>customer-contracts</app.module> -->
         
         <!-- DEV CS PLAYGROUND CONFIGS 
         <app.id>cs-development-playground</app.id>
@@ -28,9 +28,9 @@
         <app.module>customer-contracts</app.module>-->
 
         <!-- QA CONFIGS -->
-<!--         <app.id>javelin-qa</app.id>
-        <app.version>1</app.version>
-        <app.module>customer-contracts</app.module> -->
+        <app.id>javelin-qa</app.id>
+        <app.version>team3</app.version>
+        <app.module>customer-contracts</app.module>
 
         <!-- UAT CONFIGS -->
 <!--         <app.id>javelin-uat</app.id>

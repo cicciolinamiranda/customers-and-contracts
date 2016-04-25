@@ -59,14 +59,15 @@ public class ShiftPatternApi {
      * Save the shift pattern before saving its detail
      */
     //TODO: Name and Path Entry
-    @ApiMethod(
-            name = "",
-            path = "",
-            httpMethod = ApiMethod.HttpMethod.POST)
-    public ShiftPatternDTO saveShiftPattern(final ShiftPatternDTO shiftPatternDTO, final ShiftPatternDetailDTO shiftPatternDetailDTO) {
-        shiftPatternService.saveShiftPattern(shiftPatternDTO, shiftPatternDetailDTO);
-        return null;
-    }
+//    @ApiMethod(
+//            name = "",
+//            path = "",
+//            httpMethod = ApiMethod.HttpMethod.POST)
+//TODO: Combine this two DTOs to a new DTO to avoid multiple Object Param
+//    public ShiftPatternDTO saveShiftPattern(final ShiftPatternDTO shiftPatternDTO, final ShiftPatternDetailDTO shiftPatternDetailDTO) {
+//        shiftPatternService.saveShiftPattern(shiftPatternDTO, shiftPatternDetailDTO);
+//        return null;
+//    }
 
     //TODO: Search Shift Pattern
 
