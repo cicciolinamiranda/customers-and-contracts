@@ -122,7 +122,6 @@ public class ContactServiceImplTest extends TestCase {
     @Test
     public void testGetContactByAccountNumber() throws Exception {
         contactModelList.add(contactModel);
-        System.out.println(contactModelList.get(0));
 
         Mockito.when(contactRepository.findByContactAccountNumber("999999")).thenReturn(contactModelList);
 
