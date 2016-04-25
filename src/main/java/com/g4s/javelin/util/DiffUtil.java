@@ -1,6 +1,7 @@
 package com.g4s.javelin.util;
 
 import java.util.List;
+import java.util.logging.Logger;
 
 import org.javers.core.Javers;
 import org.javers.core.JaversBuilder;
@@ -12,6 +13,7 @@ import com.google.common.collect.Lists;
 
 
 public class DiffUtil {
+    private static final Logger LOGGER = Logger.getLogger(DiffUtil.class.getName());
 
     protected List<DiffDTO> getOldAndNewValue(
             final Object oldValue,
@@ -19,6 +21,7 @@ public class DiffUtil {
         List<DiffDTO> response = Lists.newArrayList();
         Javers javers = JaversBuilder.javers().build();
         Diff diff = javers.compare(oldValue, newValue);
+        LOGGER.info(String.valueOf(diff.getChangesByType(ValueChange.class).size()));
         for (int i = 1; i < diff.getChangesByType(ValueChange.class).size(); i++) {
             ValueChange change = diff.getChangesByType(ValueChange.class)
                     .get(i);
