@@ -108,13 +108,13 @@ public class AuditLogAspect {
      * audit log.
      *
      * @param joinPoint
-     *            {@link com.g4s.javelin.service.location.CustomerLocationService#updateCustomerLocationStatus(Long, String)}
+     *    {@link com.g4s.javelin.service.location.CustomerLocationService#updateCustomerLocationStatus(Long, String, String, String)}
      */
     @SuppressWarnings("all")
-    @Around("getLoggableMethods() && args(id, status)")
+    @Around("getLoggableMethods() && args(id, status, reasonForChange, ipAddress)")
     public Object captureUpdateCustomerLocationStatusAction(
             final ProceedingJoinPoint joinPoint, final Long id,
-            final String status) {
+            final String status, final String reasonForChange, final String ipAddress) {
         LOGGER.info("Inside " + joinPoint.getSignature().getName());
 
         final Loggable loggable = getLoggableMethodAnnotation(joinPoint);
@@ -125,15 +125,19 @@ public class AuditLogAspect {
 
         try {
             newCustomerLocation = (CustomerLocationDTO) joinPoint.proceed();
+            LOGGER.info(oldCustomerLocation.getStatusStr() + " OLD < > NEW "
+                    + newCustomerLocation.getStatusStr());
             final AuditLogDTO auditLog = AuditLogUtil.getOldAndNewValue(
                     oldCustomerLocation, newCustomerLocation);
+            auditLog.setReason(reasonForChange);
+            auditLog.setIp_address(ipAddress);
             auditLog.setObject_id(String.valueOf(newCustomerLocation.getId()));
             auditLog.setAction(loggable.action().getCode());
             auditLog.setObjectType(loggable.objectType().getCode());
 
             auditLogTaskWorker.saveLog(auditLog);
         } catch (final Throwable e) {
-            LOGGER.severe(e.getMessage());
+            LOGGER.severe(e.getClass() + " " + e.getMessage());
         }
 
         return newCustomerLocation;
@@ -152,7 +156,6 @@ public class AuditLogAspect {
             final ProceedingJoinPoint joinPoint, final PostDTO post)
             throws IOException {
         LOGGER.info("Inside " + joinPoint.getSignature().getName());
-        LOGGER.info(post.getReasonForChange());
         final Loggable loggable = getLoggableMethodAnnotation(joinPoint);
 
         PostDTO newPost = null;

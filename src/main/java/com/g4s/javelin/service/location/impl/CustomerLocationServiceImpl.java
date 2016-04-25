@@ -2,11 +2,7 @@ package com.g4s.javelin.service.location.impl;
 
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Logger;
 
-import com.g4s.javelin.annotation.Loggable;
-import com.g4s.javelin.enums.LoggableActionsEnum;
-import com.g4s.javelin.enums.ObjectTypeEnum;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.hibernate.HibernateException;
 import org.joda.time.format.DateTimeFormat;
@@ -17,6 +13,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import com.g4s.javelin.annotation.Loggable;
 import com.g4s.javelin.constants.ExceptionMessageConstants;
 import com.g4s.javelin.constants.ServiceConstants;
 import com.g4s.javelin.data.model.location.AddressModel;
@@ -35,6 +32,8 @@ import com.g4s.javelin.dto.core.location.WorkOrderDTO;
 import com.g4s.javelin.dto.core.masterfile.MasterfileDTO;
 import com.g4s.javelin.dto.core.masterfile.TaskDTO;
 import com.g4s.javelin.dto.mock.IncidentLogMockDTO;
+import com.g4s.javelin.enums.LoggableActionsEnum;
+import com.g4s.javelin.enums.ObjectTypeEnum;
 import com.g4s.javelin.enums.StatusEnum;
 import com.g4s.javelin.exception.CustomerLocationException;
 import com.g4s.javelin.service.location.BarredEmployeeService;
@@ -46,7 +45,6 @@ import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 import com.google.appengine.repackaged.com.google.api.client.util.Sets;
 
 public class CustomerLocationServiceImpl implements CustomerLocationService {
-    private static final Logger LOGGER = Logger.getLogger(CustomerLocationServiceImpl.class.getName());
 
     @Autowired
     @Lazy
@@ -210,9 +208,17 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
 
     @Override
     @Loggable(objectType = ObjectTypeEnum.CUSTOMERLOCATION, action = LoggableActionsEnum.ARCHIVE_CUSTOMER_LOCATION)
-    public void updateCustomerLocationStatus(final Long id, final String status) {
+    public CustomerLocationDTO updateCustomerLocationStatus(final Long id, final String status,
+            final String reasonForChange, final String ipAddress) throws CustomerLocationException {
         StatusEnum statusEnum = StatusEnum.findByCode(status);
-        customerLocationRepository.updateStatus(id, statusEnum);
+        CustomerLocationDTO result;
+        try {
+            customerLocationRepository.updateStatus(id, statusEnum);
+            result = getCustomerLocationDetails(id);
+        } catch (HibernateException e) {
+            throw new CustomerLocationException(e.getMessage());
+        }
+        return result;
     }
 
     private CustomerLocationDTO transformCustomerLocation(

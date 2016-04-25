@@ -147,11 +147,12 @@ public class CustomerLocationApiTest {
         Mockito.verify(customerLocationService, Mockito.times(1)).saveCustomerLocationDetails(
                 Mockito.any(CustomerLocationDTO.class));
     }
-
+    
     @Test
     public void testUpdateStatus() throws Exception {
-        customerLocationApi.updateCustomerLocationStatus(Mockito.anyLong(), Mockito.anyString());
-        Mockito.verify(customerLocationService, Mockito.times(1)).updateCustomerLocationStatus(Mockito.anyLong(), Mockito.anyString());
+        customerLocationApi.updateCustomerLocationStatus(1L, "ARCHIVE", "reason", request);
+        Mockito.verify(customerLocationService, Mockito.times(1))
+            .updateCustomerLocationStatus(Mockito.anyLong(), Mockito.anyString(), Mockito.anyString(), Mockito.anyString());
     }
 
 }

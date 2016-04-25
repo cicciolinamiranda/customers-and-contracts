@@ -143,14 +143,17 @@ public class CustomerLocationApi {
      *
      * @param id Customer Location id
      * @param status Status
+     * @throws CustomerLocationException
      */
     @ApiMethod(
             name = "workorder.customer.location.update_status",
             path = "workorder/customer-location/update-status",
             httpMethod = ApiMethod.HttpMethod.POST)
-    public void updateCustomerLocationStatus(@Named("id") final Long id,
-            @Named("status") final String status) {
-        customerLocationService.updateCustomerLocationStatus(id, status);
+    public CustomerLocationDTO updateCustomerLocationStatus(@Named("id") final Long id,
+            @Named("status") final String status, @Named("reasonForChange") final String reasonForChange, final HttpServletRequest request)
+            throws CustomerLocationException {
+        return customerLocationService.updateCustomerLocationStatus(id, status, reasonForChange,
+                ServletRequestUtil.extractIpAddress(request));
     }
 
     /**
