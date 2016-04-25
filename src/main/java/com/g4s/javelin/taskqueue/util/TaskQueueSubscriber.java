@@ -1,45 +1,40 @@
 package com.g4s.javelin.taskqueue.util;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Logger;
-
 import com.g4s.javelin.dto.core.audit.AuditLogDTO;
 import com.google.appengine.api.taskqueue.Queue;
 import com.google.appengine.api.taskqueue.QueueFactory;
 import com.google.appengine.api.taskqueue.TaskOptions;
+import com.google.appengine.repackaged.org.codehaus.jackson.map.ObjectMapper;
+
+import java.io.IOException;
+import java.util.logging.Logger;
 
 public final class TaskQueueSubscriber {
 
     private static final Logger LOGGER = Logger.getLogger(TaskQueueSubscriber.class.getName());
 
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+
     private TaskQueueSubscriber() {
     }
 
     public static boolean subscribeTask(final String taskQueue, final String url, final AuditLogDTO auditLog) {
-        boolean isTaskCreated = false;
+        boolean isSubscribed = false;
+
         final Queue queue = getTaskQueue(taskQueue);
-        Map<String, String> params = transformObjectToParams(auditLog);
+        LOGGER.info("Queue used: " + queue.getQueueName());
+        try {
+            LOGGER.info(OBJECT_MAPPER.writeValueAsString(auditLog));
+            queue.add(TaskOptions.Builder.withUrl(url).method(TaskOptions.Method.POST)
+                    .header("Content-type", "application/json")
+                    .payload(OBJECT_MAPPER.writeValueAsString(auditLog)));
 
-        if (url != null && !url.trim().isEmpty()) {
-            final TaskOptions taskOptions = TaskOptions.Builder.withUrl(url);
-
-            if (params != null && !params.isEmpty()) {
-                for (String paramKey : params.keySet()) {
-                    taskOptions.param(paramKey, params.get(paramKey));
-                }
-            }
-            queue.add(taskOptions);
-            isTaskCreated = true;
+            isSubscribed = true;
+        } catch (final IOException e) {
+            LOGGER.severe(e.getMessage());
         }
-        return isTaskCreated;
-    }
 
-    private static Map<String, String> transformObjectToParams(final AuditLogDTO auditLog) {
-        Map<String, String> params = new HashMap<String, String>();
-        LOGGER.info("Inside transformObjectToParams");
-        //TODO: place transformation here
-        return params;
+        return isSubscribed;
     }
 
     private static Queue getTaskQueue(final String taskQueue) {

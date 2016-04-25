@@ -40,10 +40,6 @@ import com.g4s.javelin.dto.core.masterfile.ModeTransportDTO;
 import com.g4s.javelin.dto.core.masterfile.TaskDTO;
 import com.g4s.javelin.enums.StatusEnum;
 import com.g4s.javelin.exception.CustomerLocationException;
-import com.g4s.javelin.service.location.BarredEmployeeService;
-import com.g4s.javelin.service.location.CustomerLocationService;
-import com.g4s.javelin.service.location.LocationMasterfileAssociationService;
-import com.g4s.javelin.service.location.SiteLocationService;
 import com.g4s.javelin.service.location.impl.CustomerLocationServiceImpl;
 import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 import com.google.appengine.repackaged.com.google.api.client.util.Sets;
@@ -226,8 +222,14 @@ public class CustomerLocationServiceTest {
     }
     
     @Test
-    public void updateCustomerLocationStatus() {
-    	customerLocationService.updateCustomerLocationStatus(1L,"IN_PROGRESS");
+    public void updateCustomerLocationStatus() throws CustomerLocationException {    	
+        //for call to getCustomerLocationDetails()
+    	when(customerLocationRepositoryMock.findOne(1L)).thenReturn(customerLocationModel);
+    	 // mock barredEmployeeService
+        List<BarredEmployeeDTO> barredEmployeeList = Lists.newArrayList();
+        when(barredEmployeeServiceMock.getBarredEmployees(1L)).thenReturn(
+                barredEmployeeList);
+        customerLocationService.updateCustomerLocationStatus(1L,"IN_PROGRESS", "reason", "127.0.0.0");
         Mockito.verify(customerLocationRepositoryMock, Mockito.times(1)).updateStatus(1L, StatusEnum.INPROGRESS);
     }
 

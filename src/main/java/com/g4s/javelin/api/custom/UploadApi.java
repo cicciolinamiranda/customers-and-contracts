@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -20,7 +21,7 @@ import com.g4s.javelin.util.CloudStorageUtil;
  * @author Sharlyn Mae Pandes
  * @since 4/20/2016
  * */
-
+@CrossOrigin
 @RestController
 @RequestMapping("/upload")
 public class UploadApi {

@@ -3,6 +3,8 @@ package com.g4s.javelin.api;
 import java.util.List;
 import java.util.logging.Logger;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
@@ -13,6 +15,7 @@ import com.g4s.javelin.dto.core.post.PostDTO;
 import com.g4s.javelin.exception.PostDuplicateException;
 import com.g4s.javelin.exception.PostException;
 import com.g4s.javelin.service.post.PostService;
+import com.g4s.javelin.util.ServletRequestUtil;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
@@ -35,10 +38,9 @@ public class PostApi {
             name = "workorder.customer.location.post.save",
             path = "workorder/customer-location/post/save",
             httpMethod = ApiMethod.HttpMethod.POST)
-    public PostDTO savePostDetails(final PostDTO postDTO)
+    public PostDTO savePostDetails(final PostDTO postDTO, final HttpServletRequest request)
             throws PostException, PostDuplicateException {
-        LOGGER.info("Inside savePostDetails()");
-        LOGGER.info(postDTO.getImageUrl());
+        postDTO.setIpAddress(ServletRequestUtil.extractIpAddress(request));
         PostDTO response = postService.savePostDetails(postDTO);
         return response;
     }
@@ -47,8 +49,9 @@ public class PostApi {
             name = "workorder.customer.location.post.update",
             path = "workorder/customer-location/post/update",
             httpMethod = ApiMethod.HttpMethod.POST)
-    public PostDTO updatePostDetails(final PostDTO postDTO)
+    public PostDTO updatePostDetails(final PostDTO postDTO, final HttpServletRequest request)
             throws PostException, PostDuplicateException {
+        postDTO.setIpAddress(ServletRequestUtil.extractIpAddress(request));
         PostDTO response = postService.savePostDetails(postDTO);
         return response;
     }

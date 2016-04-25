@@ -204,5 +204,4 @@ public class CustomerLocationDTO extends BaseDTO {
     public void setLocationSurveyDate(final DateTime locationSurveyDate) {
         this.locationSurveyDate = locationSurveyDate;
     }
-
 }

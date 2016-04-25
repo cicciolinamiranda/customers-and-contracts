@@ -1,5 +1,6 @@
 package com.g4s.javelin.annotation;
 
+import com.g4s.javelin.enums.LoggableActionsEnum;
 import com.g4s.javelin.enums.ObjectTypeEnum;
 
 import java.lang.annotation.ElementType;
@@ -17,4 +18,5 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface Loggable {
     ObjectTypeEnum objectType();
+    LoggableActionsEnum action();
 }

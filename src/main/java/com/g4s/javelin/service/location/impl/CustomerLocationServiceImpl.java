@@ -3,8 +3,6 @@ package com.g4s.javelin.service.location.impl;
 import java.util.List;
 import java.util.Set;
 
-import com.g4s.javelin.annotation.Loggable;
-import com.g4s.javelin.enums.ObjectTypeEnum;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.hibernate.HibernateException;
 import org.joda.time.format.DateTimeFormat;
@@ -15,6 +13,7 @@ import org.springframework.context.annotation.Lazy;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
+import com.g4s.javelin.annotation.Loggable;
 import com.g4s.javelin.constants.ExceptionMessageConstants;
 import com.g4s.javelin.constants.ServiceConstants;
 import com.g4s.javelin.data.model.location.AddressModel;
@@ -33,6 +32,8 @@ import com.g4s.javelin.dto.core.location.WorkOrderDTO;
 import com.g4s.javelin.dto.core.masterfile.MasterfileDTO;
 import com.g4s.javelin.dto.core.masterfile.TaskDTO;
 import com.g4s.javelin.dto.mock.IncidentLogMockDTO;
+import com.g4s.javelin.enums.LoggableActionsEnum;
+import com.g4s.javelin.enums.ObjectTypeEnum;
 import com.g4s.javelin.enums.StatusEnum;
 import com.g4s.javelin.exception.CustomerLocationException;
 import com.g4s.javelin.service.location.BarredEmployeeService;
@@ -124,7 +125,7 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
 
     @Transactional(rollbackFor = {CustomerLocationException.class})
     @Override
-    @Loggable(objectType = ObjectTypeEnum.CUSTOMERLOCATION)
+    @Loggable(objectType = ObjectTypeEnum.CUSTOMERLOCATION, action = LoggableActionsEnum.SAVE_CUSTOMER_LOCATION)
     public CustomerLocationDTO saveCustomerLocationDetails(final CustomerLocationDTO customerLocation) throws CustomerLocationException {
         org.joda.time.format.DateTimeFormatter dtf = DateTimeFormat.forPattern("MM/dd/yyyy");
         CustomerLocationModel model;
@@ -206,10 +207,18 @@ public class CustomerLocationServiceImpl implements CustomerLocationService {
     }
 
     @Override
-    @Loggable(objectType = ObjectTypeEnum.CUSTOMERLOCATION)
-    public void updateCustomerLocationStatus(final Long id, final String status) {
+    @Loggable(objectType = ObjectTypeEnum.CUSTOMERLOCATION, action = LoggableActionsEnum.ARCHIVE_CUSTOMER_LOCATION)
+    public CustomerLocationDTO updateCustomerLocationStatus(final Long id, final String status,
+            final String reasonForChange, final String ipAddress) throws CustomerLocationException {
         StatusEnum statusEnum = StatusEnum.findByCode(status);
-        customerLocationRepository.updateStatus(id, statusEnum);
+        CustomerLocationDTO result;
+        try {
+            customerLocationRepository.updateStatus(id, statusEnum);
+            result = getCustomerLocationDetails(id);
+        } catch (HibernateException e) {
+            throw new CustomerLocationException(e.getMessage());
+        }
+        return result;
     }
 
     private CustomerLocationDTO transformCustomerLocation(

@@ -1,6 +1,6 @@
 package com.g4s.javelin.util;
 
-import java.util.UUID;
+import java.io.IOException;
 
 import org.joda.time.DateTime;
 
@@ -9,23 +9,28 @@ import com.g4s.javelin.dto.core.audit.AuditLogDTO;
 import com.g4s.javelin.dto.core.audit.DiffDTO;
 import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
 import com.g4s.javelin.dto.core.post.PostDTO;
+import com.google.appengine.repackaged.org.codehaus.jackson.map.ObjectMapper;
 
 public class AuditLogUtil extends DiffDTO {
 
-    public static AuditLogDTO getOldAndNewValue(final CustomerLocationDTO oldValue, final CustomerLocationDTO newValue) {
+    private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
+
+    public static AuditLogDTO getOldAndNewValue(final CustomerLocationDTO oldValue, final CustomerLocationDTO newValue) throws IOException {
         return helper(oldValue, newValue);
     }
 
-    public static AuditLogDTO getOldAndNewValue(final PostDTO oldValue, final PostDTO newValue) {
+    public static AuditLogDTO getOldAndNewValue(final PostDTO oldValue, final PostDTO newValue) throws IOException {
         return helper(oldValue, newValue);
     }
 
-    private static AuditLogDTO helper(final BaseDTO oldValue, final BaseDTO newValue) {
+    private static AuditLogDTO helper(final BaseDTO oldValue, final BaseDTO newValue) throws IOException {
         AuditLogDTO response = new AuditLogDTO();
-        response.setBody(new DiffUtil().getOldAndNewValue(oldValue, newValue));
-        response.setIpAddress(newValue.getIpAddress());
-        response.setCreatedDate(DateTime.now());
-        response.setRevisionNumber(UUID.randomUUID().toString());
+        if (null != oldValue) {
+            response.setBody(OBJECT_MAPPER.writeValueAsString(new DiffUtil().getOldAndNewValue(oldValue, newValue)));
+        } else {
+            response.setBody(null);
+        }
+        response.setRevision_date(DateTime.now().toString());
         return response;
     }
 }

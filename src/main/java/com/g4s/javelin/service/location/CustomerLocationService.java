@@ -13,6 +13,7 @@ public interface CustomerLocationService {
     List<CustomerLocationDTO> getCustomerLocationByAddress(final String address);
     List<CustomerLocationDTO> getCustomerLocationByCustomerName(final String customerName);
     void addExistingCustomerLocationToAWorkOrder(Long customerLocationId, Long workOrderId)throws CustomerLocationException;
-    void updateCustomerLocationStatus(Long id, String status);
+    CustomerLocationDTO updateCustomerLocationStatus(Long id, String status, String reasonForChange, String ipAddress)
+            throws CustomerLocationException;
     List<CustomerLocationDTO> searchAllCustomerLocations(String searchTerm);
 }

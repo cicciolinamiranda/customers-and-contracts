@@ -1,7 +1,5 @@
 package com.g4s.javelin.api;
 
-import java.util.logging.Logger;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
@@ -27,8 +25,6 @@ import com.google.api.server.spi.config.ApiNamespace;
         description = ApiConstants.API_DESCRIPTION)
 public class AuditLogApi {
 
-    private static final Logger LOGGER = Logger.getLogger(AuditLogApi.class.getName());
-
     @Autowired
     @Lazy
     @Qualifier("auditLogTaskWorker")
@@ -39,7 +35,6 @@ public class AuditLogApi {
             path = "workorder/audit-log/save",
             httpMethod = ApiMethod.HttpMethod.GET)
     public TaskQueueResponseDTO saveAuditLog(final AuditLogDTO auditLog) {
-        LOGGER.info(auditLog.toString());
         return auditLogTaskWorker.saveLog(auditLog);
     }
 }

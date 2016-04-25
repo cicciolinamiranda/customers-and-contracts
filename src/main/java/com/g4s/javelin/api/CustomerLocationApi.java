@@ -2,6 +2,8 @@ package com.g4s.javelin.api;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Lazy;
@@ -12,6 +14,7 @@ import com.g4s.javelin.dto.core.location.CustomerLocationDTO;
 import com.g4s.javelin.enums.SearchCriteriaEnum;
 import com.g4s.javelin.exception.CustomerLocationException;
 import com.g4s.javelin.service.location.CustomerLocationService;
+import com.g4s.javelin.util.ServletRequestUtil;
 import com.google.api.server.spi.config.Api;
 import com.google.api.server.spi.config.ApiMethod;
 import com.google.api.server.spi.config.ApiNamespace;
@@ -87,8 +90,10 @@ public class CustomerLocationApi {
             name = "workorder.customer.location.save",
             path = "workorder/customer-location/save",
             httpMethod = ApiMethod.HttpMethod.POST)
-    public CustomerLocationDTO saveCustomerLocationDetails(final CustomerLocationDTO customerLocationDTO)
+    public CustomerLocationDTO saveCustomerLocationDetails(final CustomerLocationDTO customerLocationDTO,
+            final HttpServletRequest request)
             throws CustomerLocationException {
+        customerLocationDTO.setIpAddress(ServletRequestUtil.extractIpAddress(request));
         CustomerLocationDTO response = customerLocationService.saveCustomerLocationDetails(customerLocationDTO);
         return response;
     }
@@ -102,9 +107,11 @@ public class CustomerLocationApi {
             name = "workorder.customer.location.update",
             path = "workorder/customer-location/update",
             httpMethod = ApiMethod.HttpMethod.POST)
-    public void updateCustomerLocationDetails(final CustomerLocationDTO customerLocationDTO)
+    public CustomerLocationDTO updateCustomerLocationDetails(final CustomerLocationDTO customerLocationDTO,
+            final HttpServletRequest request)
             throws CustomerLocationException {
-        customerLocationService.saveCustomerLocationDetails(customerLocationDTO);
+        customerLocationDTO.setIpAddress(ServletRequestUtil.extractIpAddress(request));
+        return customerLocationService.saveCustomerLocationDetails(customerLocationDTO);
     }
 
     /**
@@ -136,14 +143,17 @@ public class CustomerLocationApi {
      *
      * @param id Customer Location id
      * @param status Status
+     * @throws CustomerLocationException
      */
     @ApiMethod(
             name = "workorder.customer.location.update_status",
             path = "workorder/customer-location/update-status",
             httpMethod = ApiMethod.HttpMethod.POST)
-    public void updateCustomerLocationStatus(@Named("id") final Long id,
-            @Named("status") final String status) {
-        customerLocationService.updateCustomerLocationStatus(id, status);
+    public CustomerLocationDTO updateCustomerLocationStatus(@Named("id") final Long id,
+            @Named("status") final String status, @Named("reasonForChange") final String reasonForChange, final HttpServletRequest request)
+            throws CustomerLocationException {
+        return customerLocationService.updateCustomerLocationStatus(id, status, reasonForChange,
+                ServletRequestUtil.extractIpAddress(request));
     }
 
     /**
