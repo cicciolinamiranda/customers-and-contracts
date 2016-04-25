@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.javers.core.Javers;
 import org.javers.core.JaversBuilder;
+import org.javers.core.diff.Change;
 import org.javers.core.diff.Diff;
-import org.javers.core.diff.changetype.PropertyChange;
 import org.javers.core.diff.changetype.ReferenceChange;
 import org.javers.core.diff.changetype.ValueChange;
 
@@ -25,22 +25,24 @@ public class DiffUtil {
         List<DiffDTO> response = Lists.newArrayList();
         Javers javers = JaversBuilder.javers().build();
         Diff diff = javers.compare(oldValue, newValue);
-        List<PropertyChange> changes = diff.getChangesByType(PropertyChange.class);
+        List<Change> changes = diff.getChanges();
         for (int i = 1; i < changes.size(); i++) {
-            PropertyChange change = changes.get(i);
+            Change change = changes.get(i);
 
             DiffDTO diffDTO = new DiffDTO();
-            diffDTO.setFieldName(change.getPropertyName());
             if (change instanceof ContainerChange) {
-                for (ContainerElementChange entry : ((ContainerChange) change).getChanges()) {
+                ContainerChange conChange = (ContainerChange) change;
+                diffDTO.setFieldName(conChange.getPropertyName());
+                for (ContainerElementChange entry : conChange.getChanges()) {
                     if (entry instanceof ValueAdded) {
-                        diffDTO.getChanges().add("Added #" + formatPropertyValue(entry.toString()));
+                        diffDTO.getChanges().add("Added " + formatPropertyValue(entry.toString()));
                     } else if (entry instanceof ValueRemoved) {
-                        diffDTO.getChanges().add("Removed #" + formatPropertyValue(entry.toString()));
+                        diffDTO.getChanges().add("Removed " + formatPropertyValue(entry.toString()));
                     }
                 }
             } else if (change instanceof ReferenceChange) {
                 ReferenceChange refChange = (ReferenceChange) change;
+                diffDTO.setFieldName(refChange.getPropertyName());
                 String leftChange = refChange.getLeft() == null ? "" : refChange.getLeft().toString();
                 String rightChange = refChange.getRight() == null ? "" : refChange.getRight().toString();
 
@@ -48,7 +50,7 @@ public class DiffUtil {
                         + " -> " + formatPropertyValue(rightChange));
             } else if (change instanceof ValueChange) {
                 ValueChange valChange = (ValueChange) change;
-                change.getPropertyName()
+                diffDTO.setFieldName(valChange.getPropertyName());
                 diffDTO.getChanges().add(valChange.getLeft() + " -> " + valChange.getRight());
             }
 
@@ -60,13 +62,15 @@ public class DiffUtil {
     protected String formatPropertyValue(final String propertyValue) {
         String formatted = null;
 
-        if (propertyValue == null) {
-            formatted = "None";
-        } else if (propertyValue.lastIndexOf("/") > -1) {
-            formatted = propertyValue.replaceAll("^'|'$", "")
-                    .substring(propertyValue.lastIndexOf("/") + 1).trim();
+        if (propertyValue != null && propertyValue.length() > 0) {
+            if (propertyValue.lastIndexOf("/") > -1) {
+                formatted = propertyValue.replaceAll("^'|'$", "")
+                        .substring(propertyValue.lastIndexOf("/") + 1).trim();
+            } else {
+                formatted = propertyValue;
+            }
         } else {
-            formatted = propertyValue;
+            formatted = "None";
         }
 
         return formatted;
