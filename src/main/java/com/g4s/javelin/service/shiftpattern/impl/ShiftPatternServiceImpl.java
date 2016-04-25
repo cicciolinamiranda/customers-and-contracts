@@ -17,12 +17,6 @@ import com.google.appengine.repackaged.com.google.api.client.util.Lists;
 
 public class ShiftPatternServiceImpl implements ShiftPatternService {
 
-    private ModelMapper modelMapper;
-
-    public ShiftPatternServiceImpl() {
-        modelMapper = new ModelMapper();
-    }
-
     @Autowired
     @Lazy
     private ShiftPatternRepository shiftPatternRepository;
@@ -30,6 +24,12 @@ public class ShiftPatternServiceImpl implements ShiftPatternService {
     @Autowired
     @Lazy
     private ShiftPatternDetailRepository shiftPatternDetailRepository;
+
+    private ModelMapper modelMapper;
+
+    public ShiftPatternServiceImpl() {
+        modelMapper = new ModelMapper();
+    }
 
     /*
      * *(This is subject to change)*
@@ -44,7 +44,7 @@ public class ShiftPatternServiceImpl implements ShiftPatternService {
         shiftPatternRepository.save(model);
 
         ShiftPatternDetailModel detailModel = modelMapper.map(shiftPatternDetailDTO, ShiftPatternDetailModel.class);
-        if(model.getId() != null) {
+        if (model.getId() != null) {
             shiftPatternDetailRepository.save(detailModel);
         }
 
@@ -52,7 +52,7 @@ public class ShiftPatternServiceImpl implements ShiftPatternService {
     }
 
     @Override
-    public List<ShiftPatternDTO> getAllShiftPatterns(Long id) {
+    public List<ShiftPatternDTO> getAllShiftPatterns(final Long id) {
         List<ShiftPatternModel> results = shiftPatternRepository.findAll();
         List<ShiftPatternDTO> list = Lists.newArrayList();
         for (ShiftPatternModel result : results) {
@@ -66,7 +66,7 @@ public class ShiftPatternServiceImpl implements ShiftPatternService {
      * Upon selecting a shift pattern, get the details based on the Shift Pattern ID
      */
     @Override
-    public List<ShiftPatternDetailDTO> getDetailByShiftPatternId(Long shiftPatternId) {
+    public List<ShiftPatternDetailDTO> getDetailByShiftPatternId(final Long shiftPatternId) {
         List<ShiftPatternDetailModel> results = shiftPatternDetailRepository.findByShiftPatternId(shiftPatternId);
         List<ShiftPatternDetailDTO> list = Lists.newArrayList();
         for (ShiftPatternDetailModel result : results) {
